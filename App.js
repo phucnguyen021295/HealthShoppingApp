@@ -8,23 +8,41 @@
 
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Swiper from 'react-native-swiper';
 import {Button} from 'react-native-elements';
+
+const data = [
+  {
+    id: '1',
+    title: 'Hello Swiper',
+    description: 'Hello Swiper',
+    logo: '',
+    backgroundColor: '#97CAE5',
+  },
+  {
+    id: '2',
+    title: 'Beautiful',
+    description: 'Beautiful',
+    logo: '',
+    backgroundColor: '#97CAE5',
+  },
+  {
+    id: '3',
+    title: 'And simple',
+    description: 'And simple',
+    logo: '',
+    backgroundColor: '#92BBD9',
+  },
+];
 
 class App extends React.Component {
   constructor(props) {
@@ -35,31 +53,54 @@ class App extends React.Component {
   }
 
   onIndexChanged = (index) => {
+    if (index === data.length) {
+      // Navigate login
+      return;
+    }
     this.setState({index});
+    console.log('index', index);
+  };
+
+  onPress = () => {
+    const {index} = this.state;
+    if (index === data.length - 1) {
+      // Navigate login
+      return;
+    }
+    console.log('onPress', index);
+    this.setState((state) => ({
+      index: state.index + 1,
+    }));
   };
 
   render() {
+    const {index} = this.state;
+    const isCheck = index === data.length - 1;
+    console.log('render', index);
     return (
       <>
         <StatusBar barStyle="dark-content" />
         <View style={{flex: 1}}>
           <Swiper
             style={styles.wrapper}
+            index={index}
             onIndexChanged={this.onIndexChanged}
             loop={false}>
-            <View style={styles.slide1}>
-              <Text style={styles.text}>Hello Swiper</Text>
-            </View>
-            <View style={styles.slide2}>
-              <Text style={styles.text}>Beautiful</Text>
-            </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>And simple</Text>
-            </View>
+            {data.map((item) => (
+              <View
+                key={item.id}
+                style={[
+                  styles.slide1,
+                  {backgroundColor: item.backgroundColor},
+                ]}>
+                <Text style={styles.text}>{item.description}</Text>
+              </View>
+            ))}
           </Swiper>
           <Button
-            title="Solid Button"
-            buttonStyle={{width: 100, position: 'absolute', bottom: 0}}
+            title={isCheck ? 'Bắt đầu' : 'Tiếp tục'}
+            containerStyle={{position: 'absolute', bottom: 100, right: 0}}
+            onPress={this.onPress}
           />
         </View>
       </>
