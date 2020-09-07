@@ -14,15 +14,19 @@
 'use strict';
 
 import React from 'react';
-import {View, Text, StatusBar, SafeAreaView, TextInput} from 'react-native';
-import Swiper from 'react-native-swiper';
-import {Button} from 'react-native-elements';
+import {
+  Platform,
+  StatusBar,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  ScrollView,
+  View,
+} from 'react-native';
+import {Input, Button} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
-import {BlurView} from '@react-native-community/blur';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
-import Logo from '../../base/components/Logo';
 
 // Styles
 import styles from './styles/index.css';
@@ -41,7 +45,22 @@ class LoginScreen extends React.Component {
         {/*<BlurView style={styles.absolute} blurType="dark" />*/}
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={{flex: 1}}>
-
+          <View style={{alignItems: 'center'}}>
+            <FastImage
+              source={require('./styles/images/logo.png')}
+              style={{width: 200, height: 200, marginTop: 30}}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <KeyboardAvoidingView
+            style={{flex: 1}}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View style={{paddingHorizontal: 20, paddingTop: 50}}>
+              <Input placeholder="Tên đăng nhập" style={{color: '#ffffff'}} />
+              <Input placeholder="Mật khẩu" style={{color: '#ffffff'}} secureTextEntry={true} />
+              <Button title="Đăng nhập" buttonStyle={styles.btnButtonStyle} />
+            </View>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </ImageBackGround>
     );

@@ -13,4 +13,4 @@
  */
 'use strict';
 
-export const color = '#2b7f4b';
+export const color = '#247f24';

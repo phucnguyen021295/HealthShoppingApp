@@ -14,6 +14,7 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
+import {color} from '../../../utils/color';
 
 const styles = StyleSheet.create({
   absolute: {
@@ -22,6 +23,12 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+
+  btnButtonStyle: {
+    paddingVertical: 12,
+    backgroundColor: color,
+    marginHorizontal: 10,
   },
 });
 
