@@ -8,7 +8,7 @@
 
 import React from 'react';
 
-import IntroduceScreen from './app/main/LoginScreen';
+import IntroduceScreen from './app/main/VerifyOTPScreen';
 
 class App extends React.Component {
   constructor(props) {

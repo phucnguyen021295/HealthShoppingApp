@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/6/20.
+ * @author phucnhb@bkav.com on 9/8/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -20,42 +20,35 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
+  SafeAreaViewBase,
   View,
+  TextInput,
 } from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
-
-// Components
-import ImageBackGround from '../../base/components/ImageBackGround';
 
 // Styles
 import styles from './styles/index.css';
 
-class LoginScreen extends React.Component {
+class VerifyPINScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      password: '',
+      otp: '',
     };
   }
 
-  onChangeName = (name) => {
-    this.setState({name});
+  onChangeOTP = (otp) => {
+    this.setState({otp});
   };
 
-  onChangePassWord = (password) => {
-    this.setState({password});
-  };
-
-  onLogin = () => {};
+  onVerifyOTP = () => {};
 
   render() {
     const {name, password} = this.state;
     return (
-      <ImageBackGround source={require('./styles/images/background.jpeg')}>
-        {/*<BlurView style={styles.absolute} blurType="dark" />*/}
-        <StatusBar barStyle="light-content" />
+      <SafeAreaViewBase style={{flex: 1}}>
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView style={{flex: 1}}>
           <View style={{alignItems: 'center'}}>
             <FastImage
@@ -68,31 +61,29 @@ class LoginScreen extends React.Component {
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={{paddingHorizontal: 20, paddingTop: 50}}>
-              <Input
+              <TextInput
+                ref={(ref) => (this.ref = ref)}
                 value={name}
-                placeholder="Tên đăng nhập"
+                placeholder="Nhập mã OTP"
                 style={{color: '#ffffff'}}
-                onChangeText={this.onChangeName}
-              />
-              <Input
-                value={password}
-                placeholder="Mật khẩu"
-                style={{color: '#ffffff'}}
-                secureTextEntry={true}
-                onChangeText={this.onChangePassWord}
+                keyboardType={'number-pad'}
+                maxLength={6}
+                autoFocus={true}
+                allowFontScaling={false}
+                onChangeText={this.onChangeOTP}
               />
               <Button
                 title="Đăng nhập"
                 buttonStyle={styles.btnButtonStyle}
                 disabled={!name || !password}
-                onPress={this.onLogin}
+                onPress={this.onVerifyOTP}
               />
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>
-      </ImageBackGround>
+      </SafeAreaViewBase>
     );
   }
 }
 
-export default LoginScreen;
+export default VerifyPINScreen;
