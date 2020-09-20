@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   },
   infoUser: {flexDirection: 'row', alignItems: 'center'},
   fullName: {
-    paddingLeft: 20
-  }
+    paddingLeft: 20,
+  },
 });
 
 export default styles;

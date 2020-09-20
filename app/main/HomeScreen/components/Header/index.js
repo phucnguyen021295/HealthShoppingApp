@@ -28,7 +28,7 @@ class HeaderHomeTab extends React.Component {
     this.onChangeMenu = this.onChangeMenu.bind(this);
     this.onShopping = this.onShopping.bind(this);
   }
-
+  
   onChangeMenu() {
     const {navigation} = this.props;
     navigation.openDrawer();
