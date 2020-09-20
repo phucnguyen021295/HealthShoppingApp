@@ -48,13 +48,21 @@ class LoginScreen extends React.Component {
     this.setState({password});
   };
 
-  onLogin = () => {};
+  onLogin = () => {
+    const {name, password} = this.state;
+    if (name === 'Phucnhb' && password === '123456') {
+      this.props.navigation.navigate('VerifyOTP');
+    } else {
+      alert('Tài khoẳn hoặc mật khẩu không chính xác');
+    }
+  };
 
   render() {
     const {name, password} = this.state;
     return (
-      <ImageBackGround source={require('./styles/images/background.jpeg')}>
-        {/*<BlurView style={styles.absolute} blurType="dark" />*/}
+      <ImageBackGround
+        source={require('./styles/images/background.jpeg')}
+        blurRadius={10}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
           <View style={{alignItems: 'center'}}>

@@ -18,62 +18,103 @@ import {
   Platform,
   StatusBar,
   KeyboardAvoidingView,
-  ScrollView,
   SafeAreaView,
   View,
-  TextInput,
 } from 'react-native';
 import {Button} from 'react-native-elements';
-import FastImage from 'react-native-fast-image';
+import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
+
+// Components
+import AppHeader from '../../base/components/AppHeader';
+import Text from '../../base/components/Text';
+
+// Storage
+import {setCheckVerifyOTP} from '../../core/storage';
 
 // Styles
 import styles from './styles/index.css';
+import ImageBackGround from '../../base/components/ImageBackGround';
 
 class VerifyOTPScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       otp: '',
+      code: '',
     };
+    this.count = 0;
   }
 
   onChangeOTP = (otp) => {
     this.setState({otp});
   };
 
-  onVerifyOTP = () => {};
+  pinInput = React.createRef();
+
+  onVerifyOTP = () => {
+    const {code} = this.state;
+    if (code != '123456') {
+      this.count++;
+      this.pinInput.current.shake().then(() => this.setState({code: ''}));
+    } else {
+      setCheckVerifyOTP(true);
+      this.props.navigation.navigate('VerifyPIN');
+    }
+
+    if (this.count === 5) {
+      this.props.navigation.navigate('Login');
+    }
+  };
+
+  _checkCode = (code) => {
+    if (code != '123456') {
+      this.pinInput.current.shake().then(() => this.setState({code: ''}));
+    }
+  };
+
+  // setPinInput = (ref) => {
+  //   this.pinInput = ref;
+  // };
 
   render() {
-    const {name, password} = this.state;
+    const {name, password, code} = this.state;
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <StatusBar barStyle="dark-content" />
+      <ImageBackGround
+        source={require('./styles/images/background1.jpeg')}
+        blurRadius={10}>
+        <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
+          <AppHeader title={'Xác thực mã OTP'} color={'#ffffff'} />
           <KeyboardAvoidingView
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={{paddingHorizontal: 20, paddingTop: 50}}>
-              <TextInput
-                ref={(ref) => (this.ref = ref)}
-                value={name}
-                placeholder="Nhập mã OTP"
-                style={{color: '#ffffff'}}
-                keyboardType={'number-pad'}
-                maxLength={6}
-                autoFocus={true}
-                allowFontScaling={false}
-                onChangeText={this.onChangeOTP}
+            <View
+              style={{
+                paddingHorizontal: 20,
+                paddingTop: 80,
+                alignItems: 'center',
+              }}>
+              <SmoothPinCodeInput
+                ref={this.pinInput}
+                value={code}
+                onTextChange={(code) => this.setState({code})}
+                // onFulfill={this._checkCode}
+                codeLength={6}
+                onBackspace={() => console.log('No more back.')}
+              />
+              <Text
+                text={'Vui lòng nhập mã Pin để tiếp tục đăng nhập.'}
+                style={{color: '#ffffff', paddingTop: 30}}
               />
               <Button
-                title="Đăng nhập"
+                title="Xác thực OTP"
                 buttonStyle={styles.btnButtonStyle}
-                disabled={!name || !password}
                 onPress={this.onVerifyOTP}
               />
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>
-      </SafeAreaView>
+      </ImageBackGround>
     );
   }
 }

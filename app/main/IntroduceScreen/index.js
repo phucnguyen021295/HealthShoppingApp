@@ -17,10 +17,13 @@ import React from 'react';
 import {View, Text, StatusBar} from 'react-native';
 import Swiper from 'react-native-swiper';
 import {Button} from 'react-native-elements';
-import FastImage from 'react-native-fast-image';
 
 // Components
 import Logo from '../../base/components/Logo';
+import {MediumText} from '../../base/components/Text';
+
+// Storage
+import {setCheckIntroduce} from '../../core/storage';
 
 // Data
 import data from './data';
@@ -48,7 +51,8 @@ class IntroduceScreen extends React.Component {
   onPress = () => {
     const {index} = this.state;
     if (index === data.length - 1) {
-      // Navigate login
+      setCheckIntroduce(true);
+      this.props.navigation.navigate('Login');
       return;
     }
     console.log('onPress', index);
@@ -74,7 +78,7 @@ class IntroduceScreen extends React.Component {
             {data.map((item) => (
               <View key={item.id} style={[styles.slide1]}>
                 <Logo />
-                <Text style={styles.text}>{item.description}</Text>
+                <MediumText style={styles.text}>{item.description}</MediumText>
               </View>
             ))}
           </Swiper>

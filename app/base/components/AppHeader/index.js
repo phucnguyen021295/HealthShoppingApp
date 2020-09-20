@@ -18,12 +18,11 @@ import {BackHandler, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {withNavigation} from '@react-navigation/compat';
 
-// Components
 import {MediumText} from '../Text';
 
 // Styles
 import styles from './styles/index.css';
-import {color} from '../../../utils/color';
+import {color} from '../../../core/color';
 
 class Header extends React.Component {
   constructor(props) {
@@ -40,7 +39,12 @@ class Header extends React.Component {
   }
 
   onGoBack() {
-    const {onBack} = this.props;
+    const {onBack, showBack} = this.props;
+
+    if (!showBack) {
+      return;
+    }
+
     if (onBack) {
       onBack();
       return;
@@ -50,21 +54,21 @@ class Header extends React.Component {
   }
 
   render() {
-    const {showBack, title, styleHeader, styleTitle, colorIcon} = this.props;
+    const {showBack, title, styleHeader, styleTitle, color} = this.props;
     return (
       <View style={[styles.container, styleHeader]}>
         {showBack && (
           <TouchableOpacity onPress={this.onGoBack} style={styles.btnBack}>
             <Ionicons
-              name={'ios-arrow-back'}
+              name={'chevron-back-outline'}
               size={28}
               style={styles.icon}
-              color={colorIcon}
+              color={color}
             />
           </TouchableOpacity>
         )}
         <View style={styles.title}>
-          <MediumText style={[styles.textTitle, styleTitle]}>
+          <MediumText style={[styles.textTitle, {color: color}, styleTitle]}>
             {title}
           </MediumText>
         </View>

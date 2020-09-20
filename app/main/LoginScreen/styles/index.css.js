@@ -14,7 +14,7 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import {color} from '../../../utils/color';
+import {color} from '../../../core/color';
 
 const styles = StyleSheet.create({
   absolute: {

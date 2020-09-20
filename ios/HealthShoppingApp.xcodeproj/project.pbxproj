@@ -16,6 +16,15 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* HealthShoppingAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HealthShoppingAppTests.m */; };
 		65CEB417DCE9596A7CBB9106 /* libPods-HealthShoppingApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F855D9C7A280DF1CCBD4CE85 /* libPods-HealthShoppingApp.a */; };
+		7D85A92D25170CDD00BF5455 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92425170CDC00BF5455 /* Roboto-Light.ttf */; };
+		7D85A92E25170CDD00BF5455 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92525170CDC00BF5455 /* OpenSans-Italic.ttf */; };
+		7D85A92F25170CDD00BF5455 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92625170CDC00BF5455 /* Roboto-Regular.ttf */; };
+		7D85A93025170CDD00BF5455 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92725170CDC00BF5455 /* Roboto-Thin.ttf */; };
+		7D85A93125170CDD00BF5455 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92825170CDC00BF5455 /* Roboto-Medium.ttf */; };
+		7D85A93225170CDD00BF5455 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92925170CDC00BF5455 /* OpenSans-Bold.ttf */; };
+		7D85A93325170CDD00BF5455 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92A25170CDC00BF5455 /* OpenSans-Light.ttf */; };
+		7D85A93425170CDD00BF5455 /* OpenSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92B25170CDC00BF5455 /* OpenSans.ttf */; };
+		7D85A93525170CDD00BF5455 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92C25170CDD00BF5455 /* OpenSans-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9AD0C372C2BF6111658880E4 /* libPods-HealthShoppingApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C3F3A33B099FA78073C31A /* libPods-HealthShoppingApp-tvOS.a */; };
 		AB2BBE310B37C3CED8C68C61 /* libPods-HealthShoppingApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3709883A38A0C0E4190B96E6 /* libPods-HealthShoppingApp-tvOSTests.a */; };
@@ -57,6 +66,15 @@
 		6FB33571B0B79AFA9C225139 /* Pods-HealthShoppingApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp-tvOS/Pods-HealthShoppingApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		71A76E937108FA81808D0184 /* Pods-HealthShoppingApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp-tvOSTests/Pods-HealthShoppingApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		74A9C97E02D03D6B9DC01017 /* Pods-HealthShoppingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp.debug.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp/Pods-HealthShoppingApp.debug.xcconfig"; sourceTree = "<group>"; };
+		7D85A92425170CDC00BF5455 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		7D85A92525170CDC00BF5455 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		7D85A92625170CDC00BF5455 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		7D85A92725170CDC00BF5455 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		7D85A92825170CDC00BF5455 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		7D85A92925170CDC00BF5455 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		7D85A92A25170CDC00BF5455 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		7D85A92B25170CDC00BF5455 /* OpenSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenSans.ttf; sourceTree = "<group>"; };
+		7D85A92C25170CDD00BF5455 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HealthShoppingApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A361FA72AB2923B3EFB17456 /* Pods-HealthShoppingApp-HealthShoppingAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp-HealthShoppingAppTests.debug.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp-HealthShoppingAppTests/Pods-HealthShoppingApp-HealthShoppingAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A59A49A5FE747A8F776079A1 /* Pods-HealthShoppingApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp-tvOSTests/Pods-HealthShoppingApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +167,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7D85A92325170C5D00BF5455 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D85A92925170CDC00BF5455 /* OpenSans-Bold.ttf */,
+				7D85A92525170CDC00BF5455 /* OpenSans-Italic.ttf */,
+				7D85A92A25170CDC00BF5455 /* OpenSans-Light.ttf */,
+				7D85A92C25170CDD00BF5455 /* OpenSans-Regular.ttf */,
+				7D85A92B25170CDC00BF5455 /* OpenSans.ttf */,
+				7D85A92425170CDC00BF5455 /* Roboto-Light.ttf */,
+				7D85A92825170CDC00BF5455 /* Roboto-Medium.ttf */,
+				7D85A92625170CDC00BF5455 /* Roboto-Regular.ttf */,
+				7D85A92725170CDC00BF5455 /* Roboto-Thin.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +193,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7D85A92325170C5D00BF5455 /* Resources */,
 				13B07FAE1A68108700A75B9A /* HealthShoppingApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HealthShoppingAppTests */,
@@ -194,7 +229,6 @@
 				A59A49A5FE747A8F776079A1 /* Pods-HealthShoppingApp-tvOSTests.debug.xcconfig */,
 				71A76E937108FA81808D0184 /* Pods-HealthShoppingApp-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -341,7 +375,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				7D85A93525170CDD00BF5455 /* OpenSans-Regular.ttf in Resources */,
+				7D85A92E25170CDD00BF5455 /* OpenSans-Italic.ttf in Resources */,
+				7D85A93225170CDD00BF5455 /* OpenSans-Bold.ttf in Resources */,
+				7D85A93425170CDD00BF5455 /* OpenSans.ttf in Resources */,
+				7D85A93025170CDD00BF5455 /* Roboto-Thin.ttf in Resources */,
+				7D85A93125170CDD00BF5455 /* Roboto-Medium.ttf in Resources */,
+				7D85A92F25170CDD00BF5455 /* Roboto-Regular.ttf in Resources */,
+				7D85A93325170CDD00BF5455 /* OpenSans-Light.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				7D85A92D25170CDD00BF5455 /* Roboto-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +418,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
