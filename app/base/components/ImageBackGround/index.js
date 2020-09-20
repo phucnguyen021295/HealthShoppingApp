@@ -14,7 +14,7 @@
 'use strict';
 
 import React from 'react';
-import FastImage from 'react-native-fast-image';
+import {ImageBackground} from 'react-native';
 
 // Styles
 import styles from './styles/index.css';
@@ -22,14 +22,13 @@ import styles from './styles/index.css';
 function ImageBackgroundBase(props) {
   const {children, style, source, ...otherProps} = props;
   return (
-    <FastImage
+    <ImageBackground
       style={[styles.container, style]}
       source={source}
-      cacheControl={FastImage.cacheControl.immutable}
-      resizeMode={FastImage.resizeMode.cover}
+      resizeMode={'cover'}
       {...otherProps}>
       {children}
-    </FastImage>
+    </ImageBackground>
   );
 }
 

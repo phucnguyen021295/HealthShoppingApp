@@ -14,7 +14,7 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import {huge} from '../../../utils/fontSize';
+import {huge} from '../../../core/fontSize';
 
 const styles = StyleSheet.create({
   wrapper: {},

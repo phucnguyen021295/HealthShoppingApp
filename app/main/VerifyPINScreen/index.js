@@ -29,12 +29,17 @@ import FastImage from 'react-native-fast-image';
 
 // Styles
 import styles from './styles/index.css';
+import AppHeader from '../../base/components/AppHeader';
+import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
+import Text from '../../base/components/Text';
+import ImageBackGround from '../../base/components/ImageBackGround';
 
 class VerifyPINScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       otp: '',
+      pinCode: '',
     };
   }
 
@@ -42,46 +47,64 @@ class VerifyPINScreen extends React.Component {
     this.setState({otp});
   };
 
-  onVerifyOTP = () => {};
+  pinInput = React.createRef();
+
+  onVerifyOTP = () => {
+    const {pinCode} = this.state;
+    if (pinCode != '123456') {
+      this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
+    } else {
+      this.props.onFinished();
+    }
+  };
+
+  _checkCode = (pinCode) => {
+    if (pinCode != '123456') {
+      this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
+    }
+  };
 
   render() {
-    const {name, password} = this.state;
+    const {name, pinCode} = this.state;
     return (
-      <SafeAreaViewBase style={{flex: 1}}>
-        <StatusBar barStyle="dark-content" />
+      <ImageBackGround
+        source={require('./styles/images/background1.jpeg')}
+        blurRadius={10}>
+        <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
-          <View style={{alignItems: 'center'}}>
-            <FastImage
-              source={require('./styles/images/logo.png')}
-              style={{width: 200, height: 200, marginTop: 30}}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
+          <AppHeader title={'Xác thực mã PIN'} color={'#ffffff'} />
           <KeyboardAvoidingView
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={{paddingHorizontal: 20, paddingTop: 50}}>
-              <TextInput
-                ref={(ref) => (this.ref = ref)}
-                value={name}
-                placeholder="Nhập mã OTP"
-                style={{color: '#ffffff'}}
-                keyboardType={'number-pad'}
-                maxLength={6}
-                autoFocus={true}
-                allowFontScaling={false}
-                onChangeText={this.onChangeOTP}
+            <View
+              style={{
+                paddingHorizontal: 20,
+                paddingTop: 80,
+                alignItems: 'center',
+              }}>
+              <SmoothPinCodeInput
+                ref={this.pinInput}
+                value={pinCode}
+                onTextChange={(pinCode) => this.setState({pinCode})}
+                // onFulfill={this._checkCode}
+                codeLength={6}
+                onBackspace={() => console.log('No more back.')}
+                password
+                mask="﹡"
+              />
+              <Text
+                text={'Vui lòng nhập mã Pin để tiếp tục đăng nhập.'}
+                style={{color: '#ffffff', paddingTop: 30}}
               />
               <Button
-                title="Đăng nhập"
+                title="Xác thực PIN"
                 buttonStyle={styles.btnButtonStyle}
-                disabled={!name || !password}
                 onPress={this.onVerifyOTP}
               />
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>
-      </SafeAreaViewBase>
+      </ImageBackGround>
     );
   }
 }

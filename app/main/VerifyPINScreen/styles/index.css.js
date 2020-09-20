@@ -14,8 +14,8 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import {color} from '../../../utils/color';
-import * as fontSize from '../../../utils/fontSize';
+import {color} from '../../../core/color';
+import * as fontSize from '../../../core/fontSize';
 
 const styles = StyleSheet.create({
   inputOTPMax: {
@@ -31,6 +31,12 @@ const styles = StyleSheet.create({
     paddingTop: 9,
     paddingBottom: 9,
     color: '#000000',
+  },
+  btnButtonStyle: {
+    marginTop: 30,
+    paddingVertical: 10,
+    backgroundColor: color,
+    paddingHorizontal: 30,
   },
 });
 
