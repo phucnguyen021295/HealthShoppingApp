@@ -18,6 +18,7 @@ import {color} from '../../../../../core/color';
 
 const styles = StyleSheet.create({
   containerStyle: {
+    flex: 1,
     backgroundColor: color,
   },
 });

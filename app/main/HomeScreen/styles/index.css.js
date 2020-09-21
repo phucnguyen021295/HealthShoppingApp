@@ -14,7 +14,6 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import {color} from '../../../core/color';
 
 const styles = StyleSheet.create({
   container: {

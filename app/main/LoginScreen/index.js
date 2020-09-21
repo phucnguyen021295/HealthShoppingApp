@@ -64,40 +64,38 @@ class LoginScreen extends React.Component {
         source={require('./styles/images/background.jpeg')}
         blurRadius={10}>
         <StatusBar barStyle="light-content" />
-        <SafeAreaView style={{flex: 1}}>
-          <View style={{alignItems: 'center'}}>
-            <FastImage
-              source={require('./styles/images/logo.png')}
-              style={{width: 200, height: 200, marginTop: 30}}
-              resizeMode={FastImage.resizeMode.contain}
+        <View style={{alignItems: 'center'}}>
+          <FastImage
+            source={require('./styles/images/logo.png')}
+            style={{width: 200, height: 200, marginTop: 30}}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
+        <KeyboardAvoidingView
+          style={{flex: 1}}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View style={{paddingHorizontal: 20, paddingTop: 50}}>
+            <Input
+              value={name}
+              placeholder="Tên đăng nhập"
+              style={{color: '#ffffff'}}
+              onChangeText={this.onChangeName}
+            />
+            <Input
+              value={password}
+              placeholder="Mật khẩu"
+              style={{color: '#ffffff'}}
+              secureTextEntry={true}
+              onChangeText={this.onChangePassWord}
+            />
+            <Button
+              title="Đăng nhập"
+              buttonStyle={styles.btnButtonStyle}
+              disabled={!name || !password}
+              onPress={this.onLogin}
             />
           </View>
-          <KeyboardAvoidingView
-            style={{flex: 1}}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={{paddingHorizontal: 20, paddingTop: 50}}>
-              <Input
-                value={name}
-                placeholder="Tên đăng nhập"
-                style={{color: '#ffffff'}}
-                onChangeText={this.onChangeName}
-              />
-              <Input
-                value={password}
-                placeholder="Mật khẩu"
-                style={{color: '#ffffff'}}
-                secureTextEntry={true}
-                onChangeText={this.onChangePassWord}
-              />
-              <Button
-                title="Đăng nhập"
-                buttonStyle={styles.btnButtonStyle}
-                disabled={!name || !password}
-                onPress={this.onLogin}
-              />
-            </View>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
       </ImageBackGround>
     );
   }

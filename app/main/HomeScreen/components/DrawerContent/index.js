@@ -21,7 +21,7 @@ import {Avatar, Accessory, ListItem} from 'react-native-elements';
 import {MediumText} from '../../../../base/components/Text';
 
 // styles
-import styles from '../../styles/index.css';
+import styles from './styles/index.css';
 
 const list = [
   {
