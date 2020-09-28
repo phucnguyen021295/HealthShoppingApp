@@ -12,3 +12,16 @@
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
+
+import {StyleSheet} from 'react-native';
+import * as fontSize from '../../../core/fontSize';
+import {color} from '../../../core/color';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: color,
+  },
+});
+
+export default styles;

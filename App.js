@@ -19,7 +19,9 @@ import VerifyOTP from './app/main/VerifyOTPScreen';
 import VerifyPIN from './app/main/VerifyPINScreen';
 
 // Main
-import Home from './app/main/MainScreen';
+// import Home from './app/main/MainScreen';
+// import QRCodeScanner from './app/main/ScanQRScreen';
+import OderScreen from './app/main/OderScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,21 +43,9 @@ class App extends React.Component {
     const {isLoading} = this.state;
     return (
       <NavigationContainer>
-        {isLoading ? (
-          <Stack.Navigator initialRouteName="Loading" headerMode="none">
-            <Stack.Screen name="Loading" component={Loading} />
-            <Stack.Screen name="Introduce" component={Introduce} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-            <Stack.Screen name="VerifyPIN">
-              {(props) => <VerifyPIN onFinished={this.onFinished} {...props} />}
-            </Stack.Screen>
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator initialRouteName="Home" headerMode="none">
-            <Stack.Screen name="Home" component={Home} />
-          </Stack.Navigator>
-        )}
+        <Stack.Navigator initialRouteName="Home" headerMode="none">
+          <Stack.Screen name="Home" component={OderScreen} />
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }
@@ -63,12 +53,18 @@ class App extends React.Component {
 
 export default App;
 
-{
-  /*<Stack.Navigator initialRouteName="Home" headerMode="none">*/
-}
-{
-  /*  <Stack.Screen name="Home" component={Home} />*/
-}
-{
-  /*</Stack.Navigator>*/
-}
+// {isLoading ? (
+//     <Stack.Navigator initialRouteName="Loading" headerMode="none">
+//       <Stack.Screen name="Loading" component={Loading} />
+//       <Stack.Screen name="Introduce" component={Introduce} />
+//       <Stack.Screen name="Login" component={Login} />
+//       <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+//       <Stack.Screen name="VerifyPIN">
+//         {(props) => <VerifyPIN onFinished={this.onFinished} {...props} />}
+//       </Stack.Screen>
+//     </Stack.Navigator>
+// ) : (
+//     <Stack.Navigator initialRouteName="Home" headerMode="none">
+//       <Stack.Screen name="Home" component={Home} />
+//     </Stack.Navigator>
+// )}

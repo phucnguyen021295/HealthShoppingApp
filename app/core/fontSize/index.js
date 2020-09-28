@@ -19,6 +19,8 @@ const STANDARD_SCREEN_HEIGHT = 720; // Kích thước phông chữ được tín
 
 export const smallest = RFValue(10, STANDARD_SCREEN_HEIGHT);
 
+export const small = RFValue(12, STANDARD_SCREEN_HEIGHT);
+
 export const smaller = RFValue(13, STANDARD_SCREEN_HEIGHT);
 
 export const normal = RFValue(16, STANDARD_SCREEN_HEIGHT);

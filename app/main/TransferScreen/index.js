@@ -14,13 +14,37 @@
 'use strict';
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
+import {Input} from 'react-native-elements';
+
+// Components
+import ImageBackGround from '../../base/components/ImageBackGround';
+import Text, {MediumText} from '../../base/components/Text';
+
+// Styles
+import {color} from '../../core/color';
+import styles from './styles/index.css';
 
 function TransferScreen() {
   return (
-    <View style={{flex: 1}}>
-      <Text>Transfer</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ImageBackGround
+        source={require('./styles/images/background.jpeg')}
+        blurRadius={4}>
+        <View style={{flex: 1, backgroundColor: '#4846469e'}}>
+          <MediumText text={'Nhập thông tin'} style={styles.textInfo} />
+
+          <View>
+              <MediumText text={'Mã thành viên:'} style={styles.textRow} />
+              <View style={{flexDirection: 'row'}}>
+                  <Input
+                      placeholder='BASIC INPUT'
+                  />
+              </View>
+          </View>
+        </View>
+      </ImageBackGround>
+    </SafeAreaView>
   );
 }
 

@@ -15,21 +15,45 @@
 
 import React from 'react';
 import {View} from 'react-native';
+// import QRCode from 'react-native-qrcode';
+
+// Components
 import Header from '../Header';
+// import {MediumText} from '../../../../base/components/Text';
 
 // styles
 import styles from '../../styles/index.css';
+import ImageBackGround from '../../../../base/components/ImageBackGround';
+
+const data = [
+  [
+    [0, 1],
+    [1, 3],
+    [3, 7],
+    [4, 9],
+  ],
+];
 
 class HomeDrawer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      qrcode: 'https://github.com/cssivision/react-native-qrcode',
+    };
   }
 
   render() {
+    const {qrcode} = this.state;
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
         <Header navigation={navigation} />
+        <ImageBackGround
+          source={require('../../../../images/backgroundHome.jpeg')}
+          blurRadius={4}>
+          <View style={{flex: 1, backgroundColor: 'rgba(62,66,212,0.25)'}}>
+          </View>
+        </ImageBackGround>
       </View>
     );
   }
