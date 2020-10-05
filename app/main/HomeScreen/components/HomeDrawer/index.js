@@ -15,31 +15,35 @@
 
 import React from 'react';
 import {View} from 'react-native';
-// import QRCode from 'react-native-qrcode';
+import QRCode from 'react-native-qrcode-svg';
 
 // Components
 import Header from '../Header';
-// import {MediumText} from '../../../../base/components/Text';
+import {MediumText} from '../../../../base/components/Text';
+import ChartScreen from '../../../ChartScreen';
+import ImageBackGround from '../../../../base/components/ImageBackGround';
+// import ChartScreen from '../../../ChartScreen/BarChart';
 
 // styles
 import styles from '../../styles/index.css';
-import ImageBackGround from '../../../../base/components/ImageBackGround';
 
-const data = [
-  [
-    [0, 1],
-    [1, 3],
-    [3, 7],
-    [4, 9],
-  ],
-];
+import {replaceProduct} from '../../../../core/db/table/product';
+import data from '../../../OderScreen/components/OderList/data';
 
 class HomeDrawer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      qrcode: 'https://github.com/cssivision/react-native-qrcode',
+      qrcode: '654321',
     };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      for (let i = 0; i < data.length; i++) {
+        replaceProduct(data[i]);
+      }
+    }, 1000);
   }
 
   render() {
@@ -51,7 +55,26 @@ class HomeDrawer extends React.Component {
         <ImageBackGround
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <View style={{flex: 1, backgroundColor: 'rgba(62,66,212,0.25)'}}>
+          <View style={styles.info}>
+            <MediumText text={'Họ và tên: Nguyễn Văn A'} style={styles.name} />
+            <MediumText text={'Mã code: 654321'} style={styles.name} />
+
+            <View style={{alignItems: 'center', marginTop: 20}}>
+              <QRCode
+                value={qrcode}
+                logo={{
+                  uri:
+                    'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                }}
+                logoSize={50}
+                size={160}
+                logoBackgroundColor="transparent"
+                logoBorderRadius={25}
+              />
+            </View>
+          </View>
+          <View style={styles.chart}>
+            <ChartScreen />
           </View>
         </ImageBackGround>
       </View>

@@ -19,6 +19,7 @@ import {SafeAreaView, View} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 
 // Components
+import LinearGradient from '../../base/components/LinearGradient';
 import OderList from './components/OderList';
 
 // Styles
@@ -29,7 +30,7 @@ class OderScreen extends React.Component {
     super(props);
     this.state = {
       search: '',
-    }
+    };
   }
 
   updateSearch = (search) => {
@@ -39,16 +40,30 @@ class OderScreen extends React.Component {
   render() {
     const {search} = this.state;
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={{flex: 1, backgroundColor: '#ffffff'}}>
+      <View style={styles.container}>
+        <LinearGradient>
+          <SafeAreaView />
           <SearchBar
             placeholder="Tìm kiếm"
             onChangeText={this.updateSearch}
             value={search}
+            placeholderTextColor={'#ffffff'}
+            searchIcon={{color: '#ffffff', paddingLeft: 12}}
+            inputStyle={{color: '#ffffff'}}
+            containerStyle={{backgroundColor: '#0000000', borderTopWidth: 0, paddingHorizontal: 20}}
+            inputContainerStyle={{
+              // borderWidth: 1,
+              // borderColor: '#dddddd',
+              backgroundColor: '#ffffff52',
+              height: 46,
+              borderRadius: 23
+            }}
           />
+        </LinearGradient>
+        <View style={{flex: 1, backgroundColor: '#ffffff'}}>
           <OderList />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

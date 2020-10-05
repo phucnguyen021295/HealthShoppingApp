@@ -14,20 +14,45 @@
 'use strict';
 
 import React from 'react';
-import {Header, Button} from 'react-native-elements';
+import {View} from 'react-native';
+import {Header, Button, Badge} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Components
+import LinearGradient from '../../../../base/components/LinearGradient';
 
 // Styles
 import styles from './styles/index.css';
 import {color} from '../../../../core/color';
+import {registerShoppingCardChange} from '../../../../core/shoppingCart';
+import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
 
 class HeaderHomeTab extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      valueBadge: '0',
+    };
 
     this.onChangeMenu = this.onChangeMenu.bind(this);
     this.onShopping = this.onShopping.bind(this);
   }
+
+  componentDidMount() {
+    registerShoppingCardChange(this.onSumMoney);
+
+    this.onSumMoney();
+  }
+
+  onSumMoney = () => {
+    sumMoneyTotal((data) => {
+      if (data.length > 0) {
+        this.setState({
+          valueBadge: data[0].totalProduct,
+        });
+      }
+    });
+  };
 
   onChangeMenu() {
     const {navigation} = this.props;
@@ -39,7 +64,7 @@ class HeaderHomeTab extends React.Component {
   renderLeftComponent() {
     return (
       <Button
-        buttonStyle={{backgroundColor: color}}
+        buttonStyle={styles.buttonStyle}
         icon={<MaterialCommunityIcons name="menu" size={25} color="white" />}
         onPress={this.onChangeMenu}
       />
@@ -47,26 +72,37 @@ class HeaderHomeTab extends React.Component {
   }
 
   renderRightComponent() {
+    const {valueBadge} = this.state;
     return (
-      <Button
-        buttonStyle={{backgroundColor: color}}
-        icon={
-          <MaterialCommunityIcons name="shopping" size={25} color="white" />
-        }
-        onPress={this.onShopping}
-      />
+      <View>
+        <Button
+          buttonStyle={styles.buttonStyle}
+          icon={
+            <MaterialCommunityIcons name="shopping" size={25} color="white" />
+          }
+          onPress={this.onShopping}
+        />
+        <Badge
+          value={valueBadge}
+          status="error"
+          containerStyle={{position: 'absolute', top: 0, right: -4}}
+          textStyle={{fontSize: 14}}
+        />
+      </View>
     );
   }
 
   render() {
     return (
-      <Header
-        placement="center"
-        leftComponent={this.renderLeftComponent()}
-        centerComponent={{text: 'Nguyen Hong Phuc', style: {color: '#fff'}}}
-        rightComponent={this.renderRightComponent()}
-        containerStyle={styles.containerStyle}
-      />
+      <LinearGradient style={{borderRadius: 0}}>
+        <Header
+          placement="center"
+          leftComponent={this.renderLeftComponent()}
+          centerComponent={{text: '100.000.000 VNĐ', style: {color: '#fff'}}}
+          rightComponent={this.renderRightComponent()}
+          containerStyle={styles.containerStyle}
+        />
+      </LinearGradient>
     );
   }
 }

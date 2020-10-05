@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/28/20.
+ * @author phucnhb@bkav.com on 10/4/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -14,22 +14,18 @@
 'use strict';
 
 import React from 'react';
-import {
-  TouchableOpacity,
-  ActivityIndicator,
-  View,
-} from 'react-native';
-import {Image, Rating} from 'react-native-elements';
+import {TouchableOpacity, ActivityIndicator, View} from 'react-native';
+import {Image, Button} from 'react-native-elements';
 import Modal from 'react-native-modal';
 
 // Components
-import Text, {MediumText} from '../../../../base/components/Text';
-import DetailItemScreen from '../../../DetailItemScreen';
+import Text, {MediumText} from '../../../base/components/Text';
+import DetailItemScreen from '../../DetailItemScreen';
 
 // Styles
 import styles from './styles/index.css';
 
-class OderItem extends React.Component {
+class CartItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +33,7 @@ class OderItem extends React.Component {
     };
   }
 
-  onDetailItem = () => {
+  onUpdateCartItem = () => {
     this.setState({isVisible: true});
   };
 
@@ -56,20 +52,25 @@ class OderItem extends React.Component {
     const {item} = this.props;
     return (
       <TouchableOpacity onPress={this.onDetailItem} style={styles.container}>
+        <Button title={`x${item.total}`} containerStyle={{marginRight: 12}} buttonStyle={styles.buttonStyle} titleStyle={styles.titleStyle} />
         <Image
           source={{uri: item.image}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
         />
-        <Text text={item.name} style={styles.title} numberOfLines={2} />
         <View style={styles.priceContainer}>
-          <MediumText text={`${item.price}$`} style={styles.price} />
-          <Rating
-            ratingCount={5}
-            imageSize={16}
-            onFinishRating={this.onFinishRating}
-          />
+          <View style={styles.item}>
+            <MediumText
+              text={item.name}
+              style={styles.title}
+              numberOfLines={2}
+            />
+            <Text text={`${item.price * item.total}`} style={styles.price} />
+          </View>
+          <TouchableOpacity onPress={this.onUpdateCartItem}>
+            <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
+          </TouchableOpacity>
         </View>
         <Modal
           testID={'modal'}
@@ -84,4 +85,4 @@ class OderItem extends React.Component {
   }
 }
 
-export default OderItem;
+export default CartItem;

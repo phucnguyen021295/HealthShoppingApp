@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/20/20.
+ * @author phucnhb@bkav.com on 10/4/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -14,29 +14,24 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import * as fontSize from '../../../core/fontSize';
+import {transparent} from '../../../../../core/color';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  infoUser: {flexDirection: 'row', alignItems: 'center'},
-  fullName: {
-    paddingLeft: 20,
-  },
-
-  info: {
-    backgroundColor: '#00000059',
+  btnBottom: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#ffffff',
     paddingHorizontal: 20,
-    paddingVertical: 30,
-    marginBottom: 20,
+    paddingVertical: 10,
   },
-  name: {color: '#ffffff', fontSize: fontSize.normal, lineHeight: 30},
 
-  chart: {
-    flex: 1,
-    backgroundColor: '#00000059',
-  }
+  btnButtonStyle: {
+    paddingVertical: 12,
+    backgroundColor: transparent,
+    marginHorizontal: 10,
+  },
 });
 
 export default styles;

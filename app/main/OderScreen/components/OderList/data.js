@@ -15,46 +15,52 @@
 
 const data = [
   {
-    id: '1',
+    productId: '1',
     name: 'NANO CANXI S+',
     description: 'Thông tin sẳn phẩm',
     price: '5000',
     image: 'https://bachthaoduoc.com.vn/uploads/anh-sp/nano-canxi.png',
+    total: 12,
   },
   {
-    id: '2',
+    productId: '2',
     name: 'AN THÀNH KHANG',
     description: 'Thông tin sẳn phẩm',
     price: '6000',
     image: 'https://bachthaoduoc.com.vn/uploads/tamm/an-thanh-khang.jpg',
+    total: 12,
   },
   {
-    id: '3',
+    productId: '3',
     name: 'THẢO MỘC XƯƠNG KHỚP',
     description: 'Thông tin sẳn phẩm',
     price: '4000',
     image: 'https://bachthaoduoc.com.vn/uploads/anh-sp/thao-moc-xuong-khop.png',
+    total: 12,
   },
   {
-    id: '4',
+    productId: '4',
     name: 'TPBVSK VƯƠNG LIỄU SỐ 1',
     description: 'Thông tin sẳn phẩm',
     price: '7000',
     image: 'https://bachthaoduoc.com.vn/uploads/dai/anh-vuong-lieu.png',
+    total: 12,
   },
   {
-    id: '5',
+    productId: '5',
     name: 'NANO CANXI S+',
     description: 'Thông tin sẳn phẩm',
     price: '5000',
     image: 'https://bachthaoduoc.com.vn/uploads/anh-sp/nano-canxi.png',
+    total: 12,
   },
   {
-    id: '6',
+    productId: '6',
     name: 'NANO CANXI S+',
     description: 'Thông tin sẳn phẩm',
     price: '5000',
     image: 'https://bachthaoduoc.com.vn/uploads/anh-sp/nano-canxi.png',
+    total: 12,
   },
 ];
 

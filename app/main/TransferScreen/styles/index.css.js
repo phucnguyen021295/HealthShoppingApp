@@ -15,23 +15,29 @@
 
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
-import {color} from '../../../core/color';
+import {transparent} from '../../../core/color';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color,
+    // backgroundColor: color,
   },
   textInfo: {
     color: '#ffffff',
     textAlign: 'center',
     fontSize: fontSize.huge,
     paddingVertical: 30,
+    marginBottom: 30
   },
   textRow: {
     color: '#ffffff',
-    textAlign: 'center',
     fontSize: fontSize.normal,
+    marginBottom: 10
+  },
+
+  btnButtonStyle: {
+    paddingVertical: 12,
+    backgroundColor: transparent,
   },
 });
 

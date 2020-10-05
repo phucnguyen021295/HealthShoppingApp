@@ -14,3 +14,5 @@
 'use strict';
 
 export const color = '#247f24';
+
+export const transparent = '#00000000';

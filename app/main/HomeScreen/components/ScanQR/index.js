@@ -14,17 +14,10 @@
 'use strict';
 
 import React from 'react';
-import {TouchableOpacity, Linking} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import QRCodeScanner from '../../../../base/components/QRCodeScanner';
-import {RNCamera} from 'react-native-camera';
-import {Avatar, BottomSheet} from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
 import Modal from 'react-native-modal';
-
-import Text from '../../../../base/components/Text';
-
-// Styles
-import styles from './styles/index.css';
-import color from '../../../../core/color';
 
 class BarcodeScannerApp extends React.Component {
   constructor(props) {
@@ -70,8 +63,9 @@ class BarcodeScannerApp extends React.Component {
   }
 
   render() {
+    const {styleBtn} = this.props;
     return (
-      <TouchableOpacity onPress={this.onOpenQR}>
+      <TouchableOpacity onPress={this.onOpenQR} style={styleBtn}>
         <Avatar
           rounded
           size="medium"

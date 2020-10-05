@@ -14,31 +14,85 @@
 'use strict';
 
 import React from 'react';
-import {ActivityIndicator, Dimensions, SafeAreaView, View} from 'react-native';
-import {Button, Image, SearchBar} from 'react-native-elements';
+import {ActivityIndicator, Dimensions, View} from 'react-native';
+import {Button, Image} from 'react-native-elements';
 
 // Components
 import Text, {MediumText} from '../../base/components/Text';
+import Quantity from './components/Quantity';
+import ButtonBase from '../../base/components/ButtonBase';
+
+import {broadcastShoppingCardChange} from '../../core/shoppingCart';
+
+// db
+import {
+  replaceShopping,
+  deleteShoppingItem,
+  getCartItem,
+} from '../../core/db/table/shopping';
 
 // Styles
 import styles from './styles/index.css';
-
-const {width} = Dimensions.get('window');
-const HEIGHT_IMAGE = (width * 2) / 3;
+import IconEntypo from 'react-native-vector-icons/Entypo';
 
 class DetailItemScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       search: '',
+      total: 1,
+      updateCart: false,
+      isGetCart: false,
     };
   }
 
-  updateSearch = (search) => {
-    this.setState({search});
+  updateTotal = (status) => {
+    this.setState(status);
+  };
+
+  addShoppingCard = () => {
+    const {total} = this.state;
+    const {item} = this.props;
+
+    this.props.onShoppingCard();
+    const data = {
+      productId: item.productId,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      total: total,
+    };
+    if (total === 0) {
+      deleteShoppingItem(item.productId, () => {
+        broadcastShoppingCardChange();
+      });
+    } else {
+      replaceShopping(data, () => {
+        broadcastShoppingCardChange();
+      });
+    }
+  };
+
+  setQuantity = (total) => {
+    this.setState({total: total});
+  };
+
+  setBtnText = () => {
+    const {total, updateCart} = this.state;
+    const {item} = this.props;
+    if (total === 0) {
+      return 'Quay lại';
+    }
+    const totalMoney = total * item.price;
+    if (updateCart) {
+      return `Cập nhật giỏ hàng - ${totalMoney}$`;
+    }
+
+    return `Thêm vào giỏ hàng - ${totalMoney}$`;
   };
 
   render() {
+    const {total} = this.state;
     const {item} = this.props;
     return (
       <View style={styles.container}>
@@ -68,13 +122,26 @@ class DetailItemScreen extends React.Component {
             style={styles.detail}
           />
         </View>
-        <View>
-          <Button
-            title="Thêm vào giỏ hàng"
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Quantity
+            productId={item.productId}
+            setQuantity={this.setQuantity}
+            updateTotal={this.updateTotal}
+          />
+        </View>
+        <View style={styles.btnAddShopping}>
+          <ButtonBase
+            title={this.setBtnText()}
             buttonStyle={styles.btnButtonStyle}
             onPress={this.addShoppingCard}
           />
         </View>
+        <Button
+          icon={<IconEntypo name="cross" size={22} color={'#ffffff'} />}
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.containerStyle}
+          onPress={this.addShoppingCard}
+        />
       </View>
     );
   }
@@ -82,6 +149,7 @@ class DetailItemScreen extends React.Component {
 
 DetailItemScreen.defaultProps = {
   showBack: false,
+  updateTotal: false,
 };
 
 export default DetailItemScreen;

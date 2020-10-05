@@ -14,31 +14,85 @@
 'use strict';
 
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
+import {withNavigation} from '@react-navigation/compat';
 
 // Components
 import OderItem from '../OderItem';
+import ButtonBase from '../../../../base/components/ButtonBase';
 
-// Data
-import data from './data';
+// db
+import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
+import {getProducts} from '../../../../core/db/table/product';
+import {registerShoppingCardChange} from '../../../../core/shoppingCart';
+
+// Styles
+import styles from './styles/index.css';
 
 class OderList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: [],
+      totalMoney: 0,
+      totalProduct: 0,
+    };
   }
+
+  componentDidMount() {
+    registerShoppingCardChange(this.onSumMoney);
+
+    getProducts((data) => {
+      this.setState({data: data});
+    });
+
+    this.onSumMoney();
+  }
+
+  onSumMoney = () => {
+    sumMoneyTotal((data) => {
+      if (data.length > 0) {
+        this.setState({
+          totalProduct: data[0].totalProduct,
+          totalMoney: data[0].totalMoney,
+        });
+      }
+    });
+  };
+
+  onShoppingCard = () => {
+    this.props.navigation.navigate('ShoppingCart');
+  };
+
+  ListFooterComponent = () => {
+    const {totalProduct, totalMoney} = this.state;
+    return (
+      <View style={styles.btnBottom}>
+        <ButtonBase
+          title={`Xem giỏ hàng - ${totalProduct} món - ${totalMoney}$`}
+          buttonStyle={styles.btnButtonStyle}
+          onPress={this.onShoppingCard}
+        />
+      </View>
+    );
+  };
 
   renderItem = ({item}) => <OderItem item={item} />;
 
   render() {
+    const {data, totalProduct} = this.state;
     return (
-      <FlatList
-        data={data}
-        renderItem={this.renderItem}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap'}}
-      />
+      <>
+        <FlatList
+          data={data}
+          renderItem={this.renderItem}
+          keyExtractor={(item) => item.productId}
+          numColumns={2}
+        />
+        {totalProduct > 0 && this.ListFooterComponent()}
+      </>
     );
   }
 }
 
-export default OderList;
+export default withNavigation(OderList);

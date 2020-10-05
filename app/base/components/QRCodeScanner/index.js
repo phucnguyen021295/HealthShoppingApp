@@ -63,7 +63,7 @@ export default class QRCodeScanner extends Component {
     notAuthorizedView: PropTypes.element,
     permissionDialogTitle: PropTypes.string,
     permissionDialogMessage: PropTypes.string,
-    buttonPositive: PropTypes.string,
+    buttonPositive: PropTypes.bool,
     checkAndroid6Permissions: PropTypes.bool,
     flashMode: PropTypes.oneOf(CAMERA_FLASH_MODES),
     cameraProps: PropTypes.object,

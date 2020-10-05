@@ -14,17 +14,13 @@
 'use strict';
 
 import React from 'react';
+import {StatusBar} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeTab from '../HomeScreen';
 import TransferTab from '../TransferScreen';
 import OderTab from '../OderScreen';
-
-// Styles
-import styles from './styles/index.css';
-import {smaller} from '../../core/fontSize';
-import {color} from '../../core/color';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +30,9 @@ class MainScreen extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    StatusBar.setBarStyle('light-content');
+  }
 
   render() {
     return (
@@ -48,7 +46,7 @@ class MainScreen extends React.Component {
             opacity: 0,
           },
           style: {
-            backgroundColor: '#7a7a7a',
+            backgroundColor: '#687a73',
           },
           labelStyle: {
             fontSize: 12,

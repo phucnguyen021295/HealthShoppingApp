@@ -19,9 +19,14 @@ import VerifyOTP from './app/main/VerifyOTPScreen';
 import VerifyPIN from './app/main/VerifyPINScreen';
 
 // Main
-// import Home from './app/main/MainScreen';
+import Home from './app/main/MainScreen';
 // import QRCodeScanner from './app/main/ScanQRScreen';
-import OderScreen from './app/main/OderScreen';
+// import OderScreen from './app/main/OderScreen';
+// import TransferScreen from './app/main/TransferScreen';
+// import ChartScreen from './app/main/ChartScreen';
+import ShoppingCartScreen from './app/main/ShoppingCartScreen';
+
+import {initDatabase} from './app/core/db/Sqlitedb';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +40,11 @@ class App extends React.Component {
     this.onFinished = this.onFinished.bind(this);
   }
 
+  componentDidMount() {
+    // Khởi tạo db.
+    initDatabase();
+  }
+
   onFinished() {
     this.setState({isLoading: false});
   }
@@ -44,7 +54,8 @@ class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" headerMode="none">
-          <Stack.Screen name="Home" component={OderScreen} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="ShoppingCart" component={ShoppingCartScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -20,7 +20,6 @@ import {color} from '../../../core/color';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color,
   },
 });
 

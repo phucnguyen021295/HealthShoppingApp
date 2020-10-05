@@ -15,6 +15,7 @@
 
 import {StyleSheet, Dimensions} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
+import {color, transparent} from '../../../core/color';
 
 const {width} = Dimensions.get('window');
 const HEIGHT_IMAGE = (width * 2) / 3;
@@ -25,8 +26,6 @@ const styles = StyleSheet.create({
   image: {
     width: width,
     height: HEIGHT_IMAGE,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
   },
 
   row1: {
@@ -50,6 +49,31 @@ const styles = StyleSheet.create({
     fontSize: fontSize.smaller,
     lineHeight: 22,
   },
+
+  btnAddShopping: {
+    position: 'absolute',
+    bottom: 34,
+    right: 0,
+    left:0,
+    paddingHorizontal: 20
+  },
+
+  btnButtonStyle: {
+    paddingVertical: 12,
+    backgroundColor: transparent,
+    marginHorizontal: 10,
+  },
+
+  buttonStyle: {
+    backgroundColor: '#00000073',
+    borderRadius: 20
+  },
+
+  containerStyle: {
+    position: 'absolute',
+    top: 30,
+    left: 20,
+  }
 });
 
 export default styles;
