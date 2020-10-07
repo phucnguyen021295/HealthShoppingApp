@@ -4,7 +4,7 @@ buildscript {
     ext {
         buildToolsVersion = "29.0.2"
         minSdkVersion = 16
-        compileSdkVersion = 29
+        compileSdkVersion = 28
         targetSdkVersion = 29
     }
     repositories {
@@ -42,7 +42,7 @@ allprojects {
   + Project-wide Gradle configuration properties
   */
 ext {
-    compileSdkVersion   = 27
+    compileSdkVersion   = 28
     targetSdkVersion    = 27
     buildToolsVersion   = "27.0.3"
 }

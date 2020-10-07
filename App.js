@@ -8,6 +8,7 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
+import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -43,6 +44,9 @@ class App extends React.Component {
   componentDidMount() {
     // Khởi tạo db.
     initDatabase();
+    Platform.OS === 'android' &&
+    StatusBar.setTranslucent(true) &&
+    StatusBar.setBackgroundColor('#ffffff00', true);
   }
 
   onFinished() {
