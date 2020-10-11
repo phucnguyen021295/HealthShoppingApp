@@ -49,8 +49,8 @@ class App extends React.Component {
     // Khởi tạo db.
     initDatabase();
     Platform.OS === 'android' &&
-    StatusBar.setTranslucent(true) &&
-    StatusBar.setBackgroundColor('#ffffff00', true);
+      StatusBar.setTranslucent(true) &&
+      StatusBar.setBackgroundColor('#ffffff00', true);
   }
 
   onFinished() {
@@ -77,7 +77,10 @@ class App extends React.Component {
             <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
             <Stack.Screen name="UserShopping" component={UserShopping} />
             <Stack.Screen name="AddressShopping" component={AddressShopping} />
-            <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
+            <Stack.Screen
+              name="TransactionHistory"
+              component={TransactionHistory}
+            />
           </Stack.Navigator>
         )}
       </NavigationContainer>
