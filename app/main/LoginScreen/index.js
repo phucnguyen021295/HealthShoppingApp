@@ -27,6 +27,7 @@ import FastImage from 'react-native-fast-image';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
+import ButtonBase from '../../base/components/ButtonBase';
 
 // Styles
 import styles from './styles/index.css';
@@ -61,7 +62,7 @@ class LoginScreen extends React.Component {
     const {name, password} = this.state;
     return (
       <ImageBackGround
-        source={require('./styles/images/background.jpeg')}
+        source={require('../../images/backgroundHome.jpeg')}
         blurRadius={10}>
         <StatusBar barStyle="light-content" />
         <View style={{alignItems: 'center'}}>
@@ -88,10 +89,9 @@ class LoginScreen extends React.Component {
               secureTextEntry={true}
               onChangeText={this.onChangePassWord}
             />
-            <Button
+            <ButtonBase
               title="Đăng nhập"
               buttonStyle={styles.btnButtonStyle}
-              disabled={!name || !password}
               onPress={this.onLogin}
             />
           </View>

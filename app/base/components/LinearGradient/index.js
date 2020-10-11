@@ -16,11 +16,13 @@
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
+import {color} from '../../../core/color';
+
 function LinearGradientBase(props) {
-  const {children, style, ...otherProps} = props;
+  const {colors, children, style, ...otherProps} = props;
   return (
     <LinearGradient
-      colors={['#597f42', '#247f24']}
+      colors={colors}
       start={{x: 0, y: 0}}
       end={{x: 1.0, y: 1.0}}
       style={style}
@@ -29,5 +31,9 @@ function LinearGradientBase(props) {
     </LinearGradient>
   );
 }
+
+LinearGradient.defaultProps = {
+  colors: ['#697f3f', color],
+};
 
 export default LinearGradientBase;

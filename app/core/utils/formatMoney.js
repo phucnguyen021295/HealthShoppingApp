@@ -6,30 +6,17 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/6/20.
+ * @author phucnhb@bkav.com on 10/11/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-import {StyleSheet} from 'react-native';
-import {transparent} from '../../../core/color';
+export const formatMoneyToVN = (number) => {
+  const _number = parseInt(number).toLocaleString('vi', {
+    currency: 'VND',
+  });
 
-const styles = StyleSheet.create({
-  absolute: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-
-  btnButtonStyle: {
-    paddingVertical: 12,
-    marginHorizontal: 10,
-    backgroundColor: transparent
-  },
-});
-
-export default styles;
+  return `${_number} VNĐ`;
+};

@@ -15,3 +15,4 @@
 
 export const CheckIntroduce = 'CheckIntroduce';
 export const CheckVerifyOTP = 'CheckVerifyOTP';
+export const AccountBalance = 'AccountBalance';

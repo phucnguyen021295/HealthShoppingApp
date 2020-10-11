@@ -21,6 +21,7 @@ import {Button} from 'react-native-elements';
 // Components
 import Logo from '../../base/components/Logo';
 import {MediumText} from '../../base/components/Text';
+import ButtonBase from '../../base/components/ButtonBase';
 
 // Storage
 import {setCheckIntroduce} from '../../core/storage';

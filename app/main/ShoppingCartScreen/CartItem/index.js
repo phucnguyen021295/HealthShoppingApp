@@ -22,6 +22,9 @@ import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../../base/components/Text';
 import DetailItemScreen from '../../DetailItemScreen';
 
+// Core
+import {formatMoneyToVN} from '../../../core/utils/formatMoney';
+
 // Styles
 import styles from './styles/index.css';
 
@@ -52,7 +55,12 @@ class CartItem extends React.Component {
     const {item} = this.props;
     return (
       <TouchableOpacity onPress={this.onDetailItem} style={styles.container}>
-        <Button title={`x${item.total}`} containerStyle={{marginRight: 12}} buttonStyle={styles.buttonStyle} titleStyle={styles.titleStyle} />
+        <Button
+          title={`x${item.total}`}
+          containerStyle={{marginRight: 12}}
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.titleStyle}
+        />
         <Image
           source={{uri: item.image}}
           style={styles.image}
@@ -66,17 +74,20 @@ class CartItem extends React.Component {
               style={styles.title}
               numberOfLines={2}
             />
-            <Text text={`${item.price * item.total}`} style={styles.price} />
           </View>
-          <TouchableOpacity onPress={this.onUpdateCartItem}>
-            <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
-          </TouchableOpacity>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity onPress={this.onUpdateCartItem}>
+              <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
+            </TouchableOpacity>
+            <Text
+              text={`${formatMoneyToVN(item.price * item.total)}`}
+              style={styles.price}
+            />
+          </View>
         </View>
         <Modal
           testID={'modal'}
           isVisible={isVisible}
-          // onSwipeComplete={this.onCloseModal}
-          // swipeDirection={['up', 'left', 'right', 'down']}
           style={{justifyContent: 'flex-end', margin: 0}}>
           <DetailItemScreen item={item} onShoppingCard={this.onShoppingCard} />
         </Modal>

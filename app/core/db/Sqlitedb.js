@@ -59,7 +59,7 @@ const initDatabase = (success, failure) => {
         if (res.rows.length === 0) {
           tx.executeSql('DROP TABLE IF EXISTS product');
           tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS product(productId TEXT, name TEXT, description TEXT, price TEXT, image TEXT, total INTEGER)',
+            'CREATE TABLE IF NOT EXISTS product(productId TEXT, name TEXT, description TEXT, price INTEGER, image TEXT, total INTEGER)',
           );
           tx.executeSql(
             'CREATE UNIQUE INDEX idx_positions_title ON product (productId)',
@@ -80,6 +80,20 @@ const initDatabase = (success, failure) => {
           );
           tx.executeSql(
             'CREATE UNIQUE INDEX idx_positions_shopping ON shopping (productId)',
+          );
+        }
+      },
+    );
+
+    // Tạo bảng transaction_history
+    txn.executeSql(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='transaction_history'",
+      [],
+      function (tx, res) {
+        if (res.rows.length === 0) {
+          tx.executeSql('DROP TABLE IF EXISTS transaction_history');
+          tx.executeSql(
+            'CREATE TABLE IF NOT EXISTS transaction_history(transactionId TEXT, description TEXT, totalPrice INTEGER, accountBalance INTEGER, time INTEGER)',
           );
         }
       },

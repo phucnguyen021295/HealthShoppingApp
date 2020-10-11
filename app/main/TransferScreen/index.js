@@ -70,7 +70,6 @@ class TransferScreen extends React.Component {
         <SafeAreaView />
         <View style={{flex: 1}}>
           <MediumText text={'Chuyển tiền'} style={styles.textInfo} />
-
           <View style={{paddingHorizontal: 20}}>
             <View style={{marginBottom: 30}}>
               <MediumText text={'Mã thành viên:'} style={styles.textRow} />

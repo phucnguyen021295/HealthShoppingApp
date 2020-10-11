@@ -19,13 +19,9 @@ import {
   StatusBar,
   SafeAreaView,
   KeyboardAvoidingView,
-  ScrollView,
-  SafeAreaViewBase,
   View,
-  TextInput,
 } from 'react-native';
 import {Button} from 'react-native-elements';
-import FastImage from 'react-native-fast-image';
 
 // Styles
 import styles from './styles/index.css';
@@ -33,6 +29,7 @@ import AppHeader from '../../base/components/AppHeader';
 import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
 import Text from '../../base/components/Text';
 import ImageBackGround from '../../base/components/ImageBackGround';
+import {getAccountBalanceGlobal, setAccountBalanceGlobal} from '../../global';
 
 class VerifyPINScreen extends React.Component {
   constructor(props) {
@@ -41,6 +38,10 @@ class VerifyPINScreen extends React.Component {
       otp: '',
       pinCode: '',
     };
+  }
+
+  componentDidMount() {
+    getAccountBalanceGlobal();
   }
 
   onChangeOTP = (otp) => {

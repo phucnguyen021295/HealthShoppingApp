@@ -62,3 +62,11 @@ export const deleteShoppingItem = (
   const query = `DELETE FROM shopping WHERE productId = ${productId}`;
   deleteDataBase(query, success, failure);
 };
+
+export const deleteShopping = (
+  success = () => {},
+  failure = () => {},
+) => {
+  const query = 'DELETE FROM shopping';
+  deleteDataBase(query, success, failure);
+};

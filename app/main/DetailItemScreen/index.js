@@ -14,13 +14,14 @@
 'use strict';
 
 import React from 'react';
-import {ActivityIndicator, Dimensions, View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import {Button, Image} from 'react-native-elements';
 
 // Components
 import Text, {MediumText} from '../../base/components/Text';
 import Quantity from './components/Quantity';
 import ButtonBase from '../../base/components/ButtonBase';
+import ModalBase from '../../base/components/ModalBase';
 
 import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 
@@ -28,12 +29,14 @@ import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 import {
   replaceShopping,
   deleteShoppingItem,
-  getCartItem,
 } from '../../core/db/table/shopping';
 
 // Styles
 import styles from './styles/index.css';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import {formatMoneyToVN} from '../../core/utils/formatMoney';
+import global from '../../global';
+import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 
 class DetailItemScreen extends React.Component {
   constructor(props) {
@@ -43,34 +46,59 @@ class DetailItemScreen extends React.Component {
       total: 1,
       updateCart: false,
       isGetCart: false,
+      totalMoney: 0,
+      isVisibleWarning: false,
     };
   }
+
+  componentDidMount() {
+    this.onSumMoney();
+  }
+
+  onSumMoney = () => {
+    sumMoneyTotal((data) => {
+      if (data.length > 0) {
+        this.setState({
+          totalMoney: data[0].totalMoney,
+        });
+      }
+    });
+  };
 
   updateTotal = (status) => {
     this.setState(status);
   };
 
   addShoppingCard = () => {
-    const {total} = this.state;
+    const {total, totalMoney} = this.state;
     const {item} = this.props;
+    const {AccountBalance} = global;
 
-    this.props.onShoppingCard();
-    const data = {
-      productId: item.productId,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-      total: total,
-    };
-    if (total === 0) {
-      deleteShoppingItem(item.productId, () => {
-        broadcastShoppingCardChange();
-      });
+    if (AccountBalance < totalMoney + item.price * total) {
+      this.setState({isVisibleWarning: true});
     } else {
-      replaceShopping(data, () => {
-        broadcastShoppingCardChange();
-      });
+      this.props.onShoppingCard();
+      const data = {
+        productId: item.productId,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        total: total,
+      };
+      if (total === 0) {
+        deleteShoppingItem(item.productId, () => {
+          broadcastShoppingCardChange();
+        });
+      } else {
+        replaceShopping(data, () => {
+          broadcastShoppingCardChange();
+        });
+      }
     }
+  };
+
+  onCloseModal = () => {
+    this.props.onShoppingCard();
   };
 
   setQuantity = (total) => {
@@ -85,14 +113,22 @@ class DetailItemScreen extends React.Component {
     }
     const totalMoney = total * item.price;
     if (updateCart) {
-      return `Cập nhật giỏ hàng - ${totalMoney}$`;
+      return `Cập nhật giỏ hàng - ${formatMoneyToVN(totalMoney)}`;
     }
 
-    return `Thêm vào giỏ hàng - ${totalMoney}$`;
+    return `Thêm vào giỏ hàng - ${formatMoneyToVN(totalMoney)}`;
+  };
+
+  onCloseModalWarning = () => {
+    this.setState({isVisibleWarning: false});
+  };
+
+  onPay = () => {
+    this.setState({isVisibleWarning: true});
   };
 
   render() {
-    const {total} = this.state;
+    const {isVisibleWarning} = this.state;
     const {item} = this.props;
     return (
       <View style={styles.container}>
@@ -104,7 +140,7 @@ class DetailItemScreen extends React.Component {
         />
         <View style={styles.row1}>
           <MediumText text={item.name} style={styles.title} numberOfLines={2} />
-          <MediumText text={`${item.price}$`} style={styles.price} />
+          <MediumText text={formatMoneyToVN(item.price)} style={styles.price} />
         </View>
         <View style={{paddingHorizontal: 20}}>
           <MediumText text={'Thông tin sẳn phẩm:'} style={styles.description} />
@@ -140,8 +176,42 @@ class DetailItemScreen extends React.Component {
           icon={<IconEntypo name="cross" size={22} color={'#ffffff'} />}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.containerStyle}
-          onPress={this.addShoppingCard}
+          onPress={this.onCloseModal}
         />
+        <ModalBase
+          isVisibleModal={isVisibleWarning}
+          title={'Thông báo'}
+          description={
+            'Số tiền hiện tại của bạn không đủ để mua thêm sản phẩm'
+          }>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              title={'Thanh toán'}
+              containerStyle={{flex: 1, borderRadius: 0}}
+              buttonStyle={{
+                backgroundColor: '#247f24',
+                borderRadius: 0,
+                borderTopColor: '#247f24',
+                borderTopWidth: 1,
+                borderBottomLeftRadius: 14,
+              }}
+              onPress={this.onCloseModal}
+            />
+            <Button
+              title={'Quay lại'}
+              containerStyle={{flex: 1, borderRadius: 0}}
+              buttonStyle={{
+                backgroundColor: '#ffffff',
+                borderRadius: 0,
+                borderTopColor: '#247f24',
+                borderTopWidth: 1,
+                borderBottomRightRadius: 14,
+              }}
+              titleStyle={{color: '#247f24'}}
+              onPress={this.onCloseModalWarning}
+            />
+          </View>
+        </ModalBase>
       </View>
     );
   }

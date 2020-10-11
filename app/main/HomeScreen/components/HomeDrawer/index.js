@@ -25,7 +25,7 @@ import ImageBackGround from '../../../../base/components/ImageBackGround';
 // import ChartScreen from '../../../ChartScreen/BarChart';
 
 // styles
-import styles from '../../styles/index.css';
+import styles from './styles/index.css';
 
 import {replaceProduct} from '../../../../core/db/table/product';
 import data from '../../../OderScreen/components/OderList/data';

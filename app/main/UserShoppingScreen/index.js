@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 10/4/20.
+ * @author phucnhb@bkav.com on 10/5/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -18,25 +18,25 @@ import {FlatList, SafeAreaView, View} from 'react-native';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
-import CartItem from './CartItem';
 import {MediumText} from '../../base/components/Text';
-import ButtonBase from '../../base/components/ButtonBase';
 
 // Db
 import {getListCarts} from '../../core/db/table/shopping';
-import {sumMoneyTotal} from '../../core/db/Sqlitedb';
-import {registerShoppingCardChange} from '../../core/shoppingCart';
-import {formatMoneyToVN} from '../../core/utils/formatMoney';
 
 // Styles
 import styles from './styles/index.css';
+import ButtonBase from '../../base/components/ButtonBase';
+import {sumMoneyTotal} from '../../core/db/Sqlitedb';
+import {registerShoppingCardChange} from '../../core/shoppingCart';
+import {Input} from 'react-native-elements';
 
-class ShoppingCartScreen extends React.Component {
+class UserShoppingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
       totalMoney: 0,
+      code: '',
     };
   }
 
@@ -60,32 +60,46 @@ class ShoppingCartScreen extends React.Component {
     });
   };
 
-  onShoppingCard = () => {
-    this.props.navigation.navigate('UserShopping');
+  onChangeCode = (code) => {
+    this.setState({code: code});
   };
 
-  renderItem = ({item}) => <CartItem item={item} />;
+  onContinue = () => {
+    this.props.navigation.navigate('AddressShopping');
+  };
 
   render() {
-    const {data, totalMoney} = this.state;
+    const {data, totalMoney, code} = this.state;
 
     return (
       <SafeAreaView style={styles.container}>
-        <AppHeader title={'Giỏ hàng'} />
-        <FlatList
-          data={data}
-          renderItem={this.renderItem}
-          keyExtractor={(item) => item.productId}
-        />
+        <AppHeader title={'Mua hàng'} />
+        <View style={{paddingTop: 30}}>
+          <MediumText text={'Mua hàng cho'} style={styles.titleShopping} />
+          <MediumText text={'Họ và tên: Nguyễn Văn A'} style={[styles.textName, {marginTop: 12}]} />
+          <MediumText text={'Mã thành viên: 654321'} style={styles.textName} />
+
+
+          <Input
+            value={code}
+            placeholder="Mã thành viên"
+            containerStyle={{paddingHorizontal: 20, marginVertical: 20}}
+            inputContainerStyle={styles.inputContainerStyle}
+            renderErrorMessage={false}
+            onChangeText={this.onChangeCode}
+          />
+          <ButtonBase
+            title={'Kiểm tra'}
+            buttonStyle={styles.btnButtonStyle}
+            onPress={this.onContinue}
+            styleLinearGradient={{marginHorizontal: 20}}
+          />
+        </View>
         <View style={styles.btnBottom}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <MediumText text={'Tổng cộng: '} style={styles.total} />
-            <MediumText text={formatMoneyToVN(totalMoney)} style={styles.total} />
-          </View>
           <ButtonBase
             title={'Tiếp tục'}
             buttonStyle={styles.btnButtonStyle}
-            onPress={this.onShoppingCard}
+            onPress={this.onContinue}
           />
         </View>
       </SafeAreaView>
@@ -93,6 +107,6 @@ class ShoppingCartScreen extends React.Component {
   }
 }
 
-ShoppingCartScreen.defaultProps = {};
+UserShoppingScreen.defaultProps = {};
 
-export default ShoppingCartScreen;
+export default UserShoppingScreen;

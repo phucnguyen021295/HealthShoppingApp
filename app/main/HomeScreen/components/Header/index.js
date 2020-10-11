@@ -26,12 +26,15 @@ import styles from './styles/index.css';
 import {color} from '../../../../core/color';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
+import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
+import global from '../../../../global';
 
 class HeaderHomeTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valueBadge: '0',
+      valueBadge: 0,
+      accountBalance: global.AccountBalance,
     };
 
     this.onChangeMenu = this.onChangeMenu.bind(this);
@@ -51,6 +54,7 @@ class HeaderHomeTab extends React.Component {
           valueBadge: data[0].totalProduct,
         });
       }
+      this.setState({accountBalance: global.AccountBalance});
     });
   };
 
@@ -59,7 +63,14 @@ class HeaderHomeTab extends React.Component {
     navigation.openDrawer();
   }
 
-  onShopping() {}
+  onShopping() {
+    const {valueBadge} = this.state;
+    if(valueBadge > 0) {
+      this.props.navigation.navigate('ShoppingCart');
+    } else {
+      alert('Ban chua chon san pham nao')
+    }
+  }
 
   renderLeftComponent() {
     return (
@@ -93,12 +104,16 @@ class HeaderHomeTab extends React.Component {
   }
 
   render() {
+    const {accountBalance} = this.state;
     return (
       <LinearGradient style={{borderRadius: 0}}>
         <Header
           placement="center"
           leftComponent={this.renderLeftComponent()}
-          centerComponent={{text: '100.000.000 VNĐ', style: {color: '#fff'}}}
+          centerComponent={{
+            text: formatMoneyToVN(accountBalance),
+            style: {color: '#fff'},
+          }}
           rightComponent={this.renderRightComponent()}
           containerStyle={styles.containerStyle}
         />

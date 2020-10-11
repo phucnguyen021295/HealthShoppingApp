@@ -25,6 +25,7 @@ import ButtonBase from '../../../../base/components/ButtonBase';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
 import {getProducts} from '../../../../core/db/table/product';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
+import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
 
 // Styles
 import styles from './styles/index.css';
@@ -69,7 +70,9 @@ class OderList extends React.Component {
     return (
       <View style={styles.btnBottom}>
         <ButtonBase
-          title={`Xem giỏ hàng - ${totalProduct} món - ${totalMoney}$`}
+          title={`Xem giỏ hàng - ${totalProduct} món - ${formatMoneyToVN(
+            totalMoney,
+          )}`}
           buttonStyle={styles.btnButtonStyle}
           onPress={this.onShoppingCard}
         />
@@ -88,6 +91,7 @@ class OderList extends React.Component {
           renderItem={this.renderItem}
           keyExtractor={(item) => item.productId}
           numColumns={2}
+          style={{marginBottom: totalProduct > 0 ? 80 : 0}}
         />
         {totalProduct > 0 && this.ListFooterComponent()}
       </>

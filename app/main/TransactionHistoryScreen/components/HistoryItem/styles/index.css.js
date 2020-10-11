@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/20/20.
+ * @author phucnhb@bkav.com on 10/11/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -18,27 +18,36 @@ import * as fontSize from '../../../../../core/fontSize';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  infoUser: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  fullName: {
-    paddingLeft: 20,
+    marginVertical: 8,
   },
 
-  info: {
-    backgroundColor: '#00000059',
+  linearGradient: {
+    borderRadius: 14,
+  },
+
+  body: {
+    borderWidth: 1,
+    borderColor: '#dddddd',
+    borderRadius: 14,
     paddingHorizontal: 20,
-    paddingVertical: 30,
-    marginBottom: 20,
+    paddingVertical: 12,
   },
-  name: {color: '#ffffff', fontSize: fontSize.normal, lineHeight: 30},
 
-  chart: {
-    flex: 1,
-    backgroundColor: '#00000059',
+  textDescription: {
+    color: '#ffffff',
+    fontSize: fontSize.smaller,
+  },
+
+  textTotalPrice: {
+    color: '#ffffff',
+    fontSize: fontSize.normal,
+    lineHeight: 25,
+  },
+
+  textAccountBalance: {
+    color: '#ffffff',
+    fontSize: fontSize.normal,
+    lineHeight: 25,
   },
 });
 

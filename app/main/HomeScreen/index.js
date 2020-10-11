@@ -19,8 +19,9 @@ import {useWindowDimensions} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 // Components
-import Home from './components/HomeDrawer';
 import DrawerContent from './components/DrawerContent';
+import Home from './components/HomeDrawer';
+import History from './components/HistoryDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,7 +34,7 @@ function HomeDrawer() {
       drawerStyle={isLargeScreen ? null : {width: '85%'}}
       drawerContent={(props) => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Article" component={Home} />
+      <Drawer.Screen name="History" component={History} />
     </Drawer.Navigator>
   );
 }

@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  infoUser: {flexDirection: 'row', alignItems: 'center'},
+  infoUser: {
+    flexDirection: 'row', alignItems: 'center'},
   fullName: {
     paddingLeft: 20,
   },

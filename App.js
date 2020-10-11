@@ -24,7 +24,11 @@ import Home from './app/main/MainScreen';
 // import OderScreen from './app/main/OderScreen';
 // import TransferScreen from './app/main/TransferScreen';
 // import ChartScreen from './app/main/ChartScreen';
-import ShoppingCartScreen from './app/main/ShoppingCartScreen';
+import ShoppingCart from './app/main/ShoppingCartScreen';
+import UserShopping from './app/main/UserShoppingScreen';
+import AddressShopping from './app/main/AddressShoppingScreen';
+import CapchaShopping from './app/main/CapchaShoppingScreen';
+import TransactionHistory from './app/main/TransactionHistoryScreen';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
 
@@ -53,29 +57,28 @@ class App extends React.Component {
     const {isLoading} = this.state;
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" headerMode="none">
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="ShoppingCart" component={ShoppingCartScreen} />
-        </Stack.Navigator>
+        {isLoading ? (
+          <Stack.Navigator initialRouteName="Loading" headerMode="none">
+            <Stack.Screen name="Loading" component={Loading} />
+            <Stack.Screen name="Introduce" component={Introduce} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+            <Stack.Screen name="VerifyPIN">
+              {(props) => <VerifyPIN onFinished={this.onFinished} {...props} />}
+            </Stack.Screen>
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator initialRouteName="Home" headerMode="none">
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
+            <Stack.Screen name="UserShopping" component={UserShopping} />
+            <Stack.Screen name="AddressShopping" component={AddressShopping} />
+            <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     );
   }
 }
 
 export default App;
-
-// {isLoading ? (
-//     <Stack.Navigator initialRouteName="Loading" headerMode="none">
-//       <Stack.Screen name="Loading" component={Loading} />
-//       <Stack.Screen name="Introduce" component={Introduce} />
-//       <Stack.Screen name="Login" component={Login} />
-//       <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-//       <Stack.Screen name="VerifyPIN">
-//         {(props) => <VerifyPIN onFinished={this.onFinished} {...props} />}
-//       </Stack.Screen>
-//     </Stack.Navigator>
-// ) : (
-//     <Stack.Navigator initialRouteName="Home" headerMode="none">
-//       <Stack.Screen name="Home" component={Home} />
-//     </Stack.Navigator>
-// )}

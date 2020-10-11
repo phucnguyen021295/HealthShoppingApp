@@ -14,17 +14,16 @@
 'use strict';
 
 import React from 'react';
-import {
-  TouchableOpacity,
-  ActivityIndicator,
-  View,
-} from 'react-native';
+import {TouchableOpacity, ActivityIndicator, View} from 'react-native';
 import {Image, Rating} from 'react-native-elements';
 import Modal from 'react-native-modal';
 
 // Components
 import Text, {MediumText} from '../../../../base/components/Text';
 import DetailItemScreen from '../../../DetailItemScreen';
+
+// Core
+import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
 
 // Styles
 import styles from './styles/index.css';
@@ -64,9 +63,9 @@ class OderItem extends React.Component {
         />
         <Text text={item.name} style={styles.title} numberOfLines={2} />
         <View style={styles.priceContainer}>
-          <MediumText text={`${item.price}$`} style={styles.price} />
+          <MediumText text={formatMoneyToVN(item.price)} style={styles.price} />
           <Rating
-            ratingCount={5}
+            ratingCount={3}
             imageSize={16}
             onFinishRating={this.onFinishRating}
           />

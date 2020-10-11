@@ -21,6 +21,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color,
   },
+
+  infoUser: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  fullName: {
+    paddingLeft: 20,
+  },
 });
 
 export default styles;

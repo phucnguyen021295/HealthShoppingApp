@@ -40,10 +40,15 @@ class DrawerContent extends React.Component {
     super(props);
   }
 
+  onPress = (item) => {
+    const {name} = item;
+    this.props.navigation.navigate(name);
+  };
+
   keyExtractor = (item, index) => index.toString();
 
   renderItem = ({item}) => (
-    <ListItem bottomDivider>
+    <ListItem bottomDivider onPress={() => this.onPress(item)}>
       <Avatar source={{uri: item.icon}} />
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
@@ -55,7 +60,7 @@ class DrawerContent extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.infoUser}>
+        <TouchableOpacity style={styles.infoUser} >
           <Avatar
             rounded
             size="medium"

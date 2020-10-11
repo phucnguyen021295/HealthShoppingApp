@@ -34,6 +34,7 @@ import {setCheckVerifyOTP} from '../../core/storage';
 // Styles
 import styles from './styles/index.css';
 import ImageBackGround from '../../base/components/ImageBackGround';
+import {setAccountBalanceGlobal} from '../../global';
 
 class VerifyOTPScreen extends React.Component {
   constructor(props) {
@@ -58,6 +59,8 @@ class VerifyOTPScreen extends React.Component {
       this.pinInput.current.shake().then(() => this.setState({code: ''}));
     } else {
       setCheckVerifyOTP(true);
+      // TODO: Set tạm số tiến
+      setAccountBalanceGlobal(10000000);
       this.props.navigation.navigate('VerifyPIN');
     }
 

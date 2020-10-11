@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: fontSize.small,
     paddingLeft: 20,
+    paddingVertical: 8,
   },
 
   textUpdate: {
