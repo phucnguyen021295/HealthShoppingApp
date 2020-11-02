@@ -83,7 +83,7 @@ class VerifyOTPScreen extends React.Component {
     const {name, password, code} = this.state;
     return (
       <ImageBackGround
-        source={require('./styles/images/background1.jpeg')}
+        source={require('./styles/images/background2.jpeg')}
         blurRadius={10}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>

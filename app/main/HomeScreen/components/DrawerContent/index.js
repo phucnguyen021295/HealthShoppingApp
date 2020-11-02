@@ -33,6 +33,11 @@ const list = [
     icon:
       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
   },
+  {
+    name: 'Detail',
+    icon:
+      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+  },
 ];
 
 class DrawerContent extends React.Component {
@@ -43,6 +48,10 @@ class DrawerContent extends React.Component {
   onPress = (item) => {
     const {name} = item;
     this.props.navigation.navigate(name);
+  };
+
+  onPersonalPage = () => {
+    this.props.navigation.navigate('PersonalPage');
   };
 
   keyExtractor = (item, index) => index.toString();
@@ -60,7 +69,7 @@ class DrawerContent extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.infoUser} >
+        <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
           <Avatar
             rounded
             size="medium"

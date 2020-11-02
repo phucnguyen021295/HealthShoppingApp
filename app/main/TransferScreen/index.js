@@ -82,14 +82,10 @@ class TransferScreen extends React.Component {
                     flex: 1,
                     paddingVertical: 0,
                   }}
-                  inputContainerStyle={{
-                    borderWidth: 1,
-                    borderColor: '#dddddd',
-                    backgroundColor: '#ffffff52',
-                    paddingHorizontal: 12,
-                    borderRadius: 8,
-                  }}
+                  inputContainerStyle={styles.inputContainerStyle}
+                  inputStyle={styles.inputStyle}
                   renderErrorMessage={false}
+                  placeholderTextColor={'#dddddd'}
                   onChangeText={this.onChangeCode}
                 />
                 <ScanQR styleBtn={{marginLeft: 20}} />
@@ -101,14 +97,10 @@ class TransferScreen extends React.Component {
                 value={money}
                 placeholder="Số tiền"
                 containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
-                inputContainerStyle={{
-                  borderWidth: 1,
-                  borderColor: '#dddddd',
-                  backgroundColor: '#ffffff52',
-                  paddingHorizontal: 12,
-                  borderRadius: 8,
-                }}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
                 renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
                 onChangeText={this.onChangeMoney}
               />
             </View>
@@ -130,9 +122,11 @@ class TransferScreen extends React.Component {
                   borderRadius: 8,
                   height: 120,
                 }}
-                multilineButtonBase
+                inputStyle={styles.inputStyle}
+                multiline
                 renderErrorMessage={false}
                 numberOfLines={5}
+                placeholderTextColor={'#dddddd'}
                 onChangeText={this.onChangeDes}
               />
             </View>

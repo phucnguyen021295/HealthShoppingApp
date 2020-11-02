@@ -33,7 +33,7 @@ function LinearGradientBase(props) {
 }
 
 LinearGradient.defaultProps = {
-  colors: ['#697f3f', color],
+  colors: ['#df8f4b', color],
 };
 
 export default LinearGradientBase;

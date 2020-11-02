@@ -17,6 +17,7 @@ import React from 'react';
 import {View, Text, StatusBar} from 'react-native';
 import Swiper from 'react-native-swiper';
 import {Button} from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
 
 // Components
 import Logo from '../../base/components/Logo';
@@ -75,17 +76,22 @@ class IntroduceScreen extends React.Component {
             onIndexChanged={this.onIndexChanged}
             loadMinimal
             loadMinimalSize={1}
+            activeDotStyle={styles.activeDot}
             loop={false}>
             {data.map((item) => (
               <View key={item.id} style={[styles.slide1]}>
-                <Logo />
+                <FastImage
+                  source={require('../../images/logo.png')}
+                  style={[{width: 250, height: 250}]}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
                 <MediumText style={styles.text}>{item.description}</MediumText>
               </View>
             ))}
           </Swiper>
-          <Button
+          <ButtonBase
             title={isCheck ? 'Bắt đầu' : 'Tiếp tục'}
-            containerStyle={styles.btnContainerStyle}
+            styleLinearGradient={styles.btnContainerStyle}
             buttonStyle={styles.buttonStyle}
             onPress={this.onPress}
           />

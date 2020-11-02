@@ -22,6 +22,8 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerContent from './components/DrawerContent';
 import Home from './components/HomeDrawer';
 import History from './components/HistoryDrawer';
+import PersonalPage from './components/PersonalPageDrawer';
+import Detail from './components/DetailDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +37,8 @@ function HomeDrawer() {
       drawerContent={(props) => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="History" component={History} />
+      <Drawer.Screen name="PersonalPage" component={PersonalPage} />
+      <Drawer.Screen name="Detail" component={Detail} />
     </Drawer.Navigator>
   );
 }

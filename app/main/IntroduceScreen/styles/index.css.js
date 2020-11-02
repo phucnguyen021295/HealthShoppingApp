@@ -15,6 +15,7 @@
 
 import {StyleSheet} from 'react-native';
 import {huge} from '../../../core/fontSize';
+import {color, transparent} from '../../../core/color';
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -23,11 +24,12 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    paddingTop: 50,
   },
   text: {
     marginTop: 100,
-    color: '#000000',
+    color: color,
     fontSize: huge,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -37,13 +39,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 60,
     right: 30,
+    borderRadius: 25,
   },
 
   buttonStyle: {
-    backgroundColor: '#2b7f4b',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 25,
+    backgroundColor: transparent,
+  },
+
+  activeDot: {
+    backgroundColor: color,
   },
 });
 

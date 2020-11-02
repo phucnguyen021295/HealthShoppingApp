@@ -38,7 +38,7 @@ class StackedBarChartScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <>
         <Text>Bezier Line Chart</Text>
         <BarChart
           data={{
@@ -62,7 +62,7 @@ class StackedBarChartScreen extends React.Component {
           yAxisSuffix="k"
           yAxisInterval={1} // optional, defaults to 1
           chartConfig={{
-            backgroundColor: '#00000059',
+            // backgroundColor: '#fffffff',
             // backgroundGradientFrom: '#fb8c00',
             // backgroundGradientTo: '#00000059',
             decimalPlaces: 2, // optional, defaults to 2dp
@@ -76,14 +76,21 @@ class StackedBarChartScreen extends React.Component {
               strokeWidth: '2',
               stroke: '#ffa726',
             },
+            fillShadowGradient: 'skyblue',
+            fillShadowGradientOpacity: 1,
+            // backgroundGradientFrom:  "#1E2923",
+            backgroundGradientFromOpacity: 0,
+            // backgroundGradientTo: "#08130D",
+            backgroundGradientToOpacity: 0,
           }}
-          bezier
+          // bezier
           style={{
             marginVertical: 8,
             borderRadius: 16,
+            backgroundColor: '#fffffff',
           }}
         />
-      </View>
+      </>
     );
   }
 }

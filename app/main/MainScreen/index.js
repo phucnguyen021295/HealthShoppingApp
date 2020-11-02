@@ -46,7 +46,7 @@ class MainScreen extends React.Component {
             opacity: 0,
           },
           style: {
-            backgroundColor: '#687a73',
+            backgroundColor: 'rgba(122,87,24,0.92)',
           },
           labelStyle: {
             fontSize: 12,

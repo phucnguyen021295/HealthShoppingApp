@@ -6,13 +6,24 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/6/20.
+ * @author phucnhb@bkav.com on 11/1/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-export const color = '#a47520';
+import {StyleSheet} from 'react-native';
 
-export const transparent = '#00000000';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  info: {
+    backgroundColor: '#00000059',
+    paddingVertical: 30,
+  },
+});
+
+export default styles;

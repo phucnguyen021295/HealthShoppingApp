@@ -20,9 +20,9 @@ import QRCode from 'react-native-qrcode-svg';
 // Components
 import Header from '../Header';
 import {MediumText} from '../../../../base/components/Text';
-import ChartScreen from '../../../ChartScreen';
+// import ChartScreen from '../../../ChartScreen';
 import ImageBackGround from '../../../../base/components/ImageBackGround';
-// import ChartScreen from '../../../ChartScreen/BarChart';
+import ChartScreen from '../../../ChartScreen/BarChart';
 
 // styles
 import styles from './styles/index.css';
@@ -59,18 +59,25 @@ class HomeDrawer extends React.Component {
             <MediumText text={'Họ và tên: Nguyễn Văn A'} style={styles.name} />
             <MediumText text={'Mã code: 654321'} style={styles.name} />
 
-            <View style={{alignItems: 'center', marginTop: 20}}>
-              <QRCode
-                value={qrcode}
-                logo={{
-                  uri:
-                    'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                }}
-                logoSize={50}
-                size={160}
-                logoBackgroundColor="transparent"
-                logoBorderRadius={25}
-              />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: 20,
+              }}>
+              <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
+                <QRCode
+                  value={qrcode}
+                  logo={{
+                    uri:
+                      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                  }}
+                  logoSize={50}
+                  size={160}
+                  logoBackgroundColor="transparent"
+                  logoBorderRadius={25}
+                />
+              </View>
             </View>
           </View>
           <View style={styles.chart}>

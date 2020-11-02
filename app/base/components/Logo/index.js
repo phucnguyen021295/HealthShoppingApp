@@ -16,14 +16,11 @@
 import React from 'react';
 import FastImage from 'react-native-fast-image';
 
-// Styles
-import styles from './styles/index.css';
-
 function Logo(props) {
   const {style} = props;
   return (
     <FastImage
-      source={require('./styles/images/logo.png')}
+      source={require('./styles/images/logo1.jpg')}
       style={[{width: 250, height: 250}, style]}
       resizeMode={FastImage.resizeMode.contain}
     />

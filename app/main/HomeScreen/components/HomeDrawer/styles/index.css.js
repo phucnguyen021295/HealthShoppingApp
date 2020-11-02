@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   info: {
-    backgroundColor: '#00000059',
+    backgroundColor: 'rgba(0,0,0,0.49)',
     paddingHorizontal: 20,
     paddingVertical: 30,
     marginBottom: 20,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
   chart: {
     flex: 1,
-    backgroundColor: '#00000059',
+    backgroundColor: 'rgba(0,0,0,0.49)',
   },
 });
 
