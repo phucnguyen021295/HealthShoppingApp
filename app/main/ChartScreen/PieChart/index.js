@@ -13,9 +13,10 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {Dimensions, Text, View} from 'react-native';
 import {BarChart, PieChart} from 'react-native-chart-kit';
+import {heightToDP} from '../../../core/utils/dimension';
 
 const {width} = Dimensions.get('window');
 
@@ -57,7 +58,7 @@ const data = [
   },
 ];
 
-class PieChartScreen extends React.Component {
+class PieChartScreen extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -73,7 +74,7 @@ class PieChartScreen extends React.Component {
         <PieChart
           data={data}
           width={width}
-          height={220}
+          height={heightToDP(220)}
           hasLegend={true}
           chartConfig={{
             // backgroundColor: '#fffffff',
@@ -84,7 +85,7 @@ class PieChartScreen extends React.Component {
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
               borderRadius: 16,
-                color: '#ffffff'
+              color: '#ffffff',
             },
             propsForDots: {
               r: '6',
@@ -101,7 +102,7 @@ class PieChartScreen extends React.Component {
           // bezier
           style={{
             marginVertical: 8,
-              color: '#ffffff'
+            color: '#ffffff',
           }}
           accessor="population"
           backgroundColor="transparent"

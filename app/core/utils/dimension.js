@@ -29,4 +29,11 @@ const heightPercentageToDP = (heightPercent) => {
   return PixelRatio.roundToNearestPixel((screenHeight * elemHeight) / 100);
 };
 
-export {widthPercentageToDP, heightPercentageToDP};
+const SIZE_WIDTH = 360;
+const SIZE_HEIGHT = 720;
+
+const heightToDP = (size) => heightPercentageToDP((size / SIZE_HEIGHT) * 100);
+
+const widthToDP = (size) => widthPercentageToDP((size / SIZE_WIDTH) * 100);
+
+export {widthPercentageToDP, heightPercentageToDP, heightToDP, widthToDP};

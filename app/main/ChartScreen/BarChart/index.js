@@ -13,11 +13,11 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {Dimensions, StyleSheet, Text, View, processColor} from 'react-native';
 import {LineChart, BarChart} from 'react-native-chart-kit';
 
-class StackedBarChartScreen extends React.Component {
+class StackedBarChartScreen extends PureComponent {
   constructor(props) {
     super(props);
   }

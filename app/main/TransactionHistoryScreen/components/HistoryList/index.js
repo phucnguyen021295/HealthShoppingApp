@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {FlatList} from 'react-native';
 
 // Components
@@ -23,7 +23,7 @@ import HistoryItem from '../HistoryItem';
 import {getListTransactionHistory} from '../../../../core/db/table/transaction_history';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 
-class HistoryList extends React.Component {
+class HistoryList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

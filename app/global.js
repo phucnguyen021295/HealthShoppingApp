@@ -13,10 +13,11 @@
  */
 'use strict';
 
-import {setAccountBalance, getAccountBalance} from './core/storage';
+import {setAccountBalance, getAccountBalance, setToken, getToken} from './core/storage';
 
 const global = {
   AccountBalance: 0,
+  token: '',
 };
 
 const getAccountBalanceGlobal = async () => {
@@ -29,6 +30,16 @@ const setAccountBalanceGlobal = (_AccountBalance = 0) => {
   setAccountBalance(_AccountBalance);
 };
 
+const getTokenGlobal = async () => {
+  const _token = await getToken();
+  global.token = _token;
+};
+
+const setTokenGlobal = (_token = '') => {
+  global.token = _token;
+  setToken(_token);
+};
+
 export default global;
 
-export {getAccountBalanceGlobal, setAccountBalanceGlobal};
+export {getAccountBalanceGlobal, setAccountBalanceGlobal, getTokenGlobal, setTokenGlobal};

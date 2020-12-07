@@ -14,7 +14,7 @@
 
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 
@@ -25,7 +25,7 @@ import OderList from './components/OderList';
 // Styles
 import styles from './styles/index.css';
 
-class OderScreen extends React.Component {
+class OderScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,16 +48,14 @@ class OderScreen extends React.Component {
             onChangeText={this.updateSearch}
             value={search}
             placeholderTextColor={'#ffffff'}
-            searchIcon={{color: '#ffffff', paddingLeft: 12}}
-            inputStyle={{color: '#ffffff'}}
-            containerStyle={{backgroundColor: '#0000000', borderTopWidth: 0, paddingHorizontal: 20}}
-            inputContainerStyle={{
-              // borderWidth: 1,
-              // borderColor: '#dddddd',
-              backgroundColor: '#ffffff52',
-              height: 46,
-              borderRadius: 23
+            searchIcon={styles.searchIcon}
+            inputStyle={styles.inputStyle}
+            containerStyle={{
+              backgroundColor: '#0000000',
+              borderTopWidth: 0,
+              paddingHorizontal: 20,
             }}
+            inputContainerStyle={styles.inputContainerStyle}
           />
         </LinearGradient>
         <View style={{flex: 1, backgroundColor: '#ffffff'}}>

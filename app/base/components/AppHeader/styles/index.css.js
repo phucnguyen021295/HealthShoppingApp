@@ -15,11 +15,13 @@
 
 import {StyleSheet, Platform} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
-import {heightPercentageToDP} from '../../../../core/utils/dimension';
+import {heightToDP, widthToDP} from '../../../../core/utils/dimension';
+
+export const ICON_SIZE = heightToDP(28);
 
 const styles = StyleSheet.create({
   container: {
-    height: heightPercentageToDP((50 / 720) * 100),
+    height: heightToDP(50),
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    height: heightPercentageToDP((50 / 720) * 100),
+    height: heightToDP(50),
     justifyContent: 'center',
     zIndex: 99,
   },
@@ -39,11 +41,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   icon: {
-    paddingLeft: 20,
-    paddingRight: 30,
+    paddingLeft: widthToDP(20),
+    paddingRight: widthToDP(30),
     ...Platform.select({
       ios: {
-        paddingTop: 5,
+        // paddingTop: 5,
       },
     }),
   },

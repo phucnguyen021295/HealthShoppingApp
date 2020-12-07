@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {
   Platform,
   StatusBar,
@@ -31,7 +31,7 @@ import Text from '../../base/components/Text';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import {getAccountBalanceGlobal, setAccountBalanceGlobal} from '../../global';
 
-class VerifyPINScreen extends React.Component {
+class VerifyPINScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

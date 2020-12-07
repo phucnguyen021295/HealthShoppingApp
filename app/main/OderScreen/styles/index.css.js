@@ -14,12 +14,32 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import * as fontSize from '../../../core/fontSize';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 import {color} from '../../../core/color';
+import {huge} from '../../../core/fontSize';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  containerStyle: {
+    backgroundColor: color,
+    borderTopWidth: 0,
+    paddingHorizontal: widthToDP(20),
+  },
+
+  inputContainerStyle: {
+    backgroundColor: '#ffffff52',
+    height: heightToDP(46),
+    borderRadius: heightToDP(23),
+  },
+
+  searchIcon: {color: '#ffffff', paddingLeft: widthToDP(10)},
+
+  inputStyle: {
+    color: '#ffffff',
+    fontSize: huge,
   },
 });
 

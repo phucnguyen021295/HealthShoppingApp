@@ -15,6 +15,8 @@
 
 import {StyleSheet} from 'react-native';
 import {transparent} from '../../../core/color';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
+import {isIPhoneX} from '../../../core/utils/isIphoneX';
 
 const styles = StyleSheet.create({
   absolute: {
@@ -26,9 +28,20 @@ const styles = StyleSheet.create({
   },
 
   btnButtonStyle: {
-    paddingVertical: 12,
-    marginHorizontal: 10,
-    backgroundColor: transparent
+    paddingVertical: heightToDP(12),
+    marginHorizontal: widthToDP(10),
+    backgroundColor: transparent,
+  },
+
+  image: {
+    width: heightToDP(200),
+    height: heightToDP(200),
+    marginTop: heightToDP(isIPhoneX ? 50 : 30),
+  },
+
+  body: {
+    paddingHorizontal: widthToDP(20),
+    paddingTop: heightToDP(50),
   },
 });
 

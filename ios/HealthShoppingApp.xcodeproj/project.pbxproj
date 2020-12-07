@@ -781,6 +781,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "BKAV VALA QUOCHOI";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -806,6 +807,7 @@
 				PRODUCT_NAME = HealthShoppingApp;
 				PROVISIONING_PROFILE_SPECIFIER = "BKAV VALA QUOCHOI";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

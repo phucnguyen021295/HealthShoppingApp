@@ -16,9 +16,7 @@
 import {StyleSheet} from 'react-native';
 import {large} from '../../../core/fontSize';
 import {blue_bluezone} from '../../../core/color';
-import {heightPercentageToDP} from '../../../core/utils/dimension';
-
-export const CONTAINER_MARGINVERTICAL = heightPercentageToDP((137 / 720) * 100);
+import {heightToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,15 +25,15 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 124,
-    height: 124,
+    width: heightToDP(124),
+    height: heightToDP(124),
   },
 
   modalFlash: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: CONTAINER_MARGINVERTICAL,
+    marginVertical: heightToDP(137),
   },
 
   body: {

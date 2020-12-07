@@ -16,10 +16,11 @@
 import {StyleSheet} from 'react-native';
 import {color} from '../../../core/color';
 import * as fontSize from '../../../core/fontSize';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   inputOTPMax: {
-    height: 40,
+    height: heightToDP(40),
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#e8e8e8',
@@ -34,10 +35,16 @@ const styles = StyleSheet.create({
   },
 
   btnButtonStyle: {
-    marginTop: 30,
-    paddingVertical: 10,
+    marginTop: heightToDP(30),
+    paddingVertical: heightToDP(10),
     backgroundColor: color,
-    paddingHorizontal: 30,
+    paddingHorizontal: widthToDP(30),
+  },
+
+  body: {
+    paddingHorizontal: widthToDP(20),
+    paddingTop: heightToDP(80),
+    alignItems: 'center',
   },
 });
 

@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 
 // Components
@@ -23,7 +23,7 @@ import HistoryList from './components/HistoryList';
 // Styles
 import styles from './styles/index.css';
 
-class TransactionHistoryScreen extends React.Component {
+class TransactionHistoryScreen extends PureComponent {
   constructor(props) {
     super(props);
   }

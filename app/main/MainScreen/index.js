@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {StatusBar} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,10 +22,13 @@ import HomeTab from '../HomeScreen';
 import TransferTab from '../TransferScreen';
 import OderTab from '../OderScreen';
 
+import {small} from '../../core/fontSize';
+import {heightToDP} from '../../core/utils/dimension';
+
 const Tab = createBottomTabNavigator();
 
 // TODO Can thuc hien doi text theo trang thai goi API that trong components nay. VD: Dang khoi tao cau hinh, Dang khoi tao resource....
-class MainScreen extends React.Component {
+class MainScreen extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -48,9 +51,13 @@ class MainScreen extends React.Component {
           style: {
             backgroundColor: 'rgba(122,87,24,0.92)',
           },
+          // tabStyle: {
+          //   height: heightToDP(52)
+          // },
           labelStyle: {
-            fontSize: 12,
+            fontSize: small,
             textTransform: 'capitalize',
+            paddingBottom: heightToDP(3),
           },
         }}>
         <Tab.Screen
@@ -58,7 +65,11 @@ class MainScreen extends React.Component {
           component={HomeTab}
           options={{
             tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons name={'home'} size={25} color={color} />
+              <MaterialCommunityIcons
+                name={'home'}
+                size={heightToDP(25)}
+                color={color}
+              />
             ),
           }}
         />
@@ -69,7 +80,7 @@ class MainScreen extends React.Component {
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
                 name={'cog-transfer'}
-                size={25}
+                size={heightToDP(25)}
                 color={color}
               />
             ),
@@ -82,7 +93,7 @@ class MainScreen extends React.Component {
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
                 name={'shopping'}
-                size={25}
+                size={heightToDP(25)}
                 color={color}
               />
             ),

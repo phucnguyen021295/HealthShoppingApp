@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {BackHandler, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {withNavigation} from '@react-navigation/compat';
@@ -21,10 +21,10 @@ import {withNavigation} from '@react-navigation/compat';
 import {MediumText} from '../Text';
 
 // Styles
-import styles from './styles/index.css';
+import styles, {ICON_SIZE} from './styles/index.css';
 import {color} from '../../../core/color';
 
-class Header extends React.Component {
+class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.onGoBack = this.onGoBack.bind(this);
@@ -61,7 +61,7 @@ class Header extends React.Component {
           <TouchableOpacity onPress={this.onGoBack} style={styles.btnBack}>
             <Ionicons
               name={'chevron-back-outline'}
-              size={28}
+              size={ICON_SIZE}
               style={styles.icon}
               color={color}
             />

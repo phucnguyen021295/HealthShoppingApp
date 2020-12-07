@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
 });
-class BarcodeMask extends React.Component {
+class BarcodeMask extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

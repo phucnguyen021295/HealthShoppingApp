@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import * as PropTypes from 'prop-types';
 import {View, SafeAreaView, StatusBar, ActivityIndicator} from 'react-native';
 
@@ -29,7 +29,7 @@ import {color} from '../../core/color';
 import Logo from '../../base/components/Logo';
 
 // TODO Can thuc hien doi text theo trang thai goi API that trong components nay. VD: Dang khoi tao cau hinh, Dang khoi tao resource....
-class LoadingScreen extends React.Component {
+class LoadingScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {ActivityIndicator, View} from 'react-native';
 import {Button, Image} from 'react-native-elements';
 
@@ -37,8 +37,9 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import {formatMoneyToVN} from '../../core/utils/formatMoney';
 import global from '../../global';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
+import {heightToDP, widthToDP} from '../../core/utils/dimension';
 
-class DetailItemScreen extends React.Component {
+class DetailItemScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -142,7 +143,7 @@ class DetailItemScreen extends React.Component {
           <MediumText text={item.name} style={styles.title} numberOfLines={2} />
           <MediumText text={formatMoneyToVN(item.price)} style={styles.price} />
         </View>
-        <View style={{paddingHorizontal: 20}}>
+        <View style={{paddingHorizontal: widthToDP(20)}}>
           <MediumText text={'Thông tin sẳn phẩm:'} style={styles.description} />
           <MediumText text={'Công dụng:'} style={styles.detail} />
           <Text
@@ -169,11 +170,12 @@ class DetailItemScreen extends React.Component {
           <ButtonBase
             title={this.setBtnText()}
             buttonStyle={styles.btnButtonStyle}
+            textStyle={styles.textStyle}
             onPress={this.addShoppingCard}
           />
         </View>
         <Button
-          icon={<IconEntypo name="cross" size={22} color={'#ffffff'} />}
+          icon={<IconEntypo name="cross" size={heightToDP(22)} color={'#ffffff'} />}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.containerStyle}
           onPress={this.onCloseModal}

@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 
 // Component
@@ -40,7 +40,7 @@ const makeColor = () => {
   return ['#697f3f', arrayColor[random]];
 };
 
-class HistoryItem extends React.Component {
+class HistoryItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

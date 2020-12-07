@@ -7,7 +7,7 @@
  */
 
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -35,7 +35,7 @@ import {initDatabase} from './app/core/db/Sqlitedb';
 
 const Stack = createStackNavigator();
 
-class App extends React.Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

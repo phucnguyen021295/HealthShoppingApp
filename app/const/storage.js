@@ -16,3 +16,4 @@
 export const CheckIntroduce = 'CheckIntroduce';
 export const CheckVerifyOTP = 'CheckVerifyOTP';
 export const AccountBalance = 'AccountBalance';
+export const Token = 'token';

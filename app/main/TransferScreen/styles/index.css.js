@@ -16,27 +16,27 @@
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {transparent} from '../../../core/color';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // backgroundColor: color,
+    marginHorizontal: widthToDP(20),
   },
   textInfo: {
     color: '#ffffff',
     textAlign: 'center',
     fontSize: fontSize.huge,
-    paddingVertical: 30,
-    marginBottom: 30
+    paddingVertical: heightToDP(30),
+    marginBottom: heightToDP(30),
   },
   textRow: {
     color: '#ffffff',
     fontSize: fontSize.normal,
-    marginBottom: 10
+    marginBottom: heightToDP(10),
   },
 
   btnButtonStyle: {
-    paddingVertical: 12,
+    paddingVertical: heightToDP(12),
     backgroundColor: transparent,
   },
 
@@ -44,13 +44,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#dddddd',
     backgroundColor: '#ffffff52',
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    paddingHorizontal: widthToDP(12),
+    borderRadius: heightToDP(8),
   },
 
   inputStyle: {
     color: '#ffffff',
+    fontSize: fontSize.normal,
   },
+
+  item: {marginBottom: heightToDP(30)},
+
+  inputContainerStyleNote: {
+    borderWidth: 1,
+    borderColor: '#dddddd',
+    backgroundColor: '#ffffff52',
+    paddingHorizontal: widthToDP(12),
+    borderRadius: heightToDP(8),
+    height: heightToDP(120),
+  },
+
+  containerStyleNote: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    height: heightToDP(120),
+  }
 });
 
 export default styles;

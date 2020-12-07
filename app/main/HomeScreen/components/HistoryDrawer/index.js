@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 
 // Components
@@ -24,7 +24,7 @@ import HistoryList from '../../../TransactionHistoryScreen/components/HistoryLis
 // styles
 import styles from './styles/index.css';
 
-class HistoryDrawer extends React.Component {
+class HistoryDrawer extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -16,6 +16,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {color, transparent} from '../../../core/color';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const {width} = Dimensions.get('window');
 const HEIGHT_IMAGE = (width * 2) / 3;
@@ -35,44 +36,48 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
-  title: {color: '#000000', fontSize: fontSize.normal, marginRight: 20},
+  title: {color: '#000000', fontSize: fontSize.normal, marginRight: widthToDP(20)},
 
   price: {color: '#000000', fontSize: fontSize.normal},
 
   description: {
     color: '#000000',
     fontSize: fontSize.normal,
-    marginBottom: 12,
+    marginBottom: heightToDP(12),
   },
 
   detail: {
     fontSize: fontSize.smaller,
-    lineHeight: 22,
+    lineHeight: heightToDP(22),
   },
 
   btnAddShopping: {
     position: 'absolute',
-    bottom: 34,
+    bottom: heightToDP(34),
     right: 0,
     left:0,
-    paddingHorizontal: 20
+    paddingHorizontal: widthToDP(20)
   },
 
   btnButtonStyle: {
-    paddingVertical: 12,
+    paddingVertical: heightToDP(12),
     backgroundColor: transparent,
-    marginHorizontal: 10,
+    marginHorizontal: widthToDP(10),
   },
 
   buttonStyle: {
     backgroundColor: '#00000073',
-    borderRadius: 20
+    borderRadius: heightToDP(20)
   },
 
   containerStyle: {
     position: 'absolute',
-    top: 30,
-    left: 20,
+    top: heightToDP(30),
+    left: widthToDP(20),
+  },
+
+  textStyle: {
+    fontSize: fontSize.normal
   }
 });
 

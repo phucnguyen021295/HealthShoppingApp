@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 
 // Components
@@ -24,7 +24,7 @@ import PieChart from '../../../ChartScreen/PieChart';
 // styles
 import styles from './styles/index.css';
 
-class DetailDrawer extends React.Component {
+class DetailDrawer extends PureComponent {
   constructor(props) {
     super(props);
   }

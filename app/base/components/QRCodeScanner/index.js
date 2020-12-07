@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {
   Dimensions,
@@ -42,7 +42,7 @@ const CAMERA_FLASH_MODES = [
   CAMERA_FLASH_MODE.auto,
 ];
 
-export default class QRCodeScanner extends Component {
+export default class QRCodeScanner extends PureComponent {
   static propTypes = {
     onRead: PropTypes.func.isRequired,
     vibrate: PropTypes.bool,

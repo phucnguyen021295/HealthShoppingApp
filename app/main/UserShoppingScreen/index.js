@@ -13,8 +13,8 @@
  */
 'use strict';
 
-import React from 'react';
-import {FlatList, SafeAreaView, View} from 'react-native';
+import React, {PureComponent} from 'react';
+import {SafeAreaView, View} from 'react-native';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
@@ -30,7 +30,7 @@ import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
 import {Input} from 'react-native-elements';
 
-class UserShoppingScreen extends React.Component {
+class UserShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,8 +78,6 @@ class UserShoppingScreen extends React.Component {
           <MediumText text={'Mua hàng cho'} style={styles.titleShopping} />
           <MediumText text={'Họ và tên: Nguyễn Văn A'} style={[styles.textName, {marginTop: 12}]} />
           <MediumText text={'Mã thành viên: 654321'} style={styles.textName} />
-
-
           <Input
             value={code}
             placeholder="Mã thành viên"

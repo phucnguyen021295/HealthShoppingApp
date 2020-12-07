@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {FlatList, SafeAreaView, View} from 'react-native';
 
 // Component
@@ -25,7 +25,7 @@ import styles from './styles/index.css';
 import ButtonBase from '../../base/components/ButtonBase';
 import {Input} from 'react-native-elements';
 
-class AddressShoppingScreen extends React.Component {
+class AddressShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

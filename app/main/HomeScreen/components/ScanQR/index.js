@@ -13,13 +13,13 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {TouchableOpacity} from 'react-native';
 import QRCodeScanner from '../../../../base/components/QRCodeScanner';
 import {Avatar} from 'react-native-elements';
 import Modal from 'react-native-modal';
 
-class BarcodeScannerApp extends React.Component {
+class BarcodeScannerApp extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

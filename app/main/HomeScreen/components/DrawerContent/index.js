@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
 import {Avatar, Accessory, ListItem} from 'react-native-elements';
 
@@ -40,7 +40,7 @@ const list = [
   },
 ];
 
-class DrawerContent extends React.Component {
+class DrawerContent extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -16,6 +16,7 @@
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {transparent} from '../../../core/color';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,40 +26,40 @@ const styles = StyleSheet.create({
 
   btnBottom: {
     position: 'absolute',
-    bottom: 34,
+    bottom: heightToDP(34),
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: widthToDP(20),
+    paddingVertical: heightToDP(10),
     borderTopWidth: 1,
     borderTopColor: '#dddddd',
   },
 
   titleShopping: {
     fontSize: fontSize.normal,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: widthToDP(20),
+    paddingVertical: heightToDP(10),
     backgroundColor: '#d7e5fa',
     color: '#666666',
   },
 
   textName: {
     fontSize: fontSize.normal,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
+    paddingHorizontal: widthToDP(20),
+    paddingVertical: heightToDP(8),
     color: '#666666',
   },
 
   btnButtonStyle: {
-    paddingVertical: 12,
+    paddingVertical: heightToDP(12),
     backgroundColor: transparent,
-    marginHorizontal: 10,
+    marginHorizontal: widthToDP(10),
   },
 
   total: {
-    paddingBottom: 15,
-    paddingTop: 8,
+    paddingBottom: heightToDP(15),
+    paddingTop: heightToDP(8),
     fontSize: fontSize.normal,
   },
 
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#666666',
     backgroundColor: '#ffffff52',
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    paddingHorizontal: widthToDP(12),
+    borderRadius: heightToDP(8),
   },
 });
 

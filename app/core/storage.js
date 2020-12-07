@@ -15,7 +15,12 @@
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {CheckIntroduce, CheckVerifyOTP, AccountBalance} from '../const/storage';
+import {
+  CheckIntroduce,
+  CheckVerifyOTP,
+  AccountBalance,
+  Token,
+} from '../const/storage';
 
 const _processInput = (input) => {
   if (input instanceof Date) {
@@ -67,6 +72,16 @@ const setAccountBalance = (_AccountBalance = 0) => {
   AsyncStorage.setItem(AccountBalance, _resource);
 };
 
+const getToken = async () => {
+  const result = await AsyncStorage.getItem(Token);
+  return _processOutput(result);
+};
+
+const setToken = (_Token = '') => {
+  const _resource = _processInput(_Token);
+  AsyncStorage.setItem(Token, _resource);
+};
+
 export {
   getCheckIntroduce,
   setCheckIntroduce,
@@ -74,4 +89,6 @@ export {
   setCheckVerifyOTP,
   getAccountBalance,
   setAccountBalance,
+  getToken,
+  setToken,
 };

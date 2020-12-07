@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Input} from 'react-native-elements';
 
@@ -26,7 +26,7 @@ import ButtonBase from '../../../../base/components/ButtonBase';
 // styles
 import styles from './styles/index.css';
 
-class PersonalPageDrawer extends React.Component {
+class PersonalPageDrawer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {FlatList, View} from 'react-native';
 import {withNavigation} from '@react-navigation/compat';
 
@@ -30,7 +30,7 @@ import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
 // Styles
 import styles from './styles/index.css';
 
-class OderList extends React.Component {
+class OderList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

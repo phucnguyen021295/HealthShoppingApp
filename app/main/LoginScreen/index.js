@@ -13,16 +13,14 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {
   Platform,
   StatusBar,
-  SafeAreaView,
   KeyboardAvoidingView,
-  ScrollView,
   View,
 } from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import {Input} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
 // Components
@@ -32,7 +30,7 @@ import ButtonBase from '../../base/components/ButtonBase';
 // Styles
 import styles from './styles/index.css';
 
-class LoginScreen extends React.Component {
+class LoginScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,14 +66,14 @@ class LoginScreen extends React.Component {
         <View style={{alignItems: 'center'}}>
           <FastImage
             source={require('./styles/images/logo.png')}
-            style={{width: 200, height: 200, marginTop: 30}}
+            style={styles.image}
             resizeMode={FastImage.resizeMode.contain}
           />
         </View>
         <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <View style={{paddingHorizontal: 20, paddingTop: 50}}>
+          <View style={styles.body}>
             <Input
               value={name}
               placeholder="Tên đăng nhập"

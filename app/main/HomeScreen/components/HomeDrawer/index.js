@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -30,7 +30,7 @@ import styles from './styles/index.css';
 import {replaceProduct} from '../../../../core/db/table/product';
 import data from '../../../OderScreen/components/OderList/data';
 
-class HomeDrawer extends React.Component {
+class HomeDrawer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

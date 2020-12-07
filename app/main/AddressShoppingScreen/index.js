@@ -13,8 +13,8 @@
  */
 'use strict';
 
-import React from 'react';
-import {FlatList, SafeAreaView, View} from 'react-native';
+import React, {PureComponent} from 'react';
+import {SafeAreaView, View} from 'react-native';
 import {Input} from 'react-native-elements';
 
 // Component
@@ -35,7 +35,7 @@ import global, {setAccountBalanceGlobal} from '../../global';
 import styles from './styles/index.css';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 
-class AddressShoppingScreen extends React.Component {
+class AddressShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

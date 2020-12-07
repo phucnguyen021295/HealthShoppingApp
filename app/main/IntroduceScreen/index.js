@@ -13,14 +13,12 @@
  */
 'use strict';
 
-import React from 'react';
-import {View, Text, StatusBar} from 'react-native';
+import React, {PureComponent} from 'react';
+import {View, StatusBar} from 'react-native';
 import Swiper from 'react-native-swiper';
-import {Button} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
 // Components
-import Logo from '../../base/components/Logo';
 import {MediumText} from '../../base/components/Text';
 import ButtonBase from '../../base/components/ButtonBase';
 
@@ -32,8 +30,9 @@ import data from './data';
 
 // Styles
 import styles from './styles/index.css';
+import {heightToDP} from '../../core/utils/dimension';
 
-class IntroduceScreen extends React.Component {
+class IntroduceScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,7 +81,7 @@ class IntroduceScreen extends React.Component {
               <View key={item.id} style={[styles.slide1]}>
                 <FastImage
                   source={require('../../images/logo.png')}
-                  style={[{width: 250, height: 250}]}
+                  style={[{width: heightToDP(250), height: heightToDP(250)}]}
                   resizeMode={FastImage.resizeMode.contain}
                 />
                 <MediumText style={styles.text}>{item.description}</MediumText>

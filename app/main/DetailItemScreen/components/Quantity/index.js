@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Button} from 'react-native-elements';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -25,7 +25,7 @@ import styles from './styles/index.css';
 import {color} from '../../../../core/color';
 import {getCartItem} from '../../../../core/db/table/shopping';
 
-class Quantity extends React.Component {
+class Quantity extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

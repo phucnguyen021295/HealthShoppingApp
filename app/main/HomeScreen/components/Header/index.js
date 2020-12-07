@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Header, Button, Badge} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,14 +22,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import LinearGradient from '../../../../base/components/LinearGradient';
 
 // Styles
-import styles from './styles/index.css';
-import {color} from '../../../../core/color';
+import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
 import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
 import global from '../../../../global';
 
-class HeaderHomeTab extends React.Component {
+class HeaderHomeTab extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,10 +64,10 @@ class HeaderHomeTab extends React.Component {
 
   onShopping() {
     const {valueBadge} = this.state;
-    if(valueBadge > 0) {
+    if (valueBadge > 0) {
       this.props.navigation.navigate('ShoppingCart');
     } else {
-      alert('Ban chua chon san pham nao')
+      alert('Ban chua chon san pham nao');
     }
   }
 
@@ -76,7 +75,9 @@ class HeaderHomeTab extends React.Component {
     return (
       <Button
         buttonStyle={styles.buttonStyle}
-        icon={<MaterialCommunityIcons name="menu" size={25} color="white" />}
+        icon={
+          <MaterialCommunityIcons name="menu" size={SIZE_ICON} color="white" />
+        }
         onPress={this.onChangeMenu}
       />
     );
@@ -89,15 +90,19 @@ class HeaderHomeTab extends React.Component {
         <Button
           buttonStyle={styles.buttonStyle}
           icon={
-            <MaterialCommunityIcons name="shopping" size={25} color="white" />
+            <MaterialCommunityIcons
+              name="shopping"
+              size={SIZE_ICON}
+              color="white"
+            />
           }
           onPress={this.onShopping}
         />
         <Badge
           value={valueBadge}
           status="error"
-          containerStyle={{position: 'absolute', top: 0, right: -4}}
-          textStyle={{fontSize: 14}}
+          containerStyle={styles.containerStyleBadge}
+          textStyle={styles.textStyle}
         />
       </View>
     );

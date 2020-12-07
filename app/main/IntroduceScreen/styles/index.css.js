@@ -16,6 +16,7 @@
 import {StyleSheet} from 'react-native';
 import {huge} from '../../../core/fontSize';
 import {color, transparent} from '../../../core/color';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -24,11 +25,11 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingHorizontal: widthToDP(20),
+    paddingTop: heightToDP(50),
   },
   text: {
-    marginTop: 100,
+    marginTop: heightToDP(100),
     color: color,
     fontSize: huge,
     fontWeight: 'bold',
@@ -37,15 +38,15 @@ const styles = StyleSheet.create({
 
   btnContainerStyle: {
     position: 'absolute',
-    bottom: 60,
-    right: 30,
-    borderRadius: 25,
+    bottom: heightToDP(60),
+    right: widthToDP(30),
+    borderRadius: heightToDP(25),
   },
 
   buttonStyle: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 25,
+    paddingHorizontal: widthToDP(20),
+    paddingVertical: heightToDP(10),
+    borderRadius: heightToDP(25),
     backgroundColor: transparent,
   },
 

@@ -13,8 +13,8 @@
  */
 'use strict';
 
-import React from 'react';
-import {FlatList, SafeAreaView, View} from 'react-native';
+import React, {PureComponent} from 'react';
+import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
@@ -31,7 +31,7 @@ import {formatMoneyToVN} from '../../core/utils/formatMoney';
 // Styles
 import styles from './styles/index.css';
 
-class ShoppingCartScreen extends React.Component {
+class ShoppingCartScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,6 +71,7 @@ class ShoppingCartScreen extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
         <AppHeader title={'Giỏ hàng'} />
         <FlatList
           data={data}

@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, TextInput, I18nManager, ViewPropTypes} from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -21,7 +21,7 @@ import * as Animatable from 'react-native-animatable';
 // styles
 import styles from './styles/index.css';
 
-class SmoothPinCodeInput extends Component {
+class SmoothPinCodeInput extends PureComponent {
   state = {
     maskDelay: false,
     focused: false,

@@ -14,7 +14,7 @@
 
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Input} from 'react-native-elements';
 
@@ -27,7 +27,7 @@ import ScanQR from '../HomeScreen/components/ScanQR';
 // Styles
 import styles from './styles/index.css';
 
-class TransferScreen extends React.Component {
+class TransferScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,8 +70,8 @@ class TransferScreen extends React.Component {
         <SafeAreaView />
         <View style={{flex: 1}}>
           <MediumText text={'Chuyển tiền'} style={styles.textInfo} />
-          <View style={{paddingHorizontal: 20}}>
-            <View style={{marginBottom: 30}}>
+          <View style={styles.container}>
+            <View style={styles.item}>
               <MediumText text={'Mã thành viên:'} style={styles.textRow} />
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Input
@@ -91,7 +91,7 @@ class TransferScreen extends React.Component {
                 <ScanQR styleBtn={{marginLeft: 20}} />
               </View>
             </View>
-            <View style={{marginBottom: 30}}>
+            <View style={styles.item}>
               <MediumText text={'Số tiền:'} style={styles.textRow} />
               <Input
                 value={money}
@@ -104,24 +104,13 @@ class TransferScreen extends React.Component {
                 onChangeText={this.onChangeMoney}
               />
             </View>
-            <View style={{marginBottom: 30}}>
+            <View style={styles.item}>
               <MediumText text={'Ghi chú:'} style={styles.textRow} />
               <Input
                 value={description}
                 placeholder="Ghi chú"
-                containerStyle={{
-                  paddingHorizontal: 0,
-                  paddingVertical: 0,
-                  height: 120,
-                }}
-                inputContainerStyle={{
-                  borderWidth: 1,
-                  borderColor: '#dddddd',
-                  backgroundColor: '#ffffff52',
-                  paddingHorizontal: 12,
-                  borderRadius: 8,
-                  height: 120,
-                }}
+                containerStyle={styles.containerStyleNote}
+                inputContainerStyle={styles.inputContainerStyleNote}
                 inputStyle={styles.inputStyle}
                 multiline
                 renderErrorMessage={false}

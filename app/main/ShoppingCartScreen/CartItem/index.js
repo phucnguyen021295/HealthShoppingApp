@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {TouchableOpacity, ActivityIndicator, View} from 'react-native';
 import {Image, Button} from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -28,7 +28,7 @@ import {formatMoneyToVN} from '../../../core/utils/formatMoney';
 // Styles
 import styles from './styles/index.css';
 
-class CartItem extends React.Component {
+class CartItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {
   Platform,
   StatusBar,
@@ -36,7 +36,7 @@ import styles from './styles/index.css';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import {setAccountBalanceGlobal} from '../../global';
 
-class VerifyOTPScreen extends React.Component {
+class VerifyOTPScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,12 +91,7 @@ class VerifyOTPScreen extends React.Component {
           <KeyboardAvoidingView
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View
-              style={{
-                paddingHorizontal: 20,
-                paddingTop: 80,
-                alignItems: 'center',
-              }}>
+            <View style={styles.body}>
               <SmoothPinCodeInput
                 ref={this.pinInput}
                 value={code}
