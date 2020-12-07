@@ -67,7 +67,6 @@ class LoadingScreen extends PureComponent {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
         <View style={styles.modalFlash}>
           <Logo />
           <View style={styles.body}>

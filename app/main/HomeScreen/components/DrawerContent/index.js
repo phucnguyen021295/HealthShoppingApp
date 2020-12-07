@@ -57,8 +57,8 @@ class DrawerContent extends PureComponent {
   keyExtractor = (item, index) => index.toString();
 
   renderItem = ({item}) => (
-    <ListItem bottomDivider onPress={() => this.onPress(item)}>
-      <Avatar source={{uri: item.icon}} />
+    <ListItem bottomDivider onPress={() => this.onPress(item)} containerStyle={{paddingVertical: 10}}>
+      <Avatar source={{uri: item.icon}} size="small" rounded />
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
       </ListItem.Content>
@@ -72,7 +72,7 @@ class DrawerContent extends PureComponent {
         <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
           <Avatar
             rounded
-            size="medium"
+            size="small"
             source={{
               uri:
                 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',

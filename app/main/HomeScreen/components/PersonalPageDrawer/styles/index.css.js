@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import * as fontSize from '../../../../../core/fontSize';
 import {transparent} from '../../../../../core/color';
 
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff52',
     paddingHorizontal: 12,
     borderRadius: 8,
+    ...Platform.select({
+      android: {
+        height: 40,
+      }
+    })
   },
 
   btnButtonStyle: {
@@ -49,6 +54,7 @@ const styles = StyleSheet.create({
 
   inputStyle: {
     color: '#ffffff',
+    fontSize: fontSize.normal
   },
 
   inputInterestsContainerStyle: {

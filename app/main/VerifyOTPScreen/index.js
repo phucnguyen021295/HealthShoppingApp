@@ -99,6 +99,7 @@ class VerifyOTPScreen extends PureComponent {
                 // onFulfill={this._checkCode}
                 codeLength={6}
                 onBackspace={() => console.log('No more back.')}
+                autoFocus
               />
               <Text
                 text={'Vui lòng nhập mã Pin để tiếp tục đăng nhập.'}

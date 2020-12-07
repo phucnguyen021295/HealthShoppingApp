@@ -83,6 +83,7 @@ class UserShoppingScreen extends PureComponent {
             placeholder="Mã thành viên"
             containerStyle={{paddingHorizontal: 20, marginVertical: 20}}
             inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.inputStyle}
             renderErrorMessage={false}
             onChangeText={this.onChangeCode}
           />

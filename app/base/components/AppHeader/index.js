@@ -78,7 +78,7 @@ class Header extends PureComponent {
 }
 
 Header.defaultProps = {
-  colorIcon: color,
+  color: color,
   showBack: true,
 };
 

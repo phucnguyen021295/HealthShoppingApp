@@ -49,6 +49,7 @@ class App extends PureComponent {
     // Khởi tạo db.
     initDatabase();
     Platform.OS === 'android' &&
+      StatusBar.setHidden(true) &&
       StatusBar.setTranslucent(true) &&
       StatusBar.setBackgroundColor('#ffffff00', true);
   }

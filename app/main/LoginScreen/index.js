@@ -17,7 +17,9 @@ import React, {PureComponent} from 'react';
 import {
   Platform,
   StatusBar,
+  SafeAreaView,
   KeyboardAvoidingView,
+  ScrollView,
   View,
 } from 'react-native';
 import {Input} from 'react-native-elements';

@@ -25,10 +25,12 @@ const styles = StyleSheet.create({
   infoUser: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 24,
+    paddingLeft: 16
   },
 
   fullName: {
-    paddingLeft: 20,
+    paddingLeft: 18,
   },
 });
 

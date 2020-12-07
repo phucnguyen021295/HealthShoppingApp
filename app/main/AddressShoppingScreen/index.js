@@ -105,6 +105,7 @@ class AddressShoppingScreen extends PureComponent {
             containerStyle={{paddingHorizontal: 20, marginVertical: 20}}
             inputContainerStyle={styles.inputContainerStyle}
             renderErrorMessage={false}
+            inputStyle={styles.inputStyle}
             onChangeText={this.onChangeText}
           />
         </View>

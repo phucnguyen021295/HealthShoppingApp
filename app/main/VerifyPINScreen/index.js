@@ -92,6 +92,7 @@ class VerifyPINScreen extends PureComponent {
                 onBackspace={() => console.log('No more back.')}
                 password
                 mask="﹡"
+                autoFocus
               />
               <Text
                 text={'Vui lòng nhập mã Pin để tiếp tục đăng nhập.'}
