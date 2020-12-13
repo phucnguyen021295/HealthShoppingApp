@@ -22,21 +22,23 @@ import {MediumText} from '../../../../base/components/Text';
 
 // styles
 import styles from './styles/index.css';
+import global from '../../../../global';
 
 const list = [
   {
     name: 'Home',
-    icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    icon:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Rlkh11FlrOTKvgA5jIYsAqw92VMXXCbnHQ&usqp=CAU',
   },
   {
     name: 'History',
     icon:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_history_48px-512.png',
   },
   {
     name: 'Detail',
     icon:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      'https://e7.pngegg.com/pngimages/961/286/png-clipart-computer-icons-statistics-bar-chart-histogram-statistics-miscellaneous-angle-thumbnail.png',
   },
 ];
 
@@ -57,7 +59,10 @@ class DrawerContent extends PureComponent {
   keyExtractor = (item, index) => index.toString();
 
   renderItem = ({item}) => (
-    <ListItem bottomDivider onPress={() => this.onPress(item)}>
+    <ListItem
+      style={{paddingHorizontal: 6}}
+      bottomDivider
+      onPress={() => this.onPress(item)}>
       <Avatar source={{uri: item.icon}} />
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
@@ -67,6 +72,7 @@ class DrawerContent extends PureComponent {
   );
 
   render() {
+    const {name, image} = global;
     return (
       <SafeAreaView style={styles.container}>
         <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
@@ -74,12 +80,13 @@ class DrawerContent extends PureComponent {
             rounded
             size="medium"
             source={{
-              uri:
-                'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+              uri: image
+                ? image
+                : 'https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png',
             }}>
             <Accessory />
           </Avatar>
-          <MediumText text={'Nguyen Hong Phuc'} style={styles.fullName} />
+          <MediumText text={name} style={styles.fullName} />
         </TouchableOpacity>
         <FlatList
           keyExtractor={this.keyExtractor}

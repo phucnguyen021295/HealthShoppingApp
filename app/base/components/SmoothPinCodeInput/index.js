@@ -20,6 +20,7 @@ import * as Animatable from 'react-native-animatable';
 
 // styles
 import styles from './styles/index.css';
+import {heightToDP} from '../../../core/utils/dimension';
 
 class SmoothPinCodeInput extends PureComponent {
   state = {
@@ -252,7 +253,7 @@ class SmoothPinCodeInput extends PureComponent {
   static defaultProps = {
     value: '',
     codeLength: 4,
-    cellSize: 48,
+    cellSize: heightToDP(40),
     cellSpacing: 4,
     placeholder: '',
     password: false,

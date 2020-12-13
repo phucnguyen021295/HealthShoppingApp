@@ -13,11 +13,43 @@
  */
 'use strict';
 
-import {setAccountBalance, getAccountBalance, setToken, getToken} from './core/storage';
+import {
+  setAccountBalance,
+  getAccountBalance,
+  setToken,
+  getToken,
+  multiGet,
+  setMemberCode,
+  setInfoUser,
+  setInfoLogin,
+} from './core/storage';
+
+import {
+  loginApi,
+  getUserApi,
+  updateUserApi,
+  verifyTokenApi,
+} from './apis/health';
 
 const global = {
   AccountBalance: 0,
   token: '',
+  membercode: '',
+};
+
+const initGlobal = async () => {
+  multiGet(['token', 'membercode', 'infoUser', 'pinCode']).then((results) => {
+    const {token, membercode, infoUser, pinCode} = results;
+    Object.assign(
+      global,
+      {
+        token: token,
+        membercode: membercode,
+        pinCode: pinCode,
+      },
+      infoUser,
+    );
+  });
 };
 
 const getAccountBalanceGlobal = async () => {
@@ -40,6 +72,72 @@ const setTokenGlobal = (_token = '') => {
   setToken(_token);
 };
 
+const setMemberCodeGlobal = (_membercode = '') => {
+  global.membercode = _membercode;
+  setMemberCode(_membercode);
+};
+
+const loginUser = (username, password, success, failure) => {
+  loginApi(
+    username,
+    password,
+    (response) => {
+      const data = response.data;
+      Object.assign(global, data);
+      setInfoLogin(data);
+      success();
+    },
+    failure,
+  );
+};
+
+const getUserGlobal = (membercode, success, failure) => {
+  getUserApi(
+    membercode,
+    (response) => {
+      const data = response.data;
+      Object.assign(global, data);
+      setInfoUser(data);
+      success();
+    },
+    failure,
+  );
+};
+
+const updateUSer = (data, success, failure) => {
+  updateUserApi(
+    data,
+    (response) => {
+      success();
+    },
+    failure,
+  );
+};
+
+const verifyTokenGlobal = (token, success, failure) => {
+  verifyTokenApi(
+    token,
+    (response) => {
+      const data = response.data;
+      Object.assign(global, data);
+      setInfoLogin(data);
+      success();
+    },
+    failure,
+  );
+};
+
 export default global;
 
-export {getAccountBalanceGlobal, setAccountBalanceGlobal, getTokenGlobal, setTokenGlobal};
+export {
+  verifyTokenGlobal,
+  initGlobal,
+  loginUser,
+  getUserGlobal,
+  getAccountBalanceGlobal,
+  setAccountBalanceGlobal,
+  getTokenGlobal,
+  setTokenGlobal,
+  setMemberCodeGlobal,
+  updateUSer,
+};

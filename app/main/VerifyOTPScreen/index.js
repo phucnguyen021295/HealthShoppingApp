@@ -31,10 +31,13 @@ import Text from '../../base/components/Text';
 // Storage
 import {setCheckVerifyOTP} from '../../core/storage';
 
+// Api
+import {getActiveApi, verifyOTPApi} from '../../apis/health';
+
 // Styles
 import styles from './styles/index.css';
 import ImageBackGround from '../../base/components/ImageBackGround';
-import {setAccountBalanceGlobal} from '../../global';
+import {setAccountBalanceGlobal, setMemberCodeGlobal} from '../../global';
 
 class VerifyOTPScreen extends PureComponent {
   constructor(props) {
@@ -46,6 +49,15 @@ class VerifyOTPScreen extends PureComponent {
     this.count = 0;
   }
 
+  componentDidMount() {
+    getActiveApi(
+      () => {},
+      () => {
+        alert('Đã xảy ra xự cố. vui lòng thử lại sau');
+      },
+    );
+  }
+
   onChangeOTP = (otp) => {
     this.setState({otp});
   };
@@ -54,19 +66,26 @@ class VerifyOTPScreen extends PureComponent {
 
   onVerifyOTP = () => {
     const {code} = this.state;
-    if (code != '123456') {
-      this.count++;
-      this.pinInput.current.shake().then(() => this.setState({code: ''}));
-    } else {
-      setCheckVerifyOTP(true);
-      // TODO: Set tạm số tiến
-      setAccountBalanceGlobal(10000000);
-      this.props.navigation.navigate('VerifyPIN');
-    }
+    debugger;
 
-    if (this.count === 5) {
-      this.props.navigation.navigate('Login');
-    }
+    verifyOTPApi(
+      code,
+      (response) => {
+        const membercode = response.data;
+        setCheckVerifyOTP(true);
+        // TODO: Set tạm số tiến
+        setAccountBalanceGlobal(10000000);
+        setMemberCodeGlobal(membercode);
+        this.props.navigation.navigate('VerifyPIN');
+      },
+      () => {
+        this.count++;
+        this.pinInput.current.shake().then(() => this.setState({code: ''}));
+        if (this.count === 5) {
+          this.props.navigation.navigate('Login');
+        }
+      },
+    );
   };
 
   _checkCode = (code) => {
@@ -97,11 +116,12 @@ class VerifyOTPScreen extends PureComponent {
                 value={code}
                 onTextChange={(code) => this.setState({code})}
                 // onFulfill={this._checkCode}
-                codeLength={6}
+                codeLength={7}
+                keyboardType={'default'}
                 onBackspace={() => console.log('No more back.')}
               />
               <Text
-                text={'Vui lòng nhập mã Pin để tiếp tục đăng nhập.'}
+                text={'Vui lòng nhập mã OTP để tiếp tục đăng nhập.'}
                 style={{color: '#ffffff', paddingTop: 30}}
               />
               <Button

@@ -22,6 +22,7 @@ import Text from '../../base/components/Text';
 
 // Storage
 import {getCheckIntroduce, getCheckVerifyOTP} from '../../core/storage';
+import {initGlobal} from '../../global';
 
 // Styles
 import styles from './styles/index.css';
@@ -41,6 +42,9 @@ class LoadingScreen extends PureComponent {
   }
 
   componentDidMount() {
+    // Get du lieu store len global
+    initGlobal();
+
     // Check trạng thái lần đầu tiên vào app.
     // 4. Khởi tạo db.
     // initDatabase();

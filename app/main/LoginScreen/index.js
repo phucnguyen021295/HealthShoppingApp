@@ -14,18 +14,16 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {
-  Platform,
-  StatusBar,
-  KeyboardAvoidingView,
-  View,
-} from 'react-native';
+import {Platform, StatusBar, KeyboardAvoidingView, View} from 'react-native';
 import {Input} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ButtonBase from '../../base/components/ButtonBase';
+
+// Apis
+import {loginUser} from '../../global';
 
 // Styles
 import styles from './styles/index.css';
@@ -34,13 +32,13 @@ class LoginScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      username: '',
       password: '',
     };
   }
 
-  onChangeName = (name) => {
-    this.setState({name});
+  onChangeName = (username) => {
+    this.setState({username});
   };
 
   onChangePassWord = (password) => {
@@ -48,16 +46,21 @@ class LoginScreen extends PureComponent {
   };
 
   onLogin = () => {
-    const {name, password} = this.state;
-    if (name === 'Phucnhb' && password === '123456') {
-      this.props.navigation.navigate('VerifyOTP');
-    } else {
-      alert('Tài khoẳn hoặc mật khẩu không chính xác');
-    }
+    const {username, password} = this.state;
+    loginUser(
+      username,
+      password,
+      () => {
+        this.props.navigation.navigate('VerifyOTP');
+      },
+      () => {
+        alert('Tài khoẳn hoặc mật khẩu không chính xác');
+      },
+    );
   };
 
   render() {
-    const {name, password} = this.state;
+    const {username, password} = this.state;
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
@@ -75,7 +78,7 @@ class LoginScreen extends PureComponent {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={styles.body}>
             <Input
-              value={name}
+              value={username}
               placeholder="Tên đăng nhập"
               style={{color: '#ffffff'}}
               onChangeText={this.onChangeName}

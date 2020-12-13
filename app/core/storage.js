@@ -11,6 +11,7 @@
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,6 +21,9 @@ import {
   CheckVerifyOTP,
   AccountBalance,
   Token,
+  MemberCode,
+  InfoUser,
+  PinCode, InfoLogin,
 } from '../const/storage';
 
 const _processInput = (input) => {
@@ -39,6 +43,16 @@ const _processOutput = (output) => {
   } catch (e) {
     result = output;
   }
+  return result;
+};
+
+const multiGet = async (keys) => {
+  const _keys = await AsyncStorage.multiGet(keys);
+  const result = {};
+  _keys.forEach((item) => {
+    Object.assign(result, {[item[0]]: _processOutput(item[1])});
+  });
+
   return result;
 };
 
@@ -82,7 +96,38 @@ const setToken = (_Token = '') => {
   AsyncStorage.setItem(Token, _resource);
 };
 
+const getMemberCode = async () => {
+  const result = await AsyncStorage.getItem(MemberCode);
+  return _processOutput(result);
+};
+
+const setMemberCode = (_MemberCode = '') => {
+  const _resource = _processInput(_MemberCode);
+  AsyncStorage.setItem(MemberCode, _resource);
+};
+
+const setInfoUser = (_InfoUser = {}) => {
+  const _resource = _processInput(_InfoUser);
+  AsyncStorage.setItem(InfoUser, _resource);
+};
+
+const getPinCode = async () => {
+  const result = await AsyncStorage.getItem(PinCode);
+  return _processOutput(result);
+};
+
+const setPinCode = (_PinCode = '') => {
+  const _resource = _processInput(_PinCode);
+  AsyncStorage.setItem(PinCode, _resource);
+};
+
+const setInfoLogin = (_InfoLogin = {}) => {
+  const _resource = _processInput(_InfoLogin);
+  AsyncStorage.setItem(InfoLogin, _resource);
+};
+
 export {
+  multiGet,
   getCheckIntroduce,
   setCheckIntroduce,
   getCheckVerifyOTP,
@@ -91,4 +136,10 @@ export {
   setAccountBalance,
   getToken,
   setToken,
+  getMemberCode,
+  setMemberCode,
+  setInfoUser,
+  getPinCode,
+  setPinCode,
+  setInfoLogin
 };

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   infoUser: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 12
   },
 
   fullName: {

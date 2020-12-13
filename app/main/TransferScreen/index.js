@@ -21,8 +21,11 @@ import {Input} from 'react-native-elements';
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ButtonBase from '../../base/components/ButtonBase';
-import Text, {MediumText} from '../../base/components/Text';
+import {MediumText} from '../../base/components/Text';
 import ScanQR from '../HomeScreen/components/ScanQR';
+
+// Apis
+import {transferApi} from '../../apis/health';
 
 // Styles
 import styles from './styles/index.css';
@@ -31,38 +34,63 @@ class TransferScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      code: '',
-      money: '',
-      description: '',
+      membercode: '',
+      amount: '',
+      reason: '',
     };
   }
 
-  onChangeCode = (code) => {
-    this.setState({code: code});
+  onChangeCode = (membercode) => {
+    this.setState({membercode: membercode});
   };
 
-  onChangeMoney = (money) => {
-    this.setState({money: money});
+  onChangeMoney = (amount) => {
+    this.setState({amount: amount});
   };
 
-  onChangeDes = (description) => {
-    this.setState({description: description});
+  onChangeDes = (reason) => {
+    this.setState({reason: reason});
   };
 
   onTransfer = () => {
-    const {code, money, description} = this.state;
-    if (code && money) {
-      alert('Chuyển tiền thành công');
+    const {membercode, amount, reason} = this.state;
+
+    if (!membercode) {
+      alert('Bạn chưa nhập mã thành viên');
+      return;
     }
-    this.setState({
-      code: '',
-      money: '',
-      description: '',
-    });
+
+    if (!amount) {
+      alert('Bạn chưa nhập số tiền');
+      return;;
+    }
+
+    const data = {
+      membercode: membercode,
+      amount: amount,
+      reason: reason,
+    };
+
+    transferApi(
+      data,
+      () => {
+        alert('Chuyển tiền thành công');
+        this.setState({
+          membercode: '',
+          amount: '',
+          reason: '',
+        });
+      },
+      () => {
+        alert(
+          'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
+        );
+      },
+    );
   };
 
   render() {
-    const {code, money, description} = this.state;
+    const {membercode, amount, reason} = this.state;
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
@@ -75,7 +103,7 @@ class TransferScreen extends PureComponent {
               <MediumText text={'Mã thành viên:'} style={styles.textRow} />
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Input
-                  value={code}
+                  value={membercode}
                   placeholder="Mã thành viên"
                   containerStyle={{
                     paddingHorizontal: 0,
@@ -94,7 +122,7 @@ class TransferScreen extends PureComponent {
             <View style={styles.item}>
               <MediumText text={'Số tiền:'} style={styles.textRow} />
               <Input
-                value={money}
+                value={amount}
                 placeholder="Số tiền"
                 containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                 inputContainerStyle={styles.inputContainerStyle}
@@ -102,12 +130,13 @@ class TransferScreen extends PureComponent {
                 renderErrorMessage={false}
                 placeholderTextColor={'#dddddd'}
                 onChangeText={this.onChangeMoney}
+                keyboardType={'phone-pad'}
               />
             </View>
             <View style={styles.item}>
               <MediumText text={'Ghi chú:'} style={styles.textRow} />
               <Input
-                value={description}
+                value={reason}
                 placeholder="Ghi chú"
                 containerStyle={styles.containerStyleNote}
                 inputContainerStyle={styles.inputContainerStyleNote}

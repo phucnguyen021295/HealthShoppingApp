@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {Input} from 'react-native-elements';
 
 // Components
@@ -25,36 +25,59 @@ import ButtonBase from '../../../../base/components/ButtonBase';
 
 // styles
 import styles from './styles/index.css';
+import global, {updateUSer} from '../../../../global';
+import {heightToDP} from '../../../../core/utils/dimension';
 
 class PersonalPageDrawer extends PureComponent {
   constructor(props) {
     super(props);
+    const {city, address, state, postalcode} = global;
     this.state = {
-      fullName: 'Nguyễn Văn A',
-      address: 'Ngõ 165 Yên Hòa, Cầu Giấy, Hà Nội',
-      age: '26',
-      interests: '',
+      city: city,
+      address: address,
+      state: state,
+      postalcode: postalcode || '+84',
     };
   }
 
-  onChangeFullName = (fullName) => {
-    this.setState({fullName});
+  onChangeFullName = (city) => {
+    this.setState({city});
   };
 
   onChangeAddress = (address) => {
     this.setState({address});
   };
 
-    onChangeInterests = (interests) => {
-        this.setState({interests});
-    };
+  onChangeInterests = (postalcode) => {
+    this.setState({postalcode});
+  };
 
-    onChangeAge = (age) => {
-        this.setState({age});
+  onChangeAge = (state) => {
+    this.setState({state});
+  };
+
+  onUpdateUser = () => {
+    const {city, address, state, postalcode} = this.state;
+    const data = {
+      city: city,
+      address: address,
+      state: state,
+      postalcode: postalcode,
     };
+    updateUSer(
+      data,
+      () => {
+        alert('Cập nhật thành công');
+      },
+      () => {
+        alert('Cập nhật thất bại');
+      },
+    );
+  };
 
   render() {
-    const {fullName, interests, address, age} = this.state;
+    const {name, email, mobile} = global;
+    const {city, postalcode, address, state} = this.state;
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
@@ -63,73 +86,86 @@ class PersonalPageDrawer extends PureComponent {
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
           <View style={styles.info}>
-            <View style={{marginBottom: 30}}>
-              <MediumText text={'Họ và tên:'} style={styles.textRow} />
-              <Input
-                value={fullName}
-                placeholder="Họ và tên"
-                containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
-                inputContainerStyle={styles.inputContainerStyle}
-                renderErrorMessage={false}
-                inputStyle={styles.inputStyle}
-                placeholderTextColor={'#dddddd'}
-                onChangeText={this.onChangeFullName}
-              />
-            </View>
+            <ScrollView
+              style={{flex: 1}}
+              contentContainerStyle={{paddingTop: heightToDP(30)}}
+              showsVerticalScrollIndicator={false}>
+              <MediumText text={'Thông tin cá nhân'} style={styles.textInfo} />
+              <View style={{marginBottom: heightToDP(14)}}>
+                <MediumText
+                  text={`Họ và tên: ${name}`}
+                  style={styles.textRow}
+                />
+                <MediumText
+                  text={`Số điện thoại: ${mobile}`}
+                  style={styles.textRow}
+                />
+                <MediumText text={`Email: ${email}`} style={styles.textRow} />
+              </View>
+              <View style={{marginBottom: heightToDP(20)}}>
+                <MediumText
+                  text={'Thông tin thành phố:'}
+                  style={styles.textRow}
+                />
+                <Input
+                  value={city}
+                  placeholder="Thông tin thành phố"
+                  containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
+                  inputContainerStyle={styles.inputContainerStyle}
+                  renderErrorMessage={false}
+                  inputStyle={styles.inputStyle}
+                  placeholderTextColor={'#dddddd'}
+                  onChangeText={this.onChangeFullName}
+                />
+              </View>
 
-            <View style={{marginBottom: 30}}>
-              <MediumText text={'Tuổi:'} style={styles.textRow} />
-              <Input
-                value={age}
-                placeholder="Tuổi"
-                containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
-                inputContainerStyle={styles.inputContainerStyle}
-                inputStyle={styles.inputStyle}
-                renderErrorMessage={false}
-                placeholderTextColor={'#dddddd'}
-                onChangeText={this.onChangeAge}
-              />
-            </View>
+              <View style={{marginBottom: heightToDP(20)}}>
+                <MediumText text={'Quận, huyện:'} style={styles.textRow} />
+                <Input
+                  value={state}
+                  placeholder="Quận, huyện"
+                  containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
+                  inputContainerStyle={styles.inputContainerStyle}
+                  inputStyle={styles.inputStyle}
+                  renderErrorMessage={false}
+                  placeholderTextColor={'#dddddd'}
+                  onChangeText={this.onChangeAge}
+                />
+              </View>
 
-            <View style={{marginBottom: 30}}>
-              <MediumText text={'Địa chỉ:'} style={styles.textRow} />
-              <Input
-                value={address}
-                placeholder="Địa chỉ"
-                containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
-                inputContainerStyle={styles.inputContainerStyle}
-                renderErrorMessage={false}
-                placeholderTextColor={'#dddddd'}
-                inputStyle={styles.inputStyle}
-                onChangeText={this.onChangeAddress}
-              />
-            </View>
+              <View style={{marginBottom: heightToDP(20)}}>
+                <MediumText text={'Địa chỉ:'} style={styles.textRow} />
+                <Input
+                  value={address}
+                  placeholder="Địa chỉ"
+                  containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
+                  inputContainerStyle={styles.inputContainerStyle}
+                  renderErrorMessage={false}
+                  placeholderTextColor={'#dddddd'}
+                  inputStyle={styles.inputStyle}
+                  onChangeText={this.onChangeAddress}
+                />
+              </View>
 
-            <View style={{marginBottom: 30}}>
-              <MediumText text={'Sở thích:'} style={styles.textRow} />
-              <Input
-                value={interests}
-                placeholder="Sở thích"
-                containerStyle={{
-                  paddingHorizontal: 0,
-                  paddingVertical: 0,
-                  height: 120,
-                }}
-                inputContainerStyle={styles.inputInterestsContainerStyle}
-                inputStyle={styles.inputStyle}
-                multiline
-                placeholderTextColor={'#dddddd'}
-                renderErrorMessage={false}
-                numberOfLines={5}
-                onChangeText={this.onChangeInterests}
-              />
-            </View>
-
-            <View style={{paddingTop: 30}}>
+              <View style={{marginBottom: heightToDP(20)}}>
+                <MediumText text={'Mã bưu điện:'} style={styles.textRow} />
+                <Input
+                  value={postalcode}
+                  placeholder="Mã bưu điện"
+                  containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
+                  inputContainerStyle={styles.inputContainerStyle}
+                  inputStyle={styles.inputStyle}
+                  placeholderTextColor={'#dddddd'}
+                  renderErrorMessage={false}
+                  onChangeText={this.onChangeInterests}
+                />
+              </View>
+            </ScrollView>
+            <View style={{paddingTop: heightToDP(20)}}>
               <ButtonBase
                 title="Lưu thông tin"
                 buttonStyle={styles.btnButtonStyle}
-                onPress={this.onTransfer}
+                onPress={this.onUpdateUser}
               />
             </View>
           </View>

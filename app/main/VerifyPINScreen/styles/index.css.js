@@ -19,6 +19,11 @@ import * as fontSize from '../../../core/fontSize';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: widthToDP(20),
+    paddingTop: heightToDP(80),
+    alignItems: 'center',
+  },
   inputOTPMax: {
     height: 40,
     borderRadius: 8,
@@ -39,6 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: color,
     paddingHorizontal: widthToDP(30),
   },
+  text: {color: '#ffffff', paddingTop: heightToDP(30), textAlign: 'center', fontSize: fontSize.smaller,}
 });
 
 export default styles;

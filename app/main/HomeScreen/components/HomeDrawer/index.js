@@ -29,6 +29,7 @@ import styles from './styles/index.css';
 
 import {replaceProduct} from '../../../../core/db/table/product';
 import data from '../../../OderScreen/components/OderList/data';
+import global from '../../../../global';
 
 class HomeDrawer extends PureComponent {
   constructor(props) {
@@ -47,7 +48,7 @@ class HomeDrawer extends PureComponent {
   }
 
   render() {
-    const {qrcode} = this.state;
+    const {membercode, name} = global;
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
@@ -56,8 +57,8 @@ class HomeDrawer extends PureComponent {
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
           <View style={styles.info}>
-            <MediumText text={'Họ và tên: Nguyễn Văn A'} style={styles.name} />
-            <MediumText text={'Mã code: 654321'} style={styles.name} />
+            <MediumText text={`Họ và tên: ${name}`} style={styles.name} />
+            <MediumText text={`Mã code: ${membercode}`} style={styles.name} />
 
             <View
               style={{
@@ -67,7 +68,7 @@ class HomeDrawer extends PureComponent {
               }}>
               <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
                 <QRCode
-                  value={qrcode}
+                  value={membercode}
                   logo={{
                     uri:
                       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
