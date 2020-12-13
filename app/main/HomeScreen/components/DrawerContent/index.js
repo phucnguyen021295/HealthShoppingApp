@@ -78,7 +78,7 @@ class DrawerContent extends PureComponent {
         <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
           <Avatar
             rounded
-            size="medium"
+            size="small"
             source={{
               uri: image
                 ? image

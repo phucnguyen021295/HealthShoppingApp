@@ -13,7 +13,7 @@
  */
 'use strict';
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {transparent} from '../../../../../core/color';
 import {heightToDP, widthToDP} from '../../../../../core/utils/dimension';
 import {smaller} from '../../../../../core/fontSize';
@@ -23,6 +23,11 @@ export const SIZE_ICON = heightToDP(25);
 const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: transparent,
+    ...Platform.select({
+      android: {
+        height: 64,
+      }
+    })
   },
 
   buttonStyle: {

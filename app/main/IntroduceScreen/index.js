@@ -67,7 +67,6 @@ class IntroduceScreen extends PureComponent {
     const isCheck = index === data.length - 1;
     return (
       <>
-        <StatusBar barStyle="dark-content" />
         <View style={{flex: 1}}>
           <Swiper
             style={styles.wrapper}

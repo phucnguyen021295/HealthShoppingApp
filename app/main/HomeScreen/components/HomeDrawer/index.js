@@ -64,7 +64,7 @@ class HomeDrawer extends PureComponent {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
-                marginTop: 20,
+                marginTop: 15,
               }}>
               <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
                 <QRCode
@@ -74,7 +74,7 @@ class HomeDrawer extends PureComponent {
                       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                   }}
                   logoSize={50}
-                  size={160}
+                  size={140}
                   logoBackgroundColor="transparent"
                   logoBorderRadius={25}
                 />

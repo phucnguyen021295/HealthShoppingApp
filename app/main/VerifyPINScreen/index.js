@@ -108,6 +108,7 @@ class VerifyPINScreen extends PureComponent {
                 onBackspace={() => console.log('No more back.')}
                 password
                 mask="﹡"
+                autoFocus
               />
               <Text
                 text={

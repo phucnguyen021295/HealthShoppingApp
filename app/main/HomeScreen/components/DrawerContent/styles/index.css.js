@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   fullName: {
-    paddingLeft: 20,
+    paddingLeft: 18,
   },
 });
 

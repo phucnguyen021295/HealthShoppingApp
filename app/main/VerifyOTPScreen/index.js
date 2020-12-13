@@ -119,6 +119,7 @@ class VerifyOTPScreen extends PureComponent {
                 codeLength={7}
                 keyboardType={'default'}
                 onBackspace={() => console.log('No more back.')}
+                autoFocus
               />
               <Text
                 text={'Vui lòng nhập mã OTP để tiếp tục đăng nhập.'}

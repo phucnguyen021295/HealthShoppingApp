@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   textTitle: {
     fontSize: fontSize.huge,
     textAlign: 'center',
-    color: '#000',
+    color: '#000000',
   },
   icon: {
     paddingLeft: widthToDP(20),
