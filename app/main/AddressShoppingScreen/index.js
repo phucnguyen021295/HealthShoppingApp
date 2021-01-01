@@ -38,9 +38,10 @@ import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 class AddressShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
+    const {address} = global;
     this.state = {
       totalMoney: 0,
-      address: 'Ngõ 165 Yên Hòa, Cầu Giấy, Hà Nội',
+      address: address,
       value: '',
     };
 

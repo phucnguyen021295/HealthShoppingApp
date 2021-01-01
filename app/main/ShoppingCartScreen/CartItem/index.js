@@ -22,9 +22,6 @@ import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../../base/components/Text';
 import DetailItemScreen from '../../DetailItemScreen';
 
-// Core
-import {formatMoneyToVN} from '../../../core/utils/formatMoney';
-
 // Styles
 import styles from './styles/index.css';
 
@@ -79,10 +76,7 @@ class CartItem extends PureComponent {
             <TouchableOpacity onPress={this.onUpdateCartItem}>
               <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
             </TouchableOpacity>
-            <Text
-              text={`${formatMoneyToVN(item.price * item.total)}`}
-              style={styles.price}
-            />
+            <Text text={`${item.price * item.total} $`} style={styles.price} />
           </View>
         </View>
         <Modal

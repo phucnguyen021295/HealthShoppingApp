@@ -272,3 +272,44 @@ export const getReportApi = (type, success, failure) => {
     }
   }, failure());
 };
+
+// 12. Lấy về danh sách sản phẩm
+export const getProductsApi = (success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/products`,
+    timeout: 10000,
+  };
+  axios(options).then((response) => {
+    if (response.status === 200 && response.data.errorcode === 0) {
+      success(response.data);
+    } else {
+      failure && failure(response);
+    }
+  }, failure && failure());
+};
+
+// 12. Lấy về danh sách gói sản phẩm
+export const getPackageProductsApi = (ordertype, success, failure) => {
+  // ordertype: 0: Mua hàng lần đầu, 1: Mua hàng nâng cấp, 2: Mua hàng active
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/chooseproduct/${ordertype}`,
+    timeout: 10000,
+  };
+  axios(options).then((response) => {
+    if (response.status === 200 && response.data.errorcode === 0) {
+      success(response);
+    } else {
+      failure(response);
+    }
+  }, failure());
+};

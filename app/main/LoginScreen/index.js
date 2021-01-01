@@ -21,6 +21,7 @@ import FastImage from 'react-native-fast-image';
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ButtonBase from '../../base/components/ButtonBase';
+import InputScrollView from '../../base/components/InputScrollView';
 
 // Apis
 import {loginUser} from '../../global';
@@ -34,6 +35,7 @@ class LoginScreen extends PureComponent {
     this.state = {
       username: '',
       password: '',
+      loading: false,
     };
   }
 
@@ -47,20 +49,27 @@ class LoginScreen extends PureComponent {
 
   onLogin = () => {
     const {username, password} = this.state;
-    loginUser(
-      username,
-      password,
-      () => {
-        this.props.navigation.navigate('VerifyOTP');
-      },
-      () => {
-        alert('Tài khoẳn hoặc mật khẩu không chính xác');
-      },
-    );
+    this.setState({loading: true}, () => {
+      loginUser(
+        username,
+        password,
+        (data) => {
+          this.setState({loading: false, username: '', password: ''}, () => {
+            this.props.navigation.navigate('VerifyOTP');
+          });
+
+        },
+        () => {
+          this.setState({loading: false, password: ''}, () => {
+            alert('Tài khoẳn hoặc mật khẩu không chính xác');
+          });
+        },
+      );
+    });
   };
 
   render() {
-    const {username, password} = this.state;
+    const {username, password, loading} = this.state;
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
@@ -73,9 +82,7 @@ class LoginScreen extends PureComponent {
             resizeMode={FastImage.resizeMode.contain}
           />
         </View>
-        <KeyboardAvoidingView
-          style={{flex: 1}}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <InputScrollView>
           <View style={styles.body}>
             <Input
               value={username}
@@ -94,9 +101,10 @@ class LoginScreen extends PureComponent {
               title="Đăng nhập"
               buttonStyle={styles.btnButtonStyle}
               onPress={this.onLogin}
+              loading={loading}
             />
           </View>
-        </KeyboardAvoidingView>
+        </InputScrollView>
       </ImageBackGround>
     );
   }

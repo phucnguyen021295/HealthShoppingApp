@@ -22,6 +22,7 @@ import {Input} from 'react-native-elements';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ButtonBase from '../../base/components/ButtonBase';
 import {MediumText} from '../../base/components/Text';
+import InputScrollView from '../../base/components/InputScrollView';
 import ScanQR from '../HomeScreen/components/ScanQR';
 
 // Apis
@@ -96,7 +97,7 @@ class TransferScreen extends PureComponent {
         source={require('../../images/backgroundHome.jpeg')}
         blurRadius={4}>
         <SafeAreaView />
-        <View style={{flex: 1}}>
+        <InputScrollView>
           <MediumText text={'Chuyển tiền'} style={styles.textInfo} />
           <View style={styles.container}>
             <View style={styles.item}>
@@ -156,7 +157,7 @@ class TransferScreen extends PureComponent {
               />
             </View>
           </View>
-        </View>
+        </InputScrollView>
       </ImageBackGround>
     );
   }

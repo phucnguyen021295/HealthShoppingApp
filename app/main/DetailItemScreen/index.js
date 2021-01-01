@@ -14,8 +14,15 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {ActivityIndicator, View} from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  Dimensions,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import {Button, Image} from 'react-native-elements';
+import HTML from 'react-native-render-html';
 
 // Components
 import Text, {MediumText} from '../../base/components/Text';
@@ -32,9 +39,8 @@ import {
 } from '../../core/db/table/shopping';
 
 // Styles
-import styles from './styles/index.css';
+import styles, {CUSTOM_STYLES} from './styles/index.css';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import {formatMoneyToVN} from '../../core/utils/formatMoney';
 import global from '../../global';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {heightToDP, widthToDP} from '../../core/utils/dimension';
@@ -80,10 +86,10 @@ class DetailItemScreen extends PureComponent {
     } else {
       this.props.onShoppingCard();
       const data = {
-        productId: item.productId,
-        name: item.name,
-        price: item.price,
-        image: item.image,
+        productId: item.productid,
+        name: item.title,
+        price: item.priceusd,
+        image: item.image150,
         total: total,
       };
       if (total === 0) {
@@ -112,12 +118,12 @@ class DetailItemScreen extends PureComponent {
     if (total === 0) {
       return 'Quay lại';
     }
-    const totalMoney = total * item.price;
+    const totalMoney = total * item.priceusd;
     if (updateCart) {
-      return `Cập nhật giỏ hàng - ${formatMoneyToVN(totalMoney)}`;
+      return `Cập nhật giỏ hàng - ${totalMoney} $`;
     }
 
-    return `Thêm vào giỏ hàng - ${formatMoneyToVN(totalMoney)}`;
+    return `Thêm vào giỏ hàng - ${totalMoney} $`;
   };
 
   onCloseModalWarning = () => {
@@ -134,38 +140,29 @@ class DetailItemScreen extends PureComponent {
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: item.image}}
+          source={{uri: item.image500}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
         />
-        <View style={styles.row1}>
-          <MediumText text={item.name} style={styles.title} numberOfLines={2} />
-          <MediumText text={formatMoneyToVN(item.price)} style={styles.price} />
-        </View>
-        <View style={{paddingHorizontal: widthToDP(20)}}>
-          <MediumText text={'Thông tin sẳn phẩm:'} style={styles.description} />
-          <MediumText text={'Công dụng:'} style={styles.detail} />
-          <Text
-            text={
-              '- Bổ sung Canxi, Vitamin D3 cho cơ thể, hỗ trợ tăng cường hấp thu canxi, giúp xương và răng chắc khỏe.'
-            }
-            style={styles.detail}
-          />
-          <Text
-            text={
-              '- Hỗ trợ phát triển chiều cao ở trẻ, giảm nguy cơ loãng xương ở người lớn.'
-            }
-            style={styles.detail}
-          />
-        </View>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Quantity
-            productId={item.productId}
-            setQuantity={this.setQuantity}
-            updateTotal={this.updateTotal}
-          />
-        </View>
+        <ScrollView>
+          <View style={{paddingHorizontal: widthToDP(20)}}>
+            <HTML
+              source={{html: item.des}}
+              imagesMaxWidth={Dimensions.get('window').width - 40}
+              allowFontScaling={false}
+              tagsStyles={CUSTOM_STYLES}
+            />
+          </View>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Quantity
+              productId={item.productId}
+              setQuantity={this.setQuantity}
+              updateTotal={this.updateTotal}
+            />
+          </View>
+        </ScrollView>
         <View style={styles.btnAddShopping}>
           <ButtonBase
             title={this.setBtnText()}
@@ -175,7 +172,9 @@ class DetailItemScreen extends PureComponent {
           />
         </View>
         <Button
-          icon={<IconEntypo name="cross" size={heightToDP(22)} color={'#ffffff'} />}
+          icon={
+            <IconEntypo name="cross" size={heightToDP(22)} color={'#ffffff'} />
+          }
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.containerStyle}
           onPress={this.onCloseModal}
@@ -214,6 +213,7 @@ class DetailItemScreen extends PureComponent {
             />
           </View>
         </ModalBase>
+        <SafeAreaView />
       </View>
     );
   }

@@ -16,12 +16,16 @@
 import {replaceDataBase, getDatabase} from '../../Sqlitedb';
 
 export const product = {
-  productId: 'productId',
-  name: 'name',
-  description: 'description',
-  price: 'price',
+  productid: 'productid',
+  title: 'title',
+  des: 'des',
+  quality: 'quality',
   image: 'image',
-  total: 'total',
+  pv: 'pv',
+  brief: 'brief',
+  priceusd: 'priceusd',
+  image150: 'image150',
+  image500: 'image500',
 };
 
 export const replaceProduct = (
@@ -30,14 +34,18 @@ export const replaceProduct = (
   failure = () => {},
 ) => {
   const query =
-    'REPLACE INTO product(productId, name, description, price, image, total) VALUES (?,?,?,?,?,?);';
+    'REPLACE INTO product(productid, title, des, quality, image, pv, brief, priceusd, image150, image500) VALUES (?,?,?,?,?,?,?,?,?,?);';
   const values = [
-    product.productId,
-    product.name,
-    product.description,
-    product.price,
+    product.productid,
+    product.title,
+    product.des,
+    product.quality,
     product.image,
-    product.total,
+    product.pv,
+    product.brief,
+    product.priceusd,
+    product.image150,
+    product.image500,
   ];
   replaceDataBase(query, values, success, failure);
 };

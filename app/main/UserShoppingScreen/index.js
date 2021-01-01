@@ -29,14 +29,18 @@ import ButtonBase from '../../base/components/ButtonBase';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
 import {Input} from 'react-native-elements';
+import global from '../../global';
 
 class UserShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
+    const {membercode, name} = global;
     this.state = {
       data: [],
       totalMoney: 0,
       code: '',
+      membercode: membercode,
+      name: name,
     };
   }
 
@@ -69,15 +73,15 @@ class UserShoppingScreen extends PureComponent {
   };
 
   render() {
-    const {data, totalMoney, code} = this.state;
+    const {data, totalMoney, code, membercode, name} = this.state;
 
     return (
       <SafeAreaView style={styles.container}>
         <AppHeader title={'Mua hàng'} />
         <View style={{paddingTop: 30}}>
           <MediumText text={'Mua hàng cho'} style={styles.titleShopping} />
-          <MediumText text={'Họ và tên: Nguyễn Văn A'} style={[styles.textName, {marginTop: 12}]} />
-          <MediumText text={'Mã thành viên: 654321'} style={styles.textName} />
+          <MediumText text={`Họ và tên: ${name}`} style={[styles.textName, {marginTop: 12}]} />
+          <MediumText text={`Mã thành viên: ${membercode}`} style={styles.textName} />
           <Input
             value={code}
             placeholder="Mã thành viên"

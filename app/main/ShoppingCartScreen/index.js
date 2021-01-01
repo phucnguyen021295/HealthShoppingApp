@@ -81,7 +81,7 @@ class ShoppingCartScreen extends PureComponent {
         <View style={styles.btnBottom}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <MediumText text={'Tổng cộng: '} style={styles.total} />
-            <MediumText text={formatMoneyToVN(totalMoney)} style={styles.total} />
+            <MediumText text={`${totalMoney} $`} style={styles.total} />
           </View>
           <ButtonBase
             title={'Tiếp tục'}

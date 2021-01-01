@@ -84,6 +84,7 @@ const loginUser = (username, password, success, failure) => {
     (response) => {
       const data = response.data;
       Object.assign(global, data);
+      setTokenGlobal(data.token);
       setInfoLogin(data);
       success();
     },

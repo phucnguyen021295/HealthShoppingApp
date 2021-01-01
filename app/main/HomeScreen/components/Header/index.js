@@ -116,7 +116,7 @@ class HeaderHomeTab extends PureComponent {
           placement="center"
           leftComponent={this.renderLeftComponent()}
           centerComponent={{
-            text: formatMoneyToVN(accountBalance),
+            text: `${accountBalance} $`,
             style: {color: '#fff'},
           }}
           rightComponent={this.renderRightComponent()}

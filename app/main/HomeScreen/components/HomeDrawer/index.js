@@ -24,27 +24,28 @@ import {MediumText} from '../../../../base/components/Text';
 import ImageBackGround from '../../../../base/components/ImageBackGround';
 import ChartScreen from '../../../ChartScreen/BarChart';
 
+// Data
+import {handleGetProducts} from '../../../../core/data';
+
 // styles
 import styles from './styles/index.css';
 
-import {replaceProduct} from '../../../../core/db/table/product';
-import data from '../../../OderScreen/components/OderList/data';
+// import {replaceProduct} from '../../../../core/db/table/product';
+// import data from '../../../OderScreen/components/OderList/data';
 import global from '../../../../global';
 
 class HomeDrawer extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      qrcode: '654321',
-    };
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      for (let i = 0; i < data.length; i++) {
-        replaceProduct(data[i]);
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   for (let i = 0; i < data.length; i++) {
+    //     replaceProduct(data[i]);
+    //   }
+    // }, 1000);
+    handleGetProducts();
   }
 
   render() {

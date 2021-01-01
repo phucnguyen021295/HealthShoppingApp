@@ -59,10 +59,10 @@ const initDatabase = (success, failure) => {
         if (res.rows.length === 0) {
           tx.executeSql('DROP TABLE IF EXISTS product');
           tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS product(productId TEXT, name TEXT, description TEXT, price INTEGER, image TEXT, total INTEGER)',
+            'CREATE TABLE IF NOT EXISTS product(id INTEGER PRIMARY KEY AUTOINCREMENT, productid TEXT, title TEXT, des TEXT, quality INTEGER, image TEXT, pv INTEGER, brief TEXT, priceusd INTEGER, image150 TEXT, image500 TEXT)',
           );
           tx.executeSql(
-            'CREATE UNIQUE INDEX idx_positions_title ON product (productId)',
+            'CREATE UNIQUE INDEX idx_positions_title ON product (productid)',
           );
         }
       },

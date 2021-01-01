@@ -56,14 +56,14 @@ class OderItem extends PureComponent {
     return (
       <TouchableOpacity onPress={this.onDetailItem} style={styles.container}>
         <Image
-          source={{uri: item.image}}
+          source={{uri: item.image150}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
         />
-        <Text text={item.name} style={styles.title} numberOfLines={2} />
+        <Text text={item.title} style={styles.title} numberOfLines={2} />
         <View style={styles.priceContainer}>
-          <MediumText text={formatMoneyToVN(item.price)} style={styles.price} />
+          <MediumText text={`${item.priceusd} $`} style={styles.price} />
           <Rating
             ratingCount={3}
             imageSize={16}

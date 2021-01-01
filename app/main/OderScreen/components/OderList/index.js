@@ -21,6 +21,9 @@ import {withNavigation} from '@react-navigation/compat';
 import OderItem from '../OderItem';
 import ButtonBase from '../../../../base/components/ButtonBase';
 
+// Apis
+import {getProductsApi} from '../../../../apis/health';
+
 // db
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
 import {getProducts} from '../../../../core/db/table/product';
@@ -70,9 +73,7 @@ class OderList extends PureComponent {
     return (
       <View style={styles.btnBottom}>
         <ButtonBase
-          title={`Xem giỏ hàng - ${totalProduct} món - ${formatMoneyToVN(
-            totalMoney,
-          )}`}
+          title={`Xem giỏ hàng - ${totalProduct} món - ${totalMoney} $`}
           buttonStyle={styles.btnButtonStyle}
           onPress={this.onShoppingCard}
         />

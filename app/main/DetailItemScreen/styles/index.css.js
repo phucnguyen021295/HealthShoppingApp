@@ -36,7 +36,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
-  title: {color: '#000000', fontSize: fontSize.normal, marginRight: widthToDP(20)},
+  title: {
+    color: '#000000',
+    fontSize: fontSize.normal,
+    marginRight: widthToDP(20),
+  },
 
   price: {color: '#000000', fontSize: fontSize.normal},
 
@@ -55,8 +59,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: heightToDP(34),
     right: 0,
-    left:0,
-    paddingHorizontal: widthToDP(20)
+    left: 0,
+    paddingHorizontal: widthToDP(20),
   },
 
   btnButtonStyle: {
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
 
   buttonStyle: {
     backgroundColor: '#00000073',
-    borderRadius: heightToDP(20)
+    borderRadius: heightToDP(20),
   },
 
   containerStyle: {
@@ -77,8 +81,72 @@ const styles = StyleSheet.create({
   },
 
   textStyle: {
-    fontSize: fontSize.normal
-  }
+    fontSize: fontSize.normal,
+  },
 });
+
+export const CUSTOM_STYLES = {
+  p: {
+    color: '#000',
+    fontSize: fontSize.large,
+    lineHeight: fontSize.large * 1.6,
+    fontFamily: 'Roboto-Regular',
+    marginBottom: heightToDP(7),
+  },
+  br: {
+    display: 'none',
+  },
+  strong: {
+    // lineHeight: 32,
+    fontFamily: 'Roboto-Medium',
+  },
+  h1: {
+    marginBottom: heightToDP(10),
+    color: '#000',
+    fontSize: fontSize.huge,
+    lineHeight: fontSize.huge * 1.38,
+  },
+  h2: {
+    marginBottom: heightToDP(7),
+    color: '#000',
+    fontSize: fontSize.huge,
+    lineHeight: fontSize.huge * 1.38,
+  },
+
+  h3: {
+    marginBottom: heightToDP(7),
+    fontSize: fontSize.huge,
+    lineHeight: fontSize.huge * 1.38,
+  },
+  h4: {
+    marginBottom: heightToDP(7),
+    fontSize: fontSize.huge,
+    lineHeight: fontSize.huge * 1.38,
+  },
+  ul: {
+    paddingLeft: 5,
+  },
+  li: {
+    lineHeight: fontSize.normal * 1.53,
+    color: '#000',
+    fontSize: fontSize.normal,
+  },
+  a: {
+    fontSize: fontSize.normal,
+  },
+
+  figure: {
+    marginVertical: heightToDP(6),
+  },
+
+  img: {
+    marginBottom: 5,
+    borderRadius: heightToDP(15),
+  },
+
+  i: {
+    fontFamily: 'OpenSans-Italic',
+  },
+};
 
 export default styles;
