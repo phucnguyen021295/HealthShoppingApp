@@ -22,8 +22,7 @@ class StackedBarChartScreen extends PureComponent {
     super(props);
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   handleSelect(event) {
     let entry = event.nativeEvent;
@@ -39,13 +38,22 @@ class StackedBarChartScreen extends PureComponent {
   render() {
     return (
       <>
-        <Text>Bezier Line Chart</Text>
+        <Text style={{color: '#ffffff', paddingVertical: 10}}>Thống kê theo ngày</Text>
         <BarChart
           data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            labels: [
+              'Thứ 2',
+              'Thứ 3',
+              'Thứ 4',
+              'Thứ 5',
+              'Thứ 6',
+              'Thứ 7',
+              'CN',
+            ],
             datasets: [
               {
                 data: [
+                  Math.random() * 100,
                   Math.random() * 100,
                   Math.random() * 100,
                   Math.random() * 100,
@@ -58,9 +66,9 @@ class StackedBarChartScreen extends PureComponent {
           }}
           width={Dimensions.get('window').width} // from react-native
           height={300}
-          yAxisLabel="$"
-          yAxisSuffix="k"
-          yAxisInterval={1} // optional, defaults to 1
+          // yAxisLabel="$"
+          yAxisSuffix="$"
+          // yAxisInterval={1} // optional, defaults to 1
           chartConfig={{
             // backgroundColor: '#fffffff',
             // backgroundGradientFrom: '#fb8c00',
@@ -73,7 +81,7 @@ class StackedBarChartScreen extends PureComponent {
             },
             propsForDots: {
               r: '6',
-              strokeWidth: '2',
+              strokeWidth: '1',
               stroke: '#ffa726',
             },
             fillShadowGradient: 'skyblue',

@@ -26,16 +26,19 @@ import global from '../../../../global';
 
 const list = [
   {
+    id: 0,
     name: 'Home',
     icon:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Rlkh11FlrOTKvgA5jIYsAqw92VMXXCbnHQ&usqp=CAU',
   },
   {
+    id: 1,
     name: 'History',
     icon:
       'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_history_48px-512.png',
   },
   {
+    id: 2,
     name: 'Detail',
     icon:
       'https://e7.pngegg.com/pngimages/961/286/png-clipart-computer-icons-statistics-bar-chart-histogram-statistics-miscellaneous-angle-thumbnail.png',
@@ -58,18 +61,20 @@ class DrawerContent extends PureComponent {
 
   keyExtractor = (item, index) => index.toString();
 
-  renderItem = ({item}) => (
-    <ListItem
-      style={{paddingHorizontal: 6}}
-      bottomDivider
-      onPress={() => this.onPress(item)}>
-      <Avatar source={{uri: item.icon}} size="small" />
-      <ListItem.Content>
-        <ListItem.Title>{item.name}</ListItem.Title>
-      </ListItem.Content>
-      <ListItem.Chevron />
-    </ListItem>
-  );
+  renderItem = ({item}) => {
+    return (
+      <ListItem
+        style={[{paddingHorizontal: 6}]}
+        bottomDivider
+        onPress={() => this.onPress(item)}>
+        <Avatar source={{uri: item.icon}} size="small" />
+        <ListItem.Content>
+          <ListItem.Title>{item.name}</ListItem.Title>
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
+    );
+  };
 
   render() {
     const {name, image} = global;

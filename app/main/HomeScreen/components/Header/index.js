@@ -29,6 +29,7 @@ import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
 import global, {setAccountBalanceGlobal} from '../../../../global';
+import NotificationModal from '../../../../base/components/NotificationModal';
 
 class HeaderHomeTab extends PureComponent {
   constructor(props) {
@@ -36,6 +37,7 @@ class HeaderHomeTab extends PureComponent {
     this.state = {
       valueBadge: 0,
       accountBalance: global.balance,
+      isVisible: false,
     };
 
     this.onChangeMenu = this.onChangeMenu.bind(this);
@@ -51,7 +53,7 @@ class HeaderHomeTab extends PureComponent {
       const {data} = response;
       this.setState({accountBalance: data.balance});
       setAccountBalanceGlobal(data.balance);
-    })
+    });
   }
 
   onSumMoney = () => {
@@ -75,7 +77,7 @@ class HeaderHomeTab extends PureComponent {
     if (valueBadge > 0) {
       this.props.navigation.navigate('ShoppingCart');
     } else {
-      alert('Ban chua chon san pham nao');
+      this.setState({isVisible: true});
     }
   }
 
@@ -91,8 +93,12 @@ class HeaderHomeTab extends PureComponent {
     );
   }
 
+  onCloseModal = () => {
+    this.setState({isVisible: false});
+  };
+
   renderRightComponent() {
-    const {valueBadge} = this.state;
+    const {valueBadge, isVisible} = this.state;
     return (
       <View>
         <Button
@@ -111,6 +117,13 @@ class HeaderHomeTab extends PureComponent {
           status="error"
           containerStyle={styles.containerStyleBadge}
           textStyle={styles.textStyle}
+        />
+        <NotificationModal
+          isVisible={isVisible}
+          title={'Thông báo'}
+          description={'Bạn chưa chọn sản phẩm nào.'}
+          titleButton={'Đóng'}
+          onPress={this.onCloseModal}
         />
       </View>
     );

@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
 // Components
@@ -57,34 +57,36 @@ class HomeDrawer extends PureComponent {
         <ImageBackGround
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <View style={styles.info}>
-            <MediumText text={`Họ và tên: ${name}`} style={styles.name} />
-            <MediumText text={`Mã code: ${membercode}`} style={styles.name} />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.info}>
+              <MediumText text={`Họ và tên: ${name}`} style={styles.name} />
+              <MediumText text={`Mã code: ${membercode}`} style={styles.name} />
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginTop: 15,
-              }}>
-              <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
-                <QRCode
-                  value={membercode}
-                  logo={{
-                    uri:
-                      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                  }}
-                  logoSize={50}
-                  size={140}
-                  logoBackgroundColor="transparent"
-                  logoBorderRadius={25}
-                />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginTop: 15,
+                }}>
+                <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
+                  <QRCode
+                    value={membercode}
+                    logo={{
+                      uri:
+                        'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                    }}
+                    logoSize={50}
+                    size={140}
+                    logoBackgroundColor="transparent"
+                    logoBorderRadius={25}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-          <View style={styles.chart}>
-            <ChartScreen />
-          </View>
+            <View style={styles.chart}>
+              <ChartScreen />
+            </View>
+          </ScrollView>
         </ImageBackGround>
       </View>
     );

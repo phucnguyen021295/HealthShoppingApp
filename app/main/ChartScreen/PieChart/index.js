@@ -74,7 +74,7 @@ class PieChartScreen extends PureComponent {
         <PieChart
           data={data}
           width={width}
-          height={heightToDP(220)}
+          height={heightToDP(200)}
           hasLegend={true}
           chartConfig={{
             // backgroundColor: '#fffffff',

@@ -45,15 +45,17 @@ class MainScreen extends PureComponent {
           showIcon: true,
           activeTintColor: '#ffffff',
           inactiveTintColor: '#dddddd',
+          activeBackgroundColor: 'rgba(122,87,28,0.92)',
           indicatorStyle: {
             opacity: 0,
           },
           style: {
             backgroundColor: 'rgba(122,87,24,0.92)',
           },
-          // tabStyle: {
-          //   height: heightToDP(52)
-          // },
+          tabStyle: {
+            borderRadius: 8,
+            marginHorizontal: 10,
+          },
           labelStyle: {
             fontSize: small,
             textTransform: 'capitalize',

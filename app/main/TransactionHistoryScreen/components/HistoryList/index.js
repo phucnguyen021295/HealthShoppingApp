@@ -18,6 +18,7 @@ import {FlatList} from 'react-native';
 
 // Components
 import HistoryItem from '../HistoryItem';
+import {MediumText} from '../../../../base/components/Text';
 
 // Core
 import {getListTransactionHistory} from '../../../../core/db/table/transaction_history';
@@ -47,6 +48,15 @@ class HistoryList extends PureComponent {
 
   renderItem = ({item}) => <HistoryItem item={item} />;
 
+  ListFooterComponent() {
+    return (
+      <MediumText
+        text={'Chưa có giao dịch nào.'}
+        style={{textAlign: 'center', color: '#ffffff'}}
+      />
+    );
+  }
+
   render() {
     const {data} = this.state;
     return (
@@ -55,6 +65,8 @@ class HistoryList extends PureComponent {
         renderItem={this.renderItem}
         keyExtractor={(item) => item.transactionId}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={data.length === 0 && this.ListFooterComponent}
+        contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 30}}
       />
     );
   }
