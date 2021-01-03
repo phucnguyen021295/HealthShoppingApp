@@ -63,7 +63,7 @@ class DrawerContent extends PureComponent {
       style={{paddingHorizontal: 6}}
       bottomDivider
       onPress={() => this.onPress(item)}>
-      <Avatar source={{uri: item.icon}} />
+      <Avatar source={{uri: item.icon}} size="small" />
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
       </ListItem.Content>

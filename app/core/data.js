@@ -13,9 +13,11 @@
  */
 'use strict';
 
-import {getProductsApi} from '../apis/health';
+import {getProductsApi, getPackageProductsApi} from '../apis/health';
 import {replaceProduct} from '../core/db/table/product';
+import {replacePackageProduct} from '../core/db/table/package_product';
 
+// Get danh sách sẳn phẩm.
 export const handleGetProducts = () => {
   getProductsApi(
     (response) => {
@@ -25,5 +27,20 @@ export const handleGetProducts = () => {
       }
     },
     () => {},
+  );
+};
+
+// Get danh sách các gói sản phẩm
+export const handleGetPackageProduct = (orderType, success, failure) => {
+  getPackageProductsApi(
+    orderType,
+    (response) => {
+      const {data} = response;
+      for (let i = 0; i < data.length; i++) {
+        replacePackageProduct(data[i]);
+      }
+      success(data);
+    },
+    () => failure(),
   );
 };

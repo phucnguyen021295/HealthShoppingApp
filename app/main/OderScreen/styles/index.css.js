@@ -16,7 +16,7 @@
 import {StyleSheet} from 'react-native';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 import {color} from '../../../core/color';
-import {huge} from '../../../core/fontSize';
+import {huge, large, normal} from '../../../core/fontSize';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +41,37 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: huge,
   },
+
+  modalContainer: {
+    paddingTop: 8,
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8
+  },
+
+  title: {
+    paddingHorizontal: 20,
+    fontSize: huge,
+    paddingVertical: 10
+  },
+
+  itemSelect: {
+    paddingHorizontal: 40,
+    fontSize: large,
+    paddingVertical: 10
+  },
+
+  titleSelect: {
+    paddingLeft: 20,
+    fontSize: large,
+    paddingVertical: 10
+  },
+
+  textClose: {
+    color: color,
+    fontSize: normal,
+    paddingRight: 20,
+  }
 });
 
 export default styles;

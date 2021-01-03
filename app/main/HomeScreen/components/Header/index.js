@@ -21,19 +21,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 // Components
 import LinearGradient from '../../../../base/components/LinearGradient';
 
+// Apis
+import {getBalanceApi} from '../../../../apis/health';
+
 // Styles
 import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
-import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
-import global from '../../../../global';
+import global, {setAccountBalanceGlobal} from '../../../../global';
 
 class HeaderHomeTab extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       valueBadge: 0,
-      accountBalance: global.AccountBalance,
+      accountBalance: global.balance,
     };
 
     this.onChangeMenu = this.onChangeMenu.bind(this);
@@ -44,6 +46,12 @@ class HeaderHomeTab extends PureComponent {
     registerShoppingCardChange(this.onSumMoney);
 
     this.onSumMoney();
+
+    getBalanceApi((response) => {
+      const {data} = response;
+      this.setState({accountBalance: data.balance});
+      setAccountBalanceGlobal(data.balance);
+    })
   }
 
   onSumMoney = () => {
@@ -53,7 +61,7 @@ class HeaderHomeTab extends PureComponent {
           valueBadge: data[0].totalProduct,
         });
       }
-      this.setState({accountBalance: global.AccountBalance});
+      this.setState({accountBalance: global.balance});
     });
   };
 

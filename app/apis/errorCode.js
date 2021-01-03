@@ -6,18 +6,21 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/20/20.
+ * @author phucnhb@bkav.com on 1/2/21.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-export const CheckIntroduce = 'CheckIntroduce';
-export const CheckVerifyOTP = 'CheckVerifyOTP';
-export const AccountBalance = 'balance';
-export const Token = 'token';
-export const MemberCode = 'membercode';
-export const InfoUser = 'infoUser';
-export const PinCode = 'pinCode';
-export const InfoLogin = 'infoLogin';
+const errorCode = {
+  0: 'không có lỗi xảy ra',
+  1: 'Lỗi xác thực',
+  2: 'Lỗi token',
+  3: 'Tên tham số truyền vào không đúng',
+  4: 'Cập nhật lỗi',
+  5: 'Không có quyền',
+  6: 'Dữ liệu truyền vào không đúng',
+};
+
+export default errorCode;

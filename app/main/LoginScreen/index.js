@@ -14,20 +14,20 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {Platform, StatusBar, KeyboardAvoidingView, View} from 'react-native';
+import {StatusBar, Animated, View, Keyboard} from 'react-native';
 import {Input} from 'react-native-elements';
-import FastImage from 'react-native-fast-image';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ButtonBase from '../../base/components/ButtonBase';
-import InputScrollView from '../../base/components/InputScrollView';
+import NotificationModal from '../../base/components/NotificationModal';
 
 // Apis
 import {loginUser} from '../../global';
 
 // Styles
 import styles from './styles/index.css';
+import {heightToDP} from '../../core/utils/dimension';
 
 class LoginScreen extends PureComponent {
   constructor(props) {
@@ -36,16 +36,66 @@ class LoginScreen extends PureComponent {
       username: '',
       password: '',
       loading: false,
+      isVisible: false,
     };
+
+    this.keyboardHeight = new Animated.Value(0);
+    this.imageHeight = new Animated.Value(heightToDP(200));
+
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangePassWord = this.onChangePassWord.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
-  onChangeName = (username) => {
-    this.setState({username});
+  componentDidMount() {
+    this.keyboardWillShowSub = Keyboard.addListener(
+      'keyboardWillShow',
+      this.keyboardWillShow,
+    );
+    this.keyboardWillHideSub = Keyboard.addListener(
+      'keyboardWillHide',
+      this.keyboardWillHide,
+    );
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: event.endCoordinates.height,
+      }),
+      Animated.timing(this.imageHeight, {
+        duration: event.duration,
+        toValue: heightToDP(140),
+      }),
+    ]).start();
   };
 
-  onChangePassWord = (password) => {
-    this.setState({password});
+  keyboardWillHide = (event) => {
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: 0,
+      }),
+      Animated.timing(this.imageHeight, {
+        duration: event.duration,
+        toValue: heightToDP(200),
+      }),
+    ]).start();
   };
+
+  onChangeName(username) {
+    this.setState({username});
+  }
+
+  onChangePassWord(password) {
+    this.setState({password});
+  }
 
   onLogin = () => {
     const {username, password} = this.state;
@@ -55,35 +105,38 @@ class LoginScreen extends PureComponent {
         password,
         (data) => {
           this.setState({loading: false, username: '', password: ''}, () => {
-            this.props.navigation.navigate('VerifyOTP');
+            this.props.navigation.replace('VerifyOTP');
           });
-
         },
         () => {
-          this.setState({loading: false, password: ''}, () => {
-            alert('Tài khoẳn hoặc mật khẩu không chính xác');
-          });
+          this.setState({loading: false, password: '', isVisible: true});
         },
       );
     });
   };
 
+  onCloseModal() {
+    this.setState({isVisible: false});
+  }
+
   render() {
-    const {username, password, loading} = this.state;
+    const {username, password, loading, isVisible} = this.state;
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
         blurRadius={10}>
         <StatusBar barStyle="light-content" />
-        <View style={{alignItems: 'center'}}>
-          <FastImage
-            source={require('./styles/images/logo.png')}
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </View>
-        <InputScrollView>
-          <View style={styles.body}>
+        <Animated.ScrollView
+          style={{zIndex: 10, paddingBottom: this.keyboardHeight}}
+          keyboardShouldPersistTaps={'handled'}>
+          <View style={{alignItems: 'center'}}>
+            <Animated.Image
+              source={require('./styles/images/logo.png')}
+              style={[styles.image, {height: this.imageHeight}]}
+              resizeMode={'contain'}
+            />
+          </View>
+          <View style={[styles.body]}>
             <Input
               value={username}
               placeholder="Tên đăng nhập"
@@ -104,7 +157,14 @@ class LoginScreen extends PureComponent {
               loading={loading}
             />
           </View>
-        </InputScrollView>
+        </Animated.ScrollView>
+        <NotificationModal
+          isVisible={isVisible}
+          title={'Thông báo'}
+          description={'Tài khoẳn hoặc mật khẩu không chính xác'}
+          titleButton={'Nhập lại'}
+          onPress={this.onCloseModal}
+        />
       </ImageBackGround>
     );
   }

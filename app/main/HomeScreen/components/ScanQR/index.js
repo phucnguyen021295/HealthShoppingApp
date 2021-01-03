@@ -39,7 +39,9 @@ class BarcodeScannerApp extends PureComponent {
   }
 
   onSuccess = (e) => {
-    alert(e.data);
+    // alert(e.data);
+    this.props.onChangeCode(e.data);
+    this.onCloseQR();
     // Linking.openURL(e.data).catch((err) =>
     //   console.error('An error occured', err),
     // );
@@ -57,6 +59,7 @@ class BarcodeScannerApp extends PureComponent {
           onRead={this.onSuccess}
           showMarker={true}
           buttonPositive
+          onClose={this.onCloseQR}
         />
       </Modal>
     );

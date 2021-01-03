@@ -32,7 +32,7 @@ import {
 } from './apis/health';
 
 const global = {
-  AccountBalance: 0,
+    balance: 0,
   token: '',
   membercode: '',
 };
@@ -54,11 +54,11 @@ const initGlobal = async () => {
 
 const getAccountBalanceGlobal = async () => {
   const _AccountBalance = await getAccountBalance();
-  global.AccountBalance = parseInt(_AccountBalance || '0');
+  global.balance = parseInt(_AccountBalance || '0');
 };
 
 const setAccountBalanceGlobal = (_AccountBalance = 0) => {
-  global.AccountBalance = _AccountBalance;
+  global.balance = _AccountBalance;
   setAccountBalance(_AccountBalance);
 };
 
@@ -86,6 +86,8 @@ const loginUser = (username, password, success, failure) => {
       Object.assign(global, data);
       setTokenGlobal(data.token);
       setInfoLogin(data);
+      // TODO: Set tạm số tiến
+      setAccountBalanceGlobal(data.balance);
       success();
     },
     failure,

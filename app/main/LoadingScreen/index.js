@@ -53,7 +53,7 @@ class LoadingScreen extends PureComponent {
   checkIntroduce = async () => {
     const checkIntroduce = await getCheckIntroduce();
     if (!checkIntroduce) {
-      this.props.navigation.navigate('Introduce');
+      this.props.navigation.replace('Introduce');
     } else {
       this.checkVerifyOTP();
     }
@@ -62,9 +62,9 @@ class LoadingScreen extends PureComponent {
   checkVerifyOTP = async () => {
     const checkVerifyOTP = await getCheckVerifyOTP();
     if (!checkVerifyOTP) {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.replace('Login');
     } else {
-      this.props.navigation.navigate('VerifyPIN');
+      this.props.navigation.replace('VerifyPIN');
     }
   };
 

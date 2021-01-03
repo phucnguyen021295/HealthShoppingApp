@@ -50,12 +50,12 @@ function ModalBase(props) {
       <View style={styles.content}>
         <View style={styles.body}>
           {title && <Text text={title} style={[styles.title, styleTitle]} />}
-          {description && (
+          {description ? (
             <Text
               text={description}
               style={[styles.description, styleDescription]}
             />
-          )}
+          ) : null}
         </View>
         {children && children}
       </View>

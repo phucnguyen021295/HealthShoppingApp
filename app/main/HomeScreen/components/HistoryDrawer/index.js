@@ -38,7 +38,7 @@ class HistoryDrawer extends PureComponent {
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
           <View style={styles.info}>
-              <HistoryList />
+            <HistoryList />
           </View>
         </ImageBackGround>
       </View>

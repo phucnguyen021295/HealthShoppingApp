@@ -22,8 +22,8 @@ import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../../../base/components/Text';
 import DetailItemScreen from '../../../DetailItemScreen';
 
-// Core
-import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
+// DB
+import {getProduct} from '../../../../core/db/table/product';
 
 // Styles
 import styles from './styles/index.css';
@@ -33,7 +33,15 @@ class OderItem extends PureComponent {
     super(props);
     this.state = {
       isVisible: false,
+      detailItem: {},
     };
+  }
+
+  componentDidMount() {
+    const {item} = this.props;
+    getProduct(item.productid, (data) => {
+      this.setState({detailItem: data[0]});
+    });
   }
 
   onDetailItem = () => {
@@ -51,19 +59,25 @@ class OderItem extends PureComponent {
   };
 
   render() {
-    const {isVisible} = this.state;
+    const {isVisible, detailItem} = this.state;
     const {item} = this.props;
+
+    const price = item.packpriceusd;
+
     return (
       <TouchableOpacity onPress={this.onDetailItem} style={styles.container}>
         <Image
-          source={{uri: item.image150}}
+          source={{uri: detailItem?.image150}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
         />
         <Text text={item.title} style={styles.title} numberOfLines={2} />
         <View style={styles.priceContainer}>
-          <MediumText text={`${item.priceusd} $`} style={styles.price} />
+          <MediumText
+            text={price ? `${price} $` : 'Giá liên hệ'}
+            style={styles.price}
+          />
           <Rating
             ratingCount={3}
             imageSize={16}
@@ -73,10 +87,12 @@ class OderItem extends PureComponent {
         <Modal
           testID={'modal'}
           isVisible={isVisible}
-          // onSwipeComplete={this.onCloseModal}
-          // swipeDirection={['up', 'left', 'right', 'down']}
           style={{justifyContent: 'flex-end', margin: 0}}>
-          <DetailItemScreen item={item} onShoppingCard={this.onShoppingCard} />
+          <DetailItemScreen
+            item={item}
+            detailItem={detailItem}
+            onShoppingCard={this.onShoppingCard}
+          />
         </Modal>
       </TouchableOpacity>
     );

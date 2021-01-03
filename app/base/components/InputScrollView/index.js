@@ -159,6 +159,7 @@ export default class extends PureComponent {
             ref={this._onRef}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
+            showsVerticalScrollIndicator={false}
             {...otherProps}
             // fix missing TextInput missing focus
             keyboardShouldPersistTaps="handled">

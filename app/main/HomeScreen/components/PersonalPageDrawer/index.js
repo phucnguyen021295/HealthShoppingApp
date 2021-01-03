@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Animated, Keyboard} from 'react-native';
 import {Input} from 'react-native-elements';
 
 // Components
@@ -27,6 +27,7 @@ import ButtonBase from '../../../../base/components/ButtonBase';
 import styles from './styles/index.css';
 import global, {updateUSer} from '../../../../global';
 import {heightToDP} from '../../../../core/utils/dimension';
+import NotificationModal from '../../../../base/components/NotificationModal';
 
 class PersonalPageDrawer extends PureComponent {
   constructor(props) {
@@ -37,8 +38,48 @@ class PersonalPageDrawer extends PureComponent {
       address: address,
       state: state,
       postalcode: postalcode || '+84',
+      descriptionModal: '',
+      isVisible: false,
+      titleButton: '',
+      loading: false,
     };
+
+    this.keyboardHeight = new Animated.Value(0);
   }
+
+  componentWillMount() {
+    this.keyboardWillShowSub = Keyboard.addListener(
+      'keyboardWillShow',
+      this.keyboardWillShow,
+    );
+    this.keyboardWillHideSub = Keyboard.addListener(
+      'keyboardWillHide',
+      this.keyboardWillHide,
+    );
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: event.endCoordinates.height - 60,
+      }),
+    ]).start();
+  };
+
+  keyboardWillHide = (event) => {
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: 0,
+      }),
+    ]).start();
+  };
 
   onChangeFullName = (city) => {
     this.setState({city});
@@ -64,20 +105,43 @@ class PersonalPageDrawer extends PureComponent {
       state: state,
       postalcode: postalcode,
     };
-    updateUSer(
-      data,
-      () => {
-        alert('Cập nhật thành công');
-      },
-      () => {
-        alert('Cập nhật thất bại');
-      },
-    );
+    this.setState({loading: true}, () => {
+      updateUSer(
+        data,
+        () => {
+          this.setState({
+            isVisible: true,
+            descriptionModal: 'Cập nhật thông tin thành công',
+            titleButton: 'Xác nhận',
+          });
+        },
+        () => {
+          this.setState({
+            isVisible: true,
+            descriptionModal: 'Cập nhật thất bại, Vui lòng thử lại sau',
+            titleButton: 'Đồng ý',
+          });
+        },
+      );
+    });
+  };
+
+  onCloseModal = () => {
+    this.setState({isVisible: false, loading: false});
   };
 
   render() {
     const {name, email, mobile} = global;
-    const {city, postalcode, address, state} = this.state;
+    const {
+      city,
+      postalcode,
+      address,
+      state,
+      isVisible,
+      descriptionModal,
+      titleButton,
+      loading,
+    } = this.state;
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
@@ -85,7 +149,8 @@ class PersonalPageDrawer extends PureComponent {
         <ImageBackGround
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <View style={styles.info}>
+          <Animated.View
+            style={[styles.info, {paddingBottom: this.keyboardHeight}]}>
             <ScrollView
               style={{flex: 1}}
               contentContainerStyle={{paddingTop: heightToDP(30)}}
@@ -161,14 +226,26 @@ class PersonalPageDrawer extends PureComponent {
                 />
               </View>
             </ScrollView>
-            <View style={{paddingTop: heightToDP(20)}}>
+            <View
+              style={{
+                paddingTop: heightToDP(20),
+                paddingBottom: heightToDP(10),
+              }}>
               <ButtonBase
                 title="Lưu thông tin"
                 buttonStyle={styles.btnButtonStyle}
                 onPress={this.onUpdateUser}
+                loading={loading}
               />
             </View>
-          </View>
+          </Animated.View>
+          <NotificationModal
+            isVisible={isVisible}
+            title={'Thông báo'}
+            description={descriptionModal}
+            titleButton={titleButton}
+            onPress={this.onCloseModal}
+          />
         </ImageBackGround>
       </View>
     );

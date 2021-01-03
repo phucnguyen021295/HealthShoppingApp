@@ -17,11 +17,8 @@ import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 
 // Component
-import Text, {MediumText} from '../../../../base/components/Text';
+import {MediumText} from '../../../../base/components/Text';
 import LinearGradient from '../../../../base/components/LinearGradient';
-
-// Core
-import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
 
 // Styles
 import styles from './styles/index.css';
@@ -65,13 +62,11 @@ class HistoryItem extends PureComponent {
             />
             <View />
             <MediumText
-              text={`Tổng tiền: ${formatMoneyToVN(item.totalPrice)}`}
+              text={`Tổng tiền: ${item.totalPrice} $`}
               style={styles.textTotalPrice}
             />
             <MediumText
-              text={`Số dư trong tài khoản: ${formatMoneyToVN(
-                item.accountBalance,
-              )}`}
+              text={`Số dư trong tài khoản: ${item.accountBalance} $`}
               style={styles.textAccountBalance}
             />
           </View>

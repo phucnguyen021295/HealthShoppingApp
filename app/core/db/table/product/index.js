@@ -54,3 +54,12 @@ export const getProducts = (success = () => {}, failure = () => {}) => {
   const query = 'SELECT * FROM product';
   getDatabase(query, success, failure);
 };
+
+export const getProduct = (
+  productId,
+  success = () => {},
+  failure = () => {},
+) => {
+  const query = `SELECT * FROM product WHERE productid = ${productId}`;
+  getDatabase(query, success, failure);
+};

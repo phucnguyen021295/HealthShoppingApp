@@ -349,6 +349,9 @@ export default class QRCodeScanner extends PureComponent {
   render() {
     return (
       <View style={[styles.mainContainer, this.props.containerStyle]}>
+        <Text style={styles.title}>
+          Di chuyển lại gần mã code QR
+        </Text>
         <View style={[styles.infoView, this.props.topViewStyle]}>
           {this._renderTopContent()}
         </View>
@@ -356,6 +359,9 @@ export default class QRCodeScanner extends PureComponent {
         <View style={[styles.infoView, this.props.bottomViewStyle]}>
           {this._renderBottomContent()}
         </View>
+        <Text style={styles.btnClose} onPress={this.props.onClose}>
+          Đóng
+        </Text>
       </View>
     );
   }

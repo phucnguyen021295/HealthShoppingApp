@@ -76,10 +76,10 @@ const initDatabase = (success, failure) => {
         if (res.rows.length === 0) {
           tx.executeSql('DROP TABLE IF EXISTS shopping');
           tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS shopping(productId TEXT, name TEXT, price TEXT, image TEXT, total INTEGER)',
+            'CREATE TABLE IF NOT EXISTS shopping(packid TEXT, productid TEXT, name TEXT, packpriceusd TEXT, image TEXT, quantity INTEGER, total INTEGER)',
           );
           tx.executeSql(
-            'CREATE UNIQUE INDEX idx_positions_shopping ON shopping (productId)',
+            'CREATE UNIQUE INDEX idx_positions_shopping ON shopping (packid, productid)',
           );
         }
       },
@@ -94,6 +94,23 @@ const initDatabase = (success, failure) => {
           tx.executeSql('DROP TABLE IF EXISTS transaction_history');
           tx.executeSql(
             'CREATE TABLE IF NOT EXISTS transaction_history(transactionId TEXT, description TEXT, totalPrice INTEGER, accountBalance INTEGER, time INTEGER)',
+          );
+        }
+      },
+    );
+
+    // Tạo bảng package_product
+    txn.executeSql(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='package_product'",
+      [],
+      function (tx, res) {
+        if (res.rows.length === 0) {
+          tx.executeSql('DROP TABLE IF EXISTS package_product');
+          tx.executeSql(
+            'CREATE TABLE IF NOT EXISTS package_product(packid TEXT, title TEXT, productid TEXT, quantity TEXT, type TEXT, countryid TEXT, membertype TEXT, bonus TEXT, onlinequota TEXT, packpriceusd INTEGER, packpv INTEGER)',
+          );
+          tx.executeSql(
+            'CREATE UNIQUE INDEX idx_positions_package ON package_product (packid)',
           );
         }
       },
@@ -139,7 +156,7 @@ const sumMoneyTotal = (success, failure) => {
   db = open();
   db.transaction(function (txn) {
     txn.executeSql(
-      'select sum(total) totalProduct, sum(price * total) totalMoney from shopping',
+      'select sum(total) totalProduct, sum(packpriceusd * total) totalMoney from shopping',
       [],
       (tx, results) => {
         let temp = [];

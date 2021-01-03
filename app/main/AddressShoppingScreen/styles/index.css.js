@@ -13,9 +13,9 @@
  */
 'use strict';
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
-import {transparent} from '../../../core/color';
+import {color, transparent} from '../../../core/color';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
@@ -72,14 +72,87 @@ const styles = StyleSheet.create({
     borderRadius: heightToDP(8),
     ...Platform.select({
       android: {
-        height:  heightToDP(40),
-      }
-    })
+        height: heightToDP(40),
+      },
+    }),
   },
 
   inputStyle: {
-    fontSize: fontSize.normal
-  }
+    fontSize: fontSize.normal,
+  },
+
+  image: {
+    width: 50,
+    height: 50,
+    borderColor: '#dddddd',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  title: {
+    flex: 1,
+    color: '#000000',
+    fontSize: fontSize.small,
+    marginLeft: 30
+  },
+
+  priceContainer: {
+    flex: 1,
+    paddingTop: 12,
+    paddingLeft: 12,
+    fontSize: fontSize.small,
+  },
+
+  price: {
+    color: '#000000',
+    fontSize: fontSize.small,
+    paddingLeft: 20,
+    paddingVertical: 8,
+  },
+
+  textUpdate: {
+    paddingVertical: 8,
+    color: '#015cd0',
+    fontSize: fontSize.small,
+  },
+
+  buttonStyle: {
+    backgroundColor: transparent,
+    borderColor: '#dddddd',
+    borderWidth: 1,
+    paddingVertical: 6,
+    width: 36,
+    height: 36,
+  },
+
+  buttonStyleModal: {
+    backgroundColor: color,
+    borderRadius: 0,
+    borderTopColor: color,
+    borderTopWidth: 1,
+    borderBottomLeftRadius: 14,
+  },
+
+  buttonStyleModal2: {
+    backgroundColor: '#ffffff',
+    borderRadius: 0,
+    borderTopColor: color,
+    borderTopWidth: 1,
+    borderBottomRightRadius: 14,
+  },
+
+  titleStyle: {color: '#015cd0', fontSize: fontSize.small},
+
+  textTotalPrice: {
+    color: '#000000',
+    fontSize: fontSize.normal,
+    lineHeight: 25,
+  },
 });
 
 export default styles;

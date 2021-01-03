@@ -27,6 +27,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 
+  btnTop: {
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+
   btnButtonStyle: {
     paddingVertical: 12,
     backgroundColor: transparent,

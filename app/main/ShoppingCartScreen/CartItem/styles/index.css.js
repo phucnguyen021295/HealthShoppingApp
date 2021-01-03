@@ -15,7 +15,7 @@
 
 import {StyleSheet, Dimensions} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
-import {transparent} from '../../../../core/color';
+import {color, transparent} from '../../../../core/color';
 
 const styles = StyleSheet.create({
   container: {
@@ -70,6 +70,22 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     width: 36,
     height: 36,
+  },
+
+  buttonStyleModal: {
+    backgroundColor: color,
+    borderRadius: 0,
+    borderTopColor: color,
+    borderTopWidth: 1,
+    borderBottomLeftRadius: 14,
+  },
+
+  buttonStyleModal2: {
+    backgroundColor: '#ffffff',
+    borderRadius: 0,
+    borderTopColor: color,
+    borderTopWidth: 1,
+    borderBottomRightRadius: 14,
   },
 
   titleStyle: {color: '#015cd0', fontSize: fontSize.small},

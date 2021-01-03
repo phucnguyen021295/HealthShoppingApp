@@ -48,6 +48,25 @@ const styles = StyleSheet.create({
     borderColor: '#00FF00',
     backgroundColor: 'transparent',
   },
+
+  btnClose: {
+    position: 'absolute',
+    bottom: 50,
+    right: 30,
+    color: '#ffffff',
+    fontSize: 20,
+  },
+
+  title: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 100,
+    color: '#ffffff',
+    fontSize: 20,
+    textAlign: 'center',
+    zIndex: 9999
+  },
 });
 
 export default styles;

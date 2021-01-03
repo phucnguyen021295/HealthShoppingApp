@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView, View, ScrollView} from 'react-native';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
@@ -22,6 +22,7 @@ import {MediumText} from '../../base/components/Text';
 
 // Db
 import {getListCarts} from '../../core/db/table/shopping';
+import {getUserApi} from '../../apis/health';
 
 // Styles
 import styles from './styles/index.css';
@@ -34,13 +35,34 @@ import global from '../../global';
 class UserShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
-    const {membercode, name} = global;
+    const {
+      membercode,
+      name,
+      mobile,
+      address,
+      email,
+      state,
+      city,
+      postalcode,
+      countryname,
+    } = global;
     this.state = {
       data: [],
       totalMoney: 0,
       code: '',
       membercode: membercode,
-      name: name,
+      receiver: {
+        name: name,
+        mobile: mobile,
+        address: address,
+        email: email,
+        state: state,
+        city: city,
+        postalcode: postalcode || '+84',
+        country: countryname,
+      },
+      paymenttype: 0,
+      receivingtype: 1,
     };
   }
 
@@ -69,19 +91,48 @@ class UserShoppingScreen extends PureComponent {
   };
 
   onContinue = () => {
-    this.props.navigation.navigate('AddressShopping');
+    const {totalMoney} = this.props;
+    const {membercode, receiver, paymenttype, data, receivingtype} = this.state;
+    this.props.navigation.navigate('AddressShopping', {
+      membercode: membercode,
+      receiver: receiver,
+      paymenttype: paymenttype,
+      carts: data,
+      receivingtype: receivingtype,
+      totalMoney: totalMoney
+    });
+  };
+
+  onCheckInfo = () => {
+    const {code} = this.state;
+    getUserApi(
+      code,
+      (response) => {
+        const {data} = response;
+        const receiver = {
+          name: data.name,
+          mobile: data.mobile,
+          address: data.address,
+          email: data.email,
+          state: data.state,
+          city: data.city,
+          postalcode: data.postalcode || '+84',
+          country: data.countryname,
+        };
+        this.setState({receiver: receiver, membercode: data.membercode});
+      },
+      () => {
+        alert('Có lỗi xảy ra vui lòng thử lại sau');
+      },
+    );
   };
 
   render() {
-    const {data, totalMoney, code, membercode, name} = this.state;
-
+    const {data, totalMoney, code, membercode, receiver} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <AppHeader title={'Mua hàng'} />
-        <View style={{paddingTop: 30}}>
-          <MediumText text={'Mua hàng cho'} style={styles.titleShopping} />
-          <MediumText text={`Họ và tên: ${name}`} style={[styles.textName, {marginTop: 12}]} />
-          <MediumText text={`Mã thành viên: ${membercode}`} style={styles.textName} />
+        <ScrollView>
           <Input
             value={code}
             placeholder="Mã thành viên"
@@ -94,10 +145,54 @@ class UserShoppingScreen extends PureComponent {
           <ButtonBase
             title={'Kiểm tra'}
             buttonStyle={styles.btnButtonStyle}
-            onPress={this.onContinue}
+            onPress={this.onCheckInfo}
             styleLinearGradient={{marginHorizontal: 20}}
           />
-        </View>
+          <MediumText text={'Mua hàng cho:'} style={styles.titleShopping} />
+          <MediumText
+            text={`Mã thành viên: ${membercode}`}
+            style={[styles.textName, {marginTop: 12}]}
+          />
+          <MediumText
+            text={`Họ và tên: ${receiver.name}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Số điện thoại: ${receiver.mobile}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Địa chỉ: ${receiver.address}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Email: ${receiver.email}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Thông tin quận: ${receiver.state}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Thành phố: ${receiver.city}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Mã bưu chính: ${receiver.postalcode}`}
+            style={[styles.textName]}
+          />
+          <MediumText
+            text={`Quốc gia: ${receiver.country}`}
+            style={[styles.textName]}
+          />
+          <View>
+            <MediumText
+              text={'Tóm tắt đơn hàng:'}
+              style={styles.titleShopping}
+            />
+            {data.map((item) => {})}
+          </View>
+        </ScrollView>
         <View style={styles.btnBottom}>
           <ButtonBase
             title={'Tiếp tục'}

@@ -43,7 +43,7 @@ class VerifyOTPScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      otp: '',
+      loading: false,
       code: '',
     };
     this.count = 0;
@@ -58,55 +58,44 @@ class VerifyOTPScreen extends PureComponent {
     );
   }
 
-  onChangeOTP = (otp) => {
-    this.setState({otp});
-  };
-
   pinInput = React.createRef();
 
   onVerifyOTP = () => {
     const {code} = this.state;
-    debugger;
-
-    verifyOTPApi(
-      code,
-      (response) => {
-        const membercode = response.data;
-        setCheckVerifyOTP(true);
-        // TODO: Set tạm số tiến
-        setAccountBalanceGlobal(10000000);
-        setMemberCodeGlobal(membercode);
-        this.props.navigation.navigate('VerifyPIN');
-      },
-      () => {
-        this.count++;
-        this.pinInput.current.shake().then(() => this.setState({code: ''}));
-        if (this.count === 5) {
-          this.props.navigation.navigate('Login');
-        }
-      },
-    );
+    this.setState({loading: true}, () => {
+      verifyOTPApi(
+        code,
+        (response) => {
+          const membercode = response.data;
+          setCheckVerifyOTP(true);
+          // // TODO: Set tạm số tiến
+          // setAccountBalanceGlobal(1000);
+          setMemberCodeGlobal(membercode);
+          this.props.navigation.navigate('VerifyPIN');
+          this.setState({loading: false});
+        },
+        () => {
+          this.count++;
+          this.pinInput.current
+            .shake()
+            .then(() => this.setState({code: '', loading: false}));
+          if (this.count === 5) {
+            this.props.navigation.navigate('Login');
+          }
+        },
+      );
+    });
   };
-
-  _checkCode = (code) => {
-    if (code != '123456') {
-      this.pinInput.current.shake().then(() => this.setState({code: ''}));
-    }
-  };
-
-  // setPinInput = (ref) => {
-  //   this.pinInput = ref;
-  // };
 
   render() {
-    const {name, password, code} = this.state;
+    const {loading, code} = this.state;
     return (
       <ImageBackGround
         source={require('./styles/images/background2.jpeg')}
         blurRadius={10}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
-          <AppHeader title={'Xác thực mã OTP'} color={'#ffffff'} />
+          <AppHeader showBack={false} title={'Xác thực mã OTP'} color={'#ffffff'} />
           <KeyboardAvoidingView
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -129,6 +118,7 @@ class VerifyOTPScreen extends PureComponent {
                 title="Xác thực OTP"
                 buttonStyle={styles.btnButtonStyle}
                 onPress={this.onVerifyOTP}
+                loading={loading}
               />
             </View>
           </KeyboardAvoidingView>

@@ -61,13 +61,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff52',
     paddingHorizontal: widthToDP(12),
     borderRadius: heightToDP(8),
-    height: heightToDP(120),
+    paddingVertical: heightToDP(6),
   },
 
   containerStyleNote: {
     paddingHorizontal: 0,
     paddingVertical: 0,
-    height: heightToDP(120),
   }
 });
 

@@ -54,14 +54,22 @@ class ShoppingCartScreen extends PureComponent {
     sumMoneyTotal((data) => {
       if (data.length > 0) {
         this.setState({
-          totalMoney: data[0].totalMoney,
+          totalMoney: data[0].totalMoney || 0,
         });
       }
+    });
+    getListCarts((data) => {
+      this.setState({data: data, isDataEmpty: data.length === 0}, () =>{
+        if(data.length === 0) {
+          this.props.navigation.goBack();
+        }
+      });
     });
   };
 
   onShoppingCard = () => {
-    this.props.navigation.navigate('UserShopping');
+    const {totalMoney} = this.state;
+    this.props.navigation.navigate('UserShopping', {totalMoney: totalMoney});
   };
 
   renderItem = ({item}) => <CartItem item={item} />;
@@ -76,7 +84,7 @@ class ShoppingCartScreen extends PureComponent {
         <FlatList
           data={data}
           renderItem={this.renderItem}
-          keyExtractor={(item) => item.productId}
+          keyExtractor={(item) => item.productid}
         />
         <View style={styles.btnBottom}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

@@ -92,6 +92,7 @@ class VerifyPINScreen extends PureComponent {
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
           <AppHeader
+            showBack={false}
             title={pinCodeActive ? 'Xác thực mã PIN' : 'Nhập mã PIN'}
             color={'#ffffff'}
           />

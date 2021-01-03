@@ -25,7 +25,6 @@ import {Button, Image} from 'react-native-elements';
 import HTML from 'react-native-render-html';
 
 // Components
-import Text, {MediumText} from '../../base/components/Text';
 import Quantity from './components/Quantity';
 import ButtonBase from '../../base/components/ButtonBase';
 import ModalBase from '../../base/components/ModalBase';
@@ -44,6 +43,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import global from '../../global';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {heightToDP, widthToDP} from '../../core/utils/dimension';
+import {color} from '../../core/color';
 
 class DetailItemScreen extends PureComponent {
   constructor(props) {
@@ -78,25 +78,32 @@ class DetailItemScreen extends PureComponent {
 
   addShoppingCard = () => {
     const {total, totalMoney} = this.state;
-    const {item} = this.props;
-    const {AccountBalance} = global;
+    const {item, detailItem} = this.props;
+    const {balance} = global;
 
-    if (AccountBalance < totalMoney + item.price * total) {
+    let totalItem = item.packpriceusd;
+    if (item.packid === -1) {
+      totalItem = item.packpriceusd * total;
+    }
+
+    if (balance < totalMoney + totalItem) {
       this.setState({isVisibleWarning: true});
     } else {
       this.props.onShoppingCard();
-      const data = {
-        productId: item.productid,
-        name: item.title,
-        price: item.priceusd,
-        image: item.image150,
-        total: total,
-      };
       if (total === 0) {
-        deleteShoppingItem(item.productId, () => {
+        deleteShoppingItem(item.packid, item.productid, () => {
           broadcastShoppingCardChange();
         });
       } else {
+        const data = {
+          packid: item.packid,
+          productid: item.productid,
+          name: item.title,
+          packpriceusd: item.packpriceusd,
+          image: detailItem?.image150,
+          quantity: item.packid === -1 ? total : item.quantity,
+          total: item.packid === -1 ? total : 1,
+        };
         replaceShopping(data, () => {
           broadcastShoppingCardChange();
         });
@@ -115,10 +122,18 @@ class DetailItemScreen extends PureComponent {
   setBtnText = () => {
     const {total, updateCart} = this.state;
     const {item} = this.props;
-    if (total === 0) {
-      return 'Quay lại';
+
+    let totalMoney = 0;
+
+    if (item.packid === -1) {
+      if (total === 0) {
+        return 'Quay lại';
+      }
+      totalMoney = total * item.packpriceusd;
+    } else {
+      totalMoney = item.packpriceusd;
     }
-    const totalMoney = total * item.priceusd;
+
     if (updateCart) {
       return `Cập nhật giỏ hàng - ${totalMoney} $`;
     }
@@ -136,43 +151,54 @@ class DetailItemScreen extends PureComponent {
 
   render() {
     const {isVisibleWarning} = this.state;
-    const {item} = this.props;
+    const {item, detailItem} = this.props;
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: item.image500}}
+          source={{uri: detailItem?.image500}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
         />
+        {item.packid === -1 ? (
+          <View
+            style={{
+              fjustifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 20,
+            }}>
+            <Quantity
+              productid={item.productid}
+              packid={item.packid}
+              quantity={item.quantity}
+              setQuantity={this.setQuantity}
+              updateTotal={this.updateTotal}
+            />
+          </View>
+        ) : null}
         <ScrollView>
           <View style={{paddingHorizontal: widthToDP(20)}}>
             <HTML
-              source={{html: item.des}}
+              source={{html: detailItem?.des}}
               imagesMaxWidth={Dimensions.get('window').width - 40}
               allowFontScaling={false}
               tagsStyles={CUSTOM_STYLES}
             />
           </View>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Quantity
-              productId={item.productId}
-              setQuantity={this.setQuantity}
-              updateTotal={this.updateTotal}
+        </ScrollView>
+        {item.packpriceusd ? (
+          <View style={styles.btnAddShopping}>
+            <ButtonBase
+              title={this.setBtnText()}
+              buttonStyle={styles.btnButtonStyle}
+              textStyle={styles.textStyle}
+              onPress={this.addShoppingCard}
             />
           </View>
-        </ScrollView>
-        <View style={styles.btnAddShopping}>
-          <ButtonBase
-            title={this.setBtnText()}
-            buttonStyle={styles.btnButtonStyle}
-            textStyle={styles.textStyle}
-            onPress={this.addShoppingCard}
-          />
-        </View>
+        ) : null}
+
         <Button
-          icon={
+      icon={
             <IconEntypo name="cross" size={heightToDP(22)} color={'#ffffff'} />
           }
           buttonStyle={styles.buttonStyle}
@@ -190,9 +216,9 @@ class DetailItemScreen extends PureComponent {
               title={'Thanh toán'}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={{
-                backgroundColor: '#247f24',
+                backgroundColor: color,
                 borderRadius: 0,
-                borderTopColor: '#247f24',
+                borderTopColor: color,
                 borderTopWidth: 1,
                 borderBottomLeftRadius: 14,
               }}
@@ -204,11 +230,11 @@ class DetailItemScreen extends PureComponent {
               buttonStyle={{
                 backgroundColor: '#ffffff',
                 borderRadius: 0,
-                borderTopColor: '#247f24',
+                borderTopColor: color,
                 borderTopWidth: 1,
                 borderBottomRightRadius: 14,
               }}
-              titleStyle={{color: '#247f24'}}
+              titleStyle={{color: color}}
               onPress={this.onCloseModalWarning}
             />
           </View>

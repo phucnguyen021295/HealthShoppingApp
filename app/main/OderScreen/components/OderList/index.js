@@ -21,14 +21,10 @@ import {withNavigation} from '@react-navigation/compat';
 import OderItem from '../OderItem';
 import ButtonBase from '../../../../base/components/ButtonBase';
 
-// Apis
-import {getProductsApi} from '../../../../apis/health';
-
 // db
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
-import {getProducts} from '../../../../core/db/table/product';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
-import {formatMoneyToVN} from '../../../../core/utils/formatMoney';
+import {handleGetPackageProduct} from '../../../../core/data';
 
 // Styles
 import styles from './styles/index.css';
@@ -44,13 +40,39 @@ class OderList extends PureComponent {
   }
 
   componentDidMount() {
+    const {oderType} = this.props;
+    this.onSumMoney();
     registerShoppingCardChange(this.onSumMoney);
 
-    getProducts((data) => {
-      this.setState({data: data});
-    });
+    handleGetPackageProduct(
+      oderType,
+      (data) => {
+        this.setState({data});
+      },
+      () => {
+        alert('Có lỗi xảy ra');
+      },
+    );
+  }
 
-    this.onSumMoney();
+  componentDidUpdate(
+    prevProps: Readonly<P>,
+    prevState: Readonly<S>,
+    snapshot: SS,
+  ) {
+    if (prevProps.oderType !== this.props.oderType) {
+      handleGetPackageProduct(
+        this.props.oderType,
+        (data) => {
+          this.setState({data}, () => {
+            this.handleMessageTop();
+          });
+        },
+        () => {
+          alert('Có lỗi xảy ra');
+        },
+      );
+    }
   }
 
   onSumMoney = () => {
@@ -83,6 +105,14 @@ class OderList extends PureComponent {
 
   renderItem = ({item}) => <OderItem item={item} />;
 
+  handleMessageTop = () => {
+    this.flatListRef.scrollToOffset({animated: true, offset: 0});
+  };
+
+  setRefFlatList = (ref) => {
+    this.flatListRef = ref;
+  };
+
   render() {
     const {data, totalProduct} = this.state;
     return (
@@ -90,8 +120,9 @@ class OderList extends PureComponent {
         <FlatList
           data={data}
           renderItem={this.renderItem}
-          keyExtractor={(item) => item.productId}
+          keyExtractor={(item) => item.packid}
           numColumns={2}
+          ref={this.setRefFlatList}
           style={{marginBottom: totalProduct > 0 ? 80 : 0}}
         />
         {totalProduct > 0 && this.ListFooterComponent()}

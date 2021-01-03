@@ -24,12 +24,14 @@ import ButtonBase from '../../base/components/ButtonBase';
 import {MediumText} from '../../base/components/Text';
 import InputScrollView from '../../base/components/InputScrollView';
 import ScanQR from '../HomeScreen/components/ScanQR';
+import NotificationModal from '../../base/components/NotificationModal';
 
 // Apis
 import {transferApi} from '../../apis/health';
 
 // Styles
 import styles from './styles/index.css';
+import {heightToDP} from '../../core/utils/dimension';
 
 class TransferScreen extends PureComponent {
   constructor(props) {
@@ -38,6 +40,9 @@ class TransferScreen extends PureComponent {
       membercode: '',
       amount: '',
       reason: '',
+      descriptionModal: '',
+      titleButton: '',
+      isVisible: false,
     };
   }
 
@@ -57,13 +62,21 @@ class TransferScreen extends PureComponent {
     const {membercode, amount, reason} = this.state;
 
     if (!membercode) {
-      alert('Bạn chưa nhập mã thành viên');
+      this.setState({
+        isVisible: true,
+        descriptionModal: 'Bạn chưa nhập mã thành viên',
+        titleButton: 'Nhập mã thành viên',
+      });
       return;
     }
 
     if (!amount) {
-      alert('Bạn chưa nhập số tiền');
-      return;;
+      this.setState({
+        isVisible: true,
+        descriptionModal: 'Bạn chưa nhập số tiền',
+        titleButton: 'Nhập số tiền',
+      });
+      return;
     }
 
     const data = {
@@ -75,23 +88,39 @@ class TransferScreen extends PureComponent {
     transferApi(
       data,
       () => {
-        alert('Chuyển tiền thành công');
         this.setState({
           membercode: '',
           amount: '',
           reason: '',
+          isVisible: true,
+          descriptionModal: 'Chuyển tiền thành công',
+          titleButton: 'Xác nhận',
         });
       },
       () => {
-        alert(
-          'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
-        );
+        this.setState({
+          isVisible: true,
+          descriptionModal:
+            'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
+          titleButton: 'Đồng ý',
+        });
       },
     );
   };
 
+  onCloseModal = () => {
+    this.setState({isVisible: false});
+  };
+
   render() {
-    const {membercode, amount, reason} = this.state;
+    const {
+      membercode,
+      amount,
+      reason,
+      isVisible,
+      descriptionModal,
+      titleButton,
+    } = this.state;
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
@@ -117,7 +146,10 @@ class TransferScreen extends PureComponent {
                   placeholderTextColor={'#dddddd'}
                   onChangeText={this.onChangeCode}
                 />
-                <ScanQR styleBtn={{marginLeft: 20}} />
+                <ScanQR
+                  styleBtn={{marginLeft: 20}}
+                  onChangeCode={this.onChangeCode}
+                />
               </View>
             </View>
             <View style={styles.item}>
@@ -141,7 +173,7 @@ class TransferScreen extends PureComponent {
                 placeholder="Ghi chú"
                 containerStyle={styles.containerStyleNote}
                 inputContainerStyle={styles.inputContainerStyleNote}
-                inputStyle={styles.inputStyle}
+                inputStyle={[styles.inputStyle, {height: heightToDP(120)}]}
                 multiline
                 renderErrorMessage={false}
                 numberOfLines={5}
@@ -158,6 +190,13 @@ class TransferScreen extends PureComponent {
             </View>
           </View>
         </InputScrollView>
+        <NotificationModal
+          isVisible={isVisible}
+          title={'Thông báo'}
+          description={descriptionModal}
+          titleButton={titleButton}
+          onPress={this.onCloseModal}
+        />
       </ImageBackGround>
     );
   }

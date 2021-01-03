@@ -16,10 +16,12 @@
 import {getDatabase, replaceDataBase, deleteDataBase} from '../../Sqlitedb';
 
 export const shopping = {
-  productId: 'productId',
+  packid: 'packid',
+  productid: 'productid',
   name: 'name',
-  price: 'price',
+  packpriceusd: 'packpriceusd',
   image: 'image',
+  quantity: 'quantity',
   total: 'total',
 };
 
@@ -29,12 +31,14 @@ export const replaceShopping = (
   failure = () => {},
 ) => {
   const query =
-    'REPLACE INTO shopping(productId, name, price, image, total) VALUES (?,?,?,?,?);';
+    'REPLACE INTO shopping(packid, productid, name, packpriceusd, image, quantity, total) VALUES (?,?,?,?,?,?,?);';
   const values = [
-    shopping.productId,
+    shopping.packid,
+    shopping.productid,
     shopping.name,
-    shopping.price,
+    shopping.packpriceusd,
     shopping.image,
+    shopping.quantity,
     shopping.total,
   ];
   replaceDataBase(query, values, success, failure);
@@ -46,27 +50,26 @@ export const getListCarts = (success = () => {}, failure = () => {}) => {
 };
 
 export const getCartItem = (
+  packId,
   productId,
   success = () => {},
   failure = () => {},
 ) => {
-  const query = `SELECT * FROM shopping where productId = ${productId}`;
+  const query = `SELECT * FROM shopping where productid = ${productId} AND packid = ${packId}`;
   getDatabase(query, success, failure);
 };
 
 export const deleteShoppingItem = (
+  packId,
   productId,
   success = () => {},
   failure = () => {},
 ) => {
-  const query = `DELETE FROM shopping WHERE productId = ${productId}`;
+  const query = `DELETE FROM shopping WHERE productid = ${productId} AND packid = ${packId}`;
   deleteDataBase(query, success, failure);
 };
 
-export const deleteShopping = (
-  success = () => {},
-  failure = () => {},
-) => {
+export const deleteShopping = (success = () => {}, failure = () => {}) => {
   const query = 'DELETE FROM shopping';
   deleteDataBase(query, success, failure);
 };

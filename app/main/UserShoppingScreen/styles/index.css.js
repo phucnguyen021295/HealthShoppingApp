@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     paddingVertical: heightToDP(10),
     backgroundColor: '#d7e5fa',
     color: '#666666',
+    marginTop: 20
   },
 
   textName: {

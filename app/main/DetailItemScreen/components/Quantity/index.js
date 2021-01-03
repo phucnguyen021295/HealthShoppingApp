@@ -34,8 +34,8 @@ class Quantity extends PureComponent {
   }
 
   componentDidMount() {
-    const {productId} = this.props;
-    getCartItem(productId, (data) => {
+    const {productid, packid} = this.props;
+    getCartItem(packid, productid, (data) => {
       const status = {
         updateCart: data.length > 0,
         total: data[0].total,
@@ -57,11 +57,18 @@ class Quantity extends PureComponent {
   };
 
   onPlus = () => {
-    this.setState((prevState) => {
-      const _total = prevState.total + 1;
-      this.props.setQuantity(_total);
-      return {total: _total};
-    });
+    const {total} = this.state;
+    const {quantity} = this.props;
+
+    if (quantity < total + 1) {
+      alert('Số lượng bạn nhập vượt quá tổng số lượng cho phép');
+    } else {
+      this.setState((prevState) => {
+        const _total = prevState.total + 1;
+        this.props.setQuantity(_total);
+        return {total: _total};
+      });
+    }
   };
 
   render() {
@@ -86,6 +93,8 @@ class Quantity extends PureComponent {
 
 Quantity.defaultProps = {
   showBack: false,
+  updateTotal: () => {},
+  setQuantity: () => {},
 };
 
 export default Quantity;

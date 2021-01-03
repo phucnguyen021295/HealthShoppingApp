@@ -37,7 +37,7 @@ export const loginApi = (username, password, success, failure) => {
         failure(response);
       }
     },
-    () => failure(),
+    (error) => failure(error),
   );
 };
 
@@ -95,7 +95,11 @@ export const getUserApi = (membercode, success, failure) => {
 };
 
 // 4. Xác nhận token
-export const verifyTokenApi = (token, success, failure) => {
+export const verifyTokenApi = (
+  token,
+  success = () => {},
+  failure = () => {},
+) => {
   const options = {
     method: 'post',
     data: {
@@ -107,7 +111,7 @@ export const verifyTokenApi = (token, success, failure) => {
   axios(options).then(
     (response) => {
       if (response.status === 200 && response.data.errorcode === 0) {
-        success(response);
+        success(response.data);
       } else {
         failure(response);
       }
@@ -191,7 +195,7 @@ export const getOTPCodeApi = (success, failure) => {
 };
 
 // 8. Chuyển tiền
-export const transferApi = (data, success, failure) => {
+export const transferApi = (data, success = () => {}, failure = () => {}) => {
   // data gồm: Membercode, Amount, Reason
   const {token} = global;
   const options = {
@@ -233,7 +237,7 @@ export const getEarningApi = (type = 'all', pageno = 1, success, failure) => {
 };
 
 // 10. Lấy về tài khoản người dùng
-export const getBalanceApi = (success, failure) => {
+export const getBalanceApi = (success = () => {}, failure = () => {}) => {
   const {token} = global;
   const options = {
     method: 'get',
@@ -243,17 +247,20 @@ export const getBalanceApi = (success, failure) => {
     url: `${DOMAIN}/api/balance`,
     timeout: 10000,
   };
-  axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
-      success(response);
-    } else {
-      failure(response);
-    }
-  }, failure());
+  axios(options).then(
+    (response) => {
+      if (response.status === 200 && response.data.errorcode === 0) {
+        success(response.data);
+      } else {
+        failure(response);
+      }
+    },
+    () => failure(),
+  );
 };
 
 // 11. Lấy về thống kế
-export const getReportApi = (type, success, failure) => {
+export const getReportApi = (type, success = () => {}, failure = () => {}) => {
   // type: 0 - ngày, 1 - tuần, 2 - tháng
   const {token} = global;
   const options = {
@@ -264,17 +271,20 @@ export const getReportApi = (type, success, failure) => {
     url: `${DOMAIN}/api/report/overview`,
     timeout: 10000,
   };
-  axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
-      success(response);
-    } else {
-      failure(response);
-    }
-  }, failure());
+  axios(options).then(
+    (response) => {
+      if (response.status === 200 && response.data.errorcode === 0) {
+        success(response);
+      } else {
+        failure(response);
+      }
+    },
+    () => failure(),
+  );
 };
 
 // 12. Lấy về danh sách sản phẩm
-export const getProductsApi = (success, failure) => {
+export const getProductsApi = (success = () => {}, failure = () => {}) => {
   const {token} = global;
   const options = {
     method: 'get',
@@ -284,17 +294,24 @@ export const getProductsApi = (success, failure) => {
     url: `${DOMAIN}/api/products`,
     timeout: 10000,
   };
-  axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
-      success(response.data);
-    } else {
-      failure && failure(response);
-    }
-  }, failure && failure());
+  axios(options).then(
+    (response) => {
+      if (response.status === 200 && response.data.errorcode === 0) {
+        success(response.data);
+      } else {
+        failure(response);
+      }
+    },
+    () => failure(),
+  );
 };
 
 // 12. Lấy về danh sách gói sản phẩm
-export const getPackageProductsApi = (ordertype, success, failure) => {
+export const getPackageProductsApi = (
+  orderType,
+  success = () => {},
+  failure = () => {},
+) => {
   // ordertype: 0: Mua hàng lần đầu, 1: Mua hàng nâng cấp, 2: Mua hàng active
   const {token} = global;
   const options = {
@@ -302,14 +319,58 @@ export const getPackageProductsApi = (ordertype, success, failure) => {
     headers: {
       'x-token': token,
     },
-    url: `${DOMAIN}/api/chooseproduct/${ordertype}`,
+    url: `${DOMAIN}/api/chooseproduct/${orderType}`,
     timeout: 10000,
   };
-  axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
-      success(response);
-    } else {
-      failure(response);
-    }
-  }, failure());
+  axios(options).then(
+    (response) => {
+      if (response.status === 200 && response.data.errorcode === 0) {
+        success(response.data);
+      } else {
+        failure(response);
+      }
+    },
+    () => failure(),
+  );
+};
+
+// 12. Lấy về danh sách gói sản phẩm
+export const oderApi = (
+  membercode,
+  receiver,
+  paymenttype,
+  receivingtype,
+  cart,
+  success = () => {},
+  failure = () => {},
+) => {
+  // ordertype: 0: Mua hàng lần đầu, 1: Mua hàng nâng cấp, 2: Mua hàng active
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    data: {
+      membercode: membercode,
+      receiver: receiver,
+      paymenttype: paymenttype,
+      receivingtype: receivingtype,
+      cart: cart,
+    },
+    url: `${DOMAIN}/api/order`,
+    timeout: 10000,
+  };
+  debugger;
+  axios(options).then(
+    (response) => {
+      debugger;
+      if (response.status === 200 && response.data.errorcode === 0) {
+        success(response.data);
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
 };
