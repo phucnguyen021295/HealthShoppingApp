@@ -161,7 +161,7 @@ class LoginScreen extends PureComponent {
         <NotificationModal
           isVisible={isVisible}
           title={'Thông báo'}
-          description={'Tài khoẳn hoặc mật khẩu không chính xác'}
+          description={'Tài khoản hoặc mật khẩu không chính xác'}
           titleButton={'Nhập lại'}
           onPress={this.onCloseModal}
         />
