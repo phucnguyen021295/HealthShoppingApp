@@ -18,6 +18,13 @@ import axios from 'axios';
 import {DOMAIN} from './server';
 import global from '../global';
 
+const isResponseSuccess = (response) => {
+  return (
+    response.status === 200 &&
+    (response.data.errorcode === 0 || response.error.errorcode === 0)
+  );
+};
+
 // 1. Đăng nhập
 export const loginApi = (username, password, success, failure) => {
   const options = {
@@ -31,7 +38,7 @@ export const loginApi = (username, password, success, failure) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
@@ -57,14 +64,14 @@ export const verifyOTPApi = (otp, success, failure) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => {
-      failure();
+    (error) => {
+      failure(error);
     },
   );
 };
@@ -82,14 +89,14 @@ export const getUserApi = (membercode, success, failure) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => {
-      failure();
+    (error) => {
+      failure(error);
     },
   );
 };
@@ -110,14 +117,14 @@ export const verifyTokenApi = (
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => {
-      failure();
+    (error) => {
+      failure(error);
     },
   );
 };
@@ -135,14 +142,14 @@ export const getActiveApi = (success, failure) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response);
       } else {
         failure(response);
       }
     },
-    () => {
-      failure();
+    (error) => {
+      failure(error);
     },
   );
 };
@@ -162,14 +169,14 @@ export const updateUserApi = (data, success, failure) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => {
-      failure();
+    (error) => {
+      failure(error);
     },
   );
 };
@@ -186,7 +193,7 @@ export const getOTPCodeApi = (success, failure) => {
     timeout: 10000,
   };
   axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
+    if (isResponseSuccess(response)) {
       success(response);
     } else {
       failure(response);
@@ -207,13 +214,16 @@ export const transferApi = (data, success = () => {}, failure = () => {}) => {
     url: `${DOMAIN}/api/transfer`,
     timeout: 10000,
   };
-  axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
-      success(response);
-    } else {
-      failure(response);
-    }
-  }, failure());
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(response);
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
 };
 
 // 9. Lấy về lịch sử giao dịch
@@ -228,7 +238,7 @@ export const getEarningApi = (type = 'all', pageno = 1, success, failure) => {
     timeout: 10000,
   };
   axios(options).then((response) => {
-    if (response.status === 200 && response.data.errorcode === 0) {
+    if (isResponseSuccess(response)) {
       success(response);
     } else {
       failure(response);
@@ -249,13 +259,13 @@ export const getBalanceApi = (success = () => {}, failure = () => {}) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => failure(),
+    (error) => failure(error),
   );
 };
 
@@ -273,13 +283,13 @@ export const getReportApi = (type, success = () => {}, failure = () => {}) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response);
       } else {
         failure(response);
       }
     },
-    () => failure(),
+    (error) => failure(error),
   );
 };
 
@@ -296,13 +306,13 @@ export const getProductsApi = (success = () => {}, failure = () => {}) => {
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => failure(),
+    (error) => failure(error),
   );
 };
 
@@ -324,13 +334,13 @@ export const getPackageProductsApi = (
   };
   axios(options).then(
     (response) => {
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);
       }
     },
-    () => failure(),
+    (error) => failure(error),
   );
 };
 
@@ -361,11 +371,9 @@ export const oderApi = (
     url: `${DOMAIN}/api/order`,
     timeout: 10000,
   };
-  debugger;
   axios(options).then(
     (response) => {
-      debugger;
-      if (response.status === 200 && response.data.errorcode === 0) {
+      if (isResponseSuccess(response)) {
         success(response.data);
       } else {
         failure(response);

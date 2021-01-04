@@ -185,13 +185,13 @@ class UserShoppingScreen extends PureComponent {
             text={`Quốc gia: ${receiver.country}`}
             style={[styles.textName]}
           />
-          <View>
-            <MediumText
-              text={'Tóm tắt đơn hàng:'}
-              style={styles.titleShopping}
-            />
-            {data.map((item) => {})}
-          </View>
+          {/*<View>*/}
+          {/*  <MediumText*/}
+          {/*    text={'Tóm tắt đơn hàng:'}*/}
+          {/*    style={styles.titleShopping}*/}
+          {/*  />*/}
+          {/*  {data.map((item) => {})}*/}
+          {/*</View>*/}
         </ScrollView>
         <View style={styles.btnBottom}>
           <ButtonBase

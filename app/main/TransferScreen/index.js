@@ -28,6 +28,8 @@ import NotificationModal from '../../base/components/NotificationModal';
 
 // Apis
 import {transferApi} from '../../apis/health';
+import global, {setAccountBalanceGlobal} from '../../global';
+import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 
 // Styles
 import styles from './styles/index.css';
@@ -43,6 +45,7 @@ class TransferScreen extends PureComponent {
       descriptionModal: '',
       titleButton: '',
       isVisible: false,
+      loading: false,
     };
   }
 
@@ -85,31 +88,40 @@ class TransferScreen extends PureComponent {
       reason: reason,
     };
 
-    transferApi(
-      data,
-      () => {
-        this.setState({
-          membercode: '',
-          amount: '',
-          reason: '',
-          isVisible: true,
-          descriptionModal: 'Chuyển tiền thành công',
-          titleButton: 'Xác nhận',
-        });
-      },
-      () => {
-        this.setState({
-          isVisible: true,
-          descriptionModal:
-            'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
-          titleButton: 'Đồng ý',
-        });
-      },
-    );
+    this.setState({loading: true}, () => {
+      transferApi(
+        data,
+        () => {
+          this.setState(
+            {
+              membercode: '',
+              amount: '',
+              reason: '',
+              isVisible: true,
+              descriptionModal: 'Chuyển tiền thành công',
+              titleButton: 'Xác nhận',
+            },
+            () => {
+              const {balance} = global;
+              setAccountBalanceGlobal(balance - amount);
+              broadcastShoppingCardChange();
+            },
+          );
+        },
+        () => {
+          this.setState({
+            isVisible: true,
+            descriptionModal:
+              'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
+            titleButton: 'Đồng ý',
+          });
+        },
+      );
+    });
   };
 
   onCloseModal = () => {
-    this.setState({isVisible: false});
+    this.setState({isVisible: false, loading: false});
   };
 
   render() {
@@ -120,6 +132,7 @@ class TransferScreen extends PureComponent {
       isVisible,
       descriptionModal,
       titleButton,
+      loading,
     } = this.state;
     return (
       <ImageBackGround
@@ -186,6 +199,7 @@ class TransferScreen extends PureComponent {
                 title="Chuyển tiền"
                 buttonStyle={styles.btnButtonStyle}
                 onPress={this.onTransfer}
+                loading={loading}
               />
             </View>
           </View>
