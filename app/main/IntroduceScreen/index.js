@@ -57,8 +57,8 @@ class IntroduceScreen extends PureComponent {
       return;
     }
     console.log('onPress', index);
-    this.setState((state) => ({
-      index: state.index + 1,
+    this.setState((prev) => ({
+      index: prev.index + 1,
     }));
   };
 

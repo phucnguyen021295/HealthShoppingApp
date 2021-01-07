@@ -18,10 +18,23 @@ import axios from 'axios';
 import {DOMAIN} from './server';
 import global from '../global';
 
+function stripBOM (content) {
+  content = content.toString()
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1)
+  }
+  return content
+}
+
+function jsonParse (content) {
+  return JSON.parse(stripBOM(content))
+}
+
 const isResponseSuccess = (response) => {
+  const data = jsonParse(response.data);
   return (
     response.status === 200 &&
-    (response.data.errorcode === 0 || response.error.errorcode === 0)
+    data.errorcode === 0
   );
 };
 
@@ -34,12 +47,11 @@ export const loginApi = (username, password, success, failure) => {
       pass: password,
     },
     url: `${DOMAIN}/api/auth`,
-    timeout: 10000,
   };
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -65,7 +77,7 @@ export const verifyOTPApi = (otp, success, failure) => {
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -90,7 +102,7 @@ export const getUserApi = (membercode, success, failure) => {
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -118,7 +130,7 @@ export const verifyTokenApi = (
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -170,7 +182,7 @@ export const updateUserApi = (data, success, failure) => {
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -260,7 +272,7 @@ export const getBalanceApi = (success = () => {}, failure = () => {}) => {
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -284,7 +296,7 @@ export const getReportApi = (type, success = () => {}, failure = () => {}) => {
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -307,7 +319,7 @@ export const getProductsApi = (success = () => {}, failure = () => {}) => {
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
@@ -335,7 +347,7 @@ export const getPackageProductsApi = (
   axios(options).then(
     (response) => {
       if (isResponseSuccess(response)) {
-        success(response.data);
+        success(jsonParse(response.data));
       } else {
         failure(response);
       }
