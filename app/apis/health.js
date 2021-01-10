@@ -18,24 +18,25 @@ import axios from 'axios';
 import {DOMAIN} from './server';
 import global from '../global';
 
-function stripBOM (content) {
-  content = content.toString()
-  if (content.charCodeAt(0) === 0xFEFF) {
-    content = content.slice(1)
+function stripBOM(content) {
+  content = content.toString();
+  console.log('content', content);
+  if (content.charCodeAt(0) === 0xfeff) {
+    content = content.slice(1);
   }
-  return content
+  return content;
 }
 
-function jsonParse (content) {
-  return JSON.parse(stripBOM(content))
+function jsonParse(content) {
+  if (typeof content === 'object') {
+    return content;
+  }
+  return JSON.parse(stripBOM(content));
 }
 
 const isResponseSuccess = (response) => {
   const data = jsonParse(response.data);
-  return (
-    response.status === 200 &&
-    data.errorcode === 0
-  );
+  return response.status === 200 && data.errorcode === 0;
 };
 
 // 1. Đăng nhập
