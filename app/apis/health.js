@@ -283,7 +283,7 @@ export const getBalanceApi = (success = () => {}, failure = () => {}) => {
 };
 
 // 11. Lấy về thống kế
-export const getReportApi = (type, success = () => {}, failure = () => {}) => {
+export const getReportApi = (_type, success = () => {}, failure = () => {}) => {
   // type: 0 - ngày, 1 - tuần, 2 - tháng
   const {token} = global;
   const options = {
@@ -291,7 +291,7 @@ export const getReportApi = (type, success = () => {}, failure = () => {}) => {
     headers: {
       'x-token': token,
     },
-    url: `${DOMAIN}/api/report/overview`,
+    url: `${DOMAIN}/api/report/overview${_type}`,
     timeout: 10000,
   };
   axios(options).then(

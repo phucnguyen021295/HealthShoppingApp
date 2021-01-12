@@ -117,12 +117,12 @@ class UserShoppingScreen extends PureComponent {
           state: data.state,
           city: data.city,
           postalcode: data.postalcode || '+84',
-          country: data.countryname,
+          country: 'Viet Nam', // data.countryname,
         };
         this.setState({receiver: receiver, membercode: data.membercode});
       },
       () => {
-        alert('Có lỗi xảy ra vui lòng thử lại sau');
+        alert('Có lỗi xảy ra vui lòng thử lại sau');123456
       },
     );
   };

@@ -14,28 +14,36 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {AppRegistry, StyleSheet, Text, View, processColor} from 'react-native';
-
+import { StyleSheet, View, processColor} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import {BarChart} from 'react-native-charts-wrapper';
+
+// Components
+import DropDownPicker from '../../base/components/DropDownPicker';
+import Text from '../../base/components/Text';
 
 class StackedBarChartScreen extends PureComponent {
   constructor() {
     super();
 
     this.state = {
+      country: 0,
       legend: {
         enabled: true,
-        textSize: 14,
+        textSize: 15,
         stroke: '#ffffff',
-        formSize: 14,
-        xEntrySpace: 10,
-        yEntrySpace: 5,
+        formSize: 15,
+        xEntrySpace: 15,
+        yEntrySpace: 10,
         wordWrapEnabled: true,
+
+        color: processColor('white'),
+        textColor: processColor('white'),
       },
       data: {
         dataSets: [
           {
-            values: [5, 40, 77, 81, 43],
+            values: [5, 40, 77, 81, 43, 86, 86],
             label: 'Company fff',
             config: {
               drawValues: false,
@@ -43,7 +51,7 @@ class StackedBarChartScreen extends PureComponent {
             },
           },
           {
-            values: [40, 5, 50, 23, 79],
+            values: [40, 5, 50, 23, 79, 67, 78],
             label: 'Company B',
             config: {
               drawValues: false,
@@ -60,6 +68,7 @@ class StackedBarChartScreen extends PureComponent {
           // },
         ],
         config: {
+          textColor: processColor('white'),
           barWidth: 0.2,
           group: {
             fromX: 0, // Tính từ khoảng cách số 0
@@ -67,14 +76,36 @@ class StackedBarChartScreen extends PureComponent {
             barSpace: 0.1, // Khoảng cách giữa các cột trong một cốt y
           },
         },
+        barSpacePercent: 40,
       },
       xAxis: {
-        valueFormatter: ['1990', '1991', '1992', '1993', '1994'],
+        valueFormatter: ['1990', '1991', '1992', '1993', '1994', '1997', '1977'],
         granularityEnabled: true,
-        granularity: 1, // khoảng cách các mốc
-        axisMaximum: 5, // Hiển thị tối đa số cột y
+        granularity: 0.5, // khoảng cách các mốc
+        axisMaximum: 7, // Hiển thị tối đa số cột y
         axisMinimum: 0, // Hiển thị ít nhất số cột y
         centerAxisLabels: true,
+        position: 'BOTTOM',
+        textColor: processColor('white'),
+        textSize: 15,
+      },
+
+      yAxis: {
+        left: {
+          enabled: true,
+          color: processColor('white'),
+          drawGridLines: true,
+          gridLineWidth: 1,
+          drawAxisLine: false,
+          drawLabels: true,
+          yOffset: -5,
+          position: 'INSIDE_CHART',
+          textSize: 10,
+          gridColor: processColor('white'),
+        },
+        right: {
+          enabled: false,
+        },
       },
 
       marker: { // Hiển thị tolltip
@@ -116,7 +147,26 @@ class StackedBarChartScreen extends PureComponent {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View>
+        <Text text={'Xem theo:'} />
+        <DropDownPicker
+            items={[
+              {label: 'Ngày', value: 0, icon: () => <Icon name="flag" size={18} color="#900" />, hidden: true},
+              {label: 'Tuần', value: 1, icon: () => <Icon name="flag" size={18} color="#900" />},
+              {label: 'Thán', value: 2, icon: () => <Icon name="flag" size={18} color="#900" />},
+            ]}
+            defaultValue={this.state.country}
+            containerStyle={{height: 40}}
+            style={{backgroundColor: '#fafafa',}}
+            itemStyle={{
+              justifyContent: 'flex-start'
+            }}
+            dropDownStyle={{backgroundColor: '#fafafa'}}
+            onChangeItem={item => this.setState({
+              country: item.value
+            })}
+        />
+
         {/*<View style={{height: 80}}>*/}
         {/*  <Text> selected entry</Text>*/}
         {/*  <Text> {this.state.selectedEntry}</Text>*/}
@@ -143,7 +193,8 @@ class StackedBarChartScreen extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    height: 400,
+    color: '#ffffff'
   },
   chart: {
     flex: 1,

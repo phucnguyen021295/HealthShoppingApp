@@ -22,7 +22,7 @@ import Header from '../Header';
 import {MediumText} from '../../../../base/components/Text';
 // import ChartScreen from '../../../ChartScreen';
 import ImageBackGround from '../../../../base/components/ImageBackGround';
-import ChartScreen from '../../../ChartScreen/BarChart';
+import ChartScreen from '../../../ChartScreen';
 
 // Data
 import {handleGetProducts} from '../../../../core/data';
