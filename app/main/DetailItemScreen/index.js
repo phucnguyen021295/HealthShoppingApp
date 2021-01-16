@@ -11,6 +11,7 @@
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import React, {PureComponent} from 'react';
@@ -28,6 +29,7 @@ import HTML from 'react-native-render-html';
 import Quantity from './components/Quantity';
 import ButtonBase from '../../base/components/ButtonBase';
 import ModalBase from '../../base/components/ModalBase';
+import DropDownPicker from '../../base/components/DropDownPicker';
 
 import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 
@@ -36,6 +38,7 @@ import {
   replaceShopping,
   deleteShoppingItem,
 } from '../../core/db/table/shopping';
+import {getPackageByProductId} from '../../core/db/table/package_product';
 
 // Styles
 import styles, {CUSTOM_STYLES} from './styles/index.css';
@@ -55,11 +58,32 @@ class DetailItemScreen extends PureComponent {
       isGetCart: false,
       totalMoney: 0,
       isVisibleWarning: false,
+      listPackage: [
+        {
+          label: 'Chọn các gói',
+          value: 0,
+        },
+      ],
+      packSelected: {},
+      valueSelected: 0,
+      data: [],
     };
   }
 
   componentDidMount() {
+    const {item, oderType} = this.props;
     this.onSumMoney();
+
+    getPackageByProductId(item.productid, oderType, (data) => {
+      const _listPackage = data.map((item) => ({
+        label: item.title,
+        value: item.packid,
+      }));
+      this.setState({
+        listPackage: _listPackage,
+        data: data,
+      });
+    });
   }
 
   onSumMoney = () => {
@@ -77,13 +101,13 @@ class DetailItemScreen extends PureComponent {
   };
 
   addShoppingCard = () => {
-    const {total, totalMoney} = this.state;
-    const {item, detailItem} = this.props;
+    const {total, totalMoney, packSelected} = this.state;
+    const {item} = this.props;
     const {balance} = global;
 
     let totalItem = item.packpriceusd;
-    if (item.packid === -1) {
-      totalItem = item.packpriceusd * total;
+    if (packSelected.packid === '-1') {
+      totalItem = packSelected.packpriceusd * total;
     }
 
     if (balance < totalMoney + totalItem) {
@@ -91,18 +115,18 @@ class DetailItemScreen extends PureComponent {
     } else {
       this.props.onShoppingCard();
       if (total === 0) {
-        deleteShoppingItem(item.packid, item.productid, () => {
+        deleteShoppingItem(packSelected.packid, item.productid, () => {
           broadcastShoppingCardChange();
         });
       } else {
         const data = {
-          packid: item.packid,
-          productid: item.productid,
-          name: item.title,
-          packpriceusd: item.packpriceusd,
-          image: detailItem?.image150,
-          quantity: item.packid === -1 ? total : item.quantity,
-          total: item.packid === -1 ? total : 1,
+          packid: packSelected.packid,
+          productid: packSelected.productid,
+          name: packSelected.title,
+          packpriceusd: packSelected.packpriceusd,
+          image: item.image150,
+          quantity: packSelected.packid === '-1' ? total : packSelected.quantity,
+          total: packSelected.packid === '-1' ? total : 1,
         };
         replaceShopping(data, () => {
           broadcastShoppingCardChange();
@@ -120,18 +144,18 @@ class DetailItemScreen extends PureComponent {
   };
 
   setBtnText = () => {
-    const {total, updateCart} = this.state;
-    const {item} = this.props;
+    const {total, updateCart, packSelected} = this.state;
+    // const {item} = this.props;
 
     let totalMoney = 0;
 
-    if (item.packid === -1) {
+    if (packSelected.packid === '-1') {
       if (total === 0) {
         return 'Quay lại';
       }
-      totalMoney = total * item.packpriceusd;
+      totalMoney = total * packSelected.packpriceusd;
     } else {
-      totalMoney = item.packpriceusd;
+      totalMoney = packSelected.packpriceusd;
     }
 
     if (updateCart) {
@@ -149,18 +173,40 @@ class DetailItemScreen extends PureComponent {
     this.setState({isVisibleWarning: true});
   };
 
+  onChangeItem = (item) => {
+    const {data} = this.state;
+    const itemPack = data.filter((it) => it.packid === item.value);
+    this.setState({
+      valueSelected: item.value,
+      packSelected: itemPack[0],
+    });
+  };
+
   render() {
-    const {isVisibleWarning} = this.state;
-    const {item, detailItem} = this.props;
+    const {isVisibleWarning, listPackage, valueSelected, packSelected} = this.state;
+    const {item} = this.props;
+
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: detailItem?.image500}}
+          source={{uri: item?.image500}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
         />
-        {item.packid === -1 ? (
+        <DropDownPicker
+          items={listPackage}
+          defaultValue={this.state.valueSelected}
+          containerStyle={{height: 40,  marginTop: 20, marginHorizontal: 20, color: 'blue'}}
+          style={{backgroundColor: '#fafafa', }}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          placeholderStyle={{color: 'blue'}}
+          dropDownStyle={{backgroundColor: '#fafafa'}}
+          onChangeItem={this.onChangeItem}
+        />
+        {valueSelected === '-1' ? (
           <View
             style={{
               fjustifyContent: 'center',
@@ -169,8 +215,8 @@ class DetailItemScreen extends PureComponent {
             }}>
             <Quantity
               productid={item.productid}
-              packid={item.packid}
-              quantity={item.quantity}
+              packid={valueSelected}
+              quantity={packSelected.quantity}
               setQuantity={this.setQuantity}
               updateTotal={this.updateTotal}
             />
@@ -179,14 +225,14 @@ class DetailItemScreen extends PureComponent {
         <ScrollView>
           <View style={{paddingHorizontal: widthToDP(20)}}>
             <HTML
-              source={{html: detailItem?.des}}
+              source={{html: item?.des}}
               imagesMaxWidth={Dimensions.get('window').width - 40}
               allowFontScaling={false}
               tagsStyles={CUSTOM_STYLES}
             />
           </View>
         </ScrollView>
-        {item.packpriceusd ? (
+        {packSelected?.packpriceusd ? (
           <View style={styles.btnAddShopping}>
             <ButtonBase
               title={this.setBtnText()}
@@ -198,7 +244,7 @@ class DetailItemScreen extends PureComponent {
         ) : null}
 
         <Button
-      icon={
+          icon={
             <IconEntypo name="cross" size={heightToDP(22)} color={'#ffffff'} />
           }
           buttonStyle={styles.buttonStyle}

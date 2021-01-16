@@ -240,23 +240,26 @@ export const transferApi = (data, success = () => {}, failure = () => {}) => {
 };
 
 // 9. Lấy về lịch sử giao dịch
-export const getEarningApi = (type = 'all', pageno = 1, success, failure) => {
+export const getEarningApi = (pageno = 1, success, failure) => {
   const {token} = global;
   const options = {
     method: 'get',
     headers: {
       'x-token': token,
     },
-    url: `${DOMAIN}/api/earning/${type}/${pageno}`,
+    url: `${DOMAIN}/api/earning/all/${pageno}`,
     timeout: 10000,
   };
-  axios(options).then((response) => {
-    if (isResponseSuccess(response)) {
-      success(response);
-    } else {
-      failure(response);
-    }
-  }, failure());
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
 };
 
 // 10. Lấy về tài khoản người dùng
@@ -370,7 +373,7 @@ export const oderApi = (
   // ordertype: 0: Mua hàng lần đầu, 1: Mua hàng nâng cấp, 2: Mua hàng active
   const {token} = global;
   const options = {
-    method: 'get',
+    method: 'post',
     headers: {
       'x-token': token,
     },

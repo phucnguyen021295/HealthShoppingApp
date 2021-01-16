@@ -30,15 +30,15 @@ import Text, {MediumText} from '../../base/components/Text';
 
 const orderType = [
   {
-    oderType: 0,
+    oderType: '0',
     name: 'Mua hàng lần đầu',
   },
   {
-    oderType: 1,
+    oderType: '1',
     name: 'Mua hàng nâng cấp',
   },
   {
-    oderType: 2,
+    oderType: '2',
     name: 'Mua hàng active',
   },
 ];

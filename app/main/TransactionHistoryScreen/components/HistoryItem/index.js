@@ -46,7 +46,7 @@ class HistoryItem extends PureComponent {
   }
 
   convertDate = (timeStamp) => {
-    const date = new Date(timeStamp);
+    const date = new Date(Number(timeStamp));
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
 
@@ -62,11 +62,15 @@ class HistoryItem extends PureComponent {
             />
             <View />
             <MediumText
-              text={`Tổng tiền: ${item.totalPrice} $`}
+                text={`Loại giao dịch: ${item.brief}`}
+                style={styles.textTotalPrice}
+            />
+            <MediumText
+              text={`Tổng tiền: ${item.value} $`}
               style={styles.textTotalPrice}
             />
             <MediumText
-              text={`Số dư trong tài khoản: ${item.accountBalance} $`}
+              text={`Số dư trong tài khoản: ${item.accountlog} $`}
               style={styles.textAccountBalance}
             />
           </View>

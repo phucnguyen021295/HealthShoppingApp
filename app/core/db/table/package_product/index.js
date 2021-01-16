@@ -56,3 +56,13 @@ export const getPackageProduct = (success = () => {}, failure = () => {}) => {
   const query = 'SELECT * FROM package_product';
   getDatabase(query, success, failure);
 };
+
+export const getPackageByProductId = (
+  productid,
+  oderType,
+  success = () => {},
+  failure = () => {},
+) => {
+  const query = `SELECT * FROM package_product WHERE productid = ${productid} AND type = ${oderType}`;
+  getDatabase(query, success, failure);
+};

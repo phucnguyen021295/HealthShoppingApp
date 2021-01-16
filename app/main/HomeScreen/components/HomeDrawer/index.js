@@ -75,8 +75,8 @@ class HomeDrawer extends PureComponent {
                       uri:
                         'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                     }}
-                    logoSize={50}
-                    size={140}
+                    logoSize={40}
+                    size={120}
                     logoBackgroundColor="transparent"
                     logoBorderRadius={25}
                   />

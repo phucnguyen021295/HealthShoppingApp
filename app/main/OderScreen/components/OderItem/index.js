@@ -22,9 +22,6 @@ import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../../../base/components/Text';
 import DetailItemScreen from '../../../DetailItemScreen';
 
-// DB
-import {getProduct} from '../../../../core/db/table/product';
-
 // Styles
 import styles from './styles/index.css';
 
@@ -33,15 +30,7 @@ class OderItem extends PureComponent {
     super(props);
     this.state = {
       isVisible: false,
-      detailItem: {},
     };
-  }
-
-  componentDidMount() {
-    const {item} = this.props;
-    getProduct(item.productid, (data) => {
-      this.setState({detailItem: data[0]});
-    });
   }
 
   onDetailItem = () => {
@@ -59,15 +48,15 @@ class OderItem extends PureComponent {
   };
 
   render() {
-    const {isVisible, detailItem} = this.state;
-    const {item} = this.props;
+    const {isVisible} = this.state;
+    const {item, oderType} = this.props;
 
-    const price = item.packpriceusd;
+    const price = item.priceusd;
 
     return (
       <TouchableOpacity onPress={this.onDetailItem} style={styles.container}>
         <Image
-          source={{uri: detailItem?.image150}}
+          source={{uri: item?.image150}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode={'contain'}
@@ -90,7 +79,7 @@ class OderItem extends PureComponent {
           style={{justifyContent: 'flex-end', margin: 0}}>
           <DetailItemScreen
             item={item}
-            detailItem={detailItem}
+            oderType={oderType}
             onShoppingCard={this.onShoppingCard}
           />
         </Modal>

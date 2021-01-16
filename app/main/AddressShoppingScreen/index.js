@@ -90,7 +90,6 @@ class AddressShoppingScreen extends PureComponent {
 
   onContinue() {
     const {membercode, receiver, paymenttype, receivingtype, data} = this.state;
-    debugger;
 
     const cart = data.map((item) => ({
       id: item.productid,
@@ -105,7 +104,6 @@ class AddressShoppingScreen extends PureComponent {
       receivingtype,
       cart,
       (response) => {
-        debugger;
         // Todo: Kich ban, mua hang thanh cong, lap tuc luu lich sử và xóa data shopping,
         const {balance} = global;
         const _accountBalance = balance - this.state.totalMoney;
@@ -128,7 +126,7 @@ class AddressShoppingScreen extends PureComponent {
       },
       (response) => {
         if (response?.data?.errorcode === 5) {
-          alert('Bạn không có đủ tiền.');
+          alert('Bạn không có đủ tiền, hoặc số lương bạn đặt vượt quá mức cho phép.');
         } else {
           alert('Có lỗi xảy ra.');
         }

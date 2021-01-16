@@ -58,14 +58,6 @@ class StackedBarChartScreen extends PureComponent {
               colors: [processColor('blue')],
             },
           },
-          // {
-          //   values: [10, 55, 35, 90, 82],
-          //   label: 'Company C',
-          //   config: {
-          //     drawValues: false,
-          //     colors: [processColor('green')],
-          //   },
-          // },
         ],
         config: {
           textColor: processColor('white'),
@@ -91,16 +83,17 @@ class StackedBarChartScreen extends PureComponent {
       },
 
       yAxis: {
+        textSize: 15,
+        textColor: processColor('white'),
         left: {
-          enabled: true,
           color: processColor('white'),
           drawGridLines: true,
           gridLineWidth: 1,
-          drawAxisLine: false,
+          drawAxisLine: true,
           drawLabels: true,
           yOffset: -5,
           position: 'INSIDE_CHART',
-          textSize: 10,
+          textSize: 15,
           gridColor: processColor('white'),
         },
         right: {
@@ -118,12 +111,6 @@ class StackedBarChartScreen extends PureComponent {
   }
 
   componentDidMount() {
-    // in this example, there are line, bar, candle, scatter, bubble in this combined chart.
-    // according to MpAndroidChart, the default data sequence is line, bar, scatter, candle, bubble.
-    // so 4 should be used as dataIndex to highlight bubble data.
-
-    // if there is only bar, bubble in this combined chart.
-    // 1 should be used as dataIndex to highlight bubble data.
 
     this.setState({
       ...this.state,
@@ -141,8 +128,6 @@ class StackedBarChartScreen extends PureComponent {
     } else {
       this.setState({...this.state, selectedEntry: JSON.stringify(entry)});
     }
-
-    console.log(event.nativeEvent);
   }
 
   render() {

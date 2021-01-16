@@ -23,6 +23,7 @@ import ButtonBase from '../../../../base/components/ButtonBase';
 
 // db
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
+import {getProducts} from '../../../../core/db/table/product';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {handleGetPackageProduct} from '../../../../core/data';
 
@@ -47,12 +48,16 @@ class OderList extends PureComponent {
     handleGetPackageProduct(
       oderType,
       (data) => {
-        this.setState({data});
+        // this.setState({data});
       },
       () => {
         alert('Có lỗi xảy ra');
       },
     );
+
+    getProducts((data) => {
+      this.setState({data: data});
+    });
   }
 
   componentDidUpdate(
@@ -64,9 +69,9 @@ class OderList extends PureComponent {
       handleGetPackageProduct(
         this.props.oderType,
         (data) => {
-          this.setState({data}, () => {
-            this.handleMessageTop();
-          });
+          // this.setState({data}, () => {
+          //   this.handleMessageTop();
+          // });
         },
         () => {
           alert('Có lỗi xảy ra');
@@ -103,7 +108,7 @@ class OderList extends PureComponent {
     );
   };
 
-  renderItem = ({item}) => <OderItem item={item} />;
+  renderItem = ({item}) => <OderItem item={item} oderType={this.props.oderType} />;
 
   handleMessageTop = () => {
     this.flatListRef.scrollToOffset({animated: true, offset: 0});
