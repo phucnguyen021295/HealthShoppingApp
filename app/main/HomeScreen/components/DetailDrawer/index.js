@@ -42,11 +42,11 @@ class DetailDrawer extends PureComponent {
               <PieChart />
             </View>
           </View>
-          <View style={{flex: 1}}>
-            <View style={styles.info}>
-              <PieChart />
-            </View>
-          </View>
+          {/*<View style={{flex: 1}}>*/}
+          {/*  <View style={styles.info}>*/}
+          {/*    <PieChart />*/}
+          {/*  </View>*/}
+          {/*</View>*/}
         </ImageBackGround>
       </View>
     );

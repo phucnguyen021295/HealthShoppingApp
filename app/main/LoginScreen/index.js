@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {StatusBar, Animated, View, Keyboard} from 'react-native';
+import {StatusBar, Animated, View, Keyboard, Platform} from 'react-native';
 import {Input} from 'react-native-elements';
 
 // Components
@@ -49,11 +49,11 @@ class LoginScreen extends PureComponent {
 
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
-      'keyboardWillShow',
+       Platform.OS == 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
       this.keyboardWillShow,
     );
     this.keyboardWillHideSub = Keyboard.addListener(
-      'keyboardWillHide',
+       Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
       this.keyboardWillHide,
     );
   }

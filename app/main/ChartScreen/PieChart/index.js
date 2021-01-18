@@ -14,45 +14,55 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {Dimensions, Text, View} from 'react-native';
+import {Dimensions, Text, View, ScrollView} from 'react-native';
 import {BarChart, PieChart} from 'react-native-chart-kit';
 import {heightToDP} from '../../../core/utils/dimension';
+
+import {labels} from '../formatData';
+import {month} from '../styles/data';
 
 const {width} = Dimensions.get('window');
 
 const data = [
   {
-    name: 'Seoul',
-    population: 215,
+    name: 'TN nhánh yếu',
+    population: 0,
     color: 'rgba(131, 167, 234, 1)',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
   },
   {
-    name: 'Toronto',
-    population: 280,
+    name: 'TN trực tiếp',
+    population: 0,
     color: '#F00',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
   },
   {
-    name: 'Beijing',
-    population: 527,
+    name: 'TN lãnh đạo',
+    population: 0,
     color: 'red',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
   },
   {
-    name: 'New York',
-    population: 853,
+    name: 'TN đều tầng',
+    population: 0,
     color: '#00ff33',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
   },
   {
-    name: 'Moscow',
-    population: 119,
+    name: 'Thưởng lãnh đạo',
+    population: 0,
     color: 'rgb(0, 0, 255)',
+    legendFontColor: '#ffffff',
+    legendFontSize: 15,
+  },
+  {
+    name: 'Thưởng LĐCC',
+    population: 0,
+    color: 'rgb(71,127,57)',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
   },
@@ -61,55 +71,372 @@ const data = [
 class PieChartScreen extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      data: [],
+    };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const {dataChart} = this.props;
+    const month1 = month[0];
+  }
 
   render() {
     return (
-      <View>
-        <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
-          Bezier Pie Chart
-        </Text>
-        <PieChart
-          data={data}
-          width={width}
-          height={heightToDP(200)}
-          hasLegend={true}
-          chartConfig={{
-            // backgroundColor: '#fffffff',
-            // backgroundGradientFrom: '#fb8c00',
-            // backgroundGradientTo: '#00000059',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16,
-              color: '#ffffff',
-            },
-            propsForDots: {
-              r: '6',
-              strokeWidth: '2',
-              stroke: '#ffa726',
-            },
-            fillShadowGradient: 'skyblue',
-            fillShadowGradientOpacity: 1,
-            // backgroundGradientFrom:  "#1E2923",
-            backgroundGradientFromOpacity: 0,
-            // backgroundGradientTo: "#08130D",
-            backgroundGradientToOpacity: 0,
-          }}
-          // bezier
-          style={{
-            marginVertical: 8,
-            color: '#ffffff',
-          }}
-          accessor="population"
-          backgroundColor="transparent"
-          // paddingLeft="15"
-          absolute
-        />
-      </View>
+      <ScrollView>
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 1/2021
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 12/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 11/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 10/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 09/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 08/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 07/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+          <View>
+              <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
+                  Tháng 06/2020
+              </Text>
+              <PieChart
+                  data={data}
+                  width={width}
+                  height={heightToDP(200)}
+                  hasLegend={true}
+                  chartConfig={{
+                      // backgroundColor: '#fffffff',
+                      // backgroundGradientFrom: '#fb8c00',
+                      // backgroundGradientTo: '#00000059',
+                      decimalPlaces: 2, // optional, defaults to 2dp
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                          borderRadius: 16,
+                          color: '#ffffff',
+                      },
+                      propsForDots: {
+                          r: '6',
+                          strokeWidth: '2',
+                          stroke: '#ffa726',
+                      },
+                      fillShadowGradient: 'skyblue',
+                      fillShadowGradientOpacity: 0.8,
+                      // backgroundGradientFrom:  "#1E2923",
+                      backgroundGradientFromOpacity: 0,
+                      // backgroundGradientTo: "#08130D",
+                      backgroundGradientToOpacity: 0,
+                  }}
+                  // bezier
+                  style={{
+                      marginVertical: 8,
+                      color: '#ffffff',
+                  }}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  // paddingLeft="15"
+                  absolute
+              />
+          </View>
+
+      </ScrollView>
     );
   }
 }

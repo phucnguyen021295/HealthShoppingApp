@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import { StyleSheet, View, processColor} from 'react-native';
+import {StyleSheet, View, processColor} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {BarChart} from 'react-native-charts-wrapper';
 
@@ -22,104 +22,243 @@ import {BarChart} from 'react-native-charts-wrapper';
 import DropDownPicker from '../../base/components/DropDownPicker';
 import Text from '../../base/components/Text';
 
+// Apis
+import {getReportApi} from '../../apis/health';
+
+import {labels} from './formatData';
+
+const colors = {
+  'Weak Leg': processColor('green'),
+  Direct: processColor('red'),
+  Mega: processColor('purple'),
+  F1: processColor('yellow'),
+  Level: processColor('blue'),
+  Bonus: processColor('pink'),
+  'Leadership Bonus': processColor('orange'),
+  Order: processColor('plum'),
+  Transfer: processColor('gold'),
+  Total: processColor('salmon'),
+};
+
+const formatDay = {
+  0: 'Thứ 2',
+  1: 'Thứ 3',
+  2: 'Thứ 4',
+  3: 'Thứ 5',
+  4: 'Thứ 6',
+  5: 'Thứ 7',
+  6: 'CN',
+};
+
+const itemsSelectCalendar = [
+  {
+    label: 'Ngày',
+    value: 'day',
+    icon: () => <Icon name="flag" size={18} color="#900" />,
+    hidden: true,
+  },
+  {
+    label: 'Tuần',
+    value: 'week',
+    icon: () => <Icon name="flag" size={18} color="#900" />,
+  },
+  {
+    label: 'Tháng',
+    value: 'month',
+    icon: () => <Icon name="flag" size={18} color="#900" />,
+  },
+];
+
+const ARRAY_KEY_SELECT = ['Order', 'Transfer'];
+
+const filterReport = [
+  {
+    label: 'Mặc định',
+    value: ARRAY_KEY_SELECT,
+    hidden: true,
+  },
+
+  {
+    label: 'Thu nhập nhánh yếu',
+    value: ['Weak Leg'],
+  },
+
+  {
+    label: 'Thu nhập lãnh đạo',
+    value: ['Mega'],
+  },
+
+  {
+    label: 'Thu nhập đều tầng',
+    value: ['Level'],
+  },
+
+  {
+    label: 'Thưởng lãnh đạo',
+    value: ['Bonus'],
+  },
+
+  {
+    label: 'Thưởng lãnh đạo cấp cao',
+    value: ['Leadership Bonus'],
+  },
+
+  {
+    label: 'Đât hàng',
+    value: ['Order'],
+  },
+
+  {
+    label: 'Chuyển tiền',
+    value: ['Transfer'],
+  },
+
+  {
+    label: 'Tổng thu nhập',
+    value: ['Total'],
+  },
+];
+
+const TYPE_CALENDAR = {
+  day: '0',
+  week: '1',
+  month: '2',
+};
+
+const dataChartConstructor = {
+  legend: {
+    enabled: true,
+    textSize: 15,
+    stroke: '#ffffff',
+    formSize: 15,
+    xEntrySpace: 15,
+    yEntrySpace: 10,
+    wordWrapEnabled: true,
+
+    color: processColor('white'),
+    textColor: processColor('white'),
+  },
+  data: {
+    dataSets: [],
+    config: {
+      textColor: processColor('white'),
+      barWidth: 0.2,
+      group: {
+        fromX: 0, // Tính từ khoảng cách số 0
+        groupSpace: 0.4, // Khoảng cách giữa các group bar
+        barSpace: 0.1, // Khoảng cách giữa các cột trong một cốt y
+      },
+    },
+    barSpacePercent: 40,
+  },
+  xAxis: {
+    valueFormatter: [],
+    granularityEnabled: true,
+    granularity: 0.5, // khoảng cách các mốc
+    axisMaximum: 7, // Hiển thị tối đa số cột y
+    axisMinimum: 0, // Hiển thị ít nhất số cột y
+    centerAxisLabels: true,
+    position: 'BOTTOM',
+    textColor: processColor('white'),
+    textSize: 15,
+  },
+
+  yAxis: {
+    left: {
+      textColor: processColor('white'),
+      drawGridLines: true,
+      gridLineWidth: 1,
+      drawAxisLine: true,
+      drawLabels: true,
+      textSize: 15,
+      gridColor: processColor('white'),
+    },
+    right: {
+      enabled: false,
+    },
+  },
+
+  marker: {
+    // Hiển thị tolltip
+    enabled: true,
+    markerColor: processColor('#F0C0FF8C'),
+    textColor: processColor('white'),
+    markerFontSize: 14,
+  },
+};
+
 class StackedBarChartScreen extends PureComponent {
   constructor() {
     super();
 
     this.state = {
-      country: 0,
-      legend: {
-        enabled: true,
-        textSize: 15,
-        stroke: '#ffffff',
-        formSize: 15,
-        xEntrySpace: 15,
-        yEntrySpace: 10,
-        wordWrapEnabled: true,
-
-        color: processColor('white'),
-        textColor: processColor('white'),
-      },
-      data: {
-        dataSets: [
-          {
-            values: [5, 40, 77, 81, 43, 86, 86],
-            label: 'Company fff',
-            config: {
-              drawValues: false,
-              colors: [processColor('red')],
-            },
-          },
-          {
-            values: [40, 5, 50, 23, 79, 67, 78],
-            label: 'Company B',
-            config: {
-              drawValues: false,
-              colors: [processColor('blue')],
-            },
-          },
-        ],
-        config: {
-          textColor: processColor('white'),
-          barWidth: 0.2,
-          group: {
-            fromX: 0, // Tính từ khoảng cách số 0
-            groupSpace: 0.4, // Khoảng cách giữa các group bar
-            barSpace: 0.1, // Khoảng cách giữa các cột trong một cốt y
-          },
-        },
-        barSpacePercent: 40,
-      },
-      xAxis: {
-        valueFormatter: ['1990', '1991', '1992', '1993', '1994', '1997', '1977'],
-        granularityEnabled: true,
-        granularity: 0.5, // khoảng cách các mốc
-        axisMaximum: 7, // Hiển thị tối đa số cột y
-        axisMinimum: 0, // Hiển thị ít nhất số cột y
-        centerAxisLabels: true,
-        position: 'BOTTOM',
-        textColor: processColor('white'),
-        textSize: 15,
-      },
-
-      yAxis: {
-        textSize: 15,
-        textColor: processColor('white'),
-        left: {
-          color: processColor('white'),
-          drawGridLines: true,
-          gridLineWidth: 1,
-          drawAxisLine: true,
-          drawLabels: true,
-          yOffset: -5,
-          position: 'INSIDE_CHART',
-          textSize: 15,
-          gridColor: processColor('white'),
-        },
-        right: {
-          enabled: false,
-        },
-      },
-
-      marker: { // Hiển thị tolltip
-        enabled: true,
-        markerColor: processColor('#F0C0FF8C'),
-        textColor: processColor('white'),
-        markerFontSize: 14,
-      },
+      typeCalendar: 'day',
+      arrayKey: ARRAY_KEY_SELECT,
+      legend: dataChartConstructor.legend,
+      data: dataChartConstructor.data,
+      xAxis: dataChartConstructor.xAxis,
+      yAxis: dataChartConstructor.yAxis,
+      marker: dataChartConstructor.marker,
+      dataCharts: [],
     };
   }
 
   componentDidMount() {
+    const {arrayKey, typeCalendar} = this.state;
 
-    this.setState({
-      ...this.state,
-      highlights: [
-        {x: 1, y: 40},
-        {x: 2, y: 50},
-      ],
+    getReportApi(TYPE_CALENDAR[typeCalendar], (response) => {
+      const {data} = response;
+      this.convertData(data, arrayKey);
+      this.setState({dataCharts: data});
     });
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.typeCalendar !== this.state.typeCalendar) {
+      const {typeCalendar, arrayKey} = this.state;
+      getReportApi(TYPE_CALENDAR[typeCalendar], (response) => {
+        const {data} = response;
+        this.convertData(data, arrayKey);
+        this.setState({dataCharts: data});
+      });
+    }
+  }
+
+  convertData = (data, arrayKey) => {
+    const {typeCalendar} = this.state;
+    let dataSets = [];
+    let valueFormatter = [];
+
+    for (let i = 0; i < arrayKey.length; i++) {
+      const item = {
+        values: [],
+        label: labels[arrayKey[i]],
+        config: {
+          drawValues: false,
+          colors: [colors[arrayKey[i]]],
+        },
+      };
+      for (let j = 0; j < data.length; j++) {
+        item.values.push(parseInt(data[j][arrayKey[i]] || 0));
+      }
+      dataSets.push(item);
+    }
+
+    for (let a = 0; a < data.length; a++) {
+      valueFormatter.push(
+        typeCalendar === 'day'
+          ? formatDay[data[a][typeCalendar]]
+          : data[a][typeCalendar],
+      );
+    }
+
+    this.setState((prevState) => {
+      return {
+        data: Object.assign({}, prevState.data, {dataSets}),
+        xAxis: Object.assign({}, prevState.xAxis, {valueFormatter}),
+      };
+    });
+  };
 
   handleSelect(event) {
     let entry = event.nativeEvent;
@@ -130,37 +269,62 @@ class StackedBarChartScreen extends PureComponent {
     }
   }
 
+  onChangeItem = (item) => {
+    this.setState({
+      typeCalendar: item.value,
+    });
+  };
+
+  onChangeItemFilter = (item) => {
+    this.setState(
+      {
+        arrayKey: item.value,
+      },
+      () => {
+        this.convertData(this.state.dataCharts, item.value);
+      },
+    );
+  };
+
   render() {
     return (
       <View>
-        <Text text={'Xem theo:'} />
-        <DropDownPicker
-            items={[
-              {label: 'Ngày', value: 0, icon: () => <Icon name="flag" size={18} color="#900" />, hidden: true},
-              {label: 'Tuần', value: 1, icon: () => <Icon name="flag" size={18} color="#900" />},
-              {label: 'Thán', value: 2, icon: () => <Icon name="flag" size={18} color="#900" />},
-            ]}
-            defaultValue={this.state.country}
-            containerStyle={{height: 40}}
-            style={{backgroundColor: '#fafafa',}}
-            itemStyle={{
-              justifyContent: 'flex-start'
-            }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
-            onChangeItem={item => this.setState({
-              country: item.value
-            })}
-        />
-
-        {/*<View style={{height: 80}}>*/}
-        {/*  <Text> selected entry</Text>*/}
-        {/*  <Text> {this.state.selectedEntry}</Text>*/}
-        {/*</View>*/}
+        <View style={{flexDirection: 'row', zIndex: 100, paddingHorizontal: 10}}>
+          <View style={{flex: 1, marginRight: 10}}>
+            <Text text={'Xem theo:'} style={{color: '#ffffff', fontSize: 15, paddingTop: 10, paddingBottom: 5}} />
+            <DropDownPicker
+              items={itemsSelectCalendar}
+              defaultValue={this.state.typeCalendar}
+              containerStyle={{height: 40}}
+              style={{backgroundColor: '#fafafa'}}
+              itemStyle={{
+                justifyContent: 'flex-start',
+              }}
+              dropDownStyle={{backgroundColor: '#fafafa'}}
+              onChangeItem={this.onChangeItem}
+            />
+          </View>
+          <View style={{flex: 2}}>
+            <Text text={'Lọc theo:'} style={{color: '#ffffff', fontSize: 15, paddingTop: 10, paddingBottom: 5}} />
+            <DropDownPicker
+              items={filterReport}
+              defaultValue={this.state.arrayKey}
+              containerStyle={{height: 40}}
+              style={{backgroundColor: '#fafafa'}}
+              itemStyle={{
+                justifyContent: 'flex-start',
+              }}
+              dropDownStyle={{backgroundColor: '#fafafa'}}
+              onChangeItem={this.onChangeItemFilter}
+            />
+          </View>
+        </View>
 
         <View style={styles.container}>
           <BarChart
             style={styles.chart}
             xAxis={this.state.xAxis}
+            yAxis={this.state.yAxis}
             data={this.state.data}
             legend={this.state.legend}
             drawValueAboveBar={false}
@@ -179,7 +343,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 400,
-    color: '#ffffff'
+    color: '#ffffff',
+    zIndex: 99,
   },
   chart: {
     flex: 1,

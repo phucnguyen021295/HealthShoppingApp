@@ -40,11 +40,6 @@ class HomeDrawer extends PureComponent {
   }
 
   componentDidMount() {
-    // setTimeout(() => {
-    //   for (let i = 0; i < data.length; i++) {
-    //     replaceProduct(data[i]);
-    //   }
-    // }, 1000);
     handleGetProducts();
   }
 
@@ -76,7 +71,7 @@ class HomeDrawer extends PureComponent {
                         'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                     }}
                     logoSize={40}
-                    size={120}
+                    size={100}
                     logoBackgroundColor="transparent"
                     logoBorderRadius={25}
                   />

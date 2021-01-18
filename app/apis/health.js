@@ -294,7 +294,7 @@ export const getReportApi = (_type, success = () => {}, failure = () => {}) => {
     headers: {
       'x-token': token,
     },
-    url: `${DOMAIN}/api/report/overview${_type}`,
+    url: `${DOMAIN}/api/report/overview/${_type}`,
     timeout: 10000,
   };
   axios(options).then(
