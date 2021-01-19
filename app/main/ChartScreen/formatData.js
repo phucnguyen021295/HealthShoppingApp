@@ -23,7 +23,7 @@ export const labels = {
     Level: 'Thu nhập đều tầng',
     Bonus: 'Thưởng lãnh đạo',
     'Leadership Bonus': 'Thưởng lãnh đạo cấp cao',
-    Order: 'Đât hàng',
+    Order: 'Đặt hàng',
     Transfer: 'Chuyển tiền',
     Total: 'Tổng thu nhập',
 };

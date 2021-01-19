@@ -64,17 +64,12 @@ const styles = StyleSheet.create({
   },
 
   inputContainerStyle: {
-    textAlign: 'center',
     borderWidth: 1,
-    borderColor: '#666666',
-    backgroundColor: '#ffffff52',
+    borderColor: '#838383',
     paddingHorizontal: widthToDP(12),
     borderRadius: heightToDP(8),
-    ...Platform.select({
-      android: {
-        height: heightToDP(40),
-      },
-    }),
+    marginHorizontal: widthToDP(20),
+    marginVertical: heightToDP(12)
   },
 
   inputStyle: {

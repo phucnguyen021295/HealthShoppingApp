@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 
 // Components
 import HistoryItem from '../HistoryItem';
@@ -25,14 +25,28 @@ import {getEarningApi} from '../../../../apis/health';
 
 // Core
 import {getListTransactionHistory} from '../../../../core/db/table/transaction_history';
-// import {registerShoppingCardChange} from '../../../../core/shoppingCart';
+import DropDownPicker from '../../../../base/components/DropDownPicker';
+
+const itemsSelect = [
+  {
+    label: 'Tất cả',
+    value: 'all',
+    hidden: true,
+  },
+  {
+    label: 'Chuyển tiền',
+    value: 'transfer',
+  },
+];
 
 class HistoryList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
-      total: 0
+      dataFull: [],
+      total: 0,
+      type: 'all',
     };
   }
 
@@ -44,9 +58,9 @@ class HistoryList extends PureComponent {
     // });
 
     getEarningApi(1, (response) => {
-      debugger;
-      this.setState({data: response.data.items, total: response.data.total});
-    })
+      const items = response.data.items;
+      this.setState({data: items, dataFull: items, total: response.data.total});
+    });
   }
 
   onSumMoney = () => {
@@ -66,17 +80,42 @@ class HistoryList extends PureComponent {
     );
   }
 
+  onChangeItem = (item) => {
+    const {dataFull} = this.state;
+    if(item.value === 'transfer') {
+      const dataFilter = dataFull.filter(item => item.brief === 'Transfer');
+      this.setState({type: item.value, data: dataFilter});
+    } else {
+      this.setState({type: item.value, data: dataFull});
+    }
+  };
+
   render() {
     const {data} = this.state;
     return (
-      <FlatList
-        data={data}
-        renderItem={this.renderItem}
-        keyExtractor={(item) => item.identity}
-        showsVerticalScrollIndicator={false}
-        ListFooterComponent={data.length === 0 && this.ListFooterComponent}
-        contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 30}}
-      />
+      <View style={{paddingVertical: 20}}>
+
+        <DropDownPicker
+          items={itemsSelect}
+          defaultValue={this.state.type}
+          containerStyle={{height: 40, marginHorizontal: 20}}
+          style={{backgroundColor: '#fafafa', }}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#fafafa'}}
+          onChangeItem={this.onChangeItem}
+        />
+        <FlatList
+          data={data}
+          renderItem={this.renderItem}
+          keyExtractor={(item) => item.identity}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={data.length === 0 && this.ListFooterComponent}
+          style={{ marginTop: 20, marginBottom: 50}}
+          contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 10,}}
+        />
+      </View>
     );
   }
 }

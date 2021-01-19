@@ -19,14 +19,14 @@ import {color, transparent} from '../../../core/color';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const {width} = Dimensions.get('window');
-const HEIGHT_IMAGE = (width * 2) / 3;
+const HEIGHT_IMAGE = (width * 1.4) / 3;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#ffffff'},
 
   image: {
     width: width,
-    height: HEIGHT_IMAGE,
+    height: heightToDP(HEIGHT_IMAGE),
   },
 
   row1: {

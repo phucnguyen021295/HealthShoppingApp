@@ -44,6 +44,7 @@ import global, {setAccountBalanceGlobal} from '../../global';
 // Styles
 import styles from './styles/index.css';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
+import NotificationModal from '../../base/components/NotificationModal';
 
 const siteKey = '6LfFxh4aAAAAAC6i_FgaSqYJT4xdf24HVzIAOoQc';
 const baseUrl = 'http://nmways.com';
@@ -51,7 +52,6 @@ const baseUrl = 'http://nmways.com';
 class AddressShoppingScreen extends PureComponent {
   constructor(props) {
     super(props);
-    const {address} = global;
     const {
       membercode,
       receiver,
@@ -62,12 +62,15 @@ class AddressShoppingScreen extends PureComponent {
     } = this.props.route.params;
     this.state = {
       totalMoney: totalMoney,
-      address: address,
+      address: receiver?.address,
       membercode: membercode,
       receiver: receiver,
       paymenttype: paymenttype,
       data: carts,
       receivingtype: receivingtype,
+      isVisible: false,
+      descriptionModal: '',
+      titleButton: '',
     };
 
     this.onContinue = this.onContinue.bind(this);
@@ -116,23 +119,53 @@ class AddressShoppingScreen extends PureComponent {
           time: new Date().getTime(),
         };
 
-        addTransactionHistory(data, () => {
-          deleteShopping(() => {
-            broadcastShoppingCardChange();
-            setAccountBalanceGlobal(_accountBalance);
-            this.props.navigation.popToTop();
-          });
+        // addTransactionHistory(data, () => {
+        //   deleteShopping(() => {
+        //     broadcastShoppingCardChange();
+        //     setAccountBalanceGlobal(_accountBalance);
+        //     this.props.navigation.popToTop();
+        //   });
+        // });
+
+        this.setState({
+          isVisible: true,
+          descriptionModal: 'Đặt hàng thành công.!',
+          titleButton: 'Xong',
         });
       },
       (response) => {
         if (response?.data?.errorcode === 5) {
-          alert('Bạn không có đủ tiền, hoặc số lương bạn đặt vượt quá mức cho phép.');
+          this.setState({
+            isVisible: true,
+            descriptionModal:
+              'Bạn không có đủ tiền, hoặc số lương bạn đặt vượt quá mức cho phép.!',
+            titleButton: 'Đồng ý',
+          });
         } else {
-          alert('Có lỗi xảy ra.');
+          this.setState({
+            isVisible: true,
+            descriptionModal: 'Đã có lỗi xảy ra. Vui lòng thử lại sau.!',
+            titleButton: 'Đồng ý',
+          });
         }
       },
     );
   }
+
+  onCloseModal = () => {
+    const {titleButton} = this.state;
+    this.setState({isVisible: false}, () => {
+      if (titleButton === 'Xong') {
+        const {balance} = global;
+        const _accountBalance = balance - this.state.totalMoney;
+        deleteShopping(() => {
+          broadcastShoppingCardChange();
+          setAccountBalanceGlobal(_accountBalance);
+          this.props.navigation.popToTop();
+        });
+      }
+    });
+  };
 
   // onMessage = (event) => {
   //   if (event && event.nativeEvent.data) {
@@ -156,8 +189,19 @@ class AddressShoppingScreen extends PureComponent {
   //   this.captchaForm = _ref
   // }
 
+  onChangeCode = (text) => {
+    this.setState({address: text});
+  };
+
   render() {
-    const {data, totalMoney, address} = this.state;
+    const {
+      data,
+      totalMoney,
+      address,
+      isVisible,
+      descriptionModal,
+      titleButton,
+    } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <AppHeader title={'Đặt đơn'} />
@@ -166,9 +210,20 @@ class AddressShoppingScreen extends PureComponent {
             text={'Giao hàng tại địa chỉ:'}
             style={styles.titleShopping}
           />
-          <MediumText
-            text={address}
-            style={[styles.textName, {marginTop: 12}]}
+          <Input
+            value={address}
+            defaultValue={address}
+            placeholder="Nhập địa chỉ"
+            containerStyle={{
+              paddingHorizontal: 0,
+              flex: 1,
+              paddingVertical: 0,
+            }}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.inputStyle}
+            renderErrorMessage={false}
+            placeholderTextColor={'#dddddd'}
+            onChangeText={this.onChangeCode}
           />
           <MediumText
             text={'Tóm tắt đơn hàng:'}
@@ -226,6 +281,13 @@ class AddressShoppingScreen extends PureComponent {
             onPress={this.onContinue}
           />
         </View>
+        <NotificationModal
+          isVisible={isVisible}
+          title={'Thông báo'}
+          description={descriptionModal}
+          titleButton={titleButton}
+          onPress={this.onCloseModal}
+        />
       </SafeAreaView>
     );
   }

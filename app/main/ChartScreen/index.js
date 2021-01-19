@@ -104,7 +104,7 @@ const filterReport = [
   },
 
   {
-    label: 'Đât hàng',
+    label: 'Đặt hàng',
     value: ['Order'],
   },
 
@@ -139,7 +139,24 @@ const dataChartConstructor = {
     textColor: processColor('white'),
   },
   data: {
-    dataSets: [],
+    dataSets: [
+      {
+        values: [0, 0, 0, 0, 0, 0, 0],
+        label: '',
+        config: {
+          drawValues: false,
+          colors: [processColor('red')],
+        },
+      },
+      {
+        values: [0, 0, 0, 0, 0, 0, 0],
+        label: '',
+        config: {
+          drawValues: false,
+          colors: [processColor('white')],
+        },
+      },
+    ],
     config: {
       textColor: processColor('white'),
       barWidth: 0.2,
@@ -152,7 +169,7 @@ const dataChartConstructor = {
     barSpacePercent: 40,
   },
   xAxis: {
-    valueFormatter: [],
+    valueFormatter: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'],
     granularityEnabled: true,
     granularity: 0.5, // khoảng cách các mốc
     axisMaximum: 7, // Hiển thị tối đa số cột y
@@ -332,6 +349,11 @@ class StackedBarChartScreen extends PureComponent {
             onChange={(event) => console.log(event.nativeEvent)}
             // highlights={this.state.highlights}
             marker={this.state.marker}
+            pinchZoom={false}
+            animation={{
+                durationX: 1000,
+                durationY: 1000,
+            }}
           />
         </View>
       </View>

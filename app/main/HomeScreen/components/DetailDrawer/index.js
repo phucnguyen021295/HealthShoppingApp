@@ -14,34 +14,56 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
+import {View, FlatList} from 'react-native';
 
 // Components
 import Header from '../Header';
 import ImageBackGround from '../../../../base/components/ImageBackGround';
 import PieChart from '../../../ChartScreen/PieChart';
 
+// Apis
+import {getReportApi} from '../../../../apis/health';
+
 // styles
 import styles from './styles/index.css';
+import HistoryItem from '../../../TransactionHistoryScreen/components/HistoryItem';
 
 class DetailDrawer extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      dataCharts: [],
+    };
   }
+
+  componentDidMount() {
+    getReportApi(2, (response) => {
+      const {data} = response;
+      this.setState({dataCharts: data});
+    });
+  }
+
+  renderItem = ({item}) => (
+    <View style={styles.info}>
+      <PieChart dataChart={item} />
+    </View>
+  );
 
   render() {
     const {navigation} = this.props;
+    const {dataCharts} = this.state;
     return (
       <View style={styles.container}>
         <Header navigation={navigation} />
         <ImageBackGround
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <View style={{flex: 1}}>
-            <View style={styles.info}>
-              <PieChart />
-            </View>
-          </View>
+          <FlatList
+            data={dataCharts}
+            renderItem={this.renderItem}
+            keyExtractor={(item) => item.identity}
+            showsVerticalScrollIndicator={false}
+          />
           {/*<View style={{flex: 1}}>*/}
           {/*  <View style={styles.info}>*/}
           {/*    <PieChart />*/}

@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     paddingVertical: heightToDP(10),
     backgroundColor: color,
     paddingHorizontal: widthToDP(30),
+    borderRadius: 8,
   },
 
   body: {
