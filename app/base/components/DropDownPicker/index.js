@@ -34,7 +34,7 @@ class DropDownPicker extends React.Component {
 
     let choice;
     let items = [];
-    let defaultValueIndex; // captures index of first defaultValue for initial scrolling
+    let defaultValueIndex; // captures index of first defaulstyletValue for initial scrolling
     if (!props.multiple) {
       if (props.defaultValue || props.defaultValue === 0) {
         choice = props.items.find((item) => item.value === props.defaultValue);

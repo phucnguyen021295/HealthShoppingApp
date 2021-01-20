@@ -26,6 +26,7 @@ import Text from '../../base/components/Text';
 import {getReportApi} from '../../apis/health';
 
 import {labels} from './formatData';
+import {heightToDP} from '../../core/utils/dimension';
 
 const colors = {
   'Weak Leg': processColor('green'),
@@ -268,6 +269,7 @@ class StackedBarChartScreen extends PureComponent {
           : data[a][typeCalendar],
       );
     }
+    debugger;
 
     this.setState((prevState) => {
       return {
@@ -306,14 +308,14 @@ class StackedBarChartScreen extends PureComponent {
   render() {
     return (
       <View>
-        <View style={{flexDirection: 'row', zIndex: 100, paddingHorizontal: 10}}>
-          <View style={{flex: 1, marginRight: 10}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: 10}}>
+          <View style={{flex: 1, marginRight: 10,}}>
             <Text text={'Xem theo:'} style={{color: '#ffffff', fontSize: 15, paddingTop: 10, paddingBottom: 5}} />
             <DropDownPicker
               items={itemsSelectCalendar}
               defaultValue={this.state.typeCalendar}
-              containerStyle={{height: 40}}
-              style={{backgroundColor: '#fafafa'}}
+              containerStyle={{height: 40, }}
+              style={{backgroundColor: '#fafafa', }}
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
@@ -321,13 +323,13 @@ class StackedBarChartScreen extends PureComponent {
               onChangeItem={this.onChangeItem}
             />
           </View>
-          <View style={{flex: 2}}>
+          <View style={{flex: 2, }}>
             <Text text={'Lọc theo:'} style={{color: '#ffffff', fontSize: 15, paddingTop: 10, paddingBottom: 5}} />
             <DropDownPicker
               items={filterReport}
               defaultValue={this.state.arrayKey}
               containerStyle={{height: 40}}
-              style={{backgroundColor: '#fafafa'}}
+              style={{backgroundColor: '#fafafa', }}
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
@@ -364,7 +366,7 @@ class StackedBarChartScreen extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 400,
+    height: heightToDP(400),
     color: '#ffffff',
     zIndex: 99,
   },

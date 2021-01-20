@@ -198,7 +198,7 @@ class DetailItemScreen extends PureComponent {
           items={listPackage}
           defaultValue={this.state.valueSelected}
           containerStyle={{height: 40,  marginTop: 20, marginHorizontal: 20, color: 'blue'}}
-          style={{backgroundColor: '#fafafa', }}
+          style={{backgroundColor: '#fafafa',}}
           itemStyle={{
             justifyContent: 'flex-start',
           }}
