@@ -26,7 +26,7 @@ import Text from '../../base/components/Text';
 import {getReportApi} from '../../apis/health';
 
 import {labels} from './formatData';
-import {heightToDP} from '../../core/utils/dimension';
+import styles from './styles/index.css';
 
 const colors = {
   'Weak Leg': processColor('green'),
@@ -170,7 +170,15 @@ const dataChartConstructor = {
     barSpacePercent: 40,
   },
   xAxis: {
-    valueFormatter: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'],
+    valueFormatter: [
+      'Thứ 2',
+      'Thứ 3',
+      'Thứ 4',
+      'Thứ 5',
+      'Thứ 6',
+      'Thứ 7',
+      'CN',
+    ],
     granularityEnabled: true,
     granularity: 0.5, // khoảng cách các mốc
     axisMaximum: 7, // Hiển thị tối đa số cột y
@@ -212,11 +220,8 @@ class StackedBarChartScreen extends PureComponent {
     this.state = {
       typeCalendar: 'day',
       arrayKey: ARRAY_KEY_SELECT,
-      legend: dataChartConstructor.legend,
       data: dataChartConstructor.data,
       xAxis: dataChartConstructor.xAxis,
-      yAxis: dataChartConstructor.yAxis,
-      marker: dataChartConstructor.marker,
       dataCharts: [],
     };
   }
@@ -246,6 +251,7 @@ class StackedBarChartScreen extends PureComponent {
     const {typeCalendar} = this.state;
     let dataSets = [];
     let valueFormatter = [];
+    debugger;
 
     for (let i = 0; i < arrayKey.length; i++) {
       const item = {
@@ -269,11 +275,21 @@ class StackedBarChartScreen extends PureComponent {
           : data[a][typeCalendar],
       );
     }
-    debugger;
+
+    if (dataSets.length === 1) {
+      dataSets.push({
+        values: [0, 0, 0, 0, 0, 0, 0],
+        label: '',
+        config: {
+          drawValues: false,
+          colors: [processColor('transparent')],
+        },
+      });
+    }
 
     this.setState((prevState) => {
       return {
-        data: Object.assign({}, prevState.data, {dataSets}),
+        data: Object.assign({}, dataChartConstructor.data, {dataSets}),
         xAxis: Object.assign({}, prevState.xAxis, {valueFormatter}),
       };
     });
@@ -308,14 +324,22 @@ class StackedBarChartScreen extends PureComponent {
   render() {
     return (
       <View>
-        <View style={{flexDirection: 'row', paddingHorizontal: 10}}>
-          <View style={{flex: 1, marginRight: 10,}}>
-            <Text text={'Xem theo:'} style={{color: '#ffffff', fontSize: 15, paddingTop: 10, paddingBottom: 5}} />
+        <View style={styles.dropdownContainer}>
+          <View style={{flex: 1, marginRight: 10}}>
+            <Text
+              text={'Xem theo:'}
+              style={{
+                color: '#ffffff',
+                fontSize: 15,
+                paddingTop: 10,
+                paddingBottom: 5,
+              }}
+            />
             <DropDownPicker
               items={itemsSelectCalendar}
               defaultValue={this.state.typeCalendar}
-              containerStyle={{height: 40, }}
-              style={{backgroundColor: '#fafafa', }}
+              containerStyle={styles.containerStyle}
+              style={{backgroundColor: '#fafafa'}}
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
@@ -323,13 +347,21 @@ class StackedBarChartScreen extends PureComponent {
               onChangeItem={this.onChangeItem}
             />
           </View>
-          <View style={{flex: 2, }}>
-            <Text text={'Lọc theo:'} style={{color: '#ffffff', fontSize: 15, paddingTop: 10, paddingBottom: 5}} />
+          <View style={{flex: 2}}>
+            <Text
+              text={'Lọc theo:'}
+              style={{
+                color: '#ffffff',
+                fontSize: 15,
+                paddingTop: 10,
+                paddingBottom: 5,
+              }}
+            />
             <DropDownPicker
               items={filterReport}
               defaultValue={this.state.arrayKey}
               containerStyle={{height: 40}}
-              style={{backgroundColor: '#fafafa', }}
+              style={{backgroundColor: '#fafafa'}}
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
@@ -343,18 +375,18 @@ class StackedBarChartScreen extends PureComponent {
           <BarChart
             style={styles.chart}
             xAxis={this.state.xAxis}
-            yAxis={this.state.yAxis}
+            yAxis={dataChartConstructor.yAxis}
             data={this.state.data}
-            legend={this.state.legend}
+            legend={dataChartConstructor.legend}
             drawValueAboveBar={false}
             onSelect={this.handleSelect.bind(this)}
             onChange={(event) => console.log(event.nativeEvent)}
             // highlights={this.state.highlights}
-            marker={this.state.marker}
+            marker={dataChartConstructor.marker}
             pinchZoom={false}
             animation={{
-                durationX: 1000,
-                durationY: 1000,
+              durationX: 1000,
+              durationY: 1000,
             }}
           />
         </View>
@@ -362,17 +394,5 @@ class StackedBarChartScreen extends PureComponent {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: heightToDP(400),
-    color: '#ffffff',
-    zIndex: 99,
-  },
-  chart: {
-    flex: 1,
-  },
-});
 
 export default StackedBarChartScreen;

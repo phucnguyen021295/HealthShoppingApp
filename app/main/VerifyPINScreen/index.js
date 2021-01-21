@@ -43,6 +43,8 @@ class VerifyPINScreen extends PureComponent {
       pinCode: '',
       pinCodeActive: global.pinCode,
     };
+
+    this.onFirstVerify = false;
   }
 
   componentDidMount() {
@@ -68,6 +70,7 @@ class VerifyPINScreen extends PureComponent {
     if (!pinCodeActive) {
       setPinCode(pinCode);
       this.setState({pinCodeActive: pinCode, pinCode: ''});
+      this.onFirstVerify = true;
     } else {
       if (pinCode != pinCodeActive) {
         this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
@@ -80,6 +83,19 @@ class VerifyPINScreen extends PureComponent {
   _checkCode = (pinCode) => {
     if (pinCode != '123456') {
       this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
+    }
+  };
+
+  onChanegeCode = (code) => {
+    const {pinCodeActive, pinCode} = this.state;
+    if (code.length === 6 && pinCodeActive && !this.onFirstVerify) {
+      if (code != pinCodeActive) {
+        this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
+      } else {
+        this.props.onFinished();
+      }
+    } else {
+      this.setState({pinCode: code});
     }
   };
 
@@ -103,7 +119,7 @@ class VerifyPINScreen extends PureComponent {
               <SmoothPinCodeInput
                 ref={this.pinInput}
                 value={pinCode}
-                onTextChange={(pinCode) => this.setState({pinCode})}
+                onTextChange={this.onChanegeCode}
                 // onFulfill={this._checkCode}
                 codeLength={6}
                 onBackspace={() => console.log('No more back.')}
