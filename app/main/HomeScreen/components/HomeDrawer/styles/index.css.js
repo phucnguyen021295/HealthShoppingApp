@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   info: {
     backgroundColor: 'rgba(0,0,0,0.49)',
     paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingVertical: 16,
     marginBottom: 12,
   },
   name: {color: '#ffffff', fontSize: fontSize.normal, lineHeight: 30},
