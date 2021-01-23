@@ -43,10 +43,16 @@ const styles = StyleSheet.create({
     fontSize: fontSize.small,
   },
 
+  nameProduct: {
+    color: '#000000',
+    fontSize: fontSize.small,
+    lineHeight: fontSize.small * 1.7
+  },
+
   priceContainer: {
     flex: 1,
-    paddingTop: 12,
-    paddingLeft: 12,
+    paddingTop: 8,
+    paddingLeft: 8,
     fontSize: fontSize.small,
   },
 

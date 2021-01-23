@@ -44,12 +44,12 @@ class UserShoppingScreen extends PureComponent {
       state,
       city,
       postalcode,
-      countryname,
     } = global;
     this.state = {
       data: [],
       totalMoney: 0,
       code: '',
+      address: address,
       membercode: membercode,
       receiver: {
         name: name,
@@ -92,14 +92,22 @@ class UserShoppingScreen extends PureComponent {
 
   onContinue = () => {
     const {totalMoney} = this.props;
-    const {membercode, receiver, paymenttype, data, receivingtype} = this.state;
+    const {
+      membercode,
+      receiver,
+      paymenttype,
+      data,
+      receivingtype,
+      address,
+    } = this.state;
+    receiver.address = address;
     this.props.navigation.navigate('AddressShopping', {
       membercode: membercode,
       receiver: receiver,
       paymenttype: paymenttype,
       carts: data,
       receivingtype: receivingtype,
-      totalMoney: totalMoney
+      totalMoney: totalMoney,
     });
   };
 
@@ -119,7 +127,11 @@ class UserShoppingScreen extends PureComponent {
           postalcode: data.postalcode || '+84',
           country: 'Viet Nam', // data.countryname,
         };
-        this.setState({receiver: receiver, membercode: data.membercode});
+        this.setState({
+          receiver: receiver,
+          membercode: data.membercode,
+          address: data.address,
+        });
       },
       () => {
         alert('Có lỗi xảy ra vui lòng thử lại sau');
@@ -127,8 +139,12 @@ class UserShoppingScreen extends PureComponent {
     );
   };
 
+  onChangeAddress = (address) => {
+    this.setState({address});
+  };
+
   render() {
-    const {data, totalMoney, code, membercode, receiver} = this.state;
+    const {data, address, code, membercode, receiver} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <AppHeader title={'Mua hàng'} />
@@ -162,8 +178,23 @@ class UserShoppingScreen extends PureComponent {
             style={[styles.textName]}
           />
           <MediumText
-            text={`Địa chỉ: ${receiver.address}`}
+            text={'Địa chỉ:'}
             style={[styles.textName]}
+          />
+          <Input
+            value={address}
+            defaultValue={address}
+            placeholder="Nhập địa chỉ"
+            containerStyle={{
+              paddingHorizontal: 20,
+              flex: 1,
+              paddingVertical: 0,
+            }}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.inputStyle}
+            renderErrorMessage={false}
+            placeholderTextColor={'#dddddd'}
+            onChangeText={this.onChangeAddress}
           />
           <MediumText
             text={`Email: ${receiver.email}`}

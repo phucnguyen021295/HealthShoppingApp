@@ -76,7 +76,7 @@ const initDatabase = (success, failure) => {
         if (res.rows.length === 0) {
           tx.executeSql('DROP TABLE IF EXISTS shopping');
           tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS shopping(packid TEXT, productid TEXT, name TEXT, packpriceusd TEXT, image TEXT, quantity INTEGER, total INTEGER)',
+            'CREATE TABLE IF NOT EXISTS shopping(packid TEXT, productid TEXT, nameProduct TEXT, namePack TEXT, packpriceusd TEXT, image TEXT, quantity INTEGER, total INTEGER)',
           );
           tx.executeSql(
             'CREATE UNIQUE INDEX idx_positions_shopping ON shopping (packid, productid)',
@@ -110,7 +110,7 @@ const initDatabase = (success, failure) => {
             'CREATE TABLE IF NOT EXISTS package_product(packid TEXT, title TEXT, productid TEXT, quantity TEXT, type TEXT, countryid TEXT, membertype TEXT, bonus TEXT, onlinequota TEXT, packpriceusd INTEGER, packpv INTEGER)',
           );
           tx.executeSql(
-            'CREATE UNIQUE INDEX idx_positions_package ON package_product (packid)',
+            'CREATE UNIQUE INDEX idx_positions_package ON package_product (packid, productid)',
           );
         }
       },

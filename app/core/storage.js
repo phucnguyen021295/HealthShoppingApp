@@ -126,6 +126,10 @@ const setInfoLogin = (_InfoLogin = {}) => {
   AsyncStorage.setItem(InfoLogin, _resource);
 };
 
+const clearData = async () => {
+  await AsyncStorage.clear();
+};
+
 export {
   multiGet,
   getCheckIntroduce,
@@ -141,5 +145,6 @@ export {
   setInfoUser,
   getPinCode,
   setPinCode,
-  setInfoLogin
+  setInfoLogin,
+  clearData,
 };

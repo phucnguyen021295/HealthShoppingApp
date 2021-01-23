@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    flex: 1,
     color: '#000000',
     fontSize: fontSize.small,
-    marginLeft: 30
+    marginLeft: 30,
+    lineHeight: 22
   },
 
   priceContainer: {

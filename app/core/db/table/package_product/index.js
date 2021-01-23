@@ -37,11 +37,11 @@ export const replacePackageProduct = (
   const query =
     'REPLACE INTO package_product(packid, title, productid, quantity, type, countryid, membertype, bonus, onlinequota, packpriceusd, packpv) VALUES (?,?,?,?,?,?,?,?,?,?,?);';
   const values = [
-    package_product.packid,
+    package_product.packid.toString(),
     package_product.title,
     package_product.productid,
     package_product.quantity,
-    package_product.type,
+    package_product.type.toString(),
     package_product.countryid,
     package_product.membertype,
     package_product.bonus,

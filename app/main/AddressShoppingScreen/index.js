@@ -243,11 +243,18 @@ class AddressShoppingScreen extends PureComponent {
                 PlaceholderContent={<ActivityIndicator />}
                 resizeMode={'contain'}
               />
-              <MediumText
-                text={item.name}
-                style={styles.title}
-                numberOfLines={2}
-              />
+              <View style={{ flex: 1,}}>
+                <MediumText
+                  text={item.nameProduct}
+                  style={styles.title}
+                  numberOfLines={1}
+                />
+                <Text
+                  text={item.namePack}
+                  style={styles.title}
+                  numberOfLines={1}
+                />
+              </View>
               <Text
                 text={`${item.packpriceusd * item.total} $`}
                 style={styles.price}

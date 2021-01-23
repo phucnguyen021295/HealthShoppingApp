@@ -18,7 +18,8 @@ import {getDatabase, replaceDataBase, deleteDataBase} from '../../Sqlitedb';
 export const shopping = {
   packid: 'packid',
   productid: 'productid',
-  name: 'name',
+  nameProduct: 'nameProduct',
+  namePack: 'namePack',
   packpriceusd: 'packpriceusd',
   image: 'image',
   quantity: 'quantity',
@@ -31,11 +32,12 @@ export const replaceShopping = (
   failure = () => {},
 ) => {
   const query =
-    'REPLACE INTO shopping(packid, productid, name, packpriceusd, image, quantity, total) VALUES (?,?,?,?,?,?,?);';
+    'REPLACE INTO shopping(packid, productid, nameProduct, namePack, packpriceusd, image, quantity, total) VALUES (?,?,?,?,?,?,?,?);';
   const values = [
     shopping.packid,
     shopping.productid,
-    shopping.name,
+    shopping.nameProduct,
+    shopping.namePack,
     shopping.packpriceusd,
     shopping.image,
     shopping.quantity,

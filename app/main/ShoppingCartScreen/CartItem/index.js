@@ -106,7 +106,8 @@ class CartItem extends PureComponent {
       const data = {
         packid: item.packid,
         productid: item.productid,
-        name: item.title,
+        nameProduct: item.nameProduct,
+        namePack: item.namePack,
         packpriceusd: item.packpriceusd,
         image: item.image,
         quantity: totalUpdate,
@@ -123,7 +124,7 @@ class CartItem extends PureComponent {
     return (
       <TouchableOpacity onPress={this.onDetailCart} style={styles.container}>
         <Button
-          title={item.packid === '-1' ? `x${item.total}` : 'pk'}
+          title={'x'}
           containerStyle={{marginRight: 12}}
           buttonStyle={styles.buttonStyle}
           titleStyle={styles.titleStyle}
@@ -136,13 +137,18 @@ class CartItem extends PureComponent {
           resizeMode={'contain'}
         />
         <View style={styles.priceContainer}>
-          <View style={styles.item}>
-            <MediumText
-              text={item.name}
-              style={styles.title}
-              numberOfLines={2}
-            />
-          </View>
+          <MediumText
+            text={item.nameProduct}
+            style={styles.nameProduct}
+            numberOfLines={1}
+          />
+          <Text
+            text={
+              item.packid === '-1' ? `${item.total} Bottles` : item.namePack
+            }
+            style={styles.title}
+            numberOfLines={1}
+          />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity onPress={this.onDetailCart}>
               <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
@@ -174,7 +180,7 @@ class CartItem extends PureComponent {
           </View>
         </ModalBase>
 
-        <ModalBase isVisibleModal={isVisibleProduct} title={item.name}>
+        <ModalBase isVisibleModal={isVisibleProduct} title={item.nameProduct}>
           <View>
             <View
               style={{

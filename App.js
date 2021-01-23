@@ -30,6 +30,7 @@ import UserShopping from './app/main/UserShoppingScreen';
 import AddressShopping from './app/main/AddressShoppingScreen';
 import CapchaShopping from './app/main/CapchaShoppingScreen';
 import TransactionHistory from './app/main/TransactionHistoryScreen';
+import {callBack} from './app/core/data';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
 
@@ -43,6 +44,7 @@ class App extends PureComponent {
     };
 
     this.onFinished = this.onFinished.bind(this);
+    this.onLogout = this.onLogout.bind(this);
   }
 
   componentDidMount() {
@@ -52,10 +54,16 @@ class App extends PureComponent {
       StatusBar.setHidden(true) &&
       StatusBar.setTranslucent(true) &&
       StatusBar.setBackgroundColor('#ffffff00', true);
+
+    callBack.onLogout = this.onLogout;
   }
 
   onFinished() {
     this.setState({isLoading: false});
+  }
+
+  onLogout() {
+    this.setState({isLoading: true});
   }
 
   render() {

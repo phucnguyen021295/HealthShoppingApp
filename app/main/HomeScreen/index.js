@@ -37,7 +37,7 @@ function HomeDrawer() {
       drawerContent={(props) => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="History" component={History} />
-      <Drawer.Screen name="Detail" component={Detail} />
+      <Drawer.Screen name="Report" component={Detail} />
       <Drawer.Screen name="PersonalPage" component={PersonalPage} />
     </Drawer.Navigator>
   );

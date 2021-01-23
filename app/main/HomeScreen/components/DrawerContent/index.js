@@ -23,6 +23,8 @@ import {MediumText} from '../../../../base/components/Text';
 // styles
 import styles from './styles/index.css';
 import global from '../../../../global';
+import {clearData} from '../../../../core/storage';
+import {callBack} from '../../../../core/data';
 
 const list = [
   {
@@ -39,7 +41,13 @@ const list = [
   },
   {
     id: 2,
-    name: 'Detail',
+    name: 'Report',
+    icon:
+      'https://e7.pngegg.com/pngimages/961/286/png-clipart-computer-icons-statistics-bar-chart-histogram-statistics-miscellaneous-angle-thumbnail.png',
+  },
+  {
+    id: 3,
+    name: 'Logout',
     icon:
       'https://e7.pngegg.com/pngimages/961/286/png-clipart-computer-icons-statistics-bar-chart-histogram-statistics-miscellaneous-angle-thumbnail.png',
   },
@@ -51,7 +59,13 @@ class DrawerContent extends PureComponent {
   }
 
   onPress = (item) => {
-    const {name} = item;
+    const {name, id} = item;
+    if (id === 3) {
+      clearData().then(() => {
+        callBack.onLogout();
+      });
+      return;
+    }
     this.props.navigation.navigate(name);
   };
 

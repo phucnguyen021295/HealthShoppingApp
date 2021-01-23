@@ -62,8 +62,12 @@ class HistoryItem extends PureComponent {
             />
             <View />
             <MediumText
-                text={`Loại giao dịch: ${item.brief}`}
-                style={styles.textTotalPrice}
+              text={`Loại giao dịch: ${item.brief}`}
+              style={styles.textTotalPrice}
+            />
+            <MediumText
+              text={`Lý do chuyển: ${item.des}`}
+              style={styles.textTotalPrice}
             />
             <MediumText
               text={`Tổng tiền: ${item.value} $`}

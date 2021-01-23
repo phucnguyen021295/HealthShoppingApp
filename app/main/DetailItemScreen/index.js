@@ -122,7 +122,8 @@ class DetailItemScreen extends PureComponent {
         const data = {
           packid: packSelected.packid,
           productid: packSelected.productid,
-          name: packSelected.title,
+          nameProduct: item.title,
+          namePack: packSelected.title,
           packpriceusd: packSelected.packpriceusd,
           image: item.image150,
           quantity: packSelected.packid === '-1' ? total : packSelected.quantity,

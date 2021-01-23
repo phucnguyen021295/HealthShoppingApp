@@ -44,3 +44,5 @@ export const handleGetPackageProduct = (orderType, success, failure) => {
     () => failure(),
   );
 };
+
+export let callBack = {};
