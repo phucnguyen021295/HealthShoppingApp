@@ -17,7 +17,7 @@ import {StyleSheet, Platform} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
 import {heightToDP, widthToDP} from '../../../../core/utils/dimension';
 
-export const ICON_SIZE = heightToDP(28);
+export const ICON_SIZE = 25;
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1
   },
   btnBack: {
     position: 'absolute',
@@ -41,8 +43,8 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   icon: {
-    paddingLeft: widthToDP(20),
-    paddingRight: widthToDP(30),
+    paddingLeft: 20,
+    paddingRight: 30,
     ...Platform.select({
       ios: {
         // paddingTop: 5,

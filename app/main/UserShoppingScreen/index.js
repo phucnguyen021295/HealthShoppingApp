@@ -49,7 +49,6 @@ class UserShoppingScreen extends PureComponent {
       data: [],
       totalMoney: 0,
       code: '',
-      address: address,
       membercode: membercode,
       receiver: {
         name: name,
@@ -98,9 +97,7 @@ class UserShoppingScreen extends PureComponent {
       paymenttype,
       data,
       receivingtype,
-      address,
     } = this.state;
-    receiver.address = address;
     this.props.navigation.navigate('AddressShopping', {
       membercode: membercode,
       receiver: receiver,
@@ -139,12 +136,8 @@ class UserShoppingScreen extends PureComponent {
     );
   };
 
-  onChangeAddress = (address) => {
-    this.setState({address});
-  };
-
   render() {
-    const {data, address, code, membercode, receiver} = this.state;
+    const { code, membercode, receiver} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <AppHeader title={'Mua hàng'} />
@@ -178,23 +171,8 @@ class UserShoppingScreen extends PureComponent {
             style={[styles.textName]}
           />
           <MediumText
-            text={'Địa chỉ:'}
+            text={`Địa chỉ: ${receiver.address}`}
             style={[styles.textName]}
-          />
-          <Input
-            value={address}
-            defaultValue={address}
-            placeholder="Nhập địa chỉ"
-            containerStyle={{
-              paddingHorizontal: 20,
-              flex: 1,
-              paddingVertical: 0,
-            }}
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.inputStyle}
-            renderErrorMessage={false}
-            placeholderTextColor={'#dddddd'}
-            onChangeText={this.onChangeAddress}
           />
           <MediumText
             text={`Email: ${receiver.email}`}

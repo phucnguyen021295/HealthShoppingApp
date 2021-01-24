@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
 
   inputContainerStyle: {
     backgroundColor: '#ffffff52',
-    height: heightToDP(46),
-    borderRadius: heightToDP(23),
+    height: 46,
+    borderRadius: 23,
   },
 
   searchIcon: {color: '#ffffff', paddingLeft: widthToDP(10)},

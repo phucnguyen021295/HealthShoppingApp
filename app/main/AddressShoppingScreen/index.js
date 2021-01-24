@@ -21,7 +21,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import {Button, Image, Input} from 'react-native-elements';
+import {CheckBox, Image, Input} from 'react-native-elements';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
@@ -62,7 +62,6 @@ class AddressShoppingScreen extends PureComponent {
     } = this.props.route.params;
     this.state = {
       totalMoney: totalMoney,
-      address: receiver?.address,
       membercode: membercode,
       receiver: receiver,
       paymenttype: paymenttype,
@@ -71,6 +70,7 @@ class AddressShoppingScreen extends PureComponent {
       isVisible: false,
       descriptionModal: '',
       titleButton: '',
+      checked: false,
     };
 
     this.onContinue = this.onContinue.bind(this);
@@ -189,42 +189,181 @@ class AddressShoppingScreen extends PureComponent {
   //   this.captchaForm = _ref
   // }
 
-  onChangeCode = (text) => {
-    this.setState({address: text});
+  onChangeName = (name) => {
+    this.setState((preState) => ({
+      receiver: Object.assign({}, preState.receiver, {name}),
+    }));
+  };
+
+  onChangeAddress = (address) => {
+    this.setState((preState) => ({
+      receiver: Object.assign({}, preState.receiver, {address}),
+    }));
+  };
+
+  onChangePhone = (mobile) => {
+    this.setState((preState) => ({
+      receiver: Object.assign({}, preState.receiver, {mobile}),
+    }));
+  };
+
+  onChangeEmail = (email) => {
+    this.setState((preState) => ({
+      receiver: Object.assign({}, preState.receiver, {email}),
+    }));
+  };
+
+  onChangeState = (state) => {
+    this.setState((preState) => ({
+      receiver: Object.assign({}, preState.receiver, {state}),
+    }));
+  };
+
+  onChangeCity = (city) => {
+    this.setState((preState) => ({
+      receiver: Object.assign({}, preState.receiver, {city}),
+    }));
   };
 
   render() {
     const {
       data,
       totalMoney,
-      address,
       isVisible,
       descriptionModal,
       titleButton,
+      checked,
+      receiver,
     } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <AppHeader title={'Đặt đơn'} />
-        <ScrollView style={{paddingTop: 30}}>
-          <MediumText
-            text={'Giao hàng tại địa chỉ:'}
-            style={styles.titleShopping}
-          />
-          <Input
-            value={address}
-            defaultValue={address}
-            placeholder="Nhập địa chỉ"
-            containerStyle={{
-              paddingHorizontal: 0,
-              flex: 1,
-              paddingVertical: 0,
-            }}
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.inputStyle}
-            renderErrorMessage={false}
-            placeholderTextColor={'#dddddd'}
-            onChangeText={this.onChangeCode}
-          />
+        <ScrollView style={{paddingTop: 30}} contentContainerStyle={{paddingBottom: 150}}>
+          <MediumText text={'Giao hàng tại:'} style={styles.titleShopping} />
+
+          <>
+            <MediumText text={'Hình thức nhận:'} style={styles.textName} />
+            <View style={{flexDirection: 'row'}}>
+              <CheckBox
+                title="Tại nhà"
+                checkedIcon="dot-circle-o"
+                uncheckedIcon="circle-o"
+                checked={checked}
+              />
+              <CheckBox
+                title="Từ nhà phân phối"
+                checkedIcon="dot-circle-o"
+                uncheckedIcon="circle-o"
+                checked={checked}
+              />
+            </View>
+          </>
+
+          <>
+            <MediumText text={'Họ và tên:'} style={styles.textName} />
+            <Input
+              value={receiver.name}
+              defaultValue={receiver.name}
+              placeholder="Nhập họ và tên"
+              containerStyle={styles.containerStyle}
+              inputContainerStyle={styles.inputContainerStyle}
+              inputStyle={styles.inputStyle}
+              renderErrorMessage={false}
+              placeholderTextColor={'#dddddd'}
+              onChangeText={this.onChangeName}
+            />
+          </>
+
+          <>
+            <MediumText text={'Điện thoại:'} style={styles.textName} />
+            <Input
+                value={receiver.mobile}
+                defaultValue={receiver.mobile}
+                placeholder="Nhập số điện thoại"
+                containerStyle={styles.containerStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
+                renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
+                onChangeText={this.onChangePhone}
+            />
+          </>
+
+          <>
+            <MediumText text={'Email:'} style={styles.textName} />
+            <Input
+                value={receiver.email}
+                defaultValue={receiver.email}
+                placeholder="Nhập email"
+                containerStyle={styles.containerStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
+                renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
+                onChangeText={this.onChangeEmail}
+            />
+          </>
+
+          <>
+            <MediumText text={'Địa chỉ:'} style={styles.textName} />
+            <Input
+                value={receiver.address}
+                defaultValue={receiver.address}
+                placeholder="Nhập địa chỉ"
+                containerStyle={styles.containerStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
+                renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
+                onChangeText={this.onChangeAddress}
+            />
+          </>
+
+          <>
+            <MediumText text={'Quận/Huyện:'} style={styles.textName} />
+            <Input
+                value={receiver.state}
+                defaultValue={receiver.state}
+                placeholder="Nhập quận/huyện"
+                containerStyle={styles.containerStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
+                renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
+                onChangeText={this.onChangeState}
+            />
+          </>
+
+          <>
+            <MediumText text={'Thành phố:'} style={styles.textName} />
+            <Input
+                value={receiver.city}
+                defaultValue={receiver.city}
+                placeholder="Nhập thành phố"
+                containerStyle={styles.containerStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
+                renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
+                onChangeText={this.onChangeCity}
+            />
+          </>
+
+          <>
+            <MediumText text={'Mã bưu chính:'} style={styles.textName} />
+            <Input
+                value={receiver.postalcode}
+                defaultValue={receiver.postalcode}
+                placeholder="Nhập mã bưu chính"
+                containerStyle={styles.containerStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.inputStyle}
+                renderErrorMessage={false}
+                placeholderTextColor={'#dddddd'}
+                onChangeText={this.onChangePostalcode}
+            />
+          </>
+
           <MediumText
             text={'Tóm tắt đơn hàng:'}
             style={[styles.titleShopping, {marginTop: 12}]}
@@ -243,7 +382,7 @@ class AddressShoppingScreen extends PureComponent {
                 PlaceholderContent={<ActivityIndicator />}
                 resizeMode={'contain'}
               />
-              <View style={{ flex: 1,}}>
+              <View style={{flex: 1}}>
                 <MediumText
                   text={item.nameProduct}
                   style={styles.title}

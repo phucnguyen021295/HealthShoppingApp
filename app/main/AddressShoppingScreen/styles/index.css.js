@@ -17,6 +17,7 @@ import {StyleSheet, Platform} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {color, transparent} from '../../../core/color';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
+import {isIPhoneX} from '../../../core/utils/isIphoneX';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
 
   btnBottom: {
     position: 'absolute',
-    bottom: heightToDP(34),
+    bottom: isIPhoneX ? heightToDP(34) : 0,
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',
@@ -38,23 +39,23 @@ const styles = StyleSheet.create({
 
   titleShopping: {
     fontSize: fontSize.normal,
-    paddingHorizontal: widthToDP(20),
-    paddingVertical: heightToDP(10),
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: '#d7e5fa',
     color: '#666666',
   },
 
   textName: {
     fontSize: fontSize.normal,
-    paddingHorizontal: widthToDP(20),
-    paddingVertical: heightToDP(8),
+    paddingHorizontal: 20,
+    paddingVertical: 8,
     color: '#666666',
   },
 
   btnButtonStyle: {
-    paddingVertical: heightToDP(12),
+    paddingVertical: 12,
     backgroundColor: transparent,
-    marginHorizontal: widthToDP(10),
+    marginHorizontal: 10,
   },
 
   total: {
@@ -148,6 +149,12 @@ const styles = StyleSheet.create({
     fontSize: fontSize.normal,
     lineHeight: 25,
   },
+
+  containerStyle: {
+    paddingHorizontal: 0,
+    flex: 1,
+    paddingVertical: 0,
+  }
 });
 
 export default styles;
