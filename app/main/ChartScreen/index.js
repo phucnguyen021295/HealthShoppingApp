@@ -27,6 +27,8 @@ import {getReportApi} from '../../apis/health';
 
 import {labels} from './formatData';
 import styles from './styles/index.css';
+import {registerShoppingCardChange} from '../../core/shoppingCart';
+import UserShoppingScreen from '../UserShoppingScreen';
 
 const colors = {
   'Weak Leg': processColor('green'),
@@ -229,6 +231,19 @@ class StackedBarChartScreen extends PureComponent {
   componentDidMount() {
     const {arrayKey, typeCalendar} = this.state;
 
+    registerShoppingCardChange(this.getReportApiLocal);
+
+    this.getReportApiLocal();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.typeCalendar !== this.state.typeCalendar) {
+      this.getReportApiLocal();
+    }
+  }
+
+  getReportApiLocal = () =>{
+    const {typeCalendar, arrayKey} = this.state;
     getReportApi(TYPE_CALENDAR[typeCalendar], (response) => {
       const {data} = response;
       this.convertData(data, arrayKey);
@@ -236,22 +251,10 @@ class StackedBarChartScreen extends PureComponent {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.typeCalendar !== this.state.typeCalendar) {
-      const {typeCalendar, arrayKey} = this.state;
-      getReportApi(TYPE_CALENDAR[typeCalendar], (response) => {
-        const {data} = response;
-        this.convertData(data, arrayKey);
-        this.setState({dataCharts: data});
-      });
-    }
-  }
-
   convertData = (data, arrayKey) => {
     const {typeCalendar} = this.state;
     let dataSets = [];
     let valueFormatter = [];
-    debugger;
 
     for (let i = 0; i < arrayKey.length; i++) {
       const item = {
@@ -322,6 +325,7 @@ class StackedBarChartScreen extends PureComponent {
   };
 
   render() {
+    const {styleChart} = this.props;
     return (
       <View>
         <View style={styles.dropdownContainer}>
@@ -331,7 +335,7 @@ class StackedBarChartScreen extends PureComponent {
               style={{
                 color: '#ffffff',
                 fontSize: 15,
-                paddingTop: 10,
+                // paddingTop: 10,
                 paddingBottom: 5,
               }}
             />
@@ -353,7 +357,6 @@ class StackedBarChartScreen extends PureComponent {
               style={{
                 color: '#ffffff',
                 fontSize: 15,
-                paddingTop: 10,
                 paddingBottom: 5,
               }}
             />
@@ -371,7 +374,7 @@ class StackedBarChartScreen extends PureComponent {
           </View>
         </View>
 
-        <View style={styles.container}>
+        <View style={[styles.container, styleChart]}>
           <BarChart
             style={styles.chart}
             xAxis={this.state.xAxis}
@@ -394,5 +397,9 @@ class StackedBarChartScreen extends PureComponent {
     );
   }
 }
+
+StackedBarChartScreen.defaultProps = {
+  styleChart: {}
+};
 
 export default StackedBarChartScreen;

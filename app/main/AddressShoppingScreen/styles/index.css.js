@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
 
   btnBottom: {
     position: 'absolute',
-    bottom: isIPhoneX ? heightToDP(34) : 0,
+    bottom: isIPhoneX ? 34 : 0,
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',
-    paddingHorizontal: widthToDP(20),
-    paddingVertical: heightToDP(10),
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: '#dddddd',
   },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   textName: {
     fontSize: fontSize.normal,
     paddingHorizontal: 20,
-    paddingVertical: 8,
+    paddingTop: 8,
     color: '#666666',
   },
 
@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
   inputContainerStyle: {
     borderWidth: 1,
     borderColor: '#838383',
-    paddingHorizontal: widthToDP(12),
-    borderRadius: heightToDP(8),
-    marginHorizontal: widthToDP(20),
-    marginVertical: heightToDP(12)
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    marginHorizontal: 20,
+    marginVertical: 12
   },
 
   inputStyle: {

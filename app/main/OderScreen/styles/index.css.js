@@ -24,9 +24,11 @@ const styles = StyleSheet.create({
   },
 
   containerStyle: {
-    backgroundColor: color,
+    backgroundColor: '#0000000',
     borderTopWidth: 0,
-    paddingHorizontal: widthToDP(20),
+    flex: 1,
+    paddingHorizontal: 0,
+    paddingTop: 20
   },
 
   inputContainerStyle: {

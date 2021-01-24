@@ -14,7 +14,8 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, ScrollView} from 'react-native';
+import {ButtonGroup} from 'react-native-elements';
 
 // Components
 import Header from '../Header';
@@ -27,12 +28,14 @@ import {getReportApi} from '../../../../apis/health';
 // styles
 import styles from './styles/index.css';
 import HistoryItem from '../../../TransactionHistoryScreen/components/HistoryItem';
+import ChartScreen from '../../../ChartScreen';
 
 class DetailDrawer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       dataCharts: [],
+      selectedIndex: 0
     };
   }
 
@@ -43,6 +46,10 @@ class DetailDrawer extends PureComponent {
     });
   }
 
+  updateIndex = (selectedIndex) => {
+    this.setState({selectedIndex})
+  };
+
   renderItem = ({item}) => (
     <View style={styles.info}>
       <PieChart dataChart={item} />
@@ -50,20 +57,46 @@ class DetailDrawer extends PureComponent {
   );
 
   render() {
+    const buttons = ['All', 'Detail'];
     const {navigation} = this.props;
-    const {dataCharts} = this.state;
+    const {dataCharts, selectedIndex} = this.state;
     return (
       <View style={styles.container}>
         <Header navigation={navigation} />
         <ImageBackGround
           source={require('../../../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <FlatList
-            data={dataCharts}
-            renderItem={this.renderItem}
-            keyExtractor={(item) => item.identity}
-            showsVerticalScrollIndicator={false}
-          />
+
+          <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 12}}>
+            <ButtonGroup
+                onPress={this.updateIndex}
+                selectedIndex={selectedIndex}
+                buttons={buttons}
+                containerStyle={{height: 40, width: 180, borderRadius: 20}}
+                selectedButtonStyle={{backgroundColor: '#dddddd'}}
+            />
+          </View>
+
+
+          {selectedIndex === 0 ? (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{ flex: 1,
+                  backgroundColor: 'rgba(0,0,0,0.49)',
+                  paddingVertical: 10
+                }}>
+                  <ChartScreen styleChart={{height: 400}} />
+                </View>
+              </ScrollView>
+          ): (
+              <FlatList
+                  data={dataCharts}
+                  renderItem={this.renderItem}
+                  keyExtractor={(item) => item.identity}
+                  showsVerticalScrollIndicator={false}
+              />
+          )}
+
+
           {/*<View style={{flex: 1}}>*/}
           {/*  <View style={styles.info}>*/}
           {/*    <PieChart />*/}

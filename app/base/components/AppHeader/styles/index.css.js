@@ -16,6 +16,7 @@
 import {StyleSheet, Platform} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
 import {heightToDP, widthToDP} from '../../../../core/utils/dimension';
+import {isIphoneX} from '../../../../core/utils/isIphoneX';
 
 export const ICON_SIZE = 25;
 
@@ -26,7 +27,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     borderBottomColor: '#dddddd',
-    borderBottomWidth: 1
+    borderBottomWidth: 0.7,
+    marginTop: isIphoneX ? 0 : 20
   },
   btnBack: {
     position: 'absolute',

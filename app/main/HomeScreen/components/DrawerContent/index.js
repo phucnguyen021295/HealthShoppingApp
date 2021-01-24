@@ -49,7 +49,7 @@ const list = [
     id: 3,
     name: 'Logout',
     icon:
-      'https://e7.pngegg.com/pngimages/961/286/png-clipart-computer-icons-statistics-bar-chart-histogram-statistics-miscellaneous-angle-thumbnail.png',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHENHP4By-MoVVo82gY6TMPaN4Q1TAW8lNg&usqp=CAU',
   },
 ];
 

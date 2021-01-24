@@ -27,6 +27,7 @@ import OderList from './components/OderList';
 import styles from './styles/index.css';
 import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../base/components/Text';
+import {isIPhoneX} from '../../core/utils/isIphoneX';
 
 const orderType = [
   {
@@ -89,6 +90,7 @@ class OderScreen extends PureComponent {
                 borderTopWidth: 0,
                 flex: 1,
                 paddingHorizontal: 0,
+                  paddingTop: isIPhoneX ? 0 : 20
               }}
               inputContainerStyle={styles.inputContainerStyle}
             />
@@ -101,7 +103,7 @@ class OderScreen extends PureComponent {
                 />
               }
               iconRight
-              buttonStyle={{paddingHorizontal: 20, backgroundColor: '#fffffff'}}
+              buttonStyle={{paddingHorizontal: 20, backgroundColor: '#fffffff', paddingTop: isIPhoneX ? 0 : 20}}
               onPress={this.onSelectTypeOder}
             />
           </View>

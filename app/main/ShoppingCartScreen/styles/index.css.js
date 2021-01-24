@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 
   btnBottom: {
     position: 'absolute',
-    bottom: isIPhoneX ? heightToDP(34) : 0,
+    bottom: isIPhoneX ? 34 : 0,
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',
