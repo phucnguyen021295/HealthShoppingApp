@@ -76,7 +76,7 @@ const initDatabase = (success, failure) => {
         if (res.rows.length === 0) {
           tx.executeSql('DROP TABLE IF EXISTS shopping');
           tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS shopping(packid TEXT, productid TEXT, nameProduct TEXT, namePack TEXT, packpriceusd TEXT, image TEXT, quantity INTEGER, total INTEGER)',
+            'CREATE TABLE IF NOT EXISTS shopping(packid TEXT, productid TEXT, nameProduct TEXT, namePack TEXT, type TEXT, packpriceusd TEXT, image TEXT, quantity INTEGER, total INTEGER)',
           );
           tx.executeSql(
             'CREATE UNIQUE INDEX idx_positions_shopping ON shopping (packid, productid)',

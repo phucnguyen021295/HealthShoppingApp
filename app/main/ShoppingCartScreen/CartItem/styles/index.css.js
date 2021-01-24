@@ -94,7 +94,22 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 14,
   },
 
+  buttonStyleModal45: {
+    backgroundColor: '#ffffff',
+    borderRadius: 0,
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1,
+  },
+
   titleStyle: {color: '#015cd0', fontSize: fontSize.small},
+
+  textSelect: {
+    fontSize: fontSize.smaller,
+    paddingHorizontal: 20,
+    textAlign: 'center',
+    paddingBottom: 10,
+    color: '#015cd0'
+  }
 });
 
 export default styles;

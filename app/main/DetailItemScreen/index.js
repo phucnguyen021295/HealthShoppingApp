@@ -124,6 +124,7 @@ class DetailItemScreen extends PureComponent {
           productid: packSelected.productid,
           nameProduct: item.title,
           namePack: packSelected.title,
+          type: packSelected.type,
           packpriceusd: packSelected.packpriceusd,
           image: item.image150,
           quantity: packSelected.packid === '-1' ? total : packSelected.quantity,

@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import {Button} from 'react-native-elements';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
@@ -61,7 +61,12 @@ class Quantity extends PureComponent {
     const {quantity} = this.props;
 
     if (quantity < total + 1) {
-      alert('Số lượng bạn nhập vượt quá tổng số lượng cho phép');
+      Alert.alert(
+        'Thông báo',
+        'Số lượng bạn nhập vượt quá tổng số lượng cho phép',
+        [{text: 'Đóng', onPress: () => console.log('OK Pressed')}],
+        {cancelable: false},
+      );
     } else {
       this.setState((prevState) => {
         const _total = prevState.total + 1;

@@ -20,6 +20,7 @@ export const shopping = {
   productid: 'productid',
   nameProduct: 'nameProduct',
   namePack: 'namePack',
+  type: 'type',
   packpriceusd: 'packpriceusd',
   image: 'image',
   quantity: 'quantity',
@@ -32,12 +33,13 @@ export const replaceShopping = (
   failure = () => {},
 ) => {
   const query =
-    'REPLACE INTO shopping(packid, productid, nameProduct, namePack, packpriceusd, image, quantity, total) VALUES (?,?,?,?,?,?,?,?);';
+    'REPLACE INTO shopping(packid, productid, nameProduct, namePack, type, packpriceusd, image, quantity, total) VALUES (?,?,?,?,?,?,?,?,?);';
   const values = [
     shopping.packid,
     shopping.productid,
     shopping.nameProduct,
     shopping.namePack,
+    shopping.type,
     shopping.packpriceusd,
     shopping.image,
     shopping.quantity,

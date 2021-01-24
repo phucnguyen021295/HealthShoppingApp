@@ -46,7 +46,7 @@ class HistoryItem extends PureComponent {
   }
 
   convertDate = (timeStamp) => {
-    const date = new Date(Number(timeStamp));
+    const date = new Date(Number(timeStamp * 1000));
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
 

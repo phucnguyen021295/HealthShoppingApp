@@ -33,6 +33,7 @@ function ModalBase(props) {
     onCloseModal,
     styleTitle,
     styleDescription,
+    ...otherProps
   } = props;
   return (
     <Modal
@@ -46,7 +47,8 @@ function ModalBase(props) {
       backdropTransitionInTiming={0}
       backdropTransitionOutTiming={0}
       onBackButtonPress={onCloseModal}
-      onBackdropPress={onCloseModal}>
+      onBackdropPress={onCloseModal}
+      {...otherProps}>
       <View style={styles.content}>
         <View style={styles.body}>
           {title && <Text text={title} style={[styles.title, styleTitle]} />}

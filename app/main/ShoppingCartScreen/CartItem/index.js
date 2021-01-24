@@ -14,7 +14,12 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {TouchableOpacity, ActivityIndicator, View} from 'react-native';
+import {
+  TouchableOpacity,
+  ActivityIndicator,
+  View,
+  ScrollView,
+} from 'react-native';
 import {Image, Button} from 'react-native-elements';
 
 // Components
@@ -31,15 +36,19 @@ import {
 } from '../../../core/db/table/shopping';
 import {broadcastShoppingCardChange} from '../../../core/shoppingCart';
 import Quantity from '../../DetailItemScreen/components/Quantity';
+import {getPackageByProductId} from '../../../core/db/table/package_product';
 
 class CartItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisiblePackageProduct: false,
-      isVisibleProduct: false,
       item: props.item,
       totalUpdate: props.item.total,
+      listPackage: [],
+
+      isRemoveProduct: false,
+      isEditProduct: false,
+      isEditProductPack: false,
     };
   }
 
@@ -49,14 +58,12 @@ class CartItem extends PureComponent {
     }
   }
 
-  onUpdateCartItem = () => {
-    this.setState({isVisiblePackageProduct: true});
-  };
-
-  onFinishRating = () => {};
-
   onCloseModal = () => {
-    this.setState({isVisiblePackageProduct: false, isVisibleProduct: false});
+    this.setState({
+      isEditProduct: false,
+      isRemoveProduct: false,
+      isEditProductPack: false,
+    });
   };
 
   onShoppingCard = () => {
@@ -82,9 +89,9 @@ class CartItem extends PureComponent {
   onDetailCart = () => {
     const {item} = this.state;
     if (item.packid !== '-1') {
-      this.onUpdateCartItem();
+      this.setState({isEditProductPack: true});
     } else {
-      this.setState({isVisibleProduct: true});
+      this.setState({isEditProduct: true});
     }
   };
 
@@ -108,6 +115,7 @@ class CartItem extends PureComponent {
         productid: item.productid,
         nameProduct: item.nameProduct,
         namePack: item.namePack,
+        type: item.type,
         packpriceusd: item.packpriceusd,
         image: item.image,
         quantity: totalUpdate,
@@ -119,48 +127,66 @@ class CartItem extends PureComponent {
     }
   };
 
-  render() {
-    const {isVisiblePackageProduct, isVisibleProduct, item} = this.state;
+  onChangeItem = (item) => {
+    const {data} = this.state;
+    const itemPack = data.filter((it) => it.packid === item.value);
+    this.setState({
+      valueSelected: item.value,
+      packSelected: itemPack[0],
+    });
+  };
+
+  onRemoveProduct = () => {
+    this.setState({isRemoveProduct: true});
+  };
+
+  onModalShow = () => {
+    const {item} = this.state;
+    getPackageByProductId(item.productid, item.type, (data) => {
+      const _listPackage = data.filter((item) => item.packid !== '-1');
+      this.setState({
+        listPackage: _listPackage,
+      });
+    });
+  };
+
+  onUpdateProductPack = (packSelected) => {
+    const {item} = this.state;
+    if(item.packid === packSelected.packid) {
+      this.onCloseModal()
+      return;
+    }
+    const data = {
+      packid: packSelected.packid,
+      productid: packSelected.productid,
+      nameProduct: item.nameProduct,
+      namePack: packSelected.title,
+      type: packSelected.type,
+      packpriceusd: packSelected.packpriceusd,
+      image: item.image,
+      quantity: packSelected.quantity,
+      total: 1,
+    };
+    replaceShopping(data, () => {
+      deleteShoppingItem(item.packid, item.productid, () => {
+        broadcastShoppingCardChange();
+      });
+    });
+    this.setState({item: data}, this.onCloseModal());
+  };
+
+  renderModal() {
+    const {
+      isEditProduct,
+      isRemoveProduct,
+      item,
+      listPackage,
+      isEditProductPack,
+    } = this.state;
     return (
-      <TouchableOpacity onPress={this.onDetailCart} style={styles.container}>
-        <Button
-          title={'x'}
-          containerStyle={{marginRight: 12}}
-          buttonStyle={styles.buttonStyle}
-          titleStyle={styles.titleStyle}
-          onPress={this.onDetailCart}
-        />
-        <Image
-          source={{uri: item.image}}
-          style={styles.image}
-          PlaceholderContent={<ActivityIndicator />}
-          resizeMode={'contain'}
-        />
-        <View style={styles.priceContainer}>
-          <MediumText
-            text={item.nameProduct}
-            style={styles.nameProduct}
-            numberOfLines={1}
-          />
-          <Text
-            text={
-              item.packid === '-1' ? `${item.total} Bottles` : item.namePack
-            }
-            style={styles.title}
-            numberOfLines={1}
-          />
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <TouchableOpacity onPress={this.onDetailCart}>
-              <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
-            </TouchableOpacity>
-            <Text
-              text={`${item.packpriceusd * item.total} $`}
-              style={styles.price}
-            />
-          </View>
-        </View>
+      <>
         <ModalBase
-          isVisibleModal={isVisiblePackageProduct}
+          isVisibleModal={isRemoveProduct}
           title={item.name}
           description={'Bạn muốn hủy không mua gói sản phẩm này?'}>
           <View style={{flexDirection: 'row'}}>
@@ -180,7 +206,7 @@ class CartItem extends PureComponent {
           </View>
         </ModalBase>
 
-        <ModalBase isVisibleModal={isVisibleProduct} title={item.nameProduct}>
+        <ModalBase isVisibleModal={isEditProduct} title={item.nameProduct}>
           <View>
             <View
               style={{
@@ -212,12 +238,82 @@ class CartItem extends PureComponent {
             </View>
           </View>
         </ModalBase>
-        {/*<Modal*/}
-        {/*  testID={'modal'}*/}
-        {/*  isVisible={isVisible}*/}
-        {/*  style={{justifyContent: 'flex-end', margin: 0}}>*/}
-        {/*  <DetailItemScreen item={item} onShoppingCard={this.onShoppingCard} />*/}
-        {/*</Modal>*/}
+
+        <ModalBase
+          isVisibleModal={isEditProductPack}
+          onModalShow={this.onModalShow}
+          title={item.nameProduct}>
+          <View style={{maxHeight: 500}}>
+            <Text text={'Chọn lại gói sản phẩm'} style={styles.textSelect} />
+            <ScrollView>
+              {listPackage.map((item, index) => (
+                <Button
+                  title={item.title}
+                  buttonStyle={styles.buttonStyleModal45}
+                  titleStyle={{color: '#000000'}}
+                  onPress={() => this.onUpdateProductPack(item)}
+                />
+              ))}
+            </ScrollView>
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                title={'Quay lại'}
+                containerStyle={{flex: 1, borderRadius: 0}}
+                buttonStyle={[
+                  styles.buttonStyleModal2,
+                  {borderBottomLeftRadius: 14},
+                ]}
+                titleStyle={{color: color, textAlign: 'center'}}
+                onPress={this.onCloseModal}
+              />
+            </View>
+          </View>
+        </ModalBase>
+      </>
+    );
+  }
+
+  render() {
+    const {item} = this.state;
+    return (
+      <TouchableOpacity onPress={this.onDetailCart} style={styles.container}>
+        <Button
+          title={'x'}
+          containerStyle={{marginRight: 12}}
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.titleStyle}
+          onPress={this.onRemoveProduct}
+        />
+        <Image
+          source={{uri: item.image}}
+          style={styles.image}
+          PlaceholderContent={<ActivityIndicator />}
+          resizeMode={'contain'}
+        />
+        <View style={styles.priceContainer}>
+          <MediumText
+            text={item.nameProduct}
+            style={styles.nameProduct}
+            numberOfLines={1}
+          />
+          <Text
+            text={
+              item.packid === '-1' ? `${item.total} Bottles` : item.namePack
+            }
+            style={styles.title}
+            numberOfLines={1}
+          />
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity onPress={this.onDetailCart}>
+              <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
+            </TouchableOpacity>
+            <Text
+              text={`${item.packpriceusd * item.total} $`}
+              style={styles.price}
+            />
+          </View>
+        </View>
+        {this.renderModal()}
       </TouchableOpacity>
     );
   }
