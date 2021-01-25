@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomColor: '#dddddd',
     borderBottomWidth: 0.7,
-    marginTop: isIphoneX ? 0 : 20
+    marginTop: (isIphoneX || Platform.OS === 'ios')  ? 0 : 20
   },
   btnBack: {
     position: 'absolute',
