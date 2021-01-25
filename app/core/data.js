@@ -37,6 +37,10 @@ export const handleGetPackageProduct = (orderType, success, failure) => {
     (response) => {
       const {data} = response;
       for (let i = 0; i < data.length; i++) {
+        // Fix truong hop loc theo type
+        if (orderType !== 0 && data[i].packid === -1) {
+          data[i].type = orderType;
+        }
         replacePackageProduct(data[i]);
       }
       success(data);

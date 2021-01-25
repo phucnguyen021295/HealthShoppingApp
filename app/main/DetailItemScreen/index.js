@@ -218,7 +218,7 @@ class DetailItemScreen extends PureComponent {
             <Quantity
               productid={item.productid}
               packid={valueSelected}
-              quantity={packSelected.quantity}
+              quantity={item.quality}
               setQuantity={this.setQuantity}
               updateTotal={this.updateTotal}
             />

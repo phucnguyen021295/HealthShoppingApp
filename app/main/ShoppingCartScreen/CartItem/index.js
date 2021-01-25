@@ -37,6 +37,7 @@ import {
 import {broadcastShoppingCardChange} from '../../../core/shoppingCart';
 import Quantity from '../../DetailItemScreen/components/Quantity';
 import {getPackageByProductId} from '../../../core/db/table/package_product';
+import {getProduct} from '../../../core/db/table/product';
 
 class CartItem extends PureComponent {
   constructor(props) {
@@ -49,6 +50,7 @@ class CartItem extends PureComponent {
       isRemoveProduct: false,
       isEditProduct: false,
       isEditProductPack: false,
+      quality: 1,
     };
   }
 
@@ -175,6 +177,13 @@ class CartItem extends PureComponent {
     this.setState({item: data}, this.onCloseModal());
   };
 
+  onModalShow = () => {
+    const {item} = this.state;
+    getProduct(item.productid, (data) => {
+      this.setState({quality: data[0].quality});
+    });
+  };
+
   renderModal() {
     const {
       isEditProduct,
@@ -182,6 +191,7 @@ class CartItem extends PureComponent {
       item,
       listPackage,
       isEditProductPack,
+      quality
     } = this.state;
     return (
       <>
@@ -206,7 +216,7 @@ class CartItem extends PureComponent {
           </View>
         </ModalBase>
 
-        <ModalBase isVisibleModal={isEditProduct} title={item.nameProduct}>
+        <ModalBase isVisibleModal={isEditProduct} title={item.nameProduct} onModalShow={this.onModalShow}>
           <View>
             <View
               style={{
@@ -217,7 +227,7 @@ class CartItem extends PureComponent {
               <Quantity
                 packid={item.packid}
                 productid={item.productid}
-                quantity={item.quantity}
+                quantity={quality}
                 setQuantity={this.setQuantity}
               />
             </View>

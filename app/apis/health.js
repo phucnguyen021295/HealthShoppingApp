@@ -240,14 +240,14 @@ export const transferApi = (data, success = () => {}, failure = () => {}) => {
 };
 
 // 9. Lấy về lịch sử giao dịch
-export const getEarningApi = (pageno = 1, success, failure) => {
+export const getEarningApi = (type = 'all', pageno = 1, success, failure) => {
   const {token} = global;
   const options = {
     method: 'get',
     headers: {
       'x-token': token,
     },
-    url: `${DOMAIN}/api/earning/all/${pageno}`,
+    url: `${DOMAIN}/api/earning/${type}/${pageno}`,
     timeout: 10000,
   };
   axios(options).then(
