@@ -70,7 +70,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     marginHorizontal: 20,
-    marginVertical: 12
+    marginVertical: 12,
+    ...Platform.select({
+      android: {
+        height: 40,
+      }
+    })
   },
 
   inputStyle: {

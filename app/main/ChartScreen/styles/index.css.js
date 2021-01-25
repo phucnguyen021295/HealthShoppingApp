@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   },
   chart: {
     flex: 1,
+    marginBottom: 20
   },
   dropdownContainer: {
     flexDirection: 'row',
@@ -38,7 +39,19 @@ const styles = StyleSheet.create({
       marginTop: 10
   },
 
-    containerStyle: {height: 40,}
+    containerStyle: {height: 40,},
+
+  square: {
+    width: 14,
+    height: 14,
+  },
+
+  overviewText: {
+    color: '#ffffff',
+    fontSize: 14,
+    marginLeft: 8,
+  },
+
 });
 
 export default styles;

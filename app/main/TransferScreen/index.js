@@ -186,7 +186,7 @@ class TransferScreen extends PureComponent {
                 placeholder="Ghi chú"
                 containerStyle={styles.containerStyleNote}
                 inputContainerStyle={styles.inputContainerStyleNote}
-                inputStyle={[styles.inputStyle, {height: heightToDP(120)}]}
+                inputStyle={[styles.inputStyle, {height: heightToDP(120), textAlignVertical: 'top'}]}
                 multiline
                 renderErrorMessage={false}
                 numberOfLines={5}

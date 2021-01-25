@@ -86,8 +86,9 @@ class OderScreen extends PureComponent {
               searchIcon={styles.searchIcon}
               inputStyle={styles.inputStyle}
               containerStyle={{
-                backgroundColor: '#0000000',
+                backgroundColor: 'transparent',
                 borderTopWidth: 0,
+                borderBottomWidth: 0,
                 flex: 1,
                 paddingHorizontal: 0,
                   paddingTop: isIPhoneX ? 0 : 20

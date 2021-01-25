@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 
   containerStyle: {
-    backgroundColor: '#0000000',
+    backgroundColor: 'transparent',
     borderTopWidth: 0,
     flex: 1,
     paddingHorizontal: 0,

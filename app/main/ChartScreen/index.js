@@ -43,6 +43,19 @@ const colors = {
   Total: processColor('salmon'),
 };
 
+const colorsNote = {
+  'Weak Leg': 'green',
+  Direct: 'red',
+  Mega: 'purple',
+  F1: 'yellow',
+  Level: 'blue',
+  Bonus: 'pink',
+  'Leadership Bonus': 'orange',
+  Order: 'plum',
+  Transfer: 'gold',
+  Total: 'salmon',
+};
+
 const formatDay = {
   0: 'Thứ 2',
   1: 'Thứ 3',
@@ -130,14 +143,13 @@ const TYPE_CALENDAR = {
 
 const dataChartConstructor = {
   legend: {
-    enabled: true,
-    textSize: 15,
+    enabled: false,
+    textSize: 14,
     stroke: '#ffffff',
-    formSize: 15,
+    formSize: 14,
     xEntrySpace: 15,
     yEntrySpace: 10,
     wordWrapEnabled: true,
-
     color: processColor('white'),
     textColor: processColor('white'),
   },
@@ -188,7 +200,7 @@ const dataChartConstructor = {
     centerAxisLabels: true,
     position: 'BOTTOM',
     textColor: processColor('white'),
-    textSize: 15,
+    textSize: 14,
   },
 
   yAxis: {
@@ -198,7 +210,7 @@ const dataChartConstructor = {
       gridLineWidth: 1,
       drawAxisLine: true,
       drawLabels: true,
-      textSize: 15,
+      textSize: 14,
       gridColor: processColor('white'),
     },
     right: {
@@ -264,6 +276,7 @@ class StackedBarChartScreen extends PureComponent {
           drawValues: false,
           colors: [colors[arrayKey[i]]],
         },
+        color: colorsNote[arrayKey[i]],
       };
       for (let j = 0; j < data.length; j++) {
         item.values.push(parseInt(data[j][arrayKey[i]] || 0));
@@ -325,7 +338,9 @@ class StackedBarChartScreen extends PureComponent {
   };
 
   render() {
+    const {data} = this.state;
     const {styleChart} = this.props;
+    const dataSets = data.dataSets || [];
     return (
       <View>
         <View style={styles.dropdownContainer}>
@@ -375,11 +390,30 @@ class StackedBarChartScreen extends PureComponent {
         </View>
 
         <View style={[styles.container, styleChart]}>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10}}>
+            {
+              dataSets.map(item => {
+                return (
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginRight: 20}}>
+                      <View
+                          style={[
+                            styles.square,
+                            {backgroundColor: item.color},
+                          ]}
+                      />
+                      <Text style={styles.overviewText}>
+                        {item.label}
+                      </Text>
+                    </View>
+                )
+              })
+            }
+          </View>
           <BarChart
             style={styles.chart}
             xAxis={this.state.xAxis}
             yAxis={dataChartConstructor.yAxis}
-            data={this.state.data}
+            data={data}
             legend={dataChartConstructor.legend}
             drawValueAboveBar={false}
             onSelect={this.handleSelect.bind(this)}
@@ -391,6 +425,7 @@ class StackedBarChartScreen extends PureComponent {
               durationX: 1000,
               durationY: 1000,
             }}
+            chartDescription={{text: ''}}
           />
         </View>
       </View>
