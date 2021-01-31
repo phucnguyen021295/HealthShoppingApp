@@ -14,33 +14,138 @@
 
 'use strict';
 
-import React from 'react';
-import {useWindowDimensions} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import React, {PureComponent} from 'react';
+import {View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
+import {Accessory, Avatar} from 'react-native-elements';
 
 // Components
-import DrawerContent from './components/DrawerContent';
-import Home from './components/HomeDrawer';
-import History from './components/HistoryDrawer';
-import PersonalPage from './components/PersonalPageDrawer';
-import Detail from './components/DetailDrawer';
+import Header from './components/Header';
+import Text, {MediumText} from '../../base/components/Text';
+import ImageBackGround from '../../base/components/ImageBackGround';
+import ChartScreen from '../ChartScreen';
+import Carousel from './components/Carousel';
+import ListApp from './components/ListApp';
 
-const Drawer = createDrawerNavigator();
+// Data
+import {handleGetProducts} from '../../core/data';
 
-function HomeDrawer() {
-  const dimensions = useWindowDimensions();
-  const isLargeScreen = dimensions.width >= 768;
-  return (
-    <Drawer.Navigator
-      drawerType={dimensions.width >= 768 ? 'permanent' : 'front'}
-      drawerStyle={isLargeScreen ? null : {width: '85%'}}
-      drawerContent={(props) => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="History" component={History} />
-      <Drawer.Screen name="Report" component={Detail} />
-      <Drawer.Screen name="PersonalPage" component={PersonalPage} />
-    </Drawer.Navigator>
-  );
+// styles
+import styles from './styles/index.css';
+
+// import {replaceProduct} from '../../../../core/db/table/product';
+// import data from '../../../OderScreen/components/OderList/data';
+import global, {setAccountBalanceGlobal} from '../../global';
+import {registerShoppingCardChange} from '../../core/shoppingCart';
+import {sumMoneyTotal} from '../../core/db/Sqlitedb';
+import {getBalanceApi} from '../../apis/health';
+
+class HomeDrawer extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      accountBalance: global.balance,
+    };
+  }
+
+  componentDidMount() {
+    handleGetProducts();
+    registerShoppingCardChange(this.onSumMoney);
+
+    this.onSumMoney();
+
+    getBalanceApi((response) => {
+      const {data} = response;
+      this.setState({accountBalance: data.balance});
+      setAccountBalanceGlobal(data.balance);
+    });
+  }
+
+  onSumMoney = () => {
+    sumMoneyTotal((data) => {
+      this.setState({accountBalance: global.balance});
+    });
+  };
+
+  onPersonalPage = () => {
+    this.props.navigation.navigate('PersonalPage');
+  };
+
+  render() {
+    const {accountBalance} = this.state;
+    const {name, membercode, image} = global;
+    const {navigation} = this.props;
+    return (
+      <View style={styles.container}>
+        <Header navigation={navigation} />
+        <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
+          <Avatar
+            rounded
+            activeOpacity={1}
+            size="large"
+            source={{
+              uri: image
+                ? image
+                : 'https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png',
+            }} />
+        </TouchableOpacity>
+        <ImageBackGround
+          source={require('../../images/backgroundHome.jpeg')}
+          blurRadius={4}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={[styles.viewRow, {paddingTop: 40}]}>
+              <Carousel />
+              <View style={{paddingTop: 12}}>
+                <ListApp />
+              </View>
+
+              <View style={{alignItems: 'center', paddingTop: 30}}>
+                <Image
+                  source={require('./styles/images/icons8-merchant-account-100.png')}
+                  style={{width: 100, height: 100, marginBottom: 12}}
+                />
+                <MediumText text={'Tài khoản thanh toán'} style={styles.account} />
+                <Text text={name} style={styles.name} />
+                <Text text={`Số dư: ${accountBalance} $`} style={styles.name} />
+                <Text text={`Mã code: ${membercode} $`} style={styles.name} />
+              </View>
+            </View>
+
+            <View style={styles.viewChart}>
+              <MediumText text={'THỐNG KÊ'} style={styles.textReport} />
+              <ChartScreen />
+            </View>
+          </ScrollView>
+        </ImageBackGround>
+      </View>
+    );
+  }
 }
 
 export default HomeDrawer;
+
+// <View style={styles.info}>
+//     <MediumText text={`Họ và tên: ${name}`} style={styles.name} />
+//     <MediumText text={`Mã code: ${membercode}`} style={styles.name} />
+//
+//     <View
+//         style={{
+//             flexDirection: 'row',
+//             justifyContent: 'center',
+//             marginTop: 10,
+//         }}>
+//         <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
+//             <QRCode
+//                 value={membercode}
+//                 logo={{
+//                     uri:
+//                         'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+//                 }}
+//                 logoSize={30}
+//                 size={80}
+//                 logoBackgroundColor="transparent"
+//                 logoBorderRadius={15}
+//             />
+//         </View>
+//     </View>
+// </View>

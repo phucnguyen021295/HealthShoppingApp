@@ -6,52 +6,43 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/30/20.
+ * @author phucnhb@bkav.com on 11/1/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-import {StyleSheet, Platform} from 'react-native';
-import {heightToDP} from '../../../core/utils/dimension';
+import {StyleSheet, Dimensions} from 'react-native';
+import {transparent} from '../../../../../core/color';
+
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: heightToDP(340),
-    color: '#ffffff',
-    zIndex: 99,
-  },
-  chart: {
-    flex: 1,
-    marginBottom: 20
-  },
-  dropdownContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 10,
-    ...Platform.select({
-      ios: {
-        zIndex: 100,
-      },
-    }),
-      marginBottom: 16,
-      marginTop: 10
+    justifyContent: 'space-between',
   },
 
-    containerStyle: {height: 40,},
+  row: {alignItems: 'center', width: width / 4, paddingVertical: 8},
 
-  square: {
-    width: 14,
-    height: 14,
+  containerStyle: {
+    borderRadius: 20,
   },
 
-  overviewText: {
+  btnButtonStyle: {
+    height: 60,
+    width: 62,
+    borderRadius: 25,
+    backgroundColor: transparent,
+    justifyContent: 'center',
+  },
+  text: {
     color: '#ffffff',
-    fontSize: 14,
-    marginLeft: 8,
+    paddingTop: 8,
+    textAlign: 'center',
+    paddingHorizontal: 8,
   },
-
 });
 
 export default styles;

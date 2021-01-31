@@ -15,6 +15,7 @@
 
 import React, {PureComponent} from 'react';
 import {FlatList, View} from 'react-native';
+import {ButtonGroup} from 'react-native-elements';
 
 // Components
 import HistoryItem from '../HistoryItem';
@@ -39,6 +40,7 @@ const itemsSelect = [
   },
 ];
 
+const buttons = ['All', 'Transfer'];
 class HistoryList extends PureComponent {
   constructor(props) {
     super(props);
@@ -55,6 +57,7 @@ class HistoryList extends PureComponent {
           hidden: true,
         },
       ],
+      selectedIndex: 0
     };
   }
 
@@ -143,34 +146,25 @@ class HistoryList extends PureComponent {
     this.setFlatlistRef = ref;
   };
 
+  updateIndex = (selectedIndex) => {
+    this.setState({type: buttons[selectedIndex], selectedIndex: selectedIndex, numberPage: 1}, () => {
+      this.getDataEarningApi(buttons[selectedIndex], 1);
+    })
+  };
+
   render() {
-    const {data, type, numberPage, pages} = this.state;
+    const {data, type, numberPage, selectedIndex} = this.state;
     return (
-      <View style={{paddingVertical: 20}}>
-        <View style={{flexDirection: 'row', zIndex: 99}}>
-          <DropDownPicker
-            items={itemsSelect}
-            defaultValue={type}
-            containerStyle={{height: 40, marginHorizontal: 20, flex: 1}}
-            style={{backgroundColor: '#fafafa'}}
-            itemStyle={{
-              justifyContent: 'flex-start',
-            }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
-            onChangeItem={this.onChangeItem}
-          />
-          <DropDownPicker
-            items={pages}
-            defaultValue={numberPage}
-            containerStyle={{height: 40, marginRight: 20, width: 130}}
-            style={{backgroundColor: '#fafafa'}}
-            itemStyle={{
-              justifyContent: 'flex-start',
-            }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
-            onChangeItem={this.onChangePage}
-          />
-        </View>
+      <View style={{paddingTop: 10}}>
+       <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 12}}>
+            <ButtonGroup
+                onPress={this.updateIndex}
+                selectedIndex={selectedIndex}
+                buttons={buttons}
+                containerStyle={{height: 40, width: 180, borderRadius: 20}}
+                selectedButtonStyle={{backgroundColor: '#dddddd'}}
+            />
+          </View>
         <FlatList
           data={data}
           renderItem={this.renderItem}
@@ -178,7 +172,7 @@ class HistoryList extends PureComponent {
           ref={this.setRef}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={data.length === 0 && this.ListFooterComponent}
-          style={{marginTop: 20, marginBottom: 50}}
+          style={{marginTop: 2, marginBottom: 70}}
           contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 10}}
         />
       </View>

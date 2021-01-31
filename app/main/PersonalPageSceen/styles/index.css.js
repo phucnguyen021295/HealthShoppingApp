@@ -14,13 +14,18 @@
 'use strict';
 
 import {Platform, StyleSheet} from 'react-native';
-import * as fontSize from '../../../../../core/fontSize';
-import {transparent} from '../../../../../core/color';
-import {heightToDP, widthToDP} from '../../../../../core/utils/dimension';
+import * as fontSize from '../../../core/fontSize';
+import {color} from '../../../core/color';
+import {transparent} from '../../../core/color';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  styleHeader: {
+    backgroundColor: color
   },
 
   info: {

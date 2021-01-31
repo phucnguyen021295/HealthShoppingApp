@@ -14,20 +14,22 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, ScrollView, Animated, Keyboard} from 'react-native';
+import {View, ScrollView, Animated, Keyboard, SafeAreaView} from 'react-native';
 import {Input} from 'react-native-elements';
 
 // Components
-import Header from '../Header';
-import ImageBackGround from '../../../../base/components/ImageBackGround';
-import {MediumText} from '../../../../base/components/Text';
-import ButtonBase from '../../../../base/components/ButtonBase';
+import Header from '../HomeScreen/components/Header';
+import ImageBackGround from '../../base/components/ImageBackGround';
+import {MediumText} from '../../base/components/Text';
+import ButtonBase from '../../base/components/ButtonBase';
+import HeaderCustom from '../../base/components/HeaderCustom';
+import LinearGradient from '../../base/components/LinearGradient';
 
 // styles
 import styles from './styles/index.css';
-import global, {updateUSer} from '../../../../global';
-import {heightToDP} from '../../../../core/utils/dimension';
-import NotificationModal from '../../../../base/components/NotificationModal';
+import global, {updateUSer} from '../../global';
+import {heightToDP} from '../../core/utils/dimension';
+import NotificationModal from '../../base/components/NotificationModal';
 
 class PersonalPageDrawer extends PureComponent {
   constructor(props) {
@@ -145,9 +147,9 @@ class PersonalPageDrawer extends PureComponent {
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} />
+        <HeaderCustom title={'Thông tin cá nhân'} color={'#ffffff'} ViewComponent={LinearGradient} />
         <ImageBackGround
-          source={require('../../../../images/backgroundHome.jpeg')}
+          source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
           <Animated.View
             style={[styles.info, {paddingBottom: this.keyboardHeight}]}>
@@ -155,7 +157,6 @@ class PersonalPageDrawer extends PureComponent {
               style={{flex: 1}}
               contentContainerStyle={{paddingTop: heightToDP(30)}}
               showsVerticalScrollIndicator={false}>
-              <MediumText text={'Thông tin cá nhân'} style={styles.textInfo} />
               <View style={{marginBottom: heightToDP(14)}}>
                 <MediumText
                   text={`Họ và tên: ${name}`}
@@ -247,6 +248,7 @@ class PersonalPageDrawer extends PureComponent {
             onPress={this.onCloseModal}
           />
         </ImageBackGround>
+        <SafeAreaView style={styles.styleHeader} />
       </View>
     );
   }

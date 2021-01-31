@@ -6,43 +6,38 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/20/20.
+ * @author phucnhb@bkav.com on 9/6/20.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-import {StyleSheet, Platform} from 'react-native';
-import {transparent} from '../../../../../core/color';
-import {heightToDP, widthToDP} from '../../../../../core/utils/dimension';
-import {smaller} from '../../../../../core/fontSize';
-
-export const SIZE_ICON = heightToDP(25);
+import {Platform, StyleSheet} from 'react-native';
+import {transparent} from '../../../../core/color';
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    backgroundColor: transparent,
-    ...Platform.select({
-      android: {
-        height: 64,
-      }
-    }),
-    zIndex: 99,
+  container: {
+    flex: 1,
+    resizeMode: 'cover',
   },
 
   buttonStyle: {
     backgroundColor: transparent,
   },
 
-  textStyle: {
-    fontSize: smaller,
+  icon: {
+    paddingLeft: 20,
+    paddingRight: 30,
   },
 
-  containerStyleBadge: {
-    position: 'absolute',
-    top: 0,
-    right: -widthToDP(4),
+  containerStyle: {
+    backgroundColor: transparent,
+    ...Platform.select({
+      android: {
+        height: 64,
+      },
+    }),
   },
 });
 

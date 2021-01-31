@@ -28,8 +28,11 @@ import Home from './app/main/MainScreen';
 import ShoppingCart from './app/main/ShoppingCartScreen';
 import UserShopping from './app/main/UserShoppingScreen';
 import AddressShopping from './app/main/AddressShoppingScreen';
-import CapchaShopping from './app/main/CapchaShoppingScreen';
+// import CapchaShopping from './app/main/CapchaShoppingScreen';
 import TransactionHistory from './app/main/TransactionHistoryScreen';
+import PersonalPage from './app/main/PersonalPageSceen';
+import History from './app/main/HistoryScreen';
+import Report from './app/main/ReportSceen';
 import {callBack} from './app/core/data';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
@@ -90,6 +93,9 @@ class App extends PureComponent {
               name="TransactionHistory"
               component={TransactionHistory}
             />
+            <Stack.Screen name="PersonalPage" component={PersonalPage} />
+            <Stack.Screen name="Report" component={Report} />
+            <Stack.Screen name="History" component={History} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

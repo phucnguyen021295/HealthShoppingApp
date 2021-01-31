@@ -140,7 +140,7 @@ class TransferScreen extends PureComponent {
         blurRadius={4}>
         <SafeAreaView />
         <InputScrollView>
-          <MediumText text={'Chuyển tiền'} style={styles.textInfo} />
+          <MediumText text={'Chuyển khoản'} style={styles.textInfo} />
           <View style={styles.container}>
             <View style={styles.item}>
               <MediumText text={'Mã thành viên:'} style={styles.textRow} />

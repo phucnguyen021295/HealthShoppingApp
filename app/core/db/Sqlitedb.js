@@ -156,7 +156,7 @@ const sumMoneyTotal = (success, failure) => {
   db = open();
   db.transaction(function (txn) {
     txn.executeSql(
-      'select sum(total) totalProduct, sum(packpriceusd * total) totalMoney from shopping',
+      'select sum(quantity) totalProduct, sum(packpriceusd * total) totalMoney from shopping',
       [],
       (tx, results) => {
         let temp = [];

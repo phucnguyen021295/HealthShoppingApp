@@ -17,12 +17,14 @@ import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 
 // Components
-import Header from '../Header';
-import ImageBackGround from '../../../../base/components/ImageBackGround';
-import HistoryList from '../../../TransactionHistoryScreen/components/HistoryList';
+import Header from '../HomeScreen/components/Header';
+import ImageBackGround from '../../base/components/ImageBackGround';
+import HistoryList from '../TransactionHistoryScreen/components/HistoryList';
 
 // styles
 import styles from './styles/index.css';
+import LinearGradient from '../../base/components/LinearGradient';
+import HeaderCustom from '../../base/components/HeaderCustom';
 
 class HistoryDrawer extends PureComponent {
   constructor(props) {
@@ -33,9 +35,13 @@ class HistoryDrawer extends PureComponent {
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} />
+        <HeaderCustom
+          title={'Lịch sử giao dịch'}
+          color={'#ffffff'}
+          ViewComponent={LinearGradient}
+        />
         <ImageBackGround
-          source={require('../../../../images/backgroundHome.jpeg')}
+          source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
           <View style={styles.info}>
             <HistoryList />

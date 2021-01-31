@@ -390,7 +390,7 @@ class StackedBarChartScreen extends PureComponent {
         </View>
 
         <View style={[styles.container, styleChart]}>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10}}>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginBottom: 10}}>
             {
               dataSets.map(item => {
                 return (

@@ -127,7 +127,7 @@ class DetailItemScreen extends PureComponent {
           type: packSelected.type,
           packpriceusd: packSelected.packpriceusd,
           image: item.image150,
-          quantity: packSelected.packid === '-1' ? total : packSelected.quantity,
+          quantity: 1,
           total: packSelected.packid === '-1' ? total : 1,
         };
         replaceShopping(data, () => {

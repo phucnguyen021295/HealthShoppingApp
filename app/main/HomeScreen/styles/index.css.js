@@ -21,7 +21,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   infoUser: {
-    flexDirection: 'row', alignItems: 'center'},
+    position: 'absolute',
+    left: 20,
+    top: 50,
+    zIndex: 100,
+  },
   fullName: {
     paddingLeft: 20,
   },
@@ -34,9 +38,30 @@ const styles = StyleSheet.create({
   },
   name: {color: '#ffffff', fontSize: fontSize.normal, lineHeight: 30},
 
-  chart: {
-    flex: 1,
-    backgroundColor: '#00000059',
+  viewRow: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    paddingVertical: 20,
+    marginBottom: 20,
+  },
+
+  viewChart: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    paddingVertical: 20,
+    marginBottom: 20,
+  },
+
+  textReport: {
+    textAlign: 'center',
+    color: '#ffffff',
+    fontSize: fontSize.large,
+    lineHeight: 30,
+    paddingHorizontal: 12,
+    paddingBottom: 16
+    // backgroundColor: 'rgba(256,256,256,0.3)'
+  },
+
+  account: {
+    color: '#ffffff', fontSize: fontSize.large, lineHeight: 30
   }
 });
 

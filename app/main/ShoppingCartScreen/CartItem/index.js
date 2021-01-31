@@ -120,9 +120,11 @@ class CartItem extends PureComponent {
         type: item.type,
         packpriceusd: item.packpriceusd,
         image: item.image,
-        quantity: totalUpdate,
+        quantity: 1,
         total: totalUpdate,
       };
+
+      this.setState({item: data}, () => this.onCloseModal());
       replaceShopping(data, () => {
         broadcastShoppingCardChange();
       });
@@ -144,8 +146,10 @@ class CartItem extends PureComponent {
 
   onModalShow = () => {
     const {item} = this.state;
+    debugger;
     getPackageByProductId(item.productid, item.type, (data) => {
       const _listPackage = data.filter((item) => item.packid !== '-1');
+      alert(JSON.stringify(data));
       this.setState({
         listPackage: _listPackage,
       });
@@ -166,7 +170,7 @@ class CartItem extends PureComponent {
       type: packSelected.type,
       packpriceusd: packSelected.packpriceusd,
       image: item.image,
-      quantity: packSelected.quantity,
+      quantity: 1,
       total: 1,
     };
     replaceShopping(data, () => {
@@ -174,7 +178,7 @@ class CartItem extends PureComponent {
         broadcastShoppingCardChange();
       });
     });
-    this.setState({item: data}, this.onCloseModal());
+    this.setState({item: data}, () => this.onCloseModal());
   };
 
   onModalShow = () => {
@@ -227,7 +231,6 @@ class CartItem extends PureComponent {
               <Quantity
                 packid={item.packid}
                 productid={item.productid}
-                quantity={quality}
                 setQuantity={this.setQuantity}
               />
             </View>

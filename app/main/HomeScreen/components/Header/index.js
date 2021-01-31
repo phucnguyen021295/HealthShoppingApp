@@ -21,14 +21,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 // Components
 import LinearGradient from '../../../../base/components/LinearGradient';
 
-// Apis
-import {getBalanceApi} from '../../../../apis/health';
-
 // Styles
 import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
-import global, {setAccountBalanceGlobal} from '../../../../global';
 import NotificationModal from '../../../../base/components/NotificationModal';
 
 class HeaderHomeTab extends PureComponent {
@@ -36,7 +32,6 @@ class HeaderHomeTab extends PureComponent {
     super(props);
     this.state = {
       valueBadge: 0,
-      accountBalance: global.balance,
       isVisible: false,
     };
 
@@ -48,12 +43,6 @@ class HeaderHomeTab extends PureComponent {
     registerShoppingCardChange(this.onSumMoney);
 
     this.onSumMoney();
-
-    getBalanceApi((response) => {
-      const {data} = response;
-      this.setState({accountBalance: data.balance});
-      setAccountBalanceGlobal(data.balance);
-    });
   }
 
   onSumMoney = () => {
@@ -63,7 +52,6 @@ class HeaderHomeTab extends PureComponent {
           valueBadge: data[0].totalProduct,
         });
       }
-      this.setState({accountBalance: global.balance});
     });
   };
 
@@ -130,20 +118,18 @@ class HeaderHomeTab extends PureComponent {
   }
 
   render() {
-    const {accountBalance} = this.state;
     return (
-      <LinearGradient style={{borderRadius: 0}}>
-        <Header
-          placement="center"
-          leftComponent={this.renderLeftComponent()}
-          centerComponent={{
-            text: `${accountBalance} $`,
-            style: {color: '#fff'},
-          }}
-          rightComponent={this.renderRightComponent()}
-          containerStyle={styles.containerStyle}
-        />
-      </LinearGradient>
+      <Header
+        placement="center"
+        // leftComponent={this.renderLeftComponent()}
+        centerComponent={{
+          text: 'MY NEW WAY',
+          style: {color: '#fff'},
+        }}
+        ViewComponent={LinearGradient}
+        rightComponent={this.renderRightComponent()}
+        containerStyle={styles.containerStyle}
+      />
     );
   }
 }
