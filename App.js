@@ -33,6 +33,7 @@ import TransactionHistory from './app/main/TransactionHistoryScreen';
 import PersonalPage from './app/main/PersonalPageSceen';
 import History from './app/main/HistoryScreen';
 import Report from './app/main/ReportSceen';
+import ShowQRCode from './app/main/ShowQRCodeScreen';
 import {callBack} from './app/core/data';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
@@ -96,6 +97,7 @@ class App extends PureComponent {
             <Stack.Screen name="PersonalPage" component={PersonalPage} />
             <Stack.Screen name="Report" component={Report} />
             <Stack.Screen name="History" component={History} />
+            <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

@@ -15,7 +15,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Components
@@ -25,6 +25,8 @@ import Text from '../../../../base/components/Text';
 // Styles
 import styles from './styles/index.css';
 import {withNavigation} from '@react-navigation/compat';
+import {clearData} from '../../../../core/storage';
+import {callBack} from '../../../../core/data';
 
 const data = [
   {
@@ -47,9 +49,9 @@ const data = [
   },
   {
     id: '4',
-    title: 'Setting',
-    icon: <Icon name="ios-settings-outline" size={25} color="white" />,
-    screen: '',
+    title: 'Logout',
+    icon: <Icon name="ios-power-sharp" size={25} color="white" />,
+    screen: 'Logout',
   },
 ];
 
@@ -62,8 +64,30 @@ class ListApp extends PureComponent {
   }
 
   onChangeNavigate = (item) => {
-    this.props.navigation.navigate(item.screen);
-  }
+    if (item.screen === 'Logout') {
+      Alert.alert(
+        'Thông báo',
+        'Đăng xuất tài khoản?',
+        [
+          {
+            text: 'Hủy bỏ',
+            onPress: () => console.log('Cancel Pressed'),
+          },
+          {
+            text: 'Đồng ý',
+            onPress: () => {
+              clearData().then(() => {
+                callBack.onLogout();
+              });
+            },
+          },
+        ],
+        {cancelable: false},
+      );
+    } else {
+      this.props.navigation.navigate(item.screen);
+    }
+  };
 
   keyExtractor = (item) => item.id;
 

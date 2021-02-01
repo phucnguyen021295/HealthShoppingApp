@@ -28,6 +28,7 @@ import styles from './styles/index.css';
 import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../base/components/Text';
 import {isIPhoneX} from '../../core/utils/isIphoneX';
+import {color} from '../../core/color';
 
 const orderType = [
   {
@@ -49,7 +50,7 @@ class OderScreen extends PureComponent {
     super(props);
     this.state = {
       search: '',
-      oderType: 0,
+      oderType: '0',
       isVisible: false,
     };
   }
@@ -91,7 +92,7 @@ class OderScreen extends PureComponent {
                 borderBottomWidth: 0,
                 flex: 1,
                 paddingHorizontal: 0,
-                  paddingTop: isIPhoneX ? 0 : 20
+                paddingTop: isIPhoneX ? 0 : 20,
               }}
               inputContainerStyle={styles.inputContainerStyle}
             />
@@ -104,7 +105,11 @@ class OderScreen extends PureComponent {
                 />
               }
               iconRight
-              buttonStyle={{paddingHorizontal: 20, backgroundColor: '#fffffff', paddingTop: isIPhoneX ? 0 : 20}}
+              buttonStyle={{
+                paddingHorizontal: 20,
+                backgroundColor: '#fffffff',
+                paddingTop: isIPhoneX ? 0 : 20,
+              }}
               onPress={this.onSelectTypeOder}
             />
           </View>
@@ -135,11 +140,22 @@ class OderScreen extends PureComponent {
               />
             </View>
             {orderType.map((item) => (
-              <Text
-                text={item.name}
-                style={styles.itemSelect}
-                onPress={() => this.onSelectItem(item)}
-              />
+              <View
+                style={[
+                  {flexDirection: 'row', alignItems: 'center', paddingHorizontal: 18,},
+                  item.oderType === oderType && {backgroundColor: '#dddddd'},
+                ]}>
+                <MaterialCommunityIcons
+                  name={'label-variant-outline'}
+                  size={28}
+                  color={color}
+                />
+                <Text
+                  text={item.name}
+                  style={[styles.itemSelect]}
+                  onPress={() => this.onSelectItem(item)}
+                />
+              </View>
             ))}
             <SafeAreaView />
           </View>

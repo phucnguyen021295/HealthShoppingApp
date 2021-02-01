@@ -58,20 +58,22 @@ const styles = StyleSheet.create({
   },
 
   itemSelect: {
-    paddingHorizontal: 40,
     fontSize: large,
-    paddingVertical: 10
+    paddingVertical: 10,
+    paddingLeft: 12
   },
 
   titleSelect: {
     paddingLeft: 20,
-    fontSize: large,
-    paddingVertical: 10
+    fontSize: huge,
+    paddingVertical: 12,
+    lineHeight: 30
+
   },
 
   textClose: {
     color: color,
-    fontSize: normal,
+    fontSize: large,
     paddingRight: 20,
   }
 });

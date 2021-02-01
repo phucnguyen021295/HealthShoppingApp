@@ -15,6 +15,7 @@
 
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
+import {isIPhoneX} from '../../../core/utils/isIphoneX';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   infoUser: {
     position: 'absolute',
     left: 20,
-    top: 50,
+    top: isIPhoneX ? 48 : 24,
     zIndex: 100,
   },
   fullName: {
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
 
   account: {
     color: '#ffffff', fontSize: fontSize.large, lineHeight: 30
-  }
+  },
+  avatar: {width: 72, height: 72}
 });
 
 export default styles;

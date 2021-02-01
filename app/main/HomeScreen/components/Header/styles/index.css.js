@@ -16,9 +16,9 @@
 import {StyleSheet, Platform} from 'react-native';
 import {transparent} from '../../../../../core/color';
 import {heightToDP, widthToDP} from '../../../../../core/utils/dimension';
-import {smaller} from '../../../../../core/fontSize';
+import {smaller, large} from '../../../../../core/fontSize';
 
-export const SIZE_ICON = heightToDP(25);
+export const SIZE_ICON = 28;
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 
   buttonStyle: {
     backgroundColor: transparent,
+    paddingHorizontal: 12
   },
 
   textStyle: {
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
     top: 0,
     right: -widthToDP(4),
   },
+
+  textTitle: {color: '#ffffff', fontSize: large}
 });
 
 export default styles;

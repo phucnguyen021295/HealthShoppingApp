@@ -16,7 +16,6 @@
 
 import React, {PureComponent} from 'react';
 import {View, ScrollView, TouchableOpacity, Image} from 'react-native';
-import QRCode from 'react-native-qrcode-svg';
 import {Accessory, Avatar} from 'react-native-elements';
 
 // Components
@@ -75,6 +74,7 @@ class HomeDrawer extends PureComponent {
     const {accountBalance} = this.state;
     const {name, membercode, image} = global;
     const {navigation} = this.props;
+    const urlImage = image ? {uri: image} : require('./styles/images/avatar.png');
     return (
       <View style={styles.container}>
         <Header navigation={navigation} />
@@ -83,11 +83,9 @@ class HomeDrawer extends PureComponent {
             rounded
             activeOpacity={1}
             size="large"
-            source={{
-              uri: image
-                ? image
-                : 'https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png',
-            }} />
+            source={urlImage}
+            iconStyle={styles.avatar}
+          />
         </TouchableOpacity>
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
@@ -123,29 +121,3 @@ class HomeDrawer extends PureComponent {
 }
 
 export default HomeDrawer;
-
-// <View style={styles.info}>
-//     <MediumText text={`Họ và tên: ${name}`} style={styles.name} />
-//     <MediumText text={`Mã code: ${membercode}`} style={styles.name} />
-//
-//     <View
-//         style={{
-//             flexDirection: 'row',
-//             justifyContent: 'center',
-//             marginTop: 10,
-//         }}>
-//         <View style={{borderWidth: 3, borderColor: '#ffffff'}}>
-//             <QRCode
-//                 value={membercode}
-//                 logo={{
-//                     uri:
-//                         'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-//                 }}
-//                 logoSize={30}
-//                 size={80}
-//                 logoBackgroundColor="transparent"
-//                 logoBorderRadius={15}
-//             />
-//         </View>
-//     </View>
-// </View>

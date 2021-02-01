@@ -16,16 +16,19 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Header, Button, Badge} from 'react-native-elements';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import LinearGradient from '../../../../base/components/LinearGradient';
+import {MediumText} from '../../../../base/components/Text';
+import NotificationModal from '../../../../base/components/NotificationModal';
 
 // Styles
 import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
-import NotificationModal from '../../../../base/components/NotificationModal';
+import ModalBase from '../../../../base/components/ModalBase';
 
 class HeaderHomeTab extends PureComponent {
   constructor(props) {
@@ -85,10 +88,21 @@ class HeaderHomeTab extends PureComponent {
     this.setState({isVisible: false});
   };
 
+  onShowQR = () => {
+    this.props.navigation.navigate('ShowQRCode');
+  };
+
   renderRightComponent() {
-    const {valueBadge, isVisible} = this.state;
+    const {valueBadge, isVisible, isShowQR} = this.state;
     return (
-      <View>
+      <View style={{flexDirection: 'row'}}>
+        <Button
+          buttonStyle={styles.buttonStyle}
+          icon={
+            <Ionicons name="qr-code-outline" size={SIZE_ICON} color="white" />
+          }
+          onPress={this.onShowQR}
+        />
         <Button
           buttonStyle={styles.buttonStyle}
           icon={
@@ -123,8 +137,9 @@ class HeaderHomeTab extends PureComponent {
         placement="center"
         // leftComponent={this.renderLeftComponent()}
         centerComponent={{
-          text: 'MY NEW WAY',
-          style: {color: '#fff'},
+          text: () => (
+            <MediumText text={'MY NEW WAY'} style={styles.textTitle} />
+          ),
         }}
         ViewComponent={LinearGradient}
         rightComponent={this.renderRightComponent()}

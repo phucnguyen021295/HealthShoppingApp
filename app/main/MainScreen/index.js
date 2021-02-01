@@ -17,10 +17,12 @@ import React, {PureComponent} from 'react';
 import {StatusBar} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeTab from '../HomeScreen';
 import TransferTab from '../TransferScreen';
 import OderTab from '../OderScreen';
+import NotifyTab from '../NotifyScreen';
 
 import {small} from '../../core/fontSize';
 import {heightToDP} from '../../core/utils/dimension';
@@ -42,6 +44,7 @@ class MainScreen extends PureComponent {
       <Tab.Navigator
         initialRouteName="Home"
         tabBarOptions={{
+          showLabel: false,
           showIcon: true,
           activeTintColor: '#ffffff',
           inactiveTintColor: '#dddddd',
@@ -67,9 +70,22 @@ class MainScreen extends PureComponent {
           component={HomeTab}
           options={{
             tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons
-                name={'home'}
-                size={heightToDP(25)}
+              <Ionicons
+                name={'ios-home'}
+                size={25}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Notify"
+          component={NotifyTab}
+          options={{
+            tabBarIcon: ({focused, color, size}) => (
+              <Ionicons
+                name={'ios-notifications-sharp'}
+                size={26}
                 color={color}
               />
             ),
@@ -82,7 +98,7 @@ class MainScreen extends PureComponent {
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
                 name={'cog-transfer'}
-                size={heightToDP(25)}
+                size={28}
                 color={color}
               />
             ),
@@ -95,7 +111,7 @@ class MainScreen extends PureComponent {
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
                 name={'shopping'}
-                size={heightToDP(25)}
+                size={25}
                 color={color}
               />
             ),
