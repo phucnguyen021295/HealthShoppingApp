@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/20/20.
+ * @author phucnhb@bkav.com on 03/02/2021.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -14,22 +14,23 @@
 'use strict';
 
 import React from 'react';
+import {SafeAreaView} from 'react-native';
 
-import AppHeader from '../AppHeader';
+// Components
 import LinearGradient from '../LinearGradient';
+import ModalBase from '../ModalBase';
 
-function HeaderCustom(props) {
-  const {title, color, showBack, ...otherProps} = props;
+function SafeAreaViewBase(props) {
+  const {children} = props;
   return (
     <LinearGradient>
-      <AppHeader
-        title={title}
-        color={color}
-        showBack={showBack}
-        {...otherProps}
-      />
+      <SafeAreaView style={props.style} />
     </LinearGradient>
   );
 }
 
-export default HeaderCustom;
+SafeAreaViewBase.defaultProps = {
+  style: {},
+};
+
+export default SafeAreaViewBase;

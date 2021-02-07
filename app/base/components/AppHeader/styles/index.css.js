@@ -22,7 +22,7 @@ export const ICON_SIZE = 25;
 
 const styles = StyleSheet.create({
   container: {
-    height: heightToDP(50),
+    height: heightToDP(46),
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    height: heightToDP(50),
+    height: heightToDP(46),
     justifyContent: 'center',
     zIndex: 99,
   },

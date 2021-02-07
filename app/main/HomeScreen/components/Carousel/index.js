@@ -67,7 +67,7 @@ class MyCarousel extends PureComponent {
           parallaxFactor={0.4}
           {...parallaxProps}
         />
-        <MediumText style={styles.title} numberOfLines={2}>
+        <MediumText style={styles.title} numberOfLines={1}>
           {item.title}
         </MediumText>
       </View>
@@ -93,7 +93,7 @@ export default MyCarousel;
 const styles = StyleSheet.create({
   item: {
     width: screenWidth - 60,
-    height: 200,
+    height: 180,
   },
   imageContainer: {
     flex: 1,

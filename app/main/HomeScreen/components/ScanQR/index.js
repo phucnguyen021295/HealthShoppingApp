@@ -18,6 +18,7 @@ import {TouchableOpacity} from 'react-native';
 import QRCodeScanner from '../../../../base/components/QRCodeScanner';
 import {Avatar} from 'react-native-elements';
 import Modal from 'react-native-modal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class BarcodeScannerApp extends PureComponent {
   constructor(props) {
@@ -69,11 +70,7 @@ class BarcodeScannerApp extends PureComponent {
     const {styleBtn} = this.props;
     return (
       <TouchableOpacity onPress={this.onOpenQR} style={styleBtn}>
-        <Avatar
-          rounded
-          size="medium"
-          source={require('./styles/images/bt1_boxshadow.png')}
-        />
+        <Ionicons name="ios-scan-outline" size={35} color="white" />
         {this.renderModal()}
       </TouchableOpacity>
     );

@@ -31,6 +31,7 @@ import HistoryItem from '../TransactionHistoryScreen/components/HistoryItem';
 import ChartScreen from '../ChartScreen';
 import LinearGradient from '../../base/components/LinearGradient';
 import HeaderCustom from '../../base/components/HeaderCustom';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 class DetailDrawer extends PureComponent {
   constructor(props) {
@@ -60,11 +61,11 @@ class DetailDrawer extends PureComponent {
 
   render() {
     const buttons = ['All', 'Detail'];
-    const {navigation} = this.props;
     const {dataCharts, selectedIndex} = this.state;
     return (
       <View style={styles.container}>
-        <HeaderCustom title={'Report'} color={'#ffffff'} ViewComponent={LinearGradient} />
+        <SafeAreaViewBase />
+        <HeaderCustom title={'Report'} color={'#ffffff'} />
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
@@ -109,6 +110,7 @@ class DetailDrawer extends PureComponent {
           {/*  </View>*/}
           {/*</View>*/}
         </ImageBackGround>
+        <SafeAreaViewBase />
       </View>
     );
   }

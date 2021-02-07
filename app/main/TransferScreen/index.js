@@ -16,7 +16,8 @@
 
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
-import {Input} from 'react-native-elements';
+import {Button, Input} from 'react-native-elements';
+import Toast from 'react-native-root-toast';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
@@ -27,7 +28,7 @@ import ScanQR from '../HomeScreen/components/ScanQR';
 import NotificationModal from '../../base/components/NotificationModal';
 
 // Apis
-import {transferApi} from '../../apis/health';
+import {transferApi, getUserApi} from '../../apis/health';
 import global, {setAccountBalanceGlobal} from '../../global';
 import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 
@@ -59,6 +60,21 @@ class TransferScreen extends PureComponent {
 
   onChangeDes = (reason) => {
     this.setState({reason: reason});
+  };
+
+  onCheckUser = () => {
+    const {membercode} = this.state;
+    getUserApi(
+      membercode,
+      () => {},
+      () => {
+        this.setState({
+          isVisible: true,
+          descriptionModal: 'Có lỗi xảy ra, hoặc mã code không tồn tại.',
+          titleButton: 'Đóng',
+        });
+      },
+    );
   };
 
   onTransfer = () => {
@@ -136,7 +152,7 @@ class TransferScreen extends PureComponent {
     } = this.state;
     return (
       <ImageBackGround
-        source={require('../../images/backgroundHome.jpeg')}
+        source={require('../../images/backgroundHome1.jpeg')}
         blurRadius={4}>
         <SafeAreaView />
         <InputScrollView>
@@ -164,6 +180,13 @@ class TransferScreen extends PureComponent {
                   onChangeCode={this.onChangeCode}
                 />
               </View>
+
+                <Button
+                  title="Kiểm tra"
+                  buttonStyle={styles.btnButtonCheckStyle}
+                  titleStyle={styles.btnTitleCheckStyle}
+                  onPress={this.onCheckUser}
+                />
             </View>
             <View style={styles.item}>
               <MediumText text={'Số tiền:'} style={styles.textRow} />
@@ -186,7 +209,10 @@ class TransferScreen extends PureComponent {
                 placeholder="Ghi chú"
                 containerStyle={styles.containerStyleNote}
                 inputContainerStyle={styles.inputContainerStyleNote}
-                inputStyle={[styles.inputStyle, {height: heightToDP(120), textAlignVertical: 'top'}]}
+                inputStyle={[
+                  styles.inputStyle,
+                  {height: heightToDP(120), textAlignVertical: 'top'},
+                ]}
                 multiline
                 renderErrorMessage={false}
                 numberOfLines={5}

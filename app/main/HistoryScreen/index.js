@@ -25,6 +25,7 @@ import HistoryList from '../TransactionHistoryScreen/components/HistoryList';
 import styles from './styles/index.css';
 import LinearGradient from '../../base/components/LinearGradient';
 import HeaderCustom from '../../base/components/HeaderCustom';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 class HistoryDrawer extends PureComponent {
   constructor(props) {
@@ -32,9 +33,9 @@ class HistoryDrawer extends PureComponent {
   }
 
   render() {
-    const {navigation} = this.props;
     return (
       <View style={styles.container}>
+          <SafeAreaViewBase />
         <HeaderCustom
           title={'Lịch sử giao dịch'}
           color={'#ffffff'}
@@ -47,6 +48,7 @@ class HistoryDrawer extends PureComponent {
             <HistoryList />
           </View>
         </ImageBackGround>
+          <SafeAreaViewBase />
       </View>
     );
   }

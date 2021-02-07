@@ -15,12 +15,11 @@
 
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
-import {Header, Button, Badge} from 'react-native-elements';
+import {Button, Badge} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
-import LinearGradient from '../../../../base/components/LinearGradient';
 import {MediumText} from '../../../../base/components/Text';
 import NotificationModal from '../../../../base/components/NotificationModal';
 
@@ -28,7 +27,6 @@ import NotificationModal from '../../../../base/components/NotificationModal';
 import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
-import ModalBase from '../../../../base/components/ModalBase';
 
 class HeaderHomeTab extends PureComponent {
   constructor(props) {
@@ -133,18 +131,11 @@ class HeaderHomeTab extends PureComponent {
 
   render() {
     return (
-      <Header
-        placement="center"
-        // leftComponent={this.renderLeftComponent()}
-        centerComponent={{
-          text: () => (
+        <View style={styles.containerStyle}>
+            <View style={{width: 104}} />
             <MediumText text={'MY NEW WAY'} style={styles.textTitle} />
-          ),
-        }}
-        ViewComponent={LinearGradient}
-        rightComponent={this.renderRightComponent()}
-        containerStyle={styles.containerStyle}
-      />
+            {this.renderRightComponent()}
+        </View>
     );
   }
 }

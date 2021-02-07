@@ -21,6 +21,7 @@ import QRCode from 'react-native-qrcode-svg';
 import HeaderCustom from '../../base/components/HeaderCustom';
 import LinearGradient from '../../base/components/LinearGradient';
 import Text from '../../base/components/Text';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 // styles
 import styles from './styles/index.css';
@@ -33,6 +34,7 @@ function ShowQRCodeScreen(props) {
     : require('../HomeScreen/styles/images/avatar.png');
   return (
     <View style={styles.container}>
+        <SafeAreaViewBase />
       <HeaderCustom
         title={'Mã QR Code của '}
         color={'#ffffff'}
@@ -54,7 +56,7 @@ function ShowQRCodeScreen(props) {
           style={styles.textNote}
         />
       </View>
-      <SafeAreaView style={styles.styleHeader} />
+        <SafeAreaViewBase />
     </View>
   );
 }

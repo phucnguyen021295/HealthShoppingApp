@@ -40,6 +40,21 @@ const styles = StyleSheet.create({
     backgroundColor: transparent,
   },
 
+  btnButtonCheckStyle: {
+    marginTop: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: transparent,
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    borderRadius: 6
+
+  },
+
+  btnTitleCheckStyle: {
+    fontSize: fontSize.normal
+  },
+
   inputContainerStyle: {
     borderWidth: 1,
     borderColor: '#dddddd',

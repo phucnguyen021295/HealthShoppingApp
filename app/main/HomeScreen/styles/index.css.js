@@ -26,6 +26,15 @@ const styles = StyleSheet.create({
     left: 20,
     top: isIPhoneX ? 48 : 24,
     zIndex: 100,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   fullName: {
     paddingLeft: 20,
@@ -57,14 +66,16 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     lineHeight: 30,
     paddingHorizontal: 12,
-    paddingBottom: 16
+    paddingBottom: 16,
     // backgroundColor: 'rgba(256,256,256,0.3)'
   },
 
   account: {
-    color: '#ffffff', fontSize: fontSize.large, lineHeight: 30
+    color: '#ffffff',
+    fontSize: fontSize.large,
+    lineHeight: 30,
   },
-  avatar: {width: 72, height: 72}
+  avatar: {width: 72, height: 72},
 });
 
 export default styles;

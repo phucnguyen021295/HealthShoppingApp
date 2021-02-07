@@ -20,7 +20,6 @@ import {normal} from '../../../core/fontSize';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff'
   },
 
   styleHeader: {

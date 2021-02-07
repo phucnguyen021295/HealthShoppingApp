@@ -14,13 +14,14 @@
 'use strict';
 
 import React from 'react';
-import {View, SafeAreaView} from 'react-native';
+import {View} from 'react-native';
 
 // Components
 import HeaderCustom from '../../base/components/HeaderCustom';
 import LinearGradient from '../../base/components/LinearGradient';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import Text from '../../base/components/Text';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 // styles
 import styles from './styles/index.css';
@@ -28,6 +29,7 @@ import styles from './styles/index.css';
 function NotifyScreen(props) {
   return (
     <View style={styles.container}>
+        <SafeAreaViewBase/>
       <HeaderCustom
         title={'THÔNG BÁO'}
         color={'#ffffff'}
@@ -35,11 +37,11 @@ function NotifyScreen(props) {
         ViewComponent={LinearGradient}
       />
         <ImageBackGround
-            source={require('../../images/backgroundHome.jpeg')}
+            source={require('../../images/backgroundHome1.jpeg')}
             blurRadius={4}>
             <Text text={'Chưa có thông báo nào'} style={{textAlign: 'center', fontSize: 18, color: '#ffffff', paddingTop: 20}} />
         </ImageBackGround>
-      <SafeAreaView style={styles.styleHeader} />
+      <SafeAreaViewBase/>
     </View>
   );
 }

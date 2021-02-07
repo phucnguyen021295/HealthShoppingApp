@@ -23,12 +23,11 @@ export const SIZE_ICON = 28;
 const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: transparent,
-    ...Platform.select({
-      android: {
-        height: 64,
-      }
-    }),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     zIndex: 99,
+    alignItems: 'center',
+    height: heightToDP(48)
   },
 
   buttonStyle: {
@@ -40,13 +39,20 @@ const styles = StyleSheet.create({
     fontSize: smaller,
   },
 
+  viewCenter: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+  },
+
   containerStyleBadge: {
     position: 'absolute',
     top: 0,
-    right: -widthToDP(4),
+    right: -widthToDP(-6),
   },
 
-  textTitle: {color: '#ffffff', fontSize: large}
+  textTitle: {color: '#ffffff', fontSize: large, }
 });
 
 export default styles;

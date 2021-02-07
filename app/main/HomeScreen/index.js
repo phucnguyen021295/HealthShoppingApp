@@ -15,7 +15,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {View, ScrollView, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import {Accessory, Avatar} from 'react-native-elements';
 
 // Components
@@ -25,6 +25,7 @@ import ImageBackGround from '../../base/components/ImageBackGround';
 import ChartScreen from '../ChartScreen';
 import Carousel from './components/Carousel';
 import ListApp from './components/ListApp';
+import LinearGradient from '../../base/components/LinearGradient';
 
 // Data
 import {handleGetProducts} from '../../core/data';
@@ -38,6 +39,7 @@ import global, {setAccountBalanceGlobal} from '../../global';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {getBalanceApi} from '../../apis/health';
+
 
 class HomeDrawer extends PureComponent {
   constructor(props) {
@@ -77,7 +79,11 @@ class HomeDrawer extends PureComponent {
     const urlImage = image ? {uri: image} : require('./styles/images/avatar.png');
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} />
+        <LinearGradient>
+          <SafeAreaView />
+          <Header navigation={navigation} />
+        </LinearGradient>
+
         <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
           <Avatar
             rounded
@@ -88,7 +94,7 @@ class HomeDrawer extends PureComponent {
           />
         </TouchableOpacity>
         <ImageBackGround
-          source={require('../../images/backgroundHome.jpeg')}
+          source={require('../../images/backgroundHome1.jpeg')}
           blurRadius={4}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={[styles.viewRow, {paddingTop: 40}]}>
