@@ -88,9 +88,8 @@ class HomeDrawer extends PureComponent {
           <Avatar
             rounded
             activeOpacity={1}
-            size="large"
             source={urlImage}
-            iconStyle={styles.avatar}
+            style={styles.avatar}
           />
         </TouchableOpacity>
         <ImageBackGround

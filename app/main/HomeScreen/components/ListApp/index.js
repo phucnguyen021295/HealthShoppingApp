@@ -32,25 +32,25 @@ const data = [
   {
     id: '1',
     title: 'Report',
-    icon: <Icon name="md-stats-chart-outline" size={23} color="white" />,
+    icon: <Icon name="md-stats-chart-outline" size={21} color="white" />,
     screen: 'Report',
   },
   {
     id: '2',
     title: 'Balance History',
-    icon: <Icon name="time-outline" size={25} color="white" />,
+    icon: <Icon name="time-outline" size={23} color="white" />,
     screen: 'History',
   },
   {
     id: '3',
     title: 'Transfer History',
-    icon: <Icon name="trending-up" size={25} color="white" />,
+    icon: <Icon name="trending-up" size={23} color="white" />,
     screen: 'History',
   },
   {
     id: '4',
     title: 'Logout',
-    icon: <Icon name="ios-power-sharp" size={25} color="white" />,
+    icon: <Icon name="ios-power-sharp" size={23} color="white" />,
     screen: 'Logout',
   },
 ];

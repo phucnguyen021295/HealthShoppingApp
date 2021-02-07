@@ -72,7 +72,7 @@ class MainScreen extends PureComponent {
             tabBarIcon: ({focused, color, size}) => (
               <Ionicons
                 name={'ios-home'}
-                size={25}
+                size={22}
                 color={color}
               />
             ),
@@ -85,7 +85,7 @@ class MainScreen extends PureComponent {
             tabBarIcon: ({focused, color, size}) => (
               <Ionicons
                 name={'ios-notifications-sharp'}
-                size={26}
+                size={23}
                 color={color}
               />
             ),
@@ -98,7 +98,7 @@ class MainScreen extends PureComponent {
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
                 name={'cog-transfer'}
-                size={28}
+                size={25}
                 color={color}
               />
             ),
@@ -111,7 +111,7 @@ class MainScreen extends PureComponent {
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
                 name={'shopping'}
-                size={25}
+                size={22}
                 color={color}
               />
             ),

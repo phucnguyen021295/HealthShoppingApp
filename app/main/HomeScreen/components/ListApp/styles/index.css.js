@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   },
 
   btnButtonStyle: {
-    height: 60,
-    width: 62,
+    height: 58,
+    width: 60,
     borderRadius: 25,
     backgroundColor: transparent,
     justifyContent: 'center',

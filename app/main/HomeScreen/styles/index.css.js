@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   infoUser: {
     position: 'absolute',
     left: 20,
-    top: isIPhoneX ? 48 : 24,
+    top: isIPhoneX ? 51 : 30,
     zIndex: 100,
     shadowColor: '#000',
     shadowOffset: {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     lineHeight: 30,
   },
-  avatar: {width: 72, height: 72},
+  avatar: {width: 66, height: 66},
 });
 
 export default styles;

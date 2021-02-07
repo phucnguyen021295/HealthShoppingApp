@@ -17,7 +17,6 @@
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Button, Input} from 'react-native-elements';
-import Toast from 'react-native-root-toast';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';

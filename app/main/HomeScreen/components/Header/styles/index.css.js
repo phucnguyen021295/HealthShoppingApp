@@ -17,8 +17,9 @@ import {StyleSheet, Platform} from 'react-native';
 import {transparent} from '../../../../../core/color';
 import {heightToDP, widthToDP} from '../../../../../core/utils/dimension';
 import {smaller, large} from '../../../../../core/fontSize';
+import {isIphoneX} from "../../../../../core/utils/isIphoneX";
 
-export const SIZE_ICON = 28;
+export const SIZE_ICON = 25;
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -27,7 +28,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     zIndex: 99,
     alignItems: 'center',
-    height: heightToDP(48)
+    height: heightToDP(48),
+    marginTop: (isIphoneX || Platform.OS === 'ios')  ? 0 : 20
   },
 
   buttonStyle: {
