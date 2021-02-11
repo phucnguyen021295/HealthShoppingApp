@@ -6,9 +6,16 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 07/02/2021.
+ * @author phucnhb@bkav.com on 08/02/2021.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
+
+export const convertDate = (timeStamp) => {
+  const date = new Date(Number(timeStamp * 1000));
+  return `${date.getHours()}:${date.getMinutes()} - ${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()}`;
+};

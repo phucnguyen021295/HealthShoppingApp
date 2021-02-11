@@ -13,12 +13,15 @@
  */
 'use strict';
 
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 
 // Component
 import {MediumText} from '../../../../base/components/Text';
 import LinearGradient from '../../../../base/components/LinearGradient';
+
+// Utils
+import {convertDate} from '../../../../utils/convertDate';
 
 // Styles
 import styles from './styles/index.css';
@@ -37,51 +40,37 @@ const makeColor = () => {
   return ['#697f3f', arrayColor[random]];
 };
 
-class HistoryItem extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
-
-  convertDate = (timeStamp) => {
-    const date = new Date(Number(timeStamp * 1000));
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-  };
-
-  render() {
-    const {item} = this.props;
-    return (
-      <View style={styles.container}>
-        <LinearGradient style={styles.linearGradient} colors={makeColor()}>
-          <View style={styles.body}>
-            <MediumText
-              text={`Ngày mua hàng: ${this.convertDate(item.time)}`}
-              style={styles.textTotalPrice}
-            />
-            <View />
-            <MediumText
-              text={`Loại giao dịch: ${item.brief}`}
-              style={styles.textTotalPrice}
-            />
-            <MediumText
-              text={`Lý do chuyển: ${item.des}`}
-              style={styles.textTotalPrice}
-            />
-            <MediumText
-              text={`Tổng tiền: ${item.value} $`}
-              style={styles.textTotalPrice}
-            />
-            <MediumText
-              text={`Số dư trong tài khoản: ${item.accountlog} $`}
-              style={styles.textAccountBalance}
-            />
-          </View>
-        </LinearGradient>
-      </View>
-    );
-  }
+function HistoryItem(props) {
+  const {item} = props;
+  return (
+    <View style={styles.container}>
+      <LinearGradient style={styles.linearGradient} colors={makeColor()}>
+        <View style={styles.body}>
+          <MediumText
+            text={`Ngày mua hàng: ${convertDate(item.time)}`}
+            style={styles.textTotalPrice}
+          />
+          <View />
+          <MediumText
+            text={`Loại giao dịch: ${item.brief}`}
+            style={styles.textTotalPrice}
+          />
+          <MediumText
+            text={`Lý do chuyển: ${item.des}`}
+            style={styles.textTotalPrice}
+          />
+          <MediumText
+            text={`Tổng tiền: ${item.value} $`}
+            style={styles.textTotalPrice}
+          />
+          <MediumText
+            text={`Số dư trong tài khoản: ${item.accountlog} $`}
+            style={styles.textAccountBalance}
+          />
+        </View>
+      </LinearGradient>
+    </View>
+  );
 }
 
 export default HistoryItem;

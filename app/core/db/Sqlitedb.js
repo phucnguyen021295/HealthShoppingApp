@@ -115,6 +115,36 @@ const initDatabase = (success, failure) => {
         }
       },
     );
+
+    // Tạo bảng news
+    txn.executeSql(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='news'",
+      [],
+      function (tx, res) {
+        if (res.rows.length === 0) {
+          tx.executeSql('DROP TABLE IF EXISTS news');
+          tx.executeSql(
+            'CREATE TABLE IF NOT EXISTS news(time INTEGER, title TEXT, brief TEXT, image150 TEXT, image500 TEXT)',
+          );
+          tx.executeSql('CREATE UNIQUE INDEX idx_news ON news (time)');
+        }
+      },
+    );
+
+    // Tạo bảng notifies
+    txn.executeSql(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='notifies'",
+      [],
+      function (tx, res) {
+        if (res.rows.length === 0) {
+          tx.executeSql('DROP TABLE IF EXISTS notifies');
+          tx.executeSql(
+            'CREATE TABLE IF NOT EXISTS notifies(time INTEGER, title TEXT, brief TEXT, des TEXT, image150 TEXT, image500 TEXT)',
+          );
+          tx.executeSql('CREATE UNIQUE INDEX idx_notifies ON news (time)');
+        }
+      },
+    );
   });
 };
 

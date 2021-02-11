@@ -399,3 +399,74 @@ export const oderApi = (
     (error) => failure(error),
   );
 };
+
+// 13. Lấy về danh sách thông báo
+export const getNotifyApi = (params, success, failure) => {
+  const {page = 1} = params;
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/notifies/${page}`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 14. Lấy về danh sách thông báo
+export const getNewHomeApi = (params, success, failure) => {
+  const {page = 1} = params;
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/hotimages/${page}`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 15. Lấy về danh sách thông báo
+export const getConfigApi = (success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/config`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};

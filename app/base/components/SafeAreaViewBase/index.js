@@ -18,7 +18,6 @@ import {SafeAreaView} from 'react-native';
 
 // Components
 import LinearGradient from '../LinearGradient';
-import ModalBase from '../ModalBase';
 
 function SafeAreaViewBase(props) {
   const {children} = props;

@@ -65,7 +65,13 @@ class TransferScreen extends PureComponent {
     const {membercode} = this.state;
     getUserApi(
       membercode,
-      () => {},
+      () => {
+        this.setState({
+          isVisible: true,
+          descriptionModal: 'Mã',
+          titleButton: 'Đóng',
+        });
+      },
       () => {
         this.setState({
           isVisible: true,
@@ -151,7 +157,7 @@ class TransferScreen extends PureComponent {
     } = this.state;
     return (
       <ImageBackGround
-        source={require('../../images/backgroundHome1.jpeg')}
+        source={require('../../images/backgroundHome.jpeg')}
         blurRadius={4}>
         <SafeAreaView />
         <InputScrollView>
@@ -180,12 +186,12 @@ class TransferScreen extends PureComponent {
                 />
               </View>
 
-                <Button
-                  title="Kiểm tra"
-                  buttonStyle={styles.btnButtonCheckStyle}
-                  titleStyle={styles.btnTitleCheckStyle}
-                  onPress={this.onCheckUser}
-                />
+              <Button
+                title="Kiểm tra"
+                buttonStyle={styles.btnButtonCheckStyle}
+                titleStyle={styles.btnTitleCheckStyle}
+                onPress={this.onCheckUser}
+              />
             </View>
             <View style={styles.item}>
               <MediumText text={'Số tiền:'} style={styles.textRow} />
@@ -219,7 +225,7 @@ class TransferScreen extends PureComponent {
                 onChangeText={this.onChangeDes}
               />
             </View>
-            <View style={{paddingTop: 30}}>
+            <View style={{paddingTop: 20}}>
               <ButtonBase
                 title="Chuyển tiền"
                 buttonStyle={styles.btnButtonStyle}

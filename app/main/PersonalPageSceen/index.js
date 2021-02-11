@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, ScrollView, Animated, Keyboard, SafeAreaView} from 'react-native';
+import {View, ScrollView, Animated, Keyboard} from 'react-native';
 import {Input} from 'react-native-elements';
 
 // Components
@@ -30,6 +30,7 @@ import styles from './styles/index.css';
 import global, {updateUSer} from '../../global';
 import {heightToDP} from '../../core/utils/dimension';
 import NotificationModal from '../../base/components/NotificationModal';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 class PersonalPageDrawer extends PureComponent {
   constructor(props) {
@@ -147,6 +148,7 @@ class PersonalPageDrawer extends PureComponent {
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
+        <SafeAreaViewBase />
         <HeaderCustom title={'Thông tin cá nhân'} color={'#ffffff'} ViewComponent={LinearGradient} />
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
@@ -248,7 +250,7 @@ class PersonalPageDrawer extends PureComponent {
             onPress={this.onCloseModal}
           />
         </ImageBackGround>
-        <SafeAreaView style={styles.styleHeader} />
+        <SafeAreaViewBase />
       </View>
     );
   }

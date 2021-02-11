@@ -33,8 +33,6 @@ import {handleGetProducts} from '../../core/data';
 // styles
 import styles from './styles/index.css';
 
-// import {replaceProduct} from '../../../../core/db/table/product';
-// import data from '../../../OderScreen/components/OderList/data';
 import global, {setAccountBalanceGlobal} from '../../global';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
@@ -93,11 +91,11 @@ class HomeDrawer extends PureComponent {
           />
         </TouchableOpacity>
         <ImageBackGround
-          source={require('../../images/backgroundHome1.jpeg')}
+          source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={[styles.viewRow, {paddingTop: 40}]}>
-              <Carousel />
+              <Carousel navigation={navigation} />
               <View style={{paddingTop: 12}}>
                 <ListApp />
               </View>

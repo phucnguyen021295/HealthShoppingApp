@@ -52,9 +52,22 @@ const styles = StyleSheet.create({
   btnClose: {
     position: 'absolute',
     bottom: 50,
-    right: 30,
-    color: '#ffffff',
-    fontSize: 20,
+    right: 0,
+    left: 0,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+
+  bClose: {
+    backgroundColor: '#ffffff99',
+    borderRadius: 20,
+  },
+
+  textClose: {
+    color: '#000000',
+    fontSize: 16,
+    paddingVertical: 6,
+    paddingHorizontal: 20,
   },
 
   title: {

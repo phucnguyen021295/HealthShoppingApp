@@ -359,9 +359,13 @@ export default class QRCodeScanner extends PureComponent {
         <View style={[styles.infoView, this.props.bottomViewStyle]}>
           {this._renderBottomContent()}
         </View>
-        <Text style={styles.btnClose} onPress={this.props.onClose}>
-          Đóng
-        </Text>
+        <View style={styles.btnClose}>
+          <View style={styles.bClose}>
+            <Text style={styles.textClose} onPress={this.props.onClose}>
+              Đóng
+            </Text>
+          </View>
+        </View>
       </View>
     );
   }

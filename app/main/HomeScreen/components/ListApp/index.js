@@ -37,15 +37,15 @@ const data = [
   },
   {
     id: '2',
-    title: 'Balance History',
+    title: 'History',
     icon: <Icon name="time-outline" size={23} color="white" />,
     screen: 'History',
   },
   {
     id: '3',
-    title: 'Transfer History',
-    icon: <Icon name="trending-up" size={23} color="white" />,
-    screen: 'History',
+    title: 'News',
+    icon: <Icon name="ios-newspaper-outline" size={23} color="white" />,
+    screen: 'News',
   },
   {
     id: '4',

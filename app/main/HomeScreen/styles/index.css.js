@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   infoUser: {
     position: 'absolute',
     left: 20,
-    top: isIPhoneX ? 51 : 30,
+    top: isIPhoneX ? 60 : 30,
     zIndex: 100,
     shadowColor: '#000',
     shadowOffset: {
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
   name: {color: '#ffffff', fontSize: fontSize.normal, lineHeight: 30},
 
   viewRow: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     paddingVertical: 20,
     marginBottom: 20,
   },
 
   viewChart: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     paddingVertical: 20,
     marginBottom: 20,
   },
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     paddingHorizontal: 12,
     paddingBottom: 16,
-    // backgroundColor: 'rgba(256,256,256,0.3)'
   },
 
   account: {

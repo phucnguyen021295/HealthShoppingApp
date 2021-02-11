@@ -16,36 +16,36 @@
 
 import React, {PureComponent} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
-import {Dimensions, StyleSheet, Platform, View} from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Platform,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 
 // Components
 import {MediumText} from '../../../../base/components/Text';
 
+// Apis
+import {getNewHomeApi} from '../../../../apis/health';
+
 const ENTRIES1 = [
   {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+    time: '1612685842',
+    title: '',
+    brief: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    des: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    image150: '',
+    image500: '',
   },
   {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
+    time: '1612685842',
+    title: '',
+    brief: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    des: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    image150: '',
+    image500: '',
   },
 ];
 const {width: screenWidth} = Dimensions.get('window');
@@ -56,12 +56,32 @@ class MyCarousel extends PureComponent {
     this.state = {
       entries: ENTRIES1,
     };
+
+    this._renderItem = this._renderItem.bind(this);
   }
+
+  componentDidMount() {
+    getNewHomeApi({}, (response) => {
+      const {data} = response;
+      if (data.length === 0) {
+        return;
+      }
+      const {items, total} = data;
+      this.setState({entries: items.slice(0, 5)});
+    });
+  }
+
+  onDetailNew = (item) => {
+    this.props.navigation.navigate('NewDetail', {item});
+  };
+
   _renderItem({item, index}, parallaxProps) {
     return (
-      <View style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => this.onDetailNew(item)}>
         <ParallaxImage
-          source={{uri: item.illustration}}
+          source={{uri: item.image500}}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.4}
@@ -70,17 +90,18 @@ class MyCarousel extends PureComponent {
         <MediumText style={styles.title} numberOfLines={1}>
           {item.title}
         </MediumText>
-      </View>
+      </TouchableOpacity>
     );
   }
 
   render() {
+    const {entries} = this.state;
     return (
       <Carousel
         sliderWidth={screenWidth}
         sliderHeight={screenWidth}
         itemWidth={screenWidth - 60}
-        data={this.state.entries}
+        data={entries}
         renderItem={this._renderItem}
         hasParallaxImages={true}
       />
@@ -98,7 +119,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
-    backgroundColor: 'white',
+    backgroundColor: '#dddddd',
     borderRadius: 8,
   },
   image: {
@@ -110,5 +131,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     left: 20,
+    width: screenWidth - 100,
   },
 });

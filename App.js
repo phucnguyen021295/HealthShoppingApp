@@ -21,19 +21,17 @@ import VerifyPIN from './app/main/VerifyPINScreen';
 
 // Main
 import Home from './app/main/MainScreen';
-// import QRCodeScanner from './app/main/ScanQRScreen';
-// import OderScreen from './app/main/OderScreen';
-// import TransferScreen from './app/main/TransferScreen';
-// import ChartScreen from './app/main/ChartScreen';
 import ShoppingCart from './app/main/ShoppingCartScreen';
 import UserShopping from './app/main/UserShoppingScreen';
 import AddressShopping from './app/main/AddressShoppingScreen';
-// import CapchaShopping from './app/main/CapchaShoppingScreen';
 import TransactionHistory from './app/main/TransactionHistoryScreen';
 import PersonalPage from './app/main/PersonalPageSceen';
 import History from './app/main/HistoryScreen';
 import Report from './app/main/ReportSceen';
 import ShowQRCode from './app/main/ShowQRCodeScreen';
+import News from './app/main/News';
+import NewDetail from './app/main/News/components/NewDetailScreen';
+
 import {callBack} from './app/core/data';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
@@ -98,6 +96,8 @@ class App extends PureComponent {
             <Stack.Screen name="Report" component={Report} />
             <Stack.Screen name="History" component={History} />
             <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
+            <Stack.Screen name="News" component={News} />
+            <Stack.Screen name="NewDetail" component={NewDetail} />
           </Stack.Navigator>
         )}
       </NavigationContainer>
