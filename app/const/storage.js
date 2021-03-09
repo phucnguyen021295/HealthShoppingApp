@@ -21,3 +21,4 @@ export const MemberCode = 'membercode';
 export const InfoUser = 'infoUser';
 export const PinCode = 'pinCode';
 export const InfoLogin = 'infoLogin';
+export const IsActiveBiometry = 'isActiveBiometry';

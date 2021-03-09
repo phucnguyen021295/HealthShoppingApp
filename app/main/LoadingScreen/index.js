@@ -15,10 +15,7 @@
 
 import React, {PureComponent} from 'react';
 import * as PropTypes from 'prop-types';
-import {View, SafeAreaView, StatusBar, ActivityIndicator} from 'react-native';
-
-// Components
-import Text from '../../base/components/Text';
+import {View, SafeAreaView, ActivityIndicator} from 'react-native';
 
 // Storage
 import {getCheckIntroduce, getCheckVerifyOTP} from '../../core/storage';
@@ -64,7 +61,7 @@ class LoadingScreen extends PureComponent {
     if (!checkVerifyOTP) {
       this.props.navigation.replace('Login');
     } else {
-      this.props.navigation.replace('VerifyPIN');
+      this.props.navigation.replace('LoginPinCode');
     }
   };
 

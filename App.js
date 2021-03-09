@@ -31,6 +31,8 @@ import Report from './app/main/ReportSceen';
 import ShowQRCode from './app/main/ShowQRCodeScreen';
 import News from './app/main/News';
 import NewDetail from './app/main/News/components/NewDetailScreen';
+import LoginPinCode from './app/main/LoginPinCode';
+import Notify from './app/main/NotifyScreen';
 
 import {callBack} from './app/core/data';
 
@@ -78,9 +80,13 @@ class App extends PureComponent {
             <Stack.Screen name="Introduce" component={Introduce} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-            <Stack.Screen name="VerifyPIN">
-              {(props) => <VerifyPIN onFinished={this.onFinished} {...props} />}
+            <Stack.Screen name="VerifyPIN" component={VerifyPIN} />
+            <Stack.Screen name={'LoginPinCode'}>
+              {(props) => (
+                <LoginPinCode onFinished={this.onFinished} {...props} />
+              )}
             </Stack.Screen>
+            <Stack.Screen name="Notify" component={Notify} />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="Home" headerMode="none">

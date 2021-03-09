@@ -23,7 +23,9 @@ import {
   Token,
   MemberCode,
   InfoUser,
-  PinCode, InfoLogin,
+  PinCode,
+  InfoLogin,
+  IsActiveBiometry,
 } from '../const/storage';
 
 const _processInput = (input) => {
@@ -130,6 +132,11 @@ const clearData = async () => {
   await AsyncStorage.clear();
 };
 
+const setIsActiveBiometry = (_IsActiveBiometry = {}) => {
+  const _resource = _processInput(_IsActiveBiometry);
+  AsyncStorage.setItem(IsActiveBiometry, _resource);
+};
+
 export {
   multiGet,
   getCheckIntroduce,
@@ -147,4 +154,5 @@ export {
   setPinCode,
   setInfoLogin,
   clearData,
+  setIsActiveBiometry,
 };

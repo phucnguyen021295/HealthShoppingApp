@@ -35,7 +35,6 @@ import {CUSTOM_STYLES} from './styles/index.css';
 function NewDetailScreen(props) {
   const {route} = props;
   const item = route.params.item;
-  debugger;
   return (
     <View style={styles.container}>
       <SafeAreaViewBase />

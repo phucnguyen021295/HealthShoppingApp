@@ -211,7 +211,7 @@ class CartItem extends PureComponent {
               onPress={this.onCancelPackageProduct}
             />
             <Button
-              title={'Quay lại'}
+              title={'Đóng'}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal2}
               titleStyle={{color: color}}
@@ -242,7 +242,7 @@ class CartItem extends PureComponent {
                 onPress={this.onUpdateProduct}
               />
               <Button
-                title={'Quay lại'}
+                title={'Đóng'}
                 containerStyle={{flex: 1, borderRadius: 0}}
                 buttonStyle={styles.buttonStyleModal2}
                 titleStyle={{color: color}}

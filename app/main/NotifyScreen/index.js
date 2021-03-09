@@ -92,14 +92,15 @@ class NotifyScreen extends PureComponent {
   renderItem = ({item}) => <NotifyItem item={item} />;
 
   render() {
-    const {data, loadingFirst} = this.props;
+    const {data, loadingFirst, route} = this.props;
+    const showBack = route?.params.showBack || false;
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
         <HeaderCustom
           title={'THÔNG BÁO'}
           color={'#ffffff'}
-          showBack={false}
+          showBack={showBack}
           ViewComponent={LinearGradient}
         />
         <ImageBackGround

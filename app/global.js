@@ -22,6 +22,7 @@ import {
   setMemberCode,
   setInfoUser,
   setInfoLogin,
+  setIsActiveBiometry,
 } from './core/storage';
 
 import {
@@ -32,20 +33,28 @@ import {
 } from './apis/health';
 
 const global = {
-    balance: 0,
+  balance: 0,
   token: '',
   membercode: '',
+  isActiveBiometry: false,
 };
 
 const initGlobal = async () => {
-  multiGet(['token', 'membercode', 'infoUser', 'pinCode']).then((results) => {
-    const {token, membercode, infoUser, pinCode} = results;
+  multiGet([
+    'token',
+    'membercode',
+    'infoUser',
+    'pinCode',
+    'isActiveBiometry',
+  ]).then((results) => {
+    const {token, membercode, infoUser, pinCode, isActiveBiometry} = results;
     Object.assign(
       global,
       {
         token: token,
         membercode: membercode,
         pinCode: pinCode,
+        isActiveBiometry: isActiveBiometry,
       },
       infoUser,
     );
@@ -75,6 +84,11 @@ const setTokenGlobal = (_token = '') => {
 const setMemberCodeGlobal = (_membercode = '') => {
   global.membercode = _membercode;
   setMemberCode(_membercode);
+};
+
+const setActiveBiometryGlobal = (_activeBiometry = '') => {
+  global.ísActiveBiometry = _activeBiometry;
+  setIsActiveBiometry(_activeBiometry);
 };
 
 const loginUser = (username, password, success, failure) => {
@@ -143,4 +157,5 @@ export {
   setTokenGlobal,
   setMemberCodeGlobal,
   updateUSer,
+  setActiveBiometryGlobal,
 };
