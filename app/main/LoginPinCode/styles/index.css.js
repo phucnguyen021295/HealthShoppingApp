@@ -31,21 +31,27 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
+  changeLanguage: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: widthToDP(20),
+    paddingVertical: heightToDP(10)
+  },
+
   btnNotify: {
-    paddingHorizontal: widthToDP(22),
+    paddingHorizontal: widthToDP(15),
     paddingVertical: heightToDP(10)
   },
 
   textLanguage: {
     fontSize: smaller,
     color: '#ffffff',
-    paddingHorizontal: widthToDP(20),
-    paddingVertical: heightToDP(10)
+    paddingLeft: 8
   },
 
   body: {
     paddingHorizontal: widthToDP(20),
-    paddingTop: heightToDP(50),
+    paddingTop: heightToDP(35),
   },
 
   btnButtonStyle: {
@@ -83,6 +89,21 @@ const styles = StyleSheet.create({
     borderTopColor: color,
     borderTopWidth: 1,
     borderBottomLeftRadius: 14,
+  },
+
+  logoContainer: {
+    alignItems: 'center'
+  },
+
+  image: {
+    height: heightToDP(120.4),
+    width: heightToDP(204.8)
+  },
+
+  avatar: {
+    width: heightToDP(55),
+    height: heightToDP(55),
+    marginTop: heightToDP(15)
   },
 });
 

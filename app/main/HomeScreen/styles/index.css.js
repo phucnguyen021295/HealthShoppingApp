@@ -15,7 +15,7 @@
 
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
-import {isIPhoneX} from '../../../core/utils/isIphoneX';
+import {isIphoneX} from '../../../core/utils/isIphoneX';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   infoUser: {
     position: 'absolute',
     left: 20,
-    top: isIPhoneX ? 60 : 30,
+    top: isIphoneX ? 60 : 30,
     zIndex: 100,
     shadowColor: '#000',
     shadowOffset: {

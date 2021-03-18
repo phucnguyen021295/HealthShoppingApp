@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, StatusBar} from 'react-native';
+import {View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import FastImage from 'react-native-fast-image';
 
@@ -27,6 +27,7 @@ import {setCheckIntroduce} from '../../core/storage';
 
 // Data
 import data from './data';
+import global from '../../global';
 
 // Styles
 import styles from './styles/index.css';
@@ -63,6 +64,7 @@ class IntroduceScreen extends PureComponent {
   };
 
   render() {
+    const {dataIntroduce} = global;
     const {index} = this.state;
     const isCheck = index === data.length - 1;
     return (
@@ -76,7 +78,7 @@ class IntroduceScreen extends PureComponent {
             loadMinimalSize={1}
             activeDotStyle={styles.activeDot}
             loop={false}>
-            {data.map((item) => (
+            {dataIntroduce.map((item) => (
               <View key={item.id} style={[styles.slide1]}>
                 <FastImage
                   source={require('../../images/logo.png')}

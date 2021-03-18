@@ -17,7 +17,7 @@ import {StyleSheet, Platform} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {color, transparent} from '../../../core/color';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
-import {isIPhoneX} from '../../../core/utils/isIphoneX';
+import {isIphoneX} from '../../../core/utils/isIphoneX';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 
   btnBottom: {
     position: 'absolute',
-    bottom: isIPhoneX ? 34 : 0,
+    bottom: isIphoneX ? 34 : 0,
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',

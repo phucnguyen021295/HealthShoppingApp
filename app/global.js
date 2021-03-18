@@ -23,6 +23,7 @@ import {
   setInfoUser,
   setInfoLogin,
   setIsActiveBiometry,
+  setPinCode,
 } from './core/storage';
 
 import {
@@ -37,6 +38,33 @@ const global = {
   token: '',
   membercode: '',
   isActiveBiometry: false,
+  dataIntroduce: [
+    {
+      id: '1',
+      title: 'Thực phẩm chức năng cung cấp vô vàn lợi ích cho làn da',
+      description: 'Thực phẩm chức năng cung cấp vô vàn lợi ích cho làn da',
+      logo: '',
+      backgroundColor: '#97CAE5',
+    },
+    {
+      id: '2',
+      title:
+        'Thực phẩm chức năng đóng vai trò vô cùng quan trọng trong việc ngăn ngừa lão hóa',
+      description:
+        'Thực phẩm chức năng đóng vai trò vô cùng quan trọng trong việc ngăn ngừa lão hóa',
+      logo: '',
+      backgroundColor: '#97CAE5',
+    },
+    {
+      id: '3',
+      title:
+        'Bất kể chế độ ăn uống của bạn lành mạnh thế nào, vẫn tồn tại một số chất dinh dưỡng không có trong thức ăn của bạn',
+      description:
+        'Bất kể chế độ ăn uống của bạn lành mạnh thế nào, vẫn tồn tại một số chất dinh dưỡng không có trong thức ăn của bạn',
+      logo: '',
+      backgroundColor: '#92BBD9',
+    },
+  ],
 };
 
 const initGlobal = async () => {
@@ -89,6 +117,11 @@ const setMemberCodeGlobal = (_membercode = '') => {
 const setActiveBiometryGlobal = (_activeBiometry = '') => {
   global.ísActiveBiometry = _activeBiometry;
   setIsActiveBiometry(_activeBiometry);
+};
+
+const setPinCodeGlobal = (_pinCode = '') => {
+  global.pinCode = _pinCode;
+  setPinCode(_pinCode);
 };
 
 const loginUser = (username, password, success, failure) => {
@@ -158,4 +191,5 @@ export {
   setMemberCodeGlobal,
   updateUSer,
   setActiveBiometryGlobal,
+  setPinCodeGlobal,
 };

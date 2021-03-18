@@ -29,8 +29,7 @@ import AppHeader from '../../base/components/AppHeader';
 import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
 import Text from '../../base/components/Text';
 import ImageBackGround from '../../base/components/ImageBackGround';
-import global from '../../global';
-import {setPinCode} from '../../core/storage';
+import global, {setPinCodeGlobal} from '../../global';
 
 class VerifyPINScreen extends PureComponent {
   constructor(props) {
@@ -52,7 +51,7 @@ class VerifyPINScreen extends PureComponent {
       if (pinCode !== pinCodeActive) {
         this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
       } else {
-        setPinCode(pinCode);
+        setPinCodeGlobal(pinCode);
         this.props.navigation.navigate('LoginPinCode');
       }
     }

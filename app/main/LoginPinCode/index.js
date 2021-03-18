@@ -20,9 +20,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
   View,
-  Alert,
+  Image,
 } from 'react-native';
-import {Button, Input, Image} from 'react-native-elements';
+import {Avatar, Button, Input} from 'react-native-elements';
 import TouchID from 'react-native-touch-id';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -104,6 +104,7 @@ class LoginPinCode extends PureComponent {
 
   onVerifyOTP = async () => {
     const {pinCodeActive, pinCode} = this.state;
+    debugger;
 
     if (pinCode !== pinCodeActive) {
       this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
@@ -182,6 +183,10 @@ class LoginPinCode extends PureComponent {
 
   onNavigateNotification = () => {
     this.props.navigation.navigate('Notify', {showBack: true});
+  };
+
+  onDetail = () => {
+
   }
 
   render() {
@@ -192,6 +197,11 @@ class LoginPinCode extends PureComponent {
       title,
       description,
     } = this.state;
+
+    const {image} = global;
+    const urlImage = image
+      ? {uri: image}
+      : require('../HomeScreen/styles/images/avatar.png');
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
@@ -199,17 +209,31 @@ class LoginPinCode extends PureComponent {
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={styles.container}>
           <View style={styles.language}>
-            <TouchableOpacity
-                style={styles.btnNotify}
-                onPress={this.onNavigateNotification}>
+            <View />
+            <TouchableOpacity style={styles.changeLanguage}>
               <Ionicons
-                  name={'notifications-outline'}
-                  size={ICON_SIZE}
-                  style={styles.icon}
-                  color={'#ffffff'}
+                name={'ios-globe-outline'}
+                size={20}
+                style={styles.icon}
+                color={'#ffffff'}
               />
+              <Text style={styles.textLanguage} text={'Tiếng Việt'} />
             </TouchableOpacity>
-            <Text style={styles.textLanguage} text={'Tiếng Việt'} />
+          </View>
+
+          <View style={styles.logoContainer}>
+            <Image
+              source={require('./styles/images/logo.png')}
+              style={[styles.image]}
+              resizeMode={'contain'}
+            />
+
+            <Avatar
+              rounded
+              activeOpacity={1}
+              source={urlImage}
+              style={styles.avatar}
+            />
           </View>
 
           <View style={[styles.body]}>
@@ -243,6 +267,35 @@ class LoginPinCode extends PureComponent {
                 </TouchableOpacity>
               ) : null}
             </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              paddingTop: 150,
+            }}>
+            <TouchableOpacity
+              style={styles.btnNotify}
+              onPress={this.onNavigateNotification}>
+              <Ionicons
+                name={'notifications-outline'}
+                size={30}
+                style={styles.icon}
+                color={'#ffffff'}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.btnNotify}
+              onPress={this.onDetail}>
+              <Ionicons
+                name={'ios-apps-outline'}
+                size={30}
+                style={styles.icon}
+                color={'#ffffff'}
+              />
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
         <ModalBase

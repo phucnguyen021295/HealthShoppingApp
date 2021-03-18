@@ -16,7 +16,7 @@
 import {StyleSheet} from 'react-native';
 import {transparent} from '../../../core/color';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
-import {isIPhoneX} from '../../../core/utils/isIphoneX';
+import {isIphoneX} from '../../../core/utils/isIphoneX';
 
 const styles = StyleSheet.create({
   absolute: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   image: {
     width: heightToDP(200),
     height: heightToDP(200),
-    marginTop: heightToDP(isIPhoneX ? 50 : 30),
+    marginTop: heightToDP(isIphoneX ? 50 : 30),
   },
 
   body: {
