@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "767242133563",
+    "project_id": "mynewway-4edb2",
+    "storage_bucket": "mynewway-4edb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767242133563:android:114354b0acc0b4df607c1e",
+        "android_client_info": {
+          "package_name": "com.healthshoppingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767242133563-o2qg136lk03lfntpg540ofo4c07c1qqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0EQFCWFBAKlsY4QIMSO_LfGc88fZt7V0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767242133563-o2qg136lk03lfntpg540ofo4c07c1qqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -26,6 +26,7 @@ import {
   PinCode,
   InfoLogin,
   IsActiveBiometry,
+    TokenFirebase
 } from '../const/storage';
 
 const _processInput = (input) => {
@@ -137,6 +138,16 @@ const setIsActiveBiometry = (_IsActiveBiometry = {}) => {
   AsyncStorage.setItem(IsActiveBiometry, _resource);
 };
 
+const getTokenFirebase = async () => {
+  const result = await AsyncStorage.getItem(TokenFirebase);
+  return _processOutput(result);
+};
+
+const setTokenFirebase = (_TokenFirebase = '') => {
+  const _resource = _processInput(_TokenFirebase);
+  AsyncStorage.setItem(TokenFirebase, _resource);
+};
+
 export {
   multiGet,
   getCheckIntroduce,
@@ -155,4 +166,6 @@ export {
   setInfoLogin,
   clearData,
   setIsActiveBiometry,
+  getTokenFirebase,
+  setTokenFirebase
 };

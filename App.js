@@ -33,8 +33,10 @@ import News from './app/main/News';
 import NewDetail from './app/main/News/components/NewDetailScreen';
 import LoginPinCode from './app/main/LoginPinCode';
 import Notify from './app/main/NotifyScreen';
+import NotifyDetail from './app/main/NotifyScreen/components/NotifyDetailScreen';
 
 import {callBack} from './app/core/data';
+import {registerInitialNotification, registerNotificationOpened, registerNotification} from './app/core/fcm';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
 
@@ -49,9 +51,10 @@ class App extends PureComponent {
 
     this.onFinished = this.onFinished.bind(this);
     this.onLogout = this.onLogout.bind(this);
+    this.onNotificationOpened = this.onNotificationOpened.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // Khởi tạo db.
     initDatabase();
     Platform.OS === 'android' &&
@@ -60,6 +63,22 @@ class App extends PureComponent {
       StatusBar.setBackgroundColor('#ffffff00', true);
 
     callBack.onLogout = this.onLogout;
+
+    this.removeNotificationOpenedListener = registerNotificationOpened(
+        this.onNotificationOpened,
+    );
+
+    // Check whether an initial notification is available
+    registerInitialNotification(this.onNotificationOpened);
+
+    this.removeNotificationListener = registerNotification(async notifyObj => {
+      console.log('registerNotification', JSON.stringify(notifyObj))
+    });
+  }
+
+  componentWillUnmount(): * {
+    this.removeNotificationListener && this.removeNotificationListener();
+    this.removeNotificationOpenedListener && this.removeNotificationOpenedListener();
   }
 
   onFinished() {
@@ -68,6 +87,10 @@ class App extends PureComponent {
 
   onLogout() {
     this.setState({isLoading: true});
+  }
+
+  onNotificationOpened(remoteMessage) {
+    console.log('onNotificationOpened', remoteMessage)
   }
 
   render() {
@@ -87,6 +110,8 @@ class App extends PureComponent {
               )}
             </Stack.Screen>
             <Stack.Screen name="Notify" component={Notify} />
+            <Stack.Screen name="NewDetail" component={NewDetail} />
+            <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="Home" headerMode="none">
@@ -104,6 +129,7 @@ class App extends PureComponent {
             <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
             <Stack.Screen name="News" component={News} />
             <Stack.Screen name="NewDetail" component={NewDetail} />
+            <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

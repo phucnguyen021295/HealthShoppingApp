@@ -32,6 +32,7 @@ import {
   updateUserApi,
   verifyTokenApi,
 } from './apis/health';
+import {getTokenFirebase, registerTokenRefresh, setChanel} from "./core/fcm";
 
 const global = {
   balance: 0,
@@ -177,6 +178,21 @@ const verifyTokenGlobal = (token, success, failure) => {
   );
 };
 
+function requestTokenFirebase() {
+  setChanel()
+  // TODO can update them su dung job
+  // Get the device token
+  getTokenFirebase((token) =>{
+    console.log('getTokenFirebase', token)
+  });
+
+  // TODO can update them su dung job
+  // Listen to whether the token changes
+  registerTokenRefresh((token) => {
+    console.log('registerTokenRefresh', token)
+  });
+}
+
 export default global;
 
 export {
@@ -192,4 +208,5 @@ export {
   updateUSer,
   setActiveBiometryGlobal,
   setPinCodeGlobal,
+  requestTokenFirebase,
 };

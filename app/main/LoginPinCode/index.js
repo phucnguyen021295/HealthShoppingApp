@@ -35,12 +35,12 @@ import global, {
   getUserGlobal,
   verifyTokenGlobal,
   setActiveBiometryGlobal,
+  requestTokenFirebase
 } from '../../global';
-import {setPinCode, getPinCode} from '../../core/storage';
+import {requestPermission} from '../../core/fcm';
 import ButtonBase from '../../base/components/ButtonBase';
 import {color} from '../../core/color';
 import ModalBase from '../../base/components/ModalBase';
-import {ICON_SIZE} from '../../base/components/AppHeader/styles/index.css';
 
 const optionalConfigObject = {
   title: 'Authentication Required', // Android
@@ -81,6 +81,10 @@ class LoginPinCode extends PureComponent {
         getUserGlobal(membercode);
       },
     );
+
+    // request Firebase
+    requestPermission();
+    requestTokenFirebase();
 
     TouchID.isSupported(optionalConfigObject)
       .then((biometryType) => {
