@@ -144,12 +144,12 @@ class CartItem extends PureComponent {
     this.setState({isRemoveProduct: true});
   };
 
-  onModalShow = () => {
+  onModalShow1 = () => {
     const {item} = this.state;
     debugger;
     getPackageByProductId(item.productid, item.type, (data) => {
       const _listPackage = data.filter((item) => item.packid !== '-1');
-      alert(JSON.stringify(data));
+      // alert(JSON.stringify(data));
       this.setState({
         listPackage: _listPackage,
       });
@@ -254,7 +254,7 @@ class CartItem extends PureComponent {
 
         <ModalBase
           isVisibleModal={isEditProductPack}
-          onModalShow={this.onModalShow}
+          onModalShow={this.onModalShow1}
           title={item.nameProduct}>
           <View style={{maxHeight: 500}}>
             <Text text={'Chọn lại gói sản phẩm'} style={styles.textSelect} />

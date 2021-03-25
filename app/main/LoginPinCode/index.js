@@ -43,12 +43,12 @@ import {color} from '../../core/color';
 import ModalBase from '../../base/components/ModalBase';
 
 const optionalConfigObject = {
-  title: 'Authentication Required', // Android
+  title: 'Yêu cầu xác thực', // Android
   imageColor: '#e00606', // Android
   imageErrorColor: '#ff0000', // Android
-  sensorDescription: 'Touch sensor', // Android
+  sensorDescription: 'Chạm vào cảm biến', // Android
   sensorErrorDescription: 'Failed', // Android
-  cancelText: 'Cancel', // Android
+  cancelText: 'Đóng', // Android
   fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
   unifiedErrors: false, // use unified error messages (default false)
   passcodeFallback: true, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
@@ -132,15 +132,18 @@ class LoginPinCode extends PureComponent {
 
   onSwipeBiometry = () => {
     TouchID.authenticate(
-      'to demo this react-native component',
+      'vân tay',
       optionalConfigObject,
     )
       .then((success) => {
         this.props.onFinished();
-        // alert('Authenticated Successfully');
       })
       .catch((error) => {
-        alert('Xác thực thất bại!');
+        this.setState({
+          isVisibleModal: true,
+          title: 'Thông báo',
+          description: 'Xác thực thất bại!',
+        });
       });
   };
 

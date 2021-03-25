@@ -75,7 +75,7 @@ class TransferScreen extends PureComponent {
       () => {
         this.setState({
           isVisible: true,
-          descriptionModal: 'Có lỗi xảy ra, hoặc mã code không tồn tại.',
+          descriptionModal: 'Có lỗi xảy ra, hoặc mã thành viên không tồn tại.',
           titleButton: 'Đóng',
         });
       },
