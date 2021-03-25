@@ -26,7 +26,8 @@ import {
   PinCode,
   InfoLogin,
   IsActiveBiometry,
-    TokenFirebase
+    TokenFirebase,
+  Language
 } from '../const/storage';
 
 const _processInput = (input) => {
@@ -148,6 +149,17 @@ const setTokenFirebase = (_TokenFirebase = '') => {
   AsyncStorage.setItem(TokenFirebase, _resource);
 };
 
+const getLanguage = async () => {
+  const result = await AsyncStorage.getItem(Language);
+  return _processOutput(result);
+};
+
+const setLanguage = (_Language = '') => {
+  const _resource = _processInput(_Language);
+  AsyncStorage.setItem(Language, _resource);
+};
+
+
 export {
   multiGet,
   getCheckIntroduce,
@@ -167,5 +179,7 @@ export {
   clearData,
   setIsActiveBiometry,
   getTokenFirebase,
-  setTokenFirebase
+  setTokenFirebase,
+  getLanguage,
+  setLanguage
 };

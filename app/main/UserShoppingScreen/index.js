@@ -154,7 +154,7 @@ class UserShoppingScreen extends PureComponent {
           <ButtonBase
             title={'Kiểm tra'}
             buttonStyle={styles.btnButtonStyle}
-            onPress={this.onCheckInfo}
+            onPress={this.onCheckInfo} 
             styleLinearGradient={{marginHorizontal: 20}}
           />
           <MediumText text={'Mua hàng cho:'} style={styles.titleShopping} />

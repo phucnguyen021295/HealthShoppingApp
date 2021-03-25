@@ -24,6 +24,7 @@ import {
   setInfoLogin,
   setIsActiveBiometry,
   setPinCode,
+    setLanguage
 } from './core/storage';
 
 import {
@@ -33,12 +34,14 @@ import {
   verifyTokenApi,
 } from './apis/health';
 import {getTokenFirebase, registerTokenRefresh, setChanel} from "./core/fcm";
+import {Language} from "./const/storage";
 
 const global = {
   balance: 0,
   token: '',
   membercode: '',
   isActiveBiometry: false,
+  Language: 'vi',
   dataIntroduce: [
     {
       id: '1',
@@ -125,6 +128,11 @@ const setPinCodeGlobal = (_pinCode = '') => {
   setPinCode(_pinCode);
 };
 
+const setLanguageGlobal = (_language = '') => {
+  global.Language = _language;
+  setLanguage(_language);
+};
+
 const loginUser = (username, password, success, failure) => {
   loginApi(
     username,
@@ -209,4 +217,5 @@ export {
   setActiveBiometryGlobal,
   setPinCodeGlobal,
   requestTokenFirebase,
+  setLanguageGlobal,
 };

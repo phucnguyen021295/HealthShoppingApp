@@ -249,6 +249,8 @@ class LoginPinCode extends PureComponent {
               placeholder="Nhập mã pin"
               style={{color: '#ffffff'}}
               secureTextEntry={true}
+              keyboardType={'numeric'}
+              maxLength={6}
               onChangeText={this.onChangeCode}
             />
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
