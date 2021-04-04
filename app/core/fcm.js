@@ -22,108 +22,99 @@ const FCM_CHANNEL_DES = 'My New Way';
 
 // Cấp quyên thông báo
 function requestPermission(success, failure) {
-    firebase.messaging().requestPermission()
-        .then(success)
-        .catch(failure);
+  firebase.messaging().requestPermission().then(success).catch(failure);
 }
 
 // Trả về TokenFirebase mới nhất
 function getTokenFirebase(success, failure) {
-    firebase
-        .messaging()
-        .getToken()
-        .then(success)
-        .catch(failure);
+  firebase.messaging().getToken().then(success).catch(failure);
 }
 
 function registerTokenRefresh(callback) {
-    firebase.messaging().onTokenRefresh(callback);
+  firebase.messaging().onTokenRefresh(callback);
 }
 
 function setChanel() {
-    if (Platform.OS === 'android') {
-        const channel = new firebase.notifications.Android.Channel(
-            FCM_CHANNEL_ID,
-            FCM_CHANNEL_NAME,
-            firebase.notifications.Android.Importance.Max,
-        ).setDescription(FCM_CHANNEL_DES);
+  if (Platform.OS === 'android') {
+    const channel = new firebase.notifications.Android.Channel(
+      FCM_CHANNEL_ID,
+      FCM_CHANNEL_NAME,
+      firebase.notifications.Android.Importance.Max,
+    ).setDescription(FCM_CHANNEL_DES);
 
-        // Create the channel
-        firebase.notifications().android.createChannel(channel);
-    }
+    // Create the channel
+    firebase.notifications().android.createChannel(channel);
+  }
 }
 
 function registerMessageHandler(callback) {
-    return firebase.messaging().onMessage(callback);
+  return firebase.messaging().onMessage(callback);
 }
 
 function registerNotificationDisplay(callback) {
-    return firebase.notifications().onNotificationDisplayed(callback);
+  return firebase.notifications().onNotificationDisplayed(callback);
 }
 
-const registerNotificationOpened = callback => {
-    return firebase.notifications().onNotificationOpened(callback);
+const registerNotificationOpened = (callback) => {
+  return firebase.notifications().onNotificationOpened(callback);
 };
 
-const registerNotification = callback => {
-    return firebase.notifications().onNotification(callback);
+const registerNotification = (callback) => {
+  return firebase.notifications().onNotification(callback);
 };
 
-const registerInitialNotification = callback => {
-    firebase
-        .notifications()
-        .getInitialNotification()
-        .then(callback);
+const registerInitialNotification = (callback) => {
+  firebase.notifications().getInitialNotification().then(callback);
 };
 
-const removeDeliveredNotification = id => {
-    firebase.notifications().removeDeliveredNotification(id);
+const removeDeliveredNotification = (id) => {
+  firebase.notifications().removeDeliveredNotification(id);
 };
 
-const removeDeliveredNotificationsByTag = id => {
-    firebase.notifications().android.removeDeliveredNotificationsByTag(id);
+const removeDeliveredNotificationsByTag = (id) => {
+  firebase.notifications().android.removeDeliveredNotificationsByTag(id);
 };
 
-const displayNotification = notification => {
-    firebase.notifications().displayNotification(notification);
+const displayNotification = (notification) => {
+  firebase.notifications().displayNotification(notification);
 };
 
-const cancelNotification = id => {
-    firebase.notifications().cancelNotification(id);
+const cancelNotification = (id) => {
+  firebase.notifications().cancelNotification(id);
 };
 
 const cancelAllNotifications = () => {
-    firebase.notifications().cancelAllNotifications();
+  firebase.notifications().cancelAllNotifications();
 };
 
 const scheduleNotification = (notification, options) => {
-    firebase.notifications().scheduleNotification(notification, options);
+  firebase.notifications().scheduleNotification(notification, options);
 };
 
 const createNotification = () => {
-    return new firebase.notifications.Notification();
+  return new firebase.notifications.Notification();
 };
 
-const setBadge = count => {
-    firebase.notifications().setBadge(count);
+const setBadge = (count) => {
+  firebase.notifications().setBadge(count);
 };
 
 export {
-    requestPermission,
-    getTokenFirebase,
-    registerTokenRefresh,
-    setChanel,
-    registerMessageHandler,
-    registerNotificationDisplay,
-    registerNotificationOpened,
-    registerNotification,
-    registerInitialNotification,
-    removeDeliveredNotification,
-    removeDeliveredNotificationsByTag,
-    displayNotification,
-    cancelNotification,
-    cancelAllNotifications,
-    scheduleNotification,
-    createNotification,
-    setBadge
-}
+  requestPermission,
+  getTokenFirebase,
+  registerTokenRefresh,
+  setChanel,
+  registerMessageHandler,
+  registerNotificationDisplay,
+  registerNotificationOpened,
+  registerNotification,
+  registerInitialNotification,
+  removeDeliveredNotification,
+  removeDeliveredNotificationsByTag,
+  displayNotification,
+  cancelNotification,
+  cancelAllNotifications,
+  scheduleNotification,
+  createNotification,
+  setBadge,
+};

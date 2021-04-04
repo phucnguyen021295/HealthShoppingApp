@@ -35,7 +35,8 @@ import global, {
   getUserGlobal,
   verifyTokenGlobal,
   setActiveBiometryGlobal,
-  requestTokenFirebase
+  requestTokenFirebase,
+    setLanguageGlobal
 } from '../../global';
 import {requestPermission} from '../../core/fcm';
 import ButtonBase from '../../base/components/ButtonBase';
@@ -82,10 +83,6 @@ class LoginPinCode extends PureComponent {
       },
     );
 
-    // request Firebase
-    requestPermission();
-    requestTokenFirebase();
-
     TouchID.isSupported(optionalConfigObject)
       .then((biometryType) => {
         // Success code
@@ -102,13 +99,16 @@ class LoginPinCode extends PureComponent {
         // Failure code
         console.log('TouchID', error);
       });
+
+    // request Firebase
+    requestPermission();
+    requestTokenFirebase();
   }
 
   pinInput = React.createRef();
 
   onVerifyOTP = async () => {
     const {pinCodeActive, pinCode} = this.state;
-    debugger;
 
     if (pinCode !== pinCodeActive) {
       this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
@@ -132,7 +132,7 @@ class LoginPinCode extends PureComponent {
 
   onSwipeBiometry = () => {
     TouchID.authenticate(
-      'vân tay',
+      Platform.OS === 'ios' ? 'Yêu cầu xác thực vân tay' : 'vân tay',
       optionalConfigObject,
     )
       .then((success) => {
@@ -192,9 +192,12 @@ class LoginPinCode extends PureComponent {
     this.props.navigation.navigate('Notify', {showBack: true});
   };
 
-  onDetail = () => {
+  onDetail = () => {};
 
-  }
+  onChangeLanguage = () => {
+    const {Language} = global;
+    setLanguageGlobal(Language === 'vi' ? 'en' : 'vi');
+  };
 
   render() {
     const {
@@ -217,7 +220,7 @@ class LoginPinCode extends PureComponent {
         <SafeAreaView style={styles.container}>
           <View style={styles.language}>
             <View />
-            <TouchableOpacity style={styles.changeLanguage}>
+            <TouchableOpacity style={styles.changeLanguage} onPress={this.onChangeLanguage}>
               <Ionicons
                 name={'ios-globe-outline'}
                 size={20}
@@ -295,9 +298,7 @@ class LoginPinCode extends PureComponent {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.btnNotify}
-              onPress={this.onDetail}>
+            <TouchableOpacity style={styles.btnNotify} onPress={this.onDetail}>
               <Ionicons
                 name={'ios-apps-outline'}
                 size={30}
