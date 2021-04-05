@@ -25,6 +25,7 @@ import {initGlobal} from '../../global';
 import styles from './styles/index.css';
 import {color} from '../../core/color';
 import Logo from '../../base/components/Logo';
+import {setChanel} from "../../core/fcm";
 
 // TODO Can thuc hien doi text theo trang thai goi API that trong components nay. VD: Dang khoi tao cau hinh, Dang khoi tao resource....
 class LoadingScreen extends PureComponent {
@@ -45,6 +46,7 @@ class LoadingScreen extends PureComponent {
     // Check trạng thái lần đầu tiên vào app.
     // 4. Khởi tạo db.
     // initDatabase();
+    setChanel()
   }
 
   checkIntroduce = async () => {

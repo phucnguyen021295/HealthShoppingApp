@@ -187,7 +187,6 @@ const verifyTokenGlobal = (token, success, failure) => {
 };
 
 function requestTokenFirebase() {
-  setChanel()
   // TODO can update them su dung job
   // Get the device token
   getTokenFirebase((token) =>{

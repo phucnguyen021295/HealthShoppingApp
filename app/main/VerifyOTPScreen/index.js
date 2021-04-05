@@ -53,7 +53,7 @@ class VerifyOTPScreen extends PureComponent {
     getActiveApi(
       () => {},
       () => {
-        alert('Đã xảy ra xự cố. vui lòng thử lại sau');
+        // alert('Đã xảy ra xự cố. vui lòng thử lại sau');
       },
     );
   }
