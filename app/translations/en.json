@@ -1,3 +1,7 @@
 {
-
+  "health.loginPinCode.language": "English",
+  "health.loginPinCode.insertPinCode": "Enter the pin code",
+  "health.loginPinCode.login": "Login",
+  "health.loginPinCode.btnCloseModal": "Close",
+  "health.loginPinCode.btnActive": "Active"
 }
