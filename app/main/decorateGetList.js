@@ -135,6 +135,7 @@ function decorateGetList(WrappedComponent, getListApi, params = {}) {
           getNewer={this.getNewer}
           getOlder={this.getOlder}
           isGetDataFull={page === numberPage}
+          {...this.props}
         />
       );
     }

@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, View, ScrollView} from 'react-native';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
@@ -24,12 +24,15 @@ import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 import {MediumText} from '../../base/components/Text';
 import NewItem from './components/NewItem';
 import decorateGetList from '../decorateGetList';
+import Loading from './components/Loading';
 
 // Apis
 import {getNewHomeApi} from '../../apis/health';
 
 // styles
 import styles from './styles/index.css';
+
+const COUNT_NOTIFY = 8;
 
 class NewsScreen extends PureComponent {
   constructor(props) {
@@ -50,18 +53,26 @@ class NewsScreen extends PureComponent {
   };
 
   ListFooterComponent() {
-    return (
-      <MediumText
-        text={'Chưa có bài viết nào !'}
-        style={{textAlign: 'center', color: '#ffffff'}}
-      />
-    );
+      const {loadingOlder} = this.props;
+      if (loadingOlder) {
+          return <Loading />;
+      }
+
+      return null;
   }
+
+    renderListLoading() {
+        const loadingCards = [];
+        for (let i = 1; i <= COUNT_NOTIFY; i++) {
+            loadingCards.push(<Loading />);
+        }
+        return <ScrollView>{loadingCards}</ScrollView>;
+    }
 
   renderItem = ({item}) => <NewItem item={item} />;
 
   render() {
-    const {data, loadingFirst} = this.props;
+    const {data, loadingFirst, loadingNewer} = this.props;
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
@@ -73,18 +84,29 @@ class NewsScreen extends PureComponent {
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <FlatList
-            data={data}
-            renderItem={this.renderItem}
-            keyExtractor={(item) => item.time}
-            onScroll={this.onScroll}
-            ref={this.setRef}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingTop: 6}}
-            ListFooterComponent={
-              data.length === 0 && !loadingFirst && this.ListFooterComponent
+            {
+                data.length > 0 ? (
+                    <FlatList
+                        data={data}
+                        renderItem={this.renderItem}
+                        keyExtractor={(item) => item.time}
+                        onScroll={this.onScroll}
+                        ref={this.setRef}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{paddingTop: 10}}
+                        ListFooterComponent={
+                            data.length === 0 && !loadingFirst && this.ListFooterComponent
+                        }
+                    />
+                ) : loadingNewer ? (
+                    this.renderListLoading()
+                ) : (
+                    <MediumText
+                        text={'Chưa có bài viết nào'}
+                        style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+                    />
+                )
             }
-          />
         </ImageBackGround>
         <SafeAreaViewBase />
       </View>

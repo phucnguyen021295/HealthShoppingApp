@@ -14,8 +14,8 @@
 'use strict';
 
 import React from 'react';
-import {View} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import {View, ActivityIndicator} from 'react-native';
+import {Avatar, Image} from 'react-native-elements';
 
 // Components
 import Text, {MediumText} from '../../../../base/components/Text';
@@ -30,9 +30,9 @@ function NotifyItem(props) {
   const {item} = props;
   return (
     <View style={styles.imageRow}>
-      <FastImage source={{uri: item.image150}} style={styles.image150} />
+      <Avatar rounded size="xlarge" source={{uri: item.image150}} style={styles.image150} />
       <View style={styles.body}>
-        <FastImage source={{uri: item.image500}} style={styles.image500} />
+        <Image source={{uri: item.image500}} style={styles.image500} PlaceholderContent={<ActivityIndicator />} />
         <Text text={convertDate(item.time)} style={styles.date} />
         <MediumText text={item.title} style={styles.title} />
         <Text text={item.des} style={styles.des} />

@@ -14,9 +14,9 @@
 'use strict';
 
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {withNavigation} from '@react-navigation/compat';
-import FastImage from 'react-native-fast-image';
+import {Avatar, Image} from 'react-native-elements';
 
 // Components
 import Text, {MediumText} from '../../../../base/components/Text';
@@ -33,8 +33,7 @@ function NewItem(props) {
     <TouchableOpacity
       onPress={() => props.navigation.navigate('NewDetail', {item})}
       style={styles.imageRow}>
-      <FastImage source={{uri: item.image150}} style={styles.image150} />
-
+      <Avatar rounded size="xlarge" source={{uri: item.image150}} style={styles.image150} />
       <View style={styles.body}>
         <MediumText text={item.title} style={styles.title} numberOfLines={5} />
         <Text text={convertDate(item.time)} style={styles.date} />

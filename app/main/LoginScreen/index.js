@@ -131,7 +131,7 @@ class LoginScreen extends PureComponent {
           keyboardShouldPersistTaps={'handled'}>
           <View style={{alignItems: 'center'}}>
             <Animated.Image
-              source={require('./styles/images/logo.png')}
+              source={require('../LoginPinCode/styles/images/logo.png')}
               style={[styles.image, {height: this.imageHeight}]}
               resizeMode={'contain'}
             />

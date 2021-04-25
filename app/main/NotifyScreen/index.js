@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, ScrollView, View} from 'react-native';
 
 // Components
 import HeaderCustom from '../../base/components/HeaderCustom';
@@ -24,6 +24,7 @@ import Text, {MediumText} from '../../base/components/Text';
 import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 import NotifyItem from './components/NotifyItem';
 import decorateGetList from '../decorateGetList';
+import Loading from './components/Loading';
 
 // Apis
 import {getNotifyApi} from '../../apis/health';
@@ -31,6 +32,7 @@ import {getNotifyApi} from '../../apis/health';
 // styles
 import styles from './styles/index.css';
 
+const COUNT_NOTIFY = 5;
 const DATA = [
   {
     time: '1612685842',
@@ -67,6 +69,18 @@ class NotifyScreen extends PureComponent {
     super(props);
   }
 
+  componentDidMount() {
+    const {navigation} = this.props;
+    this.unsubscribe = navigation.addListener('focus', e => {
+      // Prevent default action
+      this.props.getNewer();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe && this.unsubscribe();
+  }
+
   onScroll = (event) => {
     const {isGetDataFull} = this.props;
     const {layoutMeasurement, contentOffset, contentSize} = event.nativeEvent;
@@ -81,19 +95,27 @@ class NotifyScreen extends PureComponent {
   };
 
   ListFooterComponent() {
-    return (
-      <MediumText
-        text={'Chưa có thông báo nào.'}
-        style={{textAlign: 'center', color: '#ffffff'}}
-      />
-    );
+    const {loadingOlder} = this.props;
+    if (loadingOlder) {
+      return <Loading />;
+    }
+
+    return null;
+  }
+
+  renderListLoading() {
+    const loadingCards = [];
+    for (let i = 1; i <= COUNT_NOTIFY; i++) {
+      loadingCards.push(<Loading />);
+    }
+    return <ScrollView>{loadingCards}</ScrollView>;
   }
 
   renderItem = ({item}) => <NotifyItem item={item} />;
 
   render() {
-    const {data, loadingFirst, route} = this.props;
-    const showBack = route?.params.showBack || false;
+    const {data, loadingFirst, route, loadingNewer} = this.props;
+    const showBack = route?.params?.showBack || false;
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
@@ -106,18 +128,30 @@ class NotifyScreen extends PureComponent {
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          <FlatList
-            data={DATA}
-            renderItem={this.renderItem}
-            keyExtractor={(item) => item.time}
-            onScroll={this.onScroll}
-            ref={this.setRef}
-            showsVerticalScrollIndicator={false}
-            ListFooterComponent={
-              data.length === 0 && !loadingFirst && this.ListFooterComponent
-            }
-            style={{marginTop: 2}}
-          />
+          {
+              data.length > 0 ? (
+                  <FlatList
+                      data={DATA}
+                      renderItem={this.renderItem}
+                      keyExtractor={(item) => item.time}
+                      onScroll={this.onScroll}
+                      ref={this.setRef}
+                      showsVerticalScrollIndicator={false}
+                      ListFooterComponent={
+                        data.length === 0 && !loadingFirst && this.ListFooterComponent
+                      }
+                      style={{marginTop: 2}}
+                  />
+              ) : loadingNewer ? (
+                  this.renderListLoading()
+              ) : (
+                  <MediumText
+                      text={'Chưa có thông báo nào'}
+                      style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+                  />
+              )
+          }
+
         </ImageBackGround>
         <SafeAreaViewBase />
       </View>

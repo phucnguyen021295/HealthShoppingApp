@@ -19,10 +19,12 @@ import * as fontSize from '../../../../../core/fontSize';
 const styles = StyleSheet.create({
   imageRow: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
+    paddingHorizontal: 12,
     backgroundColor: 'rgba(0,0,0,0.6)',
     paddingVertical: 12,
     marginBottom: 12,
+    marginHorizontal: 10,
+    borderRadius: 8
   },
 
   image150: {
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
 
   image500: {
     width: '100%',
-    height: 180,
+    height: 120,
     borderRadius: 6,
   },
 

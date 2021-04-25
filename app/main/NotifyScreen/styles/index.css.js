@@ -32,7 +32,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingTop: 30,
     lineHeight: 25
-  }
+  },
+
+  imageRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    paddingVertical: 12,
+    marginBottom: 10,
+  },
 });
 
 export default styles;
