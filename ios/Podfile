@@ -17,6 +17,10 @@ target 'HealthShoppingApp' do
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
   pod 'RNCharts', :path => '../node_modules/react-native-charts-wrapper'
   pod 'TouchID', :path => "../node_modules/react-native-touch-id"
+  
+  pod 'Firebase/Core', '~> 6.13.0'
+  pod 'Firebase/Messaging', '~> 6.13.0'
+  
 
   # Enables Flipper.
   #

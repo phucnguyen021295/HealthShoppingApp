@@ -25,6 +25,7 @@
 		7D85A93325170CDD00BF5455 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92A25170CDC00BF5455 /* OpenSans-Light.ttf */; };
 		7D85A93425170CDD00BF5455 /* OpenSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92B25170CDC00BF5455 /* OpenSans.ttf */; };
 		7D85A93525170CDD00BF5455 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D85A92C25170CDD00BF5455 /* OpenSans-Regular.ttf */; };
+		7D919C97262BDE59004A0206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D919C96262BDE59004A0206 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9AD0C372C2BF6111658880E4 /* libPods-HealthShoppingApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C3F3A33B099FA78073C31A /* libPods-HealthShoppingApp-tvOS.a */; };
 		AB2BBE310B37C3CED8C68C61 /* libPods-HealthShoppingApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3709883A38A0C0E4190B96E6 /* libPods-HealthShoppingApp-tvOSTests.a */; };
@@ -75,6 +76,8 @@
 		7D85A92A25170CDC00BF5455 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		7D85A92B25170CDC00BF5455 /* OpenSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenSans.ttf; sourceTree = "<group>"; };
 		7D85A92C25170CDD00BF5455 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		7D919C96262BDE59004A0206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/BitForkBluezone/bluezone-app/ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7DBACC77261C9AAB00A245DB /* HealthShoppingApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HealthShoppingApp.entitlements; path = HealthShoppingApp/HealthShoppingApp.entitlements; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HealthShoppingApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A361FA72AB2923B3EFB17456 /* Pods-HealthShoppingApp-HealthShoppingAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp-HealthShoppingAppTests.debug.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp-HealthShoppingAppTests/Pods-HealthShoppingApp-HealthShoppingAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A59A49A5FE747A8F776079A1 /* Pods-HealthShoppingApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthShoppingApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-HealthShoppingApp-tvOSTests/Pods-HealthShoppingApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 		13B07FAE1A68108700A75B9A /* HealthShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
+				7D919C96262BDE59004A0206 /* GoogleService-Info.plist */,
+				7DBACC77261C9AAB00A245DB /* HealthShoppingApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -381,6 +386,7 @@
 				7D85A92E25170CDD00BF5455 /* OpenSans-Italic.ttf in Resources */,
 				7D85A93225170CDD00BF5455 /* OpenSans-Bold.ttf in Resources */,
 				7D85A93425170CDD00BF5455 /* OpenSans.ttf in Resources */,
+				7D919C97262BDE59004A0206 /* GoogleService-Info.plist in Resources */,
 				7D85A93025170CDD00BF5455 /* Roboto-Thin.ttf in Resources */,
 				7D85A93125170CDD00BF5455 /* Roboto-Medium.ttf in Resources */,
 				7D85A92F25170CDD00BF5455 /* Roboto-Regular.ttf in Resources */,
@@ -764,6 +770,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HealthShoppingApp/HealthShoppingApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -792,6 +799,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HealthShoppingApp/HealthShoppingApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

@@ -21,6 +21,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  InteractionManager,
 } from 'react-native';
 import {Avatar, Button, Input} from 'react-native-elements';
 import TouchID from 'react-native-touch-id';
@@ -36,12 +37,13 @@ import global, {
   verifyTokenGlobal,
   setActiveBiometryGlobal,
   requestTokenFirebase,
-    setLanguageGlobal
+  setLanguageGlobal,
 } from '../../global';
 import {requestPermission} from '../../core/fcm';
 import ButtonBase from '../../base/components/ButtonBase';
 import {color} from '../../core/color';
 import ModalBase from '../../base/components/ModalBase';
+import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
 
 const optionalConfigObject = {
   title: 'Yêu cầu xác thực', // Android
@@ -66,6 +68,9 @@ class LoginPinCode extends PureComponent {
       title: '',
       description: '',
       isActiveBiometry: global.isActiveBiometry,
+      verifyPin: '',
+      isVisibleAccuracy: false,
+      errorVerifyPin: false,
     };
   }
 
@@ -173,6 +178,7 @@ class LoginPinCode extends PureComponent {
   onCloseModal = () => {
     this.setState({
       isVisibleModal: false,
+      isVisibleAccuracy: false,
     });
   };
 
@@ -182,8 +188,9 @@ class LoginPinCode extends PureComponent {
         isVisibleModal: false,
       },
       () => {
-        setActiveBiometryGlobal(true);
-        this.onSwipeBiometry();
+        InteractionManager.runAfterInteractions(() => {
+          this.setState({isVisibleAccuracy: true});
+        });
       },
     );
   };
@@ -199,14 +206,111 @@ class LoginPinCode extends PureComponent {
     setLanguageGlobal(Language === 'vi' ? 'en' : 'vi');
   };
 
-  render() {
+  pinInput = React.createRef();
+
+  onChangeCode = (code) => {
+    this.setState({verifyPin: code});
+  };
+
+  onAccuracy = () => {
+    const {verifyPin, pinCodeActive} = this.state;
+    if (verifyPin !== pinCodeActive) {
+      this.pinInput.current
+        .shake()
+        .then(() => this.setState({verifyPin: '', errorVerifyPin: true}));
+    } else {
+      this.setState({isVisibleAccuracy: false}, () => {
+        InteractionManager.runAfterInteractions(() => {
+          setActiveBiometryGlobal(true);
+          this.onSwipeBiometry();
+        });
+      });
+    }
+  };
+
+  renderModal = () => {
     const {
-      pinCode,
-      biometryType,
       isVisibleModal,
       title,
       description,
+      verifyPin,
+      isVisibleAccuracy,
+      errorVerifyPin,
     } = this.state;
+    return (
+      <>
+        <ModalBase
+          isVisibleModal={isVisibleModal}
+          title={title}
+          description={description}>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              title={'Đóng'}
+              containerStyle={{flex: 1, borderRadius: 0}}
+              buttonStyle={styles.buttonStyleModal2}
+              titleStyle={{color: color}}
+              onPress={this.onCloseModal}
+            />
+            <Button
+              title={'Kích hoạt'}
+              containerStyle={{flex: 1, borderRadius: 0}}
+              buttonStyle={styles.buttonStyleModal}
+              onPress={this.onActivated}
+            />
+          </View>
+        </ModalBase>
+
+        <ModalBase
+          isVisibleModal={isVisibleAccuracy}
+          title={'Xác thực mã pin'}
+          description={
+            'Vui lòng xác thực mã pin để được kích hoạt tính năng này'
+          }>
+          <View style={{flexDirection: 'column', paddingTop: 30}}>
+            <View style={{alignItems: 'center'}}>
+              <SmoothPinCodeInput
+                ref={this.pinInput}
+                value={verifyPin}
+                onTextChange={this.onChangeCode}
+                codeLength={6}
+                onBackspace={() => console.log('No more back.')}
+                password
+                mask="﹡"
+                autoFocus
+                cellStyle={{borderColor: '#dddddd', borderWidth: 1}}
+                cellStyleFocused={{borderColor: '#dddddd', borderWidth: 1}}
+                containerStyle={{paddingBottom: 30}}
+              />
+              {errorVerifyPin ? (
+                <Text
+                  text={'Mã pin xác thực không đúng'}
+                  style={{color: 'red'}}
+                />
+              ) : null}
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                title={'Hủy'}
+                containerStyle={{flex: 1, borderRadius: 0}}
+                buttonStyle={styles.buttonStyleModal2}
+                titleStyle={{color: color}}
+                onPress={this.onCloseModal}
+              />
+              <Button
+                title={'Xác thực'}
+                containerStyle={{flex: 1, borderRadius: 0}}
+                buttonStyle={styles.buttonStyleModal}
+                onPress={this.onAccuracy}
+              />
+            </View>
+          </View>
+        </ModalBase>
+      </>
+    );
+  };
+
+  render() {
+    const {pinCode, biometryType} = this.state;
 
     const {image} = global;
     const urlImage = image
@@ -220,7 +324,9 @@ class LoginPinCode extends PureComponent {
         <SafeAreaView style={styles.container}>
           <View style={styles.language}>
             <View />
-            <TouchableOpacity style={styles.changeLanguage} onPress={this.onChangeLanguage}>
+            <TouchableOpacity
+              style={styles.changeLanguage}
+              onPress={this.onChangeLanguage}>
               <Ionicons
                 name={'ios-globe-outline'}
                 size={20}
@@ -281,12 +387,7 @@ class LoginPinCode extends PureComponent {
             </View>
           </View>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              paddingTop: 150,
-            }}>
+          <View style={styles.utilities}>
             <TouchableOpacity
               style={styles.btnNotify}
               onPress={this.onNavigateNotification}>
@@ -308,26 +409,7 @@ class LoginPinCode extends PureComponent {
             </TouchableOpacity>
           </View>
         </SafeAreaView>
-        <ModalBase
-          isVisibleModal={isVisibleModal}
-          title={title}
-          description={description}>
-          <View style={{flexDirection: 'row'}}>
-            <Button
-              title={'Đóng'}
-              containerStyle={{flex: 1, borderRadius: 0}}
-              buttonStyle={styles.buttonStyleModal2}
-              titleStyle={{color: color}}
-              onPress={this.onCloseModal}
-            />
-            <Button
-              title={'Kích hoạt'}
-              containerStyle={{flex: 1, borderRadius: 0}}
-              buttonStyle={styles.buttonStyleModal}
-              onPress={this.onActivated}
-            />
-          </View>
-        </ModalBase>
+        {this.renderModal()}
       </ImageBackGround>
     );
   }

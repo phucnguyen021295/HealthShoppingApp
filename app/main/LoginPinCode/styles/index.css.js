@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 0,
     borderTopColor: color,
-    borderTopWidth: 1,
+    borderTopWidth: 0.5,
     borderBottomLeftRadius: 14,
   },
 
@@ -105,6 +105,12 @@ const styles = StyleSheet.create({
     height: heightToDP(55),
     marginTop: heightToDP(15)
   },
+
+  utilities: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 150,
+  }
 });
 
 export default styles;
