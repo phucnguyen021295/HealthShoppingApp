@@ -45,7 +45,7 @@ export const handleGetPackageProduct = (orderType, success, failure) => {
       }
       success(data);
     },
-    () => failure(),
+    (error) => failure(error),
   );
 };
 

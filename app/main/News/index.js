@@ -85,27 +85,28 @@ class NewsScreen extends PureComponent {
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
             {
-                data.length > 0 ? (
-                    <FlatList
-                        data={data}
-                        renderItem={this.renderItem}
-                        keyExtractor={(item) => item.time}
-                        onScroll={this.onScroll}
-                        ref={this.setRef}
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{paddingTop: 10}}
-                        ListFooterComponent={
-                            data.length === 0 && !loadingFirst && this.ListFooterComponent
-                        }
-                    />
-                ) : loadingNewer ? (
-                    this.renderListLoading()
-                ) : (
-                    <MediumText
-                        text={'Chưa có bài viết nào'}
-                        style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
-                    />
-                )
+                this.renderListLoading()
+                // data.length > 0 ? (
+                //     <FlatList
+                //         data={data}
+                //         renderItem={this.renderItem}
+                //         keyExtractor={(item) => item.time}
+                //         onScroll={this.onScroll}
+                //         ref={this.setRef}
+                //         showsVerticalScrollIndicator={false}
+                //         contentContainerStyle={{paddingTop: 10}}
+                //         ListFooterComponent={
+                //             data.length === 0 && !loadingFirst && this.ListFooterComponent
+                //         }
+                //     />
+                // ) : loadingNewer ? (
+                //     this.renderListLoading()
+                // ) : (
+                //     <MediumText
+                //         text={'Chưa có bài viết nào'}
+                //         style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+                //     />
+                // )
             }
         </ImageBackGround>
         <SafeAreaViewBase />

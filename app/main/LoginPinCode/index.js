@@ -44,6 +44,8 @@ import ButtonBase from '../../base/components/ButtonBase';
 import {color} from '../../core/color';
 import ModalBase from '../../base/components/ModalBase';
 import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
+import {clearData, setCheckIntroduce} from '../../core/storage';
+import {callBack} from '../../core/data';
 
 const optionalConfigObject = {
   title: 'My New Way', // Android
@@ -71,6 +73,7 @@ class LoginPinCode extends PureComponent {
       verifyPin: '',
       isVisibleAccuracy: false,
       errorVerifyPin: false,
+      isVisibleTokenExpired: false,
     };
   }
 
@@ -83,7 +86,11 @@ class LoginPinCode extends PureComponent {
       () => {
         getUserGlobal(membercode);
       },
-      () => {
+      (error) => {
+        console.log('verifyTokenGlobal', error);
+        if (error.data.errorcode === 2) {
+          this.setState({isVisibleTokenExpired: true});
+        }
         getUserGlobal(membercode);
       },
     );
@@ -122,6 +129,17 @@ class LoginPinCode extends PureComponent {
     }
   };
 
+  onLogout = () => {
+    this.setState({isVisibleTokenExpired: false}, () => {
+      InteractionManager.runAfterInteractions(() => {
+        clearData().then(() => {
+          setCheckIntroduce(true);
+          this.props.navigation.replace('Login');
+        });
+      });
+    });
+  };
+
   onChangeCode = (code) => {
     const {pinCodeActive, pinCode} = this.state;
     // if (code.length === 6 && pinCodeActive && !this.onFirstVerify) {
@@ -137,7 +155,9 @@ class LoginPinCode extends PureComponent {
 
   onSwipeBiometry = () => {
     TouchID.authenticate(
-      Platform.OS === 'ios' ? 'Yêu cầu xác thực vân tay' : 'Xác thực bằng vân tay, vui lòng chạm vào cảm biến vân tay',
+      Platform.OS === 'ios'
+        ? 'Yêu cầu xác thực vân tay'
+        : 'Xác thực bằng vân tay, vui lòng chạm vào cảm biến vân tay',
       optionalConfigObject,
     )
       .then((success) => {
@@ -208,7 +228,7 @@ class LoginPinCode extends PureComponent {
 
   pinInput = React.createRef();
 
-  onChangeCode = (code) => {
+  onChangeCodeActivePin = (code) => {
     this.setState({verifyPin: code});
   };
 
@@ -236,6 +256,7 @@ class LoginPinCode extends PureComponent {
       verifyPin,
       isVisibleAccuracy,
       errorVerifyPin,
+      isVisibleTokenExpired,
     } = this.state;
     return (
       <>
@@ -261,6 +282,22 @@ class LoginPinCode extends PureComponent {
         </ModalBase>
 
         <ModalBase
+          isVisibleModal={isVisibleTokenExpired}
+          title={'Thông báo'}
+          description={
+            'Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại.'
+          }>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              title={'Đồng ý'}
+              containerStyle={{flex: 1, borderRadius: 0}}
+              buttonStyle={styles.buttonStyleModal1}
+              onPress={this.onLogout}
+            />
+          </View>
+        </ModalBase>
+
+        <ModalBase
           isVisibleModal={isVisibleAccuracy}
           title={'Xác thực mã pin'}
           description={
@@ -271,7 +308,7 @@ class LoginPinCode extends PureComponent {
               <SmoothPinCodeInput
                 ref={this.pinInput}
                 value={verifyPin}
-                onTextChange={this.onChangeCode}
+                onTextChange={this.onChangeCodeActivePin}
                 codeLength={6}
                 onBackspace={() => console.log('No more back.')}
                 password

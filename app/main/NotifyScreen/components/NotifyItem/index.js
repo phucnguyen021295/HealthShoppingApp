@@ -30,9 +30,18 @@ function NotifyItem(props) {
   const {item} = props;
   return (
     <View style={styles.imageRow}>
-      <Avatar rounded size="xlarge" source={{uri: item.image150}} style={styles.image150} />
+      <Avatar
+        rounded
+        size="xlarge"
+        source={{uri: item.image150}}
+        style={styles.image150}
+      />
       <View style={styles.body}>
-        <Image source={{uri: item.image500}} style={styles.image500} PlaceholderContent={<ActivityIndicator />} />
+        <Image
+          source={{uri: item.image500}}
+          style={styles.image500}
+          PlaceholderContent={<ActivityIndicator />}
+        />
         <Text text={convertDate(item.time)} style={styles.date} />
         <MediumText text={item.title} style={styles.title} />
         <Text text={item.des} style={styles.des} />

@@ -52,7 +52,7 @@ class VerifyPINScreen extends PureComponent {
         this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
       } else {
         setPinCodeGlobal(pinCode);
-        this.props.navigation.navigate('LoginPinCode');
+        this.props.navigation.replace('LoginPinCode');
       }
     }
   };

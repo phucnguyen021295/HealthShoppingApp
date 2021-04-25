@@ -83,6 +83,15 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 14
   },
 
+  buttonStyleModal1: {
+    backgroundColor: color,
+    borderRadius: 0,
+    borderTopColor: color,
+    borderTopWidth: 1,
+    borderBottomRightRadius: 14,
+    borderBottomLeftRadius: 14,
+  },
+
   buttonStyleModal2: {
     backgroundColor: '#ffffff',
     borderRadius: 0,

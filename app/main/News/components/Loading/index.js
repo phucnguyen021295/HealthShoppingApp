@@ -15,21 +15,56 @@
 
 import React from 'react';
 import ContentLoader, {Rect, Circle} from 'react-content-loader/native';
+import {heightToDP, widthToDP} from '../../../../core/utils/dimension';
+
+const HEIGHT_CONTENT = heightToDP(80);
+const WIDTH_CONTENT = widthToDP(360);
+const WIDTH_CONTENT_250 = widthToDP(250);
+const WIDTH_CONTENT_230 = widthToDP(230);
+const WIDTH_CONTENT_160 = widthToDP(160);
+const X_CONTENT_20 = widthToDP(20);
+const X_CONTENT_90 = widthToDP(90);
+const HEIGHT_CONTENT_10 = heightToDP(10);
+const Y_CONTENT_15 = heightToDP(15);
+const Y_CONTENT_20 = heightToDP(20);
+const Y_CONTENT_40 = heightToDP(40);
+const Y_CONTENT_60 = heightToDP(60);
 
 function Loading() {
-    return (
-        <ContentLoader
-            height={80}
-            speed={2}
-            backgroundColor={'#f3f3f3'}
-            foregroundColor={'#dddddd'}
-            viewBox="0 0 360 80">
-            <Circle x={20} y={15} cx="26" cy="26" r="26" />
-            <Rect x="90" y="20" rx="5" ry="5" width="250" height="10" />
-            <Rect x="90" y="40" rx="5" ry="5" width="160" height="10" />
-            <Rect x="90" y="60" rx="5" ry="5" width="230" height="10" />
-        </ContentLoader>
-    );
+  return (
+    <ContentLoader
+      height={HEIGHT_CONTENT}
+      speed={2}
+      backgroundColor={'#cbcbcb'}
+      foregroundColor={'#dddddd'}
+      viewBox={`0 0 ${WIDTH_CONTENT} ${HEIGHT_CONTENT}`}>
+      <Circle x={X_CONTENT_20} y={Y_CONTENT_15} cx="26" cy="26" r="26" />
+      <Rect
+        x={X_CONTENT_90}
+        y={Y_CONTENT_20}
+        rx="5"
+        ry="5"
+        width={WIDTH_CONTENT_250}
+        height={HEIGHT_CONTENT_10}
+      />
+      <Rect
+        x={X_CONTENT_90}
+        y={Y_CONTENT_40}
+        rx="5"
+        ry="5"
+        width={WIDTH_CONTENT_160}
+        height={HEIGHT_CONTENT_10}
+      />
+      <Rect
+        x={X_CONTENT_90}
+        y={Y_CONTENT_60}
+        rx="5"
+        ry="5"
+        width={WIDTH_CONTENT_230}
+        height={HEIGHT_CONTENT_10}
+      />
+    </ContentLoader>
+  );
 }
 
 export default Loading;

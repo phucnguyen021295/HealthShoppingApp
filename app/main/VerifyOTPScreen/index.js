@@ -71,7 +71,7 @@ class VerifyOTPScreen extends PureComponent {
           // // TODO: Set tạm số tiến
           // setAccountBalanceGlobal(1000);
           setMemberCodeGlobal(membercode);
-          this.props.navigation.navigate('VerifyPIN');
+          this.props.navigation.replace('VerifyPIN');
           this.setState({loading: false});
         },
         () => {

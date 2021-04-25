@@ -50,7 +50,8 @@ class OderList extends PureComponent {
       (data) => {
         // this.setState({data});
       },
-      () => {
+      (error) => {
+        console.log('componentDidMount', '11111111111', error);
         alert('Có lỗi xảy ra');
       },
     );
@@ -60,12 +61,9 @@ class OderList extends PureComponent {
     });
   }
 
-  componentDidUpdate(
-    prevProps: Readonly<P>,
-    prevState: Readonly<S>,
-    snapshot: SS,
-  ) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.oderType !== this.props.oderType) {
+      console.log('componentDidUpdate', prevProps.oderType, this.props.oderType)
       handleGetPackageProduct(
         this.props.oderType,
         (data) => {
@@ -73,7 +71,8 @@ class OderList extends PureComponent {
           //   this.handleMessageTop();
           // });
         },
-        () => {
+        (error) => {
+          console.log('componentDidUpdate', '11111111111', error);
           alert('Có lỗi xảy ra');
         },
       );
@@ -108,7 +107,9 @@ class OderList extends PureComponent {
     );
   };
 
-  renderItem = ({item}) => <OderItem item={item} oderType={this.props.oderType} />;
+  renderItem = ({item}) => (
+    <OderItem item={item} oderType={this.props.oderType} />
+  );
 
   handleMessageTop = () => {
     this.flatListRef.scrollToOffset({animated: true, offset: 0});
