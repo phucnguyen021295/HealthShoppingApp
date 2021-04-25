@@ -16,6 +16,7 @@
 import React, {PureComponent} from 'react';
 import {View, ScrollView, Animated, Keyboard} from 'react-native';
 import {Input} from 'react-native-elements';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import Header from '../HomeScreen/components/Header';
@@ -31,6 +32,8 @@ import global, {updateUSer} from '../../global';
 import {heightToDP} from '../../core/utils/dimension';
 import NotificationModal from '../../base/components/NotificationModal';
 import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
+
+import message from '../../msg/personalPage';
 
 class PersonalPageDrawer extends PureComponent {
   constructor(props) {
@@ -102,6 +105,8 @@ class PersonalPageDrawer extends PureComponent {
 
   onUpdateUser = () => {
     const {city, address, state, postalcode} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     const data = {
       city: city,
       address: address,
@@ -114,15 +119,15 @@ class PersonalPageDrawer extends PureComponent {
         () => {
           this.setState({
             isVisible: true,
-            descriptionModal: 'Cập nhật thông tin thành công',
-            titleButton: 'Xác nhận',
+            descriptionModal: formatMessage(message.descriptionModal1),
+            titleButton: formatMessage(message.btnConfirm),
           });
         },
         () => {
           this.setState({
             isVisible: true,
-            descriptionModal: 'Cập nhật thất bại, Vui lòng thử lại sau',
-            titleButton: 'Đồng ý',
+            descriptionModal: formatMessage(message.descriptionModal2),
+            titleButton: formatMessage(message.btnAgree),
           });
         },
       );
@@ -145,11 +150,13 @@ class PersonalPageDrawer extends PureComponent {
       titleButton,
       loading,
     } = this.state;
-    const {navigation} = this.props;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
+
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
-        <HeaderCustom title={'Thông tin cá nhân'} color={'#ffffff'} ViewComponent={LinearGradient} />
+        <HeaderCustom title={formatMessage(message.titleHeader)} color={'#ffffff'} ViewComponent={LinearGradient} />
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
@@ -161,23 +168,23 @@ class PersonalPageDrawer extends PureComponent {
               showsVerticalScrollIndicator={false}>
               <View style={{marginBottom: heightToDP(14)}}>
                 <MediumText
-                  text={`Họ và tên: ${name}`}
+                  text={`${formatMessage(message.fullName)}: ${name}`}
                   style={styles.textRow}
                 />
                 <MediumText
-                  text={`Số điện thoại: ${mobile}`}
+                  text={`${formatMessage(message.phone)}: ${mobile}`}
                   style={styles.textRow}
                 />
-                <MediumText text={`Email: ${email}`} style={styles.textRow} />
+                <MediumText text={`${formatMessage(message.email)}: ${email}`} style={styles.textRow} />
               </View>
               <View style={{marginBottom: heightToDP(20)}}>
                 <MediumText
-                  text={'Thông tin thành phố:'}
+                  text={`${formatMessage(message.city)}:`}
                   style={styles.textRow}
                 />
                 <Input
                   value={city}
-                  placeholder="Thông tin thành phố"
+                  placeholder={formatMessage(message.city)}
                   containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                   inputContainerStyle={styles.inputContainerStyle}
                   renderErrorMessage={false}
@@ -188,10 +195,10 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText text={'Quận, huyện:'} style={styles.textRow} />
+                <MediumText text={`${formatMessage(message.district)}:`} style={styles.textRow} />
                 <Input
                   value={state}
-                  placeholder="Quận, huyện"
+                  placeholder={formatMessage(message.district)}
                   containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -202,10 +209,10 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText text={'Địa chỉ:'} style={styles.textRow} />
+                <MediumText text={`${formatMessage(message.address)}:`} style={styles.textRow} />
                 <Input
                   value={address}
-                  placeholder="Địa chỉ"
+                  placeholder={formatMessage(message.address)}
                   containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                   inputContainerStyle={styles.inputContainerStyle}
                   renderErrorMessage={false}
@@ -216,10 +223,10 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText text={'Mã bưu điện:'} style={styles.textRow} />
+                <MediumText text={`${formatMessage(message.zipCode)}:`} style={styles.textRow} />
                 <Input
                   value={postalcode}
-                  placeholder="Mã bưu điện"
+                  placeholder={formatMessage(message.zipCode)}
                   containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -235,7 +242,7 @@ class PersonalPageDrawer extends PureComponent {
                 paddingBottom: heightToDP(10),
               }}>
               <ButtonBase
-                title="Lưu thông tin"
+                title={formatMessage(message.btnSaveInfo)}
                 buttonStyle={styles.btnButtonStyle}
                 onPress={this.onUpdateUser}
                 loading={loading}
@@ -244,7 +251,7 @@ class PersonalPageDrawer extends PureComponent {
           </Animated.View>
           <NotificationModal
             isVisible={isVisible}
-            title={'Thông báo'}
+            title={formatMessage(message.titleModal)}
             description={descriptionModal}
             titleButton={titleButton}
             onPress={this.onCloseModal}
@@ -256,4 +263,8 @@ class PersonalPageDrawer extends PureComponent {
   }
 }
 
-export default PersonalPageDrawer;
+PersonalPageDrawer.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(PersonalPageDrawer);

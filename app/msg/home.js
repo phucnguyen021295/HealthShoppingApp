@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 04/04/2021.
+ * @author phucnhb@bkav.com on 25/04/2021.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
@@ -16,16 +16,20 @@
 import {defineMessages} from 'react-intl';
 
 export default defineMessages({
-  titleHeader: {
-    id: 'health.verifyOTP.titleHeader',
-    defaultMessage: 'Xác thực mã OTP',
+  paymentAccount: {
+    id: 'health.home.paymentAccount',
+    defaultMessage: 'Tài khoản thanh toán',
   },
-  description: {
-    id: 'health.verifyOTP.description',
-    defaultMessage: 'Vui lòng nhập mã OTP để tiếp tục đăng nhập.',
+  accountBalance: {
+    id: 'health.home.memberCode',
+    defaultMessage: 'Số dư',
   },
-  btnVerifyOTP: {
-    id: 'health.verifyOTP.btnVerifyOTP',
-    defaultMessage: 'Xác thực OTP',
+  code: {
+    id: 'health.home.code',
+    defaultMessage: 'Mã code',
+  },
+  statistical: {
+    id: 'health.home.statistical',
+    defaultMessage: 'THỐNG KÊ',
   },
 });

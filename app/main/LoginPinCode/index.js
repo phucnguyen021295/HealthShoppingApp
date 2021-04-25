@@ -222,8 +222,8 @@ class LoginPinCode extends PureComponent {
   onChangeLanguage = () => {
     const {language} = this.context;
     const _language = language === 'vi' ? 'en' : 'vi';
-    this.context.updateLanguage(_language);
     setLanguageGlobal(_language);
+    this.context.updateLanguage(_language);
   };
 
   pinInput = React.createRef();

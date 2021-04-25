@@ -15,8 +15,15 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View, ScrollView, TouchableOpacity, Image, SafeAreaView} from 'react-native';
-import {Accessory, Avatar} from 'react-native-elements';
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+} from 'react-native';
+import {Avatar} from 'react-native-elements';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import Header from './components/Header';
@@ -38,6 +45,7 @@ import {registerShoppingCardChange} from '../../core/shoppingCart';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {getBalanceApi} from '../../apis/health';
 
+import message from '../../msg/home';
 
 class HomeDrawer extends PureComponent {
   constructor(props) {
@@ -73,8 +81,11 @@ class HomeDrawer extends PureComponent {
   render() {
     const {accountBalance} = this.state;
     const {name, membercode, image} = global;
-    const {navigation} = this.props;
-    const urlImage = image ? {uri: image} : require('./styles/images/avatar.png');
+    const {navigation, intl} = this.props;
+    const {formatMessage} = intl;
+    const urlImage = image
+      ? {uri: image}
+      : require('./styles/images/avatar.png');
     return (
       <View style={styles.container}>
         <LinearGradient>
@@ -105,15 +116,29 @@ class HomeDrawer extends PureComponent {
                   source={require('./styles/images/icons8-merchant-account-100.png')}
                   style={{width: 100, height: 100, marginBottom: 12}}
                 />
-                <MediumText text={'Tài khoản thanh toán'} style={styles.account} />
+                <MediumText
+                  text={formatMessage(message.paymentAccount)}
+                  style={styles.account}
+                />
                 <Text text={name} style={styles.name} />
-                <Text text={`Số dư: ${accountBalance} $`} style={styles.name} />
-                <Text text={`Mã code: ${membercode} $`} style={styles.name} />
+                <Text
+                  text={`${formatMessage(
+                    message.accountBalance,
+                  )} ${accountBalance} $`}
+                  style={styles.name}
+                />
+                <Text
+                  text={`${formatMessage(message.code)} ${membercode} $`}
+                  style={styles.name}
+                />
               </View>
             </View>
 
             <View style={styles.viewChart}>
-              <MediumText text={'THỐNG KÊ'} style={styles.textReport} />
+              <MediumText
+                text={formatMessage(message.statistical)}
+                style={styles.textReport}
+              />
               <ChartScreen />
             </View>
           </ScrollView>
@@ -123,4 +148,8 @@ class HomeDrawer extends PureComponent {
   }
 }
 
-export default HomeDrawer;
+HomeDrawer.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(HomeDrawer);

@@ -19,5 +19,25 @@
   "health.loginPinCode.requireFinIOS": "Yêu cầu xác thực vân tay",
   "health.loginPinCode.requireFinAndroid": "Xác thực bằng vân tay, vui lòng chạm vào cảm biến vân tay",
   "health.loginPinCode.activeFaceID": "Kích hoạt tính năng nhận diện khuân mặt?",
-  "health.loginPinCode.activeTouch": "Kích hoạt tính năng vân tay?"
+  "health.loginPinCode.activeTouch": "Kích hoạt tính năng vân tay?",
+
+  "health.home.paymentAccount": "Tài khoản thanh toán",
+  "health.home.memberCode": "Số dư:",
+  "health.home.code": "Mã code:",
+  "health.home.statistical": "THỐNG KÊ",
+
+  "health.personalPage.titleHeader": "Thông tin cá nhân",
+  "health.personalPage.fullName": "Họ và tên",
+  "health.personalPage.phone": "Số điện thoại",
+  "health.personalPage.email": "Email",
+  "health.personalPage.city": "Thông tin thành phố",
+  "health.personalPage.district": "Quận, huyện",
+  "health.personalPage.address": "Địa chỉ",
+  "health.personalPage.zipCode": "Mã bưu điện",
+  "health.personalPage.btnSaveInfo": "Lưu thông tin",
+  "health.personalPage.titleModal": "Thông báo",
+  "health.personalPage.descriptionModal1": "Cập nhật thông tin thành công",
+  "health.personalPage.descriptionModal2": "Cập nhật thất bại, Vui lòng thử lại sau",
+  "health.personalPage.btnConfirm": "Xác nhận",
+  "health.personalPage.btnAgree": "Đồng ý"
 }

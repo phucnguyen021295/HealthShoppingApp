@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {StyleSheet, View, processColor} from 'react-native';
+import {View, processColor} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {BarChart} from 'react-native-charts-wrapper';
 
@@ -28,7 +28,6 @@ import {getReportApi} from '../../apis/health';
 import {labels} from './formatData';
 import styles from './styles/index.css';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
-import UserShoppingScreen from '../UserShoppingScreen';
 
 const colors = {
   'Weak Leg': processColor('green'),

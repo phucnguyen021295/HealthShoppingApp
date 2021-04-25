@@ -19,5 +19,25 @@
   "health.loginPinCode.requireFinIOS": "Requires fingerprint authentication",
   "health.loginPinCode.requireFinAndroid": "Authenticate by fingerprint, please touch the fingerprint sensor",
   "health.loginPinCode.activeFaceID": "Activate face recognition?",
-  "health.loginPinCode.activeTouch": "Enable fingerprints?"
+  "health.loginPinCode.activeTouch": "Enable fingerprints?",
+
+  "health.home.paymentAccount": "Payment account",
+  "health.home.memberCode": "Account balance:",
+  "health.home.code": "Code:",
+  "health.home.statistical": "STATISTICAL",
+
+  "health.personalPage.titleHeader": "Personal information",
+  "health.personalPage.fullName": "FullName",
+  "health.personalPage.phone": "Phone Number",
+  "health.personalPage.email": "Email",
+  "health.personalPage.city": "City information",
+  "health.personalPage.district": "District",
+  "health.personalPage.address": "Address",
+  "health.personalPage.zipCode": "ZIP code",
+  "health.personalPage.btnSaveInfo": "Save information",
+  "health.personalPage.titleModal": "Notification",
+  "health.personalPage.descriptionModal1": "Successfully updated",
+  "health.personalPage.descriptionModal2": "Update failed, Please try again later",
+  "health.personalPage.btnConfirm": "Confirm",
+  "health.personalPage.btnAgree": "Agree"
 }

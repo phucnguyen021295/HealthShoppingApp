@@ -16,32 +16,32 @@
 import {defineMessages} from 'react-intl';
 
 export default defineMessages({
-    titleHeader: {
-        id: 'health.transfer.titleHeader',
-        defaultMessage: 'Chuyển khoản',
-    },
-    memberCode: {
-        id: 'health.transfer.memberCode',
-        defaultMessage: 'Mã thành viên',
-    },
-    btnCheck: {
-        id: 'health.transfer.btnCheck',
-        defaultMessage: 'Kiểm tra',
-    },
-    money: {
-        id: 'health.transfer.money',
-        defaultMessage: 'Số tiền',
-    },
-    note: {
-        id: 'health.transfer.note',
-        defaultMessage: 'Ghi chú',
-    },
-    btnTransfer: {
-        id: 'health.transfer.btnTransfer',
-        defaultMessage: 'Chuyển tiền',
-    },
-    titleModal: {
-        id: 'health.transfer.titleModal',
-        defaultMessage: 'Thông báo',
-    }
+  titleHeader: {
+    id: 'health.transfer.titleHeader',
+    defaultMessage: 'Chuyển khoản',
+  },
+  memberCode: {
+    id: 'health.transfer.memberCode',
+    defaultMessage: 'Mã thành viên',
+  },
+  btnCheck: {
+    id: 'health.transfer.btnCheck',
+    defaultMessage: 'Kiểm tra',
+  },
+  money: {
+    id: 'health.transfer.money',
+    defaultMessage: 'Số tiền',
+  },
+  note: {
+    id: 'health.transfer.note',
+    defaultMessage: 'Ghi chú',
+  },
+  btnTransfer: {
+    id: 'health.transfer.btnTransfer',
+    defaultMessage: 'Chuyển tiền',
+  },
+  titleModal: {
+    id: 'health.transfer.titleModal',
+    defaultMessage: 'Thông báo',
+  },
 });

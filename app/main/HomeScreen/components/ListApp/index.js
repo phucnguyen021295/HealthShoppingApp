@@ -27,29 +27,34 @@ import styles from './styles/index.css';
 import {withNavigation} from '@react-navigation/compat';
 import {clearData} from '../../../../core/storage';
 import {callBack} from '../../../../core/data';
+import global from '../../../../global';
 
 const data = [
   {
     id: '1',
-    title: 'Report',
+    title: 'Thống kê',
+    titleEn: 'Report',
     icon: <Icon name="md-stats-chart-outline" size={21} color="white" />,
     screen: 'Report',
   },
   {
     id: '2',
-    title: 'History',
+    title: 'Lịch sử',
+    titleEn: 'History',
     icon: <Icon name="time-outline" size={23} color="white" />,
     screen: 'History',
   },
   {
     id: '3',
-    title: 'News',
+    title: 'Tin tức',
+    titleEn: 'News',
     icon: <Icon name="ios-newspaper-outline" size={23} color="white" />,
     screen: 'News',
   },
   {
     id: '4',
-    title: 'Logout',
+    title: 'Đăng xuất',
+    titleEn: 'Logout',
     icon: <Icon name="ios-power-sharp" size={23} color="white" />,
     screen: 'Logout',
   },
@@ -100,7 +105,10 @@ class ListApp extends PureComponent {
           icon={item.icon}
           onPress={() => this.onChangeNavigate(item)}
         />
-        <Text text={item.title} style={styles.text} />
+        <Text
+          text={global.Language === 'vi' ? item.title : item.titleEn}
+          style={styles.text}
+        />
       </View>
     );
   };
