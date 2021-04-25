@@ -39,5 +39,24 @@
   "health.personalPage.descriptionModal1": "Cập nhật thông tin thành công",
   "health.personalPage.descriptionModal2": "Cập nhật thất bại, Vui lòng thử lại sau",
   "health.personalPage.btnConfirm": "Xác nhận",
-  "health.personalPage.btnAgree": "Đồng ý"
+  "health.personalPage.btnAgree": "Đồng ý",
+
+  "health.transfer.titleHeader": "Chuyển khoản",
+  "health.transfer.memberCode": "Mã thành viên",
+  "health.transfer.btnCheck": "Kiểm tra",
+  "health.transfer.money": "Số tiền",
+  "health.transfer.note": "Ghi chú",
+  "health.transfer.btnTransfer": "Chuyển tiền",
+  "health.transfer.titleModal": "Thông báo",
+  "health.transfer.descriptionModal": "Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.",
+  "health.transfer.btnAgree": "Đồng ý",
+  "health.transfer.descriptionModal1": "Chuyển tiền thành công",
+  "health.transfer.btnConfirm": "Xác nhận",
+  "health.transfer.descriptionModal2": "Bạn chưa nhập số tiền",
+  "health.transfer.btnEnterAmount": "Nhập số tiền",
+  "health.transfer.descriptionModal3": "Bạn chưa nhập mã thành viên",
+  "health.transfer.btnEnterCode": "Nhập mã thành viên",
+  "health.transfer.descriptionModal4": "Có lỗi xảy ra, hoặc mã thành viên không tồn tại.",
+  "health.transfer.btnClose": "Đóng",
+  "health.transfer.descriptionModal5": "Mã"
 }

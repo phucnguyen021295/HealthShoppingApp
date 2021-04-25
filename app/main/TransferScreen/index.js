@@ -17,6 +17,7 @@
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Button, Input} from 'react-native-elements';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
@@ -34,6 +35,8 @@ import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 // Styles
 import styles from './styles/index.css';
 import {heightToDP} from '../../core/utils/dimension';
+
+import message from '../../msg/transfer';
 
 class TransferScreen extends PureComponent {
   constructor(props) {
@@ -63,20 +66,22 @@ class TransferScreen extends PureComponent {
 
   onCheckUser = () => {
     const {membercode} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     getUserApi(
       membercode,
       () => {
         this.setState({
           isVisible: true,
-          descriptionModal: 'Mã',
-          titleButton: 'Đóng',
+          descriptionModal: formatMessage(message.descriptionModal5),
+          titleButton: formatMessage(message.btnClose),
         });
       },
       () => {
         this.setState({
           isVisible: true,
-          descriptionModal: 'Có lỗi xảy ra, hoặc mã thành viên không tồn tại.',
-          titleButton: 'Đóng',
+          descriptionModal: formatMessage(message.descriptionModal4),
+          titleButton: formatMessage(message.btnClose),
         });
       },
     );
@@ -84,12 +89,14 @@ class TransferScreen extends PureComponent {
 
   onTransfer = () => {
     const {membercode, amount, reason} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
 
     if (!membercode) {
       this.setState({
         isVisible: true,
-        descriptionModal: 'Bạn chưa nhập mã thành viên',
-        titleButton: 'Nhập mã thành viên',
+        descriptionModal: formatMessage(message.descriptionModal3),
+        titleButton: formatMessage(message.btnEnterCode),
       });
       return;
     }
@@ -97,8 +104,8 @@ class TransferScreen extends PureComponent {
     if (!amount) {
       this.setState({
         isVisible: true,
-        descriptionModal: 'Bạn chưa nhập số tiền',
-        titleButton: 'Nhập số tiền',
+        descriptionModal: formatMessage(message.descriptionModal2),
+        titleButton: formatMessage(message.btnEnterAmount),
       });
       return;
     }
@@ -119,8 +126,8 @@ class TransferScreen extends PureComponent {
               amount: '',
               reason: '',
               isVisible: true,
-              descriptionModal: 'Chuyển tiền thành công',
-              titleButton: 'Xác nhận',
+              descriptionModal: formatMessage(message.descriptionModal1),
+              titleButton: formatMessage(message.btnConfirm),
             },
             () => {
               const {balance} = global;
@@ -132,9 +139,8 @@ class TransferScreen extends PureComponent {
         () => {
           this.setState({
             isVisible: true,
-            descriptionModal:
-              'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
-            titleButton: 'Đồng ý',
+            descriptionModal: formatMessage(message.descriptionModal),
+            titleButton: formatMessage(message.btnAgree),
           });
         },
       );
@@ -155,20 +161,22 @@ class TransferScreen extends PureComponent {
       titleButton,
       loading,
     } = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     return (
       <ImageBackGround
         source={require('../../images/backgroundHome.jpeg')}
         blurRadius={4}>
         <SafeAreaView />
         <InputScrollView>
-          <MediumText text={'Chuyển khoản'} style={styles.textInfo} />
+          <MediumText text={formatMessage(message.titleHeader)} style={styles.textInfo} />
           <View style={styles.container}>
             <View style={styles.item}>
-              <MediumText text={'Mã thành viên:'} style={styles.textRow} />
+              <MediumText text={`${formatMessage(message.memberCode)}:`} style={styles.textRow} />
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Input
                   value={membercode}
-                  placeholder="Mã thành viên"
+                  placeholder={formatMessage(message.memberCode)}
                   containerStyle={{
                     paddingHorizontal: 0,
                     flex: 1,
@@ -187,17 +195,17 @@ class TransferScreen extends PureComponent {
               </View>
 
               <Button
-                title="Kiểm tra"
+                title={formatMessage(message.btnCheck)}
                 buttonStyle={styles.btnButtonCheckStyle}
                 titleStyle={styles.btnTitleCheckStyle}
                 onPress={this.onCheckUser}
               />
             </View>
             <View style={styles.item}>
-              <MediumText text={'Số tiền:'} style={styles.textRow} />
+              <MediumText text={`${formatMessage(message.money)}:`} style={styles.textRow} />
               <Input
                 value={amount}
-                placeholder="Số tiền"
+                placeholder={formatMessage(message.money)}
                 containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={styles.inputStyle}
@@ -208,10 +216,10 @@ class TransferScreen extends PureComponent {
               />
             </View>
             <View style={styles.item}>
-              <MediumText text={'Ghi chú:'} style={styles.textRow} />
+              <MediumText text={`${formatMessage(message.note)}:`} style={styles.textRow} />
               <Input
                 value={reason}
-                placeholder="Ghi chú"
+                placeholder={formatMessage(message.note)}
                 containerStyle={styles.containerStyleNote}
                 inputContainerStyle={styles.inputContainerStyleNote}
                 inputStyle={[
@@ -227,7 +235,7 @@ class TransferScreen extends PureComponent {
             </View>
             <View style={{paddingTop: 20}}>
               <ButtonBase
-                title="Chuyển tiền"
+                title={formatMessage(message.btnTransfer)}
                 buttonStyle={styles.btnButtonStyle}
                 onPress={this.onTransfer}
                 loading={loading}
@@ -237,7 +245,7 @@ class TransferScreen extends PureComponent {
         </InputScrollView>
         <NotificationModal
           isVisible={isVisible}
-          title={'Thông báo'}
+          title={formatMessage(message.titleModal)}
           description={descriptionModal}
           titleButton={titleButton}
           onPress={this.onCloseModal}
@@ -247,4 +255,8 @@ class TransferScreen extends PureComponent {
   }
 }
 
-export default TransferScreen;
+TransferScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(TransferScreen);

@@ -44,4 +44,48 @@ export default defineMessages({
     id: 'health.transfer.titleModal',
     defaultMessage: 'Thông báo',
   },
+  descriptionModal: {
+    id: 'health.transfer.descriptionModal',
+    defaultMessage: 'Có lỗi xảy ra, hoặc số tiền bạn chuyển vượt quá mức so với số tiền bạn đang có.',
+  },
+  btnAgree: {
+    id: 'health.transfer.btnAgree',
+    defaultMessage: 'Đồng ý',
+  },
+  descriptionModal1: {
+    id: 'health.transfer.descriptionModal1',
+    defaultMessage: 'Chuyển tiền thành công',
+  },
+  btnConfirm: {
+    id: 'health.transfer.btnConfirm',
+    defaultMessage: 'Xác nhận',
+  },
+  descriptionModal2: {
+    id: 'health.transfer.descriptionModal2',
+    defaultMessage: 'Bạn chưa nhập số tiền',
+  },
+  btnEnterAmount: {
+    id: 'health.transfer.btnEnterAmount',
+    defaultMessage: 'Nhập số tiền',
+  },
+  descriptionModal3: {
+    id: 'health.transfer.descriptionModal3',
+    defaultMessage: 'Bạn chưa nhập mã thành viên',
+  },
+  btnEnterCode: {
+    id: 'health.transfer.btnEnterCode',
+    defaultMessage: 'Nhập mã thành viên',
+  },
+  descriptionModal4: {
+    id: 'health.transfer.descriptionModal4',
+    defaultMessage: 'Có lỗi xảy ra, hoặc mã thành viên không tồn tại.',
+  },
+  btnClose: {
+    id: 'health.transfer.btnClose',
+    defaultMessage: 'Đóng',
+  },
+  descriptionModal5: {
+    id: 'health.transfer.descriptionModal5',
+    defaultMessage: 'Mã',
+  },
 });
