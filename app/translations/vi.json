@@ -1,3 +1,7 @@
 {
-
+  "health.loginPinCode.language": "Tiếng Việt",
+  "health.loginPinCode.insertPinCode": "Nhập mã pin",
+  "health.loginPinCode.login": "Đăng nhập",
+  "health.loginPinCode.btnCloseModal": "Đóng",
+  "health.loginPinCode.btnActive": "Kích hoạt"
 }

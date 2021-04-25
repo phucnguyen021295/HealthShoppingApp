@@ -12,6 +12,10 @@ import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
+import ContextProvider from './ContextProvider';
+import LanguageProvider from './LanguageProvider';
+import {translationMessages} from './app/translations/i18n';
+
 // Login
 import Loading from './app/main/LoadingScreen';
 import Introduce from './app/main/IntroduceScreen';
@@ -96,43 +100,47 @@ class App extends PureComponent {
   render() {
     const {isLoading} = this.state;
     return (
-      <NavigationContainer>
-        {isLoading ? (
-          <Stack.Navigator initialRouteName="Loading" headerMode="none">
-            <Stack.Screen name="Loading" component={Loading} />
-            <Stack.Screen name="Introduce" component={Introduce} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-            <Stack.Screen name="VerifyPIN" component={VerifyPIN} />
-            <Stack.Screen name={'LoginPinCode'}>
-              {(props) => (
-                <LoginPinCode onFinished={this.onFinished} {...props} />
-              )}
-            </Stack.Screen>
-            <Stack.Screen name="Notify" component={Notify} />
-            <Stack.Screen name="NewDetail" component={NewDetail} />
-            <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator initialRouteName="Home" headerMode="none">
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
-            <Stack.Screen name="UserShopping" component={UserShopping} />
-            <Stack.Screen name="AddressShopping" component={AddressShopping} />
-            <Stack.Screen
-              name="TransactionHistory"
-              component={TransactionHistory}
-            />
-            <Stack.Screen name="PersonalPage" component={PersonalPage} />
-            <Stack.Screen name="Report" component={Report} />
-            <Stack.Screen name="History" component={History} />
-            <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
-            <Stack.Screen name="News" component={News} />
-            <Stack.Screen name="NewDetail" component={NewDetail} />
-            <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
-          </Stack.Navigator>
-        )}
-      </NavigationContainer>
+        <ContextProvider>
+          <LanguageProvider messages={translationMessages}>
+            <NavigationContainer>
+            {isLoading ? (
+                <Stack.Navigator initialRouteName="Loading" headerMode="none">
+                  <Stack.Screen name="Loading" component={Loading} />
+                  <Stack.Screen name="Introduce" component={Introduce} />
+                  <Stack.Screen name="Login" component={Login} />
+                  <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+                  <Stack.Screen name="VerifyPIN" component={VerifyPIN} />
+                  <Stack.Screen name={'LoginPinCode'}>
+                    {(props) => (
+                        <LoginPinCode onFinished={this.onFinished} {...props} />
+                    )}
+                  </Stack.Screen>
+                  <Stack.Screen name="Notify" component={Notify} />
+                  <Stack.Screen name="NewDetail" component={NewDetail} />
+                  <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
+                </Stack.Navigator>
+            ) : (
+                <Stack.Navigator initialRouteName="Home" headerMode="none">
+                  <Stack.Screen name="Home" component={Home} />
+                  <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
+                  <Stack.Screen name="UserShopping" component={UserShopping} />
+                  <Stack.Screen name="AddressShopping" component={AddressShopping} />
+                  <Stack.Screen
+                      name="TransactionHistory"
+                      component={TransactionHistory}
+                  />
+                  <Stack.Screen name="PersonalPage" component={PersonalPage} />
+                  <Stack.Screen name="Report" component={Report} />
+                  <Stack.Screen name="History" component={History} />
+                  <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
+                  <Stack.Screen name="News" component={News} />
+                  <Stack.Screen name="NewDetail" component={NewDetail} />
+                  <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
+                </Stack.Navigator>
+            )}
+          </NavigationContainer>
+          </LanguageProvider>
+        </ContextProvider>
     );
   }
 }
