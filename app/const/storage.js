@@ -22,5 +22,5 @@ export const InfoUser = 'infoUser';
 export const PinCode = 'pinCode';
 export const InfoLogin = 'infoLogin';
 export const IsActiveBiometry = 'isActiveBiometry';
-export const TokenFirebase = 'TokenFirebase';
+export const TokenFirebase = 'tokenFirebase';
 export const Language = 'Language';

@@ -159,7 +159,6 @@ const setLanguage = (_Language = '') => {
   AsyncStorage.setItem(Language, _resource);
 };
 
-
 export {
   multiGet,
   getCheckIntroduce,

@@ -27,7 +27,7 @@ import {convertDate} from "../../../../utils/convertDate";
 import styles, {CUSTOM_STYLES} from "./styles/index.css";
 import FastImage from "react-native-fast-image";
 
-function NotifyDetailScreen() {
+function NotifyDetailScreen(props) {
     const {route} = props;
     const item = route.params.item;
     return (

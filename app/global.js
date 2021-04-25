@@ -24,7 +24,8 @@ import {
   setInfoLogin,
   setIsActiveBiometry,
   setPinCode,
-    setLanguage
+  setLanguage,
+  setTokenFirebase
 } from './core/storage';
 
 import {
@@ -32,6 +33,7 @@ import {
   getUserApi,
   updateUserApi,
   verifyTokenApi,
+    registerPushApi
 } from './apis/health';
 import {getTokenFirebase, registerTokenRefresh, setChanel} from "./core/fcm";
 import {Language} from "./const/storage";
@@ -42,6 +44,7 @@ const global = {
   membercode: '',
   isActiveBiometry: false,
   Language: 'vi',
+  tokenFirebase: '',
   dataIntroduce: [
     {
       id: '1',
@@ -78,15 +81,17 @@ const initGlobal = async () => {
     'infoUser',
     'pinCode',
     'isActiveBiometry',
+    'tokenFirebase',
   ]).then((results) => {
-    const {token, membercode, infoUser, pinCode, isActiveBiometry} = results;
+    const {token, membercode, infoUser, pinCode, isActiveBiometry, tokenFirebase} = results;
     Object.assign(
       global,
       {
-        token: token,
-        membercode: membercode,
-        pinCode: pinCode,
-        isActiveBiometry: isActiveBiometry,
+        token,
+        membercode,
+        pinCode,
+        isActiveBiometry,
+        tokenFirebase
       },
       infoUser,
     );
@@ -188,15 +193,26 @@ const verifyTokenGlobal = (token, success, failure) => {
 
 function requestTokenFirebase() {
   // TODO can update them su dung job
+  const {tokenFirebase} = global;
   // Get the device token
-  getTokenFirebase((token) =>{
-    console.log('getTokenFirebase', token)
+  getTokenFirebase((tokenFirebaseNew) => {
+    console.log('getTokenFirebase', tokenFirebaseNew)
+    if(tokenFirebase !== tokenFirebaseNew) {
+      registerPushApi(tokenFirebaseNew, tokenFirebase, () => {
+        setTokenFirebase(tokenFirebaseNew);
+      })
+    }
   });
 
   // TODO can update them su dung job
   // Listen to whether the token changes
-  registerTokenRefresh((token) => {
-    console.log('registerTokenRefresh', token)
+  registerTokenRefresh((tokenFirebaseNew) => {
+    console.log('registerTokenRefresh', tokenFirebaseNew)
+    if(tokenFirebase !== tokenFirebaseNew) {
+      registerPushApi(tokenFirebaseNew, tokenFirebase, () => {
+        setTokenFirebase(tokenFirebaseNew);
+      })
+    }
   });
 }
 

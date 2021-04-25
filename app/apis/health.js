@@ -470,3 +470,30 @@ export const getConfigApi = (success, failure) => {
     (error) => failure(error),
   );
 };
+
+// 15. Lấy về danh sách thông báo
+export const registerPushApi = (TokenFirebaseNew, TokenFirebaseOld, success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'POST',
+    headers: {
+      'x-token': token,
+    },
+    data: {
+      TokenFirebaseNew: TokenFirebaseNew,
+      TokenFirebaseOld: TokenFirebaseOld,
+    },
+    url: `${DOMAIN}/api/registerpush`,
+    timeout: 10000,
+  };
+  axios(options).then(
+      (response) => {
+        if (isResponseSuccess(response)) {
+          success(jsonParse(response.data));
+        } else {
+          failure(response);
+        }
+      },
+      (error) => failure(error),
+  );
+};

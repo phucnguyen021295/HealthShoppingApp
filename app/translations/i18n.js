@@ -32,7 +32,6 @@ const formatTranslationMessages = (locale, messages) => {
         locale !== DEFAULT_LOCALE
             ? formatTranslationMessages(DEFAULT_LOCALE, viTranslationMessages)
             : {};
-    debugger;
     return Object.keys(messages).reduce((formattedMessages, key) => {
         let message = messages[key];
         if (!message && locale !== DEFAULT_LOCALE) {

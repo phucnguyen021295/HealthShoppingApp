@@ -16,9 +16,10 @@
 import firebase from 'react-native-firebase';
 import {Platform} from 'react-native';
 
-const FCM_CHANNEL_ID = 'MyNewWayId';
-const FCM_CHANNEL_NAME = 'My New Way';
-const FCM_CHANNEL_DES = 'My New Way';
+export const FCM_CHANNEL_ID = 'MyNewWayId';
+export const FCM_CHANNEL_NAME = 'My New Way';
+export const FCM_CHANNEL_DES = 'My New Way';
+export const SMALL_ICON = 'ic_launcher';
 
 // Cấp quyên thông báo
 function requestPermission(success, failure) {

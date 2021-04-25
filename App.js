@@ -8,13 +8,16 @@
 
 import 'react-native-gesture-handler';
 import React, {PureComponent} from 'react';
-import {StatusBar, Platform} from 'react-native';
+import {StatusBar, Platform, Linking} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 import ContextProvider from './ContextProvider';
 import LanguageProvider from './LanguageProvider';
 import {translationMessages} from './app/translations/i18n';
+import {navigationRef} from './RootNavigation';
+import {handleNotificationOpen} from './app/main/handleNotificationOpen';
+import {handleDisplayNotification} from './app/core/notification';
 
 // Login
 import Loading from './app/main/LoadingScreen';
@@ -38,11 +41,13 @@ import NewDetail from './app/main/News/components/NewDetailScreen';
 import LoginPinCode from './app/main/LoginPinCode';
 import Notify from './app/main/NotifyScreen';
 import NotifyDetail from './app/main/NotifyScreen/components/NotifyDetailScreen';
+import HistoryDetail from './app/main/HistoryDetailScreen';
 
 import {callBack} from './app/core/data';
-import {registerInitialNotification, registerNotificationOpened, registerNotification} from './app/core/fcm';
+import {registerInitialNotification, registerNotificationOpened, registerNotification, displayNotification} from './app/core/fcm';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
+import firebase from "react-native-firebase";
 
 const Stack = createStackNavigator();
 
@@ -76,13 +81,23 @@ class App extends PureComponent {
     registerInitialNotification(this.onNotificationOpened);
 
     this.removeNotificationListener = registerNotification(async notifyObj => {
-      console.log('registerNotification', JSON.stringify(notifyObj))
+      // console.log('registerNotification', JSON.stringify(notifyObj))
+      handleDisplayNotification(notifyObj);
+    });
+
+    this.unsubscribe = navigationRef.current?.addListener('state', (e) => {
+      if(this.remoteMessage && navigationRef.current.getRootState().routes[0].name !== 'Loading') {
+        console.log('unsubscribe', navigationRef.current.getRootState().routes[0].name);
+        handleNotificationOpen(this.remoteMessage);
+        this.remoteMessage = null;
+      }
     });
   }
 
   componentWillUnmount(): * {
     this.removeNotificationListener && this.removeNotificationListener();
     this.removeNotificationOpenedListener && this.removeNotificationOpenedListener();
+    this.unsubscribe && this.unsubscribe();
   }
 
   onFinished() {
@@ -95,14 +110,31 @@ class App extends PureComponent {
 
   onNotificationOpened(remoteMessage) {
     console.log('onNotificationOpened', remoteMessage)
+    if(!remoteMessage) return;
+
+    if(navigationRef.current.getRootState().routes[0].name === 'Loading') {
+      this.remoteMessage = remoteMessage;
+      return;
+    }
+
+    handleNotificationOpen(remoteMessage);
   }
 
   render() {
     const {isLoading} = this.state;
+
+    const screens = (
+        <>
+          <Stack.Screen name="NewDetail" component={NewDetail} />
+          <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
+          <Stack.Screen name="HistoryDetail" component={HistoryDetail} />
+        </>
+    )
+
     return (
         <ContextProvider>
           <LanguageProvider messages={translationMessages}>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
             {isLoading ? (
                 <Stack.Navigator initialRouteName="Loading" headerMode="none">
                   <Stack.Screen name="Loading" component={Loading} />
@@ -116,8 +148,7 @@ class App extends PureComponent {
                     )}
                   </Stack.Screen>
                   <Stack.Screen name="Notify" component={Notify} />
-                  <Stack.Screen name="NewDetail" component={NewDetail} />
-                  <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
+                  {screens}
                 </Stack.Navigator>
             ) : (
                 <Stack.Navigator initialRouteName="Home" headerMode="none">
@@ -134,8 +165,7 @@ class App extends PureComponent {
                   <Stack.Screen name="History" component={History} />
                   <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
                   <Stack.Screen name="News" component={News} />
-                  <Stack.Screen name="NewDetail" component={NewDetail} />
-                  <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
+                  {screens}
                 </Stack.Navigator>
             )}
           </NavigationContainer>
