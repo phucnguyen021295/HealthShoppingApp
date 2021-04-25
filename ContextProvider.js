@@ -21,43 +21,43 @@ import {getLanguage} from './app/core/storage';
 export const LanguageContext = React.createContext();
 
 class ContextComponent extends PureComponent {
-    constructor(props) {
-        super(props);
-        // TODO can xem lai logic code cho nay
-        let language = global.Language;
-        this.state = {
-            language: language || 'vi',
-        };
-    }
+  constructor(props) {
+    super(props);
+    // TODO can xem lai logic code cho nay
+    let language = global.Language;
+    this.state = {
+      language: language || 'vi',
+    };
+  }
 
-    async componentDidMount() {
-        const language = await getLanguage();
-        if (language !== this.state.language) {
-            // eslint-disable-next-line react/no-did-mount-set-state
-            this.setState({
-                language: language || 'vi',
-            });
-        }
+  async componentDidMount() {
+    const language = await getLanguage();
+    if (language !== this.state.language) {
+      // eslint-disable-next-line react/no-did-mount-set-state
+      this.setState({
+        language: language || 'vi',
+      });
     }
+  }
 
-    render() {
-        if (!this.state.language) {
-            return null;
-        }
-        return (
-            <LanguageContext.Provider
-                value={{
-                    ...this.state,
-                    updateLanguage: language => this.setState({language: language}),
-                }}>
-                {this.props.children}
-            </LanguageContext.Provider>
-        );
+  render() {
+    if (!this.state.language) {
+      return null;
     }
+    return (
+      <LanguageContext.Provider
+        value={{
+          ...this.state,
+          updateLanguage: (language) => this.setState({language: language}),
+        }}>
+        {this.props.children}
+      </LanguageContext.Provider>
+    );
+  }
 }
 
 ContextComponent.propTypes = {
-    language: PropTypes.string,
+  language: PropTypes.string,
 };
 
 export default ContextComponent;

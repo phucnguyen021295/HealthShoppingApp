@@ -3,5 +3,21 @@
   "health.loginPinCode.insertPinCode": "Nhập mã pin",
   "health.loginPinCode.login": "Đăng nhập",
   "health.loginPinCode.btnCloseModal": "Đóng",
-  "health.loginPinCode.btnActive": "Kích hoạt"
+  "health.loginPinCode.btnActive": "Kích hoạt",
+  "health.loginPinCode.titleModal": "Thông báo",
+  "health.loginPinCode.tokenExpired": "Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại.",
+  "health.loginPinCode.btnAgree": "Đồng ý",
+  "health.loginPinCode.pinCodeVerifyTitle": "Xác thực mã pin",
+  "health.loginPinCode.pinCodeVerifyDes": "Vui lòng xác thực mã pin để được kích hoạt tính năng này",
+  "health.loginPinCode.pinCodeVerifyText": "Mã pin xác thực không đúng",
+  "health.loginPinCode.btnCancel": "Hủy",
+  "health.loginPinCode.btnVerify": "Xác thực",
+  "health.loginPinCode.sensorDescription": "Chạm vào cảm biến vân tay",
+  "health.loginPinCode.sensorErrorDescription": "Xác thực thất bại",
+  "health.loginPinCode.closed": "Đóng",
+  "health.loginPinCode.fallbackLabel": "Hiển thị mật mã",
+  "health.loginPinCode.requireFinIOS": "Yêu cầu xác thực vân tay",
+  "health.loginPinCode.requireFinAndroid": "Xác thực bằng vân tay, vui lòng chạm vào cảm biến vân tay",
+  "health.loginPinCode.activeFaceID": "Kích hoạt tính năng nhận diện khuân mặt?",
+  "health.loginPinCode.activeTouch": "Kích hoạt tính năng vân tay?"
 }

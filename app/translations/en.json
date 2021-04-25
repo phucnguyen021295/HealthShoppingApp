@@ -3,5 +3,21 @@
   "health.loginPinCode.insertPinCode": "Enter the pin code",
   "health.loginPinCode.login": "Login",
   "health.loginPinCode.btnCloseModal": "Close",
-  "health.loginPinCode.btnActive": "Active"
+  "health.loginPinCode.btnActive": "Active",
+  "health.loginPinCode.titleModal": "Notification",
+  "health.loginPinCode.tokenExpired": "Your login session has expired, please login again.",
+  "health.loginPinCode.btnAgree": "Agree",
+  "health.loginPinCode.pinCodeVerifyTitle": "Pin code verification",
+  "health.loginPinCode.pinCodeVerifyDes": "Please verify your pin code to enable this feature",
+  "health.loginPinCode.pinCodeVerifyText": "Pin code authentication is not correct",
+  "health.loginPinCode.btnCancel": "Cancel",
+  "health.loginPinCode.btnVerify": "Accuracy",
+  "health.loginPinCode.sensorDescription": "Touch the fingerprint sensor",
+  "health.loginPinCode.sensorErrorDescription": "Authentication failed",
+  "health.loginPinCode.closed": "Closed",
+  "health.loginPinCode.fallbackLabel": "Show passcode",
+  "health.loginPinCode.requireFinIOS": "Requires fingerprint authentication",
+  "health.loginPinCode.requireFinAndroid": "Authenticate by fingerprint, please touch the fingerprint sensor",
+  "health.loginPinCode.activeFaceID": "Activate face recognition?",
+  "health.loginPinCode.activeTouch": "Enable fingerprints?"
 }

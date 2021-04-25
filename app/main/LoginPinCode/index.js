@@ -14,6 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
+import {injectIntl, intlShape} from 'react-intl';
 import {
   Platform,
   StatusBar,
@@ -45,19 +46,10 @@ import {color} from '../../core/color';
 import ModalBase from '../../base/components/ModalBase';
 import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
 import {clearData, setCheckIntroduce} from '../../core/storage';
-import {callBack} from '../../core/data';
 
-const optionalConfigObject = {
-  title: 'My New Way', // Android
-  imageColor: '#a47520', // Android
-  imageErrorColor: '#ff0000', // Android
-  sensorDescription: 'Chạm vào cảm biến vân tay', // Android
-  sensorErrorDescription: 'Xác thực thất bại', // Android
-  cancelText: 'Đóng', // Android
-  fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
-  unifiedErrors: true, // use unified error messages (default false)
-  passcodeFallback: true, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
-};
+import {LanguageContext} from '../../../ContextProvider';
+
+import message from '../../msg/loginPinCode';
 
 class LoginPinCode extends PureComponent {
   constructor(props) {
@@ -74,6 +66,21 @@ class LoginPinCode extends PureComponent {
       isVisibleAccuracy: false,
       errorVerifyPin: false,
       isVisibleTokenExpired: false,
+    };
+
+    const {intl} = props;
+    const {formatMessage} = intl;
+
+    this.optionalConfigObject = {
+      title: 'My New Way', // Android
+      imageColor: '#a47520', // Android
+      imageErrorColor: '#ff0000', // Android
+      sensorDescription: formatMessage(message.sensorDescription), // Android
+      sensorErrorDescription: formatMessage(message.sensorErrorDescription), // Android
+      cancelText: formatMessage(message.btnClosed), // Android
+      fallbackLabel: formatMessage(message.fallbackLabel), // iOS (if empty, then label is hidden)
+      unifiedErrors: true, // use unified error messages (default false)
+      passcodeFallback: true, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
     };
   }
 
@@ -95,7 +102,7 @@ class LoginPinCode extends PureComponent {
       },
     );
 
-    TouchID.isSupported(optionalConfigObject)
+    TouchID.isSupported(this.optionalConfigObject)
       .then((biometryType) => {
         // Success code
 
@@ -141,24 +148,17 @@ class LoginPinCode extends PureComponent {
   };
 
   onChangeCode = (code) => {
-    const {pinCodeActive, pinCode} = this.state;
-    // if (code.length === 6 && pinCodeActive && !this.onFirstVerify) {
-    //   if (code != pinCodeActive) {
-    //     this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
-    //   } else {
-    //     this.props.onFinished();
-    //   }
-    // } else {
     this.setState({pinCode: code});
-    // }
   };
 
   onSwipeBiometry = () => {
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     TouchID.authenticate(
       Platform.OS === 'ios'
-        ? 'Yêu cầu xác thực vân tay'
-        : 'Xác thực bằng vân tay, vui lòng chạm vào cảm biến vân tay',
-      optionalConfigObject,
+        ? formatMessage(message.requireFinIOS)
+        : formatMessage(message.requireFinAndroid),
+      this.optionalConfigObject,
     )
       .then((success) => {
         this.props.onFinished();
@@ -180,19 +180,17 @@ class LoginPinCode extends PureComponent {
       return;
     }
 
-    if (biometryType === 'FaceID') {
-      this.setState({
-        isVisibleModal: true,
-        title: 'Thông báo',
-        description: 'Kích hoạt tính năng nhận diện khuân mặt?',
-      });
-    } else {
-      this.setState({
-        isVisibleModal: true,
-        title: 'Thông báo',
-        description: 'Kích hoạt tính năng vân tay?',
-      });
-    }
+    const {intl} = this.props;
+    const {formatMessage} = intl;
+
+    this.setState({
+      isVisibleModal: true,
+      title: formatMessage(message.titleModal),
+      description:
+        biometryType === 'FaceID'
+          ? formatMessage(message.activeFaceID)
+          : formatMessage(message.activeTouch),
+    });
   };
 
   onCloseModal = () => {
@@ -222,8 +220,10 @@ class LoginPinCode extends PureComponent {
   onDetail = () => {};
 
   onChangeLanguage = () => {
-    const {Language} = global;
-    setLanguageGlobal(Language === 'vi' ? 'en' : 'vi');
+    const {language} = this.context;
+    const _language = language === 'vi' ? 'en' : 'vi';
+    this.context.updateLanguage(_language);
+    setLanguageGlobal(_language);
   };
 
   pinInput = React.createRef();
@@ -258,6 +258,9 @@ class LoginPinCode extends PureComponent {
       errorVerifyPin,
       isVisibleTokenExpired,
     } = this.state;
+
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     return (
       <>
         <ModalBase
@@ -266,14 +269,14 @@ class LoginPinCode extends PureComponent {
           description={description}>
           <View style={{flexDirection: 'row'}}>
             <Button
-              title={'Đóng'}
+              title={formatMessage(message.btnCloseModal)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal2}
               titleStyle={{color: color}}
               onPress={this.onCloseModal}
             />
             <Button
-              title={'Kích hoạt'}
+              title={formatMessage(message.btnActive)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal}
               onPress={this.onActivated}
@@ -283,13 +286,11 @@ class LoginPinCode extends PureComponent {
 
         <ModalBase
           isVisibleModal={isVisibleTokenExpired}
-          title={'Thông báo'}
-          description={
-            'Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại.'
-          }>
+          title={formatMessage(message.titleModal)}
+          description={formatMessage(message.tokenExpired)}>
           <View style={{flexDirection: 'row'}}>
             <Button
-              title={'Đồng ý'}
+              title={formatMessage(message.btnAgree)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal1}
               onPress={this.onLogout}
@@ -299,10 +300,8 @@ class LoginPinCode extends PureComponent {
 
         <ModalBase
           isVisibleModal={isVisibleAccuracy}
-          title={'Xác thực mã pin'}
-          description={
-            'Vui lòng xác thực mã pin để được kích hoạt tính năng này'
-          }>
+          title={formatMessage(message.pinCodeVerifyTitle)}
+          description={formatMessage(message.pinCodeVerifyDes)}>
           <View style={{flexDirection: 'column', paddingTop: 30}}>
             <View style={{alignItems: 'center'}}>
               <SmoothPinCodeInput
@@ -320,21 +319,21 @@ class LoginPinCode extends PureComponent {
               />
               {errorVerifyPin ? (
                 <Text
-                  text={'Mã pin xác thực không đúng'}
+                  text={formatMessage(message.pinCodeVerifyText)}
                   style={{color: 'red'}}
                 />
               ) : null}
             </View>
             <View style={{flexDirection: 'row'}}>
               <Button
-                title={'Hủy'}
+                title={formatMessage(message.btnCancel)}
                 containerStyle={{flex: 1, borderRadius: 0}}
                 buttonStyle={styles.buttonStyleModal2}
                 titleStyle={{color: color}}
                 onPress={this.onCloseModal}
               />
               <Button
-                title={'Xác thực'}
+                title={formatMessage(message.btnVerify)}
                 containerStyle={{flex: 1, borderRadius: 0}}
                 buttonStyle={styles.buttonStyleModal}
                 onPress={this.onAccuracy}
@@ -348,6 +347,8 @@ class LoginPinCode extends PureComponent {
 
   render() {
     const {pinCode, biometryType} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
 
     const {image} = global;
     const urlImage = image
@@ -370,7 +371,10 @@ class LoginPinCode extends PureComponent {
                 style={styles.icon}
                 color={'#ffffff'}
               />
-              <Text style={styles.textLanguage} text={'Tiếng Việt'} />
+              <Text
+                style={styles.textLanguage}
+                text={formatMessage(message.language)}
+              />
             </TouchableOpacity>
           </View>
 
@@ -392,7 +396,7 @@ class LoginPinCode extends PureComponent {
           <View style={[styles.body]}>
             <Input
               value={pinCode}
-              placeholder="Nhập mã pin"
+              placeholder={formatMessage(message.insertPinCode)}
               style={{color: '#ffffff'}}
               secureTextEntry={true}
               keyboardType={'numeric'}
@@ -402,7 +406,7 @@ class LoginPinCode extends PureComponent {
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={styles.btnLogin}>
                 <ButtonBase
-                  title="Đăng nhập"
+                  title={formatMessage(message.login)}
                   buttonStyle={styles.btnButtonStyle}
                   onPress={this.onVerifyOTP}
                 />
@@ -452,4 +456,10 @@ class LoginPinCode extends PureComponent {
   }
 }
 
-export default LoginPinCode;
+LoginPinCode.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+LoginPinCode.contextType = LanguageContext;
+
+export default injectIntl(LoginPinCode);

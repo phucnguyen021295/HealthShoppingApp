@@ -44,10 +44,15 @@ import NotifyDetail from './app/main/NotifyScreen/components/NotifyDetailScreen'
 import HistoryDetail from './app/main/HistoryDetailScreen';
 
 import {callBack} from './app/core/data';
-import {registerInitialNotification, registerNotificationOpened, registerNotification, displayNotification} from './app/core/fcm';
+import {
+  registerInitialNotification,
+  registerNotificationOpened,
+  registerNotification,
+  displayNotification,
+} from './app/core/fcm';
 
 import {initDatabase} from './app/core/db/Sqlitedb';
-import firebase from "react-native-firebase";
+import firebase from 'react-native-firebase';
 
 const Stack = createStackNavigator();
 
@@ -74,20 +79,28 @@ class App extends PureComponent {
     callBack.onLogout = this.onLogout;
 
     this.removeNotificationOpenedListener = registerNotificationOpened(
-        this.onNotificationOpened,
+      this.onNotificationOpened,
     );
 
     // Check whether an initial notification is available
     registerInitialNotification(this.onNotificationOpened);
 
-    this.removeNotificationListener = registerNotification(async notifyObj => {
-      // console.log('registerNotification', JSON.stringify(notifyObj))
-      handleDisplayNotification(notifyObj);
-    });
+    this.removeNotificationListener = registerNotification(
+      async (notifyObj) => {
+        // console.log('registerNotification', JSON.stringify(notifyObj))
+        handleDisplayNotification(notifyObj);
+      },
+    );
 
     this.unsubscribe = navigationRef.current?.addListener('state', (e) => {
-      if(this.remoteMessage && navigationRef.current.getRootState().routes[0].name !== 'Loading') {
-        console.log('unsubscribe', navigationRef.current.getRootState().routes[0].name);
+      if (
+        this.remoteMessage &&
+        navigationRef.current.getRootState().routes[0].name !== 'Loading'
+      ) {
+        console.log(
+          'unsubscribe',
+          navigationRef.current.getRootState().routes[0].name,
+        );
         handleNotificationOpen(this.remoteMessage);
         this.remoteMessage = null;
       }
@@ -96,7 +109,8 @@ class App extends PureComponent {
 
   componentWillUnmount(): * {
     this.removeNotificationListener && this.removeNotificationListener();
-    this.removeNotificationOpenedListener && this.removeNotificationOpenedListener();
+    this.removeNotificationOpenedListener &&
+      this.removeNotificationOpenedListener();
     this.unsubscribe && this.unsubscribe();
   }
 
@@ -109,10 +123,12 @@ class App extends PureComponent {
   }
 
   onNotificationOpened(remoteMessage) {
-    console.log('onNotificationOpened', remoteMessage)
-    if(!remoteMessage) return;
+    console.log('onNotificationOpened', remoteMessage);
+    if (!remoteMessage) {
+      return;
+    }
 
-    if(navigationRef.current.getRootState().routes[0].name === 'Loading') {
+    if (navigationRef.current.getRootState().routes[0].name === 'Loading') {
       this.remoteMessage = remoteMessage;
       return;
     }
@@ -124,53 +140,56 @@ class App extends PureComponent {
     const {isLoading} = this.state;
 
     const screens = (
-        <>
-          <Stack.Screen name="NewDetail" component={NewDetail} />
-          <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
-          <Stack.Screen name="HistoryDetail" component={HistoryDetail} />
-        </>
-    )
+      <>
+        <Stack.Screen name="NewDetail" component={NewDetail} />
+        <Stack.Screen name="NotifyDetail" component={NotifyDetail} />
+        <Stack.Screen name="HistoryDetail" component={HistoryDetail} />
+      </>
+    );
 
     return (
-        <ContextProvider>
-          <LanguageProvider messages={translationMessages}>
-            <NavigationContainer ref={navigationRef}>
+      <ContextProvider>
+        <LanguageProvider messages={translationMessages}>
+          <NavigationContainer ref={navigationRef}>
             {isLoading ? (
-                <Stack.Navigator initialRouteName="Loading" headerMode="none">
-                  <Stack.Screen name="Loading" component={Loading} />
-                  <Stack.Screen name="Introduce" component={Introduce} />
-                  <Stack.Screen name="Login" component={Login} />
-                  <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-                  <Stack.Screen name="VerifyPIN" component={VerifyPIN} />
-                  <Stack.Screen name={'LoginPinCode'}>
-                    {(props) => (
-                        <LoginPinCode onFinished={this.onFinished} {...props} />
-                    )}
-                  </Stack.Screen>
-                  <Stack.Screen name="Notify" component={Notify} />
-                  {screens}
-                </Stack.Navigator>
+              <Stack.Navigator initialRouteName="Loading" headerMode="none">
+                <Stack.Screen name="Loading" component={Loading} />
+                <Stack.Screen name="Introduce" component={Introduce} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+                <Stack.Screen name="VerifyPIN" component={VerifyPIN} />
+                <Stack.Screen name={'LoginPinCode'}>
+                  {(props) => (
+                    <LoginPinCode onFinished={this.onFinished} {...props} />
+                  )}
+                </Stack.Screen>
+                <Stack.Screen name="Notify" component={Notify} />
+                {screens}
+              </Stack.Navigator>
             ) : (
-                <Stack.Navigator initialRouteName="Home" headerMode="none">
-                  <Stack.Screen name="Home" component={Home} />
-                  <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
-                  <Stack.Screen name="UserShopping" component={UserShopping} />
-                  <Stack.Screen name="AddressShopping" component={AddressShopping} />
-                  <Stack.Screen
-                      name="TransactionHistory"
-                      component={TransactionHistory}
-                  />
-                  <Stack.Screen name="PersonalPage" component={PersonalPage} />
-                  <Stack.Screen name="Report" component={Report} />
-                  <Stack.Screen name="History" component={History} />
-                  <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
-                  <Stack.Screen name="News" component={News} />
-                  {screens}
-                </Stack.Navigator>
+              <Stack.Navigator initialRouteName="Home" headerMode="none">
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
+                <Stack.Screen name="UserShopping" component={UserShopping} />
+                <Stack.Screen
+                  name="AddressShopping"
+                  component={AddressShopping}
+                />
+                <Stack.Screen
+                  name="TransactionHistory"
+                  component={TransactionHistory}
+                />
+                <Stack.Screen name="PersonalPage" component={PersonalPage} />
+                <Stack.Screen name="Report" component={Report} />
+                <Stack.Screen name="History" component={History} />
+                <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
+                <Stack.Screen name="News" component={News} />
+                {screens}
+              </Stack.Navigator>
             )}
           </NavigationContainer>
-          </LanguageProvider>
-        </ContextProvider>
+        </LanguageProvider>
+      </ContextProvider>
     );
   }
 }
