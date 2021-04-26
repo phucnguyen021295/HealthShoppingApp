@@ -324,7 +324,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.email)} style={styles.textName} />
+                <MediumText text={formatMessage(message.emailText)} style={styles.textName} />
                 <Input
                   value={receiver.email}
                   defaultValue={receiver.email}

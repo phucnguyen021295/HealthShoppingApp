@@ -82,8 +82,9 @@ const initGlobal = async () => {
     'pinCode',
     'isActiveBiometry',
     'tokenFirebase',
+    'Language'
   ]).then((results) => {
-    const {token, membercode, infoUser, pinCode, isActiveBiometry, tokenFirebase} = results;
+    const {token, membercode, infoUser, pinCode, isActiveBiometry, tokenFirebase, Language} = results;
     Object.assign(
       global,
       {
@@ -91,7 +92,8 @@ const initGlobal = async () => {
         membercode,
         pinCode,
         isActiveBiometry,
-        tokenFirebase
+        tokenFirebase,
+        Language
       },
       infoUser,
     );
