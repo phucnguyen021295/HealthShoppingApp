@@ -22,6 +22,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {CheckBox, Image, Input} from 'react-native-elements';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
@@ -31,7 +32,6 @@ import ConfirmGoogleCaptcha from '../../base/components/ReCaptcha-v2';
 
 // Core
 import generateId from '../../core/utils/generateId';
-import {addTransactionHistory} from '../../core/db/table/transaction_history';
 import {deleteShopping} from '../../core/db/table/shopping';
 import {broadcastShoppingCardChange} from '../../core/shoppingCart';
 
@@ -45,6 +45,8 @@ import global, {setAccountBalanceGlobal} from '../../global';
 import styles from './styles/index.css';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import NotificationModal from '../../base/components/NotificationModal';
+
+import message from '../../msg/addressShopping';
 
 const siteKey = '6LfFxh4aAAAAAC6i_FgaSqYJT4xdf24HVzIAOoQc';
 const baseUrl = 'http://nmways.com';
@@ -92,7 +94,9 @@ class AddressShoppingScreen extends PureComponent {
   };
 
   onContinue() {
+    const {intl} = this.props;
     const {membercode, receiver, paymenttype, receivingtype, data} = this.state;
+    const {formatMessage} = intl;
 
     const cart = data.map((item) => ({
       id: item.productid,
@@ -130,23 +134,22 @@ class AddressShoppingScreen extends PureComponent {
 
           this.setState({
             isVisible: true,
-            descriptionModal: 'Đặt hàng thành công.!',
-            titleButton: 'Xong',
+            descriptionModal: formatMessage(message.descriptionModal1),
+            titleButton: formatMessage(message.btnModal1),
           });
         },
         (response) => {
           if (response?.data?.errorcode === 5) {
             this.setState({
               isVisible: true,
-              descriptionModal:
-                'Bạn không có đủ tiền, hoặc số lương bạn đặt vượt quá mức cho phép.!',
-              titleButton: 'Đồng ý',
+              descriptionModal: formatMessage(message.descriptionModal2),
+              titleButton: formatMessage(message.btnModal2),
             });
           } else {
             this.setState({
               isVisible: true,
-              descriptionModal: 'Đã có lỗi xảy ra. Vui lòng thử lại sau.!',
-              titleButton: 'Đồng ý',
+              descriptionModal: formatMessage(message.descriptionModal3),
+              titleButton: formatMessage(message.btnModal2),
             });
           }
         },
@@ -157,7 +160,7 @@ class AddressShoppingScreen extends PureComponent {
   onCloseModal = () => {
     const {titleButton} = this.state;
     this.setState({isVisible: false, loading: false}, () => {
-      if (titleButton === 'Xong') {
+      if (titleButton === 'Xong' || titleButton === 'Accomplished') {
         const {balance} = global;
         const _accountBalance = balance - this.state.totalMoney;
         deleteShopping(() => {
@@ -240,6 +243,7 @@ class AddressShoppingScreen extends PureComponent {
   };
 
   render() {
+    const {intl} = this.props;
     const {
       data,
       totalMoney,
@@ -250,19 +254,20 @@ class AddressShoppingScreen extends PureComponent {
       receiver,
       loading,
     } = this.state;
+    const {formatMessage} = intl;
     return (
       <SafeAreaView style={styles.container}>
-        <AppHeader title={'Đặt đơn'} />
+        <AppHeader title={formatMessage(message.titleHeader)} />
         <ScrollView
           style={{paddingTop: 30}}
           contentContainerStyle={{paddingBottom: 150}}>
-          <MediumText text={'Giao hàng tại:'} style={styles.titleShopping} />
+          <MediumText text={formatMessage(message.titleShopping)} style={styles.titleShopping} />
 
           <>
-            <MediumText text={'Hình thức nhận:'} style={styles.textName} />
+            <MediumText text={formatMessage(message.modeOfReceipt)} style={styles.textName} />
             <View style={{flexDirection: 'row'}}>
               <CheckBox
-                title="Tại nhà"
+                title={formatMessage(message.atHome)}
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
                 checked={checked === 'home'}
@@ -273,7 +278,7 @@ class AddressShoppingScreen extends PureComponent {
                 }}
               />
               <CheckBox
-                title="Từ nhà phân phối"
+                title={formatMessage(message.distributor)}
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
                 checked={checked === 'distributor'}
@@ -289,11 +294,11 @@ class AddressShoppingScreen extends PureComponent {
           {checked === 'home' && (
             <>
               <>
-                <MediumText text={'Họ và tên:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.fullNameText)} style={styles.textName} />
                 <Input
                   value={receiver.name}
                   defaultValue={receiver.name}
-                  placeholder="Nhập họ và tên"
+                  placeholder={formatMessage(message.fullNameInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -304,11 +309,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Điện thoại:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.phoneText)} style={styles.textName} />
                 <Input
                   value={receiver.mobile}
                   defaultValue={receiver.mobile}
-                  placeholder="Nhập số điện thoại"
+                  placeholder={formatMessage(message.phoneInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -319,11 +324,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Email:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.email)} style={styles.textName} />
                 <Input
                   value={receiver.email}
                   defaultValue={receiver.email}
-                  placeholder="Nhập email"
+                  placeholder={formatMessage(message.emailInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -334,11 +339,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Địa chỉ:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.addressText)} style={styles.textName} />
                 <Input
                   value={receiver.address}
                   defaultValue={receiver.address}
-                  placeholder="Nhập địa chỉ"
+                  placeholder={formatMessage(message.addressInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -349,11 +354,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Quận/Huyện:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.districtText)} style={styles.textName} />
                 <Input
                   value={receiver.state}
                   defaultValue={receiver.state}
-                  placeholder="Nhập quận/huyện"
+                  placeholder={formatMessage(message.districtInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -364,11 +369,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Thành phố:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.cityText)} style={styles.textName} />
                 <Input
                   value={receiver.city}
                   defaultValue={receiver.city}
-                  placeholder="Nhập thành phố"
+                  placeholder={formatMessage(message.cityInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -379,11 +384,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Mã bưu chính:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.zipCodeText)} style={styles.textName} />
                 <Input
                   value={receiver.postalcode}
                   defaultValue={receiver.postalcode}
-                  placeholder="Nhập mã bưu chính"
+                  placeholder={formatMessage(message.zipCodeInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -394,11 +399,11 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={'Quốc gia:'} style={styles.textName} />
+                <MediumText text={formatMessage(message.nationText)} style={styles.textName} />
                 <Input
                   value={receiver.country}
                   defaultValue={receiver.country}
-                  placeholder="Nhập quốc gia"
+                  placeholder={formatMessage(message.nationInput)}
                   containerStyle={styles.containerStyle}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
@@ -411,7 +416,7 @@ class AddressShoppingScreen extends PureComponent {
           )}
 
           <MediumText
-            text={'Tóm tắt đơn hàng:'}
+            text={formatMessage(message.orderSummary)}
             style={[styles.titleShopping, {marginTop: 12}]}
           />
           {data.map((item) => (
@@ -461,14 +466,14 @@ class AddressShoppingScreen extends PureComponent {
               justifyContent: 'space-between',
               paddingBottom: 12,
             }}>
-            <MediumText text={'Tổng cộng:'} style={styles.textTotalPrice} />
+            <MediumText text={formatMessage(message.total)} style={styles.textTotalPrice} />
             <MediumText
               text={`${totalMoney} $`}
               style={styles.textTotalPrice}
             />
           </View>
           <ButtonBase
-            title={'Đặt đơn'}
+            title={formatMessage(message.order)}
             buttonStyle={styles.btnButtonStyle}
             onPress={this.onContinue}
             loading={loading}
@@ -476,7 +481,7 @@ class AddressShoppingScreen extends PureComponent {
         </View>
         <NotificationModal
           isVisible={isVisible}
-          title={'Thông báo'}
+          title={formatMessage(message.titleModal)}
           description={descriptionModal}
           titleButton={titleButton}
           onPress={this.onCloseModal}
@@ -488,4 +493,8 @@ class AddressShoppingScreen extends PureComponent {
 
 AddressShoppingScreen.defaultProps = {};
 
-export default AddressShoppingScreen;
+AddressShoppingScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(AddressShoppingScreen);

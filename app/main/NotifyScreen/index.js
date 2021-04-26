@@ -15,12 +15,13 @@
 
 import React, {PureComponent} from 'react';
 import {FlatList, ScrollView, View} from 'react-native';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import HeaderCustom from '../../base/components/HeaderCustom';
 import LinearGradient from '../../base/components/LinearGradient';
 import ImageBackGround from '../../base/components/ImageBackGround';
-import Text, {MediumText} from '../../base/components/Text';
+import {MediumText} from '../../base/components/Text';
 import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 import NotifyItem from './components/NotifyItem';
 import decorateGetList from '../decorateGetList';
@@ -31,6 +32,8 @@ import {getNotifyApi} from '../../apis/health';
 
 // styles
 import styles from './styles/index.css';
+
+import message from '../../msg/notify';
 
 const COUNT_NOTIFY = 5;
 const DATA = [
@@ -71,7 +74,7 @@ class NotifyScreen extends PureComponent {
 
   componentDidMount() {
     const {navigation} = this.props;
-    this.unsubscribe = navigation.addListener('focus', e => {
+    this.unsubscribe = navigation.addListener('focus', (e) => {
       // Prevent default action
       this.props.getNewer();
     });
@@ -114,13 +117,14 @@ class NotifyScreen extends PureComponent {
   renderItem = ({item}) => <NotifyItem item={item} />;
 
   render() {
-    const {data, loadingFirst, route, loadingNewer} = this.props;
+    const {data, loadingFirst, route, loadingNewer, intl} = this.props;
+    const {formatMessage} = intl;
     const showBack = route?.params?.showBack || false;
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
         <HeaderCustom
-          title={'THÔNG BÁO'}
+          title={formatMessage(message.titleHeader)}
           color={'#ffffff'}
           showBack={showBack}
           ViewComponent={LinearGradient}
@@ -128,30 +132,27 @@ class NotifyScreen extends PureComponent {
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-          {
-              data.length > 0 ? (
-                  <FlatList
-                      data={DATA}
-                      renderItem={this.renderItem}
-                      keyExtractor={(item) => item.time}
-                      onScroll={this.onScroll}
-                      ref={this.setRef}
-                      showsVerticalScrollIndicator={false}
-                      ListFooterComponent={
-                        data.length === 0 && !loadingFirst && this.ListFooterComponent
-                      }
-                      style={{marginTop: 2}}
-                  />
-              ) : loadingNewer ? (
-                  this.renderListLoading()
-              ) : (
-                  <MediumText
-                      text={'Chưa có thông báo nào'}
-                      style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
-                  />
-              )
-          }
-
+          {data.length > 0 ? (
+            <FlatList
+              data={DATA}
+              renderItem={this.renderItem}
+              keyExtractor={(item) => item.time}
+              onScroll={this.onScroll}
+              ref={this.setRef}
+              showsVerticalScrollIndicator={false}
+              ListFooterComponent={
+                data.length === 0 && !loadingFirst && this.ListFooterComponent
+              }
+              style={{marginTop: 2}}
+            />
+          ) : loadingNewer ? (
+            this.renderListLoading()
+          ) : (
+            <MediumText
+              text={formatMessage(message.notNotify)}
+              style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+            />
+          )}
         </ImageBackGround>
         <SafeAreaViewBase />
       </View>
@@ -159,4 +160,8 @@ class NotifyScreen extends PureComponent {
   }
 }
 
-export default decorateGetList(NotifyScreen, getNotifyApi);
+NotifyScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default decorateGetList(injectIntl(NotifyScreen), getNotifyApi);

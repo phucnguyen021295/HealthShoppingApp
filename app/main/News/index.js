@@ -15,6 +15,7 @@
 
 import React, {PureComponent} from 'react';
 import {FlatList, View, ScrollView} from 'react-native';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
@@ -31,6 +32,8 @@ import {getNewHomeApi} from '../../apis/health';
 
 // styles
 import styles from './styles/index.css';
+
+import message from '../../msg/news';
 
 const COUNT_NOTIFY = 8;
 
@@ -53,61 +56,59 @@ class NewsScreen extends PureComponent {
   };
 
   ListFooterComponent() {
-      const {loadingOlder} = this.props;
-      if (loadingOlder) {
-          return <Loading />;
-      }
+    const {loadingOlder} = this.props;
+    if (loadingOlder) {
+      return <Loading />;
+    }
 
-      return null;
+    return null;
   }
 
-    renderListLoading() {
-        const loadingCards = [];
-        for (let i = 1; i <= COUNT_NOTIFY; i++) {
-            loadingCards.push(<Loading />);
-        }
-        return <ScrollView>{loadingCards}</ScrollView>;
+  renderListLoading() {
+    const loadingCards = [];
+    for (let i = 1; i <= COUNT_NOTIFY; i++) {
+      loadingCards.push(<Loading />);
     }
+    return <ScrollView>{loadingCards}</ScrollView>;
+  }
 
   renderItem = ({item}) => <NewItem item={item} />;
 
   render() {
-    const {data, loadingFirst, loadingNewer} = this.props;
+    const {data, loadingFirst, loadingNewer, intl} = this.props;
+    const {formatMessage} = intl;
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
         <HeaderCustom
-          title={'Tin tức'}
+          title={formatMessage(message.titleHeader)}
           color={'#ffffff'}
           ViewComponent={LinearGradient}
         />
         <ImageBackGround
           source={require('../../images/backgroundHome.jpeg')}
           blurRadius={4}>
-            {
-                this.renderListLoading()
-                // data.length > 0 ? (
-                //     <FlatList
-                //         data={data}
-                //         renderItem={this.renderItem}
-                //         keyExtractor={(item) => item.time}
-                //         onScroll={this.onScroll}
-                //         ref={this.setRef}
-                //         showsVerticalScrollIndicator={false}
-                //         contentContainerStyle={{paddingTop: 10}}
-                //         ListFooterComponent={
-                //             data.length === 0 && !loadingFirst && this.ListFooterComponent
-                //         }
-                //     />
-                // ) : loadingNewer ? (
-                //     this.renderListLoading()
-                // ) : (
-                //     <MediumText
-                //         text={'Chưa có bài viết nào'}
-                //         style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
-                //     />
-                // )
-            }
+          {data.length > 0 ? (
+            <FlatList
+              data={data}
+              renderItem={this.renderItem}
+              keyExtractor={(item) => item.time}
+              onScroll={this.onScroll}
+              ref={this.setRef}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingTop: 10}}
+              ListFooterComponent={
+                data.length === 0 && !loadingFirst && this.ListFooterComponent
+              }
+            />
+          ) : loadingNewer ? (
+            this.renderListLoading()
+          ) : (
+            <MediumText
+              text={formatMessage(message.notNotify)}
+              style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+            />
+          )}
         </ImageBackGround>
         <SafeAreaViewBase />
       </View>
@@ -115,4 +116,8 @@ class NewsScreen extends PureComponent {
   }
 }
 
-export default decorateGetList(NewsScreen, getNewHomeApi);
+NewsScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default decorateGetList(injectIntl(NewsScreen), getNewHomeApi);
