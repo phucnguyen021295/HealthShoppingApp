@@ -14,8 +14,9 @@
 'use strict';
 
 import React from 'react';
-import {View, SafeAreaView} from 'react-native';
+import {View} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import HeaderCustom from '../../base/components/HeaderCustom';
@@ -27,16 +28,20 @@ import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 import styles from './styles/index.css';
 import global from '../../global';
 
+import message from '../../msg/showQRCode';
+
 function ShowQRCodeScreen(props) {
   const {membercode, image} = global;
+  const {intl} = props;
+  const {formatMessage} = intl;
   const urlImage = image
     ? {uri: image}
     : require('../HomeScreen/styles/images/avatar.png');
   return (
     <View style={styles.container}>
-        <SafeAreaViewBase />
+      <SafeAreaViewBase />
       <HeaderCustom
-        title={'Mã QR Code của '}
+        title={formatMessage(message.titleHeader)}
         color={'#ffffff'}
         ViewComponent={LinearGradient}
       />
@@ -52,13 +57,17 @@ function ShowQRCodeScreen(props) {
           />
         </View>
         <Text
-          text={'Bạn có thể dùng mã QR Code này để chia sẻ cho bạn bè'}
+          text={formatMessage(message.shareQRCode)}
           style={styles.textNote}
         />
       </View>
-        <SafeAreaViewBase />
+      <SafeAreaViewBase />
     </View>
   );
 }
 
-export default ShowQRCodeScreen;
+ShowQRCodeScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(ShowQRCodeScreen);

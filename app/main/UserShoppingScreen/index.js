@@ -15,10 +15,11 @@
 
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View, ScrollView} from 'react-native';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
-import {MediumText} from '../../base/components/Text';
+import Text, {MediumText} from '../../base/components/Text';
 
 // Db
 import {getListCarts} from '../../core/db/table/shopping';
@@ -31,6 +32,8 @@ import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
 import {Input} from 'react-native-elements';
 import global from '../../global';
+
+import message from '../../msg/userShopping';
 
 class UserShoppingScreen extends PureComponent {
   constructor(props) {
@@ -138,13 +141,15 @@ class UserShoppingScreen extends PureComponent {
 
   render() {
     const { code, membercode, receiver} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     return (
       <SafeAreaView style={styles.container}>
-        <AppHeader title={'Mua hàng'} />
+        <AppHeader title={formatMessage(message.titleHeader)} />
         <ScrollView>
           <Input
             value={code}
-            placeholder="Mã thành viên"
+            placeholder={formatMessage(message.inputCode)}
             containerStyle={{paddingHorizontal: 20, marginVertical: 20}}
             inputContainerStyle={styles.inputContainerStyle}
             inputStyle={styles.inputStyle}
@@ -152,46 +157,46 @@ class UserShoppingScreen extends PureComponent {
             onChangeText={this.onChangeCode}
           />
           <ButtonBase
-            title={'Kiểm tra'}
+            title={formatMessage(message.btnCheck)}
             buttonStyle={styles.btnButtonStyle}
             onPress={this.onCheckInfo} 
             styleLinearGradient={{marginHorizontal: 20}}
           />
-          <MediumText text={'Mua hàng cho:'} style={styles.titleShopping} />
-          <MediumText
-            text={`Mã thành viên: ${membercode}`}
+          <MediumText text={formatMessage(message.textPurchase)} style={styles.titleShopping} />
+          <Text
+            text={`${formatMessage(message.textMemberCode)} ${membercode}`}
             style={[styles.textName, {marginTop: 12}]}
           />
-          <MediumText
-            text={`Họ và tên: ${receiver.name}`}
+          <Text
+            text={`${formatMessage(message.fullName)} ${receiver.name}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Số điện thoại: ${receiver.mobile}`}
+          <Text
+            text={`${formatMessage(message.phoneNumber)} ${receiver.mobile}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Địa chỉ: ${receiver.address}`}
+          <Text
+            text={`${formatMessage(message.address)} ${receiver.address}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Email: ${receiver.email}`}
+          <Text
+            text={`${formatMessage(message.email)} ${receiver.email}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Thông tin quận: ${receiver.state}`}
+          <Text
+            text={`${formatMessage(message.infoDistrict)} ${receiver.state}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Thành phố: ${receiver.city}`}
+          <Text
+            text={`${formatMessage(message.city)} ${receiver.city}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Mã bưu chính: ${receiver.postalcode}`}
+          <Text
+            text={`${formatMessage(message.postalCode)} ${receiver.postalcode}`}
             style={[styles.textName]}
           />
-          <MediumText
-            text={`Quốc gia: ${receiver.country}`}
+          <Text
+            text={`${formatMessage(message.nation)} ${receiver.country}`}
             style={[styles.textName]}
           />
           {/*<View>*/}
@@ -204,7 +209,7 @@ class UserShoppingScreen extends PureComponent {
         </ScrollView>
         <View style={styles.btnBottom}>
           <ButtonBase
-            title={'Tiếp tục'}
+            title={formatMessage(message.btnContinue)}
             buttonStyle={styles.btnButtonStyle}
             onPress={this.onContinue}
           />
@@ -216,4 +221,8 @@ class UserShoppingScreen extends PureComponent {
 
 UserShoppingScreen.defaultProps = {};
 
-export default UserShoppingScreen;
+UserShoppingScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(UserShoppingScreen);

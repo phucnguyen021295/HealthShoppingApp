@@ -95,5 +95,42 @@
   "health.addressShopping.btnModal1": "Accomplished",
   "health.addressShopping.descriptionModal2": "You don't have enough money, or number of you set up to the level of allow.!",
   "health.addressShopping.btnModal2": "Agree",
-  "health.addressShopping.descriptionModal3": "An error has occurred. Please try again later.!"
+  "health.addressShopping.descriptionModal3": "An error has occurred. Please try again later.!",
+
+  "health.shoppingCart.titleHeader": "Cart",
+  "health.shoppingCart.total": "Total: ",
+  "health.shoppingCart.btnContinue": "Continue",
+  "health.shoppingCart.desModal": "You want to cancel buying this product package?",
+  "health.shoppingCart.btnCancel": "Cancel",
+  "health.shoppingCart.btnClose": "Closed",
+  "health.shoppingCart.btnUpdate": "Update",
+  "health.shoppingCart.desModal2": "Select the product package again",
+  "health.shoppingCart.btnBack": "GoBack",
+  "health.shoppingCart.btnEdit": "Edit",
+
+  "health.userShopping.titleHeader": "Purchase",
+  "health.userShopping.inputCode": "Membership code",
+  "health.userShopping.btnCheck": "Check",
+  "health.userShopping.textPurchase": "Buy for:",
+  "health.userShopping.textMemberCode": "Membership code:",
+  "health.userShopping.fullName": "First and last name:",
+  "health.userShopping.phoneNumber": "Phone number:",
+  "health.userShopping.address": "Address:",
+  "health.userShopping.email": "Email:",
+  "health.userShopping.infoDistrict": "County information:",
+  "health.userShopping.city": "City:",
+  "health.userShopping.postalCode": "Postal code:",
+  "health.userShopping.nation": "Nation:",
+  "health.userShopping.btnContinue": "Continue",
+
+  "health.showQRCode.titleHeader": "My QR Code",
+  "health.showQRCode.shareQRCode" : "You can use this QR Code to share with your friends",
+
+  "health.history.titleHeader": "Transaction history",
+  "health.history.notHistory": "No transactions yet.",
+  "health.history.date": "Date of purchase:",
+  "health.history.type": "Transaction type:",
+  "health.history.transfer": "Transfer reason:",
+  "health.history.total": "Total amount:",
+  "health.history.balance": "Balance in account:"
 }

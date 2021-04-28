@@ -19,9 +19,8 @@ import {Input} from 'react-native-elements';
 import {injectIntl, intlShape} from 'react-intl';
 
 // Components
-import Header from '../HomeScreen/components/Header';
 import ImageBackGround from '../../base/components/ImageBackGround';
-import {MediumText} from '../../base/components/Text';
+import Text, {MediumText} from '../../base/components/Text';
 import ButtonBase from '../../base/components/ButtonBase';
 import HeaderCustom from '../../base/components/HeaderCustom';
 import LinearGradient from '../../base/components/LinearGradient';
@@ -167,18 +166,18 @@ class PersonalPageDrawer extends PureComponent {
               contentContainerStyle={{paddingTop: heightToDP(30)}}
               showsVerticalScrollIndicator={false}>
               <View style={{marginBottom: heightToDP(14)}}>
-                <MediumText
+                <Text
                   text={`${formatMessage(message.fullName)}: ${name}`}
                   style={styles.textRow}
                 />
-                <MediumText
+                <Text
                   text={`${formatMessage(message.phone)}: ${mobile}`}
                   style={styles.textRow}
                 />
-                <MediumText text={`${formatMessage(message.email)}: ${email}`} style={styles.textRow} />
+                <Text text={`${formatMessage(message.email)}: ${email}`} style={styles.textRow} />
               </View>
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText
+                <Text
                   text={`${formatMessage(message.city)}:`}
                   style={styles.textRow}
                 />
@@ -195,7 +194,7 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText text={`${formatMessage(message.district)}:`} style={styles.textRow} />
+                <Text text={`${formatMessage(message.district)}:`} style={styles.textRow} />
                 <Input
                   value={state}
                   placeholder={formatMessage(message.district)}
@@ -209,7 +208,7 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText text={`${formatMessage(message.address)}:`} style={styles.textRow} />
+                <Text text={`${formatMessage(message.address)}:`} style={styles.textRow} />
                 <Input
                   value={address}
                   placeholder={formatMessage(message.address)}
@@ -223,7 +222,7 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <MediumText text={`${formatMessage(message.zipCode)}:`} style={styles.textRow} />
+                <Text text={`${formatMessage(message.zipCode)}:`} style={styles.textRow} />
                 <Input
                   value={postalcode}
                   placeholder={formatMessage(message.zipCode)}

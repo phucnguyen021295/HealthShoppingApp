@@ -26,10 +26,11 @@ import ButtonBase from '../../base/components/ButtonBase';
 import {getListCarts} from '../../core/db/table/shopping';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
-import {formatMoneyToVN} from '../../core/utils/formatMoney';
+import message from '../../msg/shoppingCart';
 
 // Styles
 import styles from './styles/index.css';
+import {injectIntl, intlShape} from 'react-intl';
 
 class ShoppingCartScreen extends PureComponent {
   constructor(props) {
@@ -76,11 +77,13 @@ class ShoppingCartScreen extends PureComponent {
 
   render() {
     const {data, totalMoney} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
 
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
-        <AppHeader title={'Giỏ hàng'} />
+        <AppHeader title={formatMessage(message.titleHeader)} />
         <FlatList
           data={data}
           renderItem={this.renderItem}
@@ -88,11 +91,11 @@ class ShoppingCartScreen extends PureComponent {
         />
         <View style={styles.btnBottom}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <MediumText text={'Tổng cộng: '} style={styles.total} />
+            <MediumText text={formatMessage(message.total)} style={styles.total} />
             <MediumText text={`${totalMoney} $`} style={styles.total} />
           </View>
           <ButtonBase
-            title={'Tiếp tục'}
+            title={formatMessage(message.btnContinue)}
             buttonStyle={styles.btnButtonStyle}
             onPress={this.onShoppingCard}
           />
@@ -104,4 +107,8 @@ class ShoppingCartScreen extends PureComponent {
 
 ShoppingCartScreen.defaultProps = {};
 
-export default ShoppingCartScreen;
+ShoppingCartScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(ShoppingCartScreen);

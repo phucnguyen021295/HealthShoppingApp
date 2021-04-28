@@ -15,9 +15,9 @@
 
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
-import Header from '../HomeScreen/components/Header';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import HistoryList from '../TransactionHistoryScreen/components/HistoryList';
 
@@ -27,17 +27,21 @@ import LinearGradient from '../../base/components/LinearGradient';
 import HeaderCustom from '../../base/components/HeaderCustom';
 import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
+import message from '../../msg/history';
+
 class HistoryDrawer extends PureComponent {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     return (
       <View style={styles.container}>
-          <SafeAreaViewBase />
+        <SafeAreaViewBase />
         <HeaderCustom
-          title={'Lịch sử giao dịch'}
+          title={formatMessage(message.titleHeader)}
           color={'#ffffff'}
           ViewComponent={LinearGradient}
         />
@@ -48,10 +52,14 @@ class HistoryDrawer extends PureComponent {
             <HistoryList />
           </View>
         </ImageBackGround>
-          <SafeAreaViewBase />
+        <SafeAreaViewBase />
       </View>
     );
   }
 }
 
-export default HistoryDrawer;
+HistoryDrawer.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(HistoryDrawer);

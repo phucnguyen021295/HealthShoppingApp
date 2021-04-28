@@ -38,6 +38,9 @@ import {broadcastShoppingCardChange} from '../../../core/shoppingCart';
 import Quantity from '../../DetailItemScreen/components/Quantity';
 import {getPackageByProductId} from '../../../core/db/table/package_product';
 import {getProduct} from '../../../core/db/table/product';
+import {injectIntl, intlShape} from 'react-intl';
+
+import message from '../../../msg/shoppingCart';
 
 class CartItem extends PureComponent {
   constructor(props) {
@@ -197,21 +200,25 @@ class CartItem extends PureComponent {
       isEditProductPack,
       quality
     } = this.state;
+
+    const {intl} = this.props;
+    const {formatMessage} = intl;
+
     return (
       <>
         <ModalBase
           isVisibleModal={isRemoveProduct}
           title={item.name}
-          description={'Bạn muốn hủy không mua gói sản phẩm này?'}>
+          description={formatMessage(message.desModal)}>
           <View style={{flexDirection: 'row'}}>
             <Button
-              title={'Hủy bỏ'}
+              title={formatMessage(message.btnCancel)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal}
               onPress={this.onCancelPackageProduct}
             />
             <Button
-              title={'Đóng'}
+              title={formatMessage(message.btnClose)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal2}
               titleStyle={{color: color}}
@@ -236,13 +243,13 @@ class CartItem extends PureComponent {
             </View>
             <View style={{flexDirection: 'row'}}>
               <Button
-                title={'Cập nhật'}
+                title={formatMessage(message.btnUpdate)}
                 containerStyle={{flex: 1, borderRadius: 0}}
                 buttonStyle={styles.buttonStyleModal}
                 onPress={this.onUpdateProduct}
               />
               <Button
-                title={'Đóng'}
+                title={formatMessage(message.btnClose)}
                 containerStyle={{flex: 1, borderRadius: 0}}
                 buttonStyle={styles.buttonStyleModal2}
                 titleStyle={{color: color}}
@@ -257,7 +264,7 @@ class CartItem extends PureComponent {
           onModalShow={this.onModalShow1}
           title={item.nameProduct}>
           <View style={{maxHeight: 500}}>
-            <Text text={'Chọn lại gói sản phẩm'} style={styles.textSelect} />
+            <Text text={formatMessage(message.desModal2)} style={styles.textSelect} />
             <ScrollView>
               {listPackage.map((item, index) => (
                 <Button
@@ -270,7 +277,7 @@ class CartItem extends PureComponent {
             </ScrollView>
             <View style={{flexDirection: 'row'}}>
               <Button
-                title={'Quay lại'}
+                title={formatMessage(message.btnBack)}
                 containerStyle={{flex: 1, borderRadius: 0}}
                 buttonStyle={[
                   styles.buttonStyleModal2,
@@ -288,6 +295,8 @@ class CartItem extends PureComponent {
 
   render() {
     const {item} = this.state;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     return (
       <TouchableOpacity onPress={this.onDetailCart} style={styles.container}>
         <Button
@@ -318,7 +327,7 @@ class CartItem extends PureComponent {
           />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity onPress={this.onDetailCart}>
-              <MediumText text={'Chỉnh sửa'} style={styles.textUpdate} />
+              <MediumText text={formatMessage(message.btnEdit)} style={styles.textUpdate} />
             </TouchableOpacity>
             <Text
               text={`${item.packpriceusd * item.total} $`}
@@ -332,4 +341,8 @@ class CartItem extends PureComponent {
   }
 }
 
-export default CartItem;
+CartItem.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CartItem);

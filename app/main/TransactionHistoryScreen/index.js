@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 // Components
 import AppHeader from '../../base/components/AppHeader';

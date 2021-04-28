@@ -15,9 +15,10 @@
 
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Component
-import {MediumText} from '../../../../base/components/Text';
+import Text from '../../../../base/components/Text';
 import LinearGradient from '../../../../base/components/LinearGradient';
 
 // Utils
@@ -25,6 +26,8 @@ import {convertDate} from '../../../../utils/convertDate';
 
 // Styles
 import styles from './styles/index.css';
+
+import message from '../../../../msg/history';
 
 const arrayColor = [
   '#247f24',
@@ -40,47 +43,52 @@ const makeColor = () => {
   return ['#697f3f', arrayColor[random]];
 };
 
-class HistoryItem extends PureComponent{
+class HistoryItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      colors: makeColor()
-    }
+      colors: makeColor(),
+    };
   }
 
   render() {
     const {colors} = this.state;
-    const {item} = this.props;
+    const {item, intl} = this.props;
+    const {formatMessage} = intl;
     return (
-        <View style={styles.container}>
-          <LinearGradient style={styles.linearGradient} colors={colors}>
-            <View style={styles.body}>
-              <MediumText
-                  text={`Ngày mua hàng: ${convertDate(item.time)}`}
-                  style={styles.textTotalPrice}
-              />
-              <View />
-              <MediumText
-                  text={`Loại giao dịch: ${item.brief}`}
-                  style={styles.textTotalPrice}
-              />
-              <MediumText
-                  text={`Lý do chuyển: ${item.des}`}
-                  style={styles.textTotalPrice}
-              />
-              <MediumText
-                  text={`Tổng tiền: ${item.value} $`}
-                  style={styles.textTotalPrice}
-              />
-              <MediumText
-                  text={`Số dư trong tài khoản: ${item.accountlog} $`}
-                  style={styles.textAccountBalance}
-              />
-            </View>
-          </LinearGradient>
-        </View>
-    )
+      <View style={styles.container}>
+        <LinearGradient style={styles.linearGradient} colors={colors}>
+          <View style={styles.body}>
+            <Text
+              text={`${formatMessage(message.date)} ${convertDate(item.time)}`}
+              style={styles.textTotalPrice}
+            />
+            <View />
+            <Text
+              text={`${formatMessage(message.type)} ${item.brief}`}
+              style={styles.textTotalPrice}
+            />
+            <Text
+              text={`${formatMessage(message.transfer)} ${item.des}`}
+              style={styles.textTotalPrice}
+            />
+            <Text
+              text={`${formatMessage(message.total)} ${item.value} $`}
+              style={styles.textTotalPrice}
+            />
+            <Text
+              text={`${formatMessage(message.balance)} ${item.accountlog} $`}
+              style={styles.textAccountBalance}
+            />
+          </View>
+        </LinearGradient>
+      </View>
+    );
   }
 }
 
-export default HistoryItem;
+HistoryItem.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(HistoryItem);
