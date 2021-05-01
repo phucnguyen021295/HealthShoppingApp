@@ -24,6 +24,10 @@ export default defineMessages({
     id: 'health.transfer.memberCode',
     defaultMessage: 'Mã thành viên',
   },
+  memberCodeInput: {
+    id: 'health.transfer.memberCodeInput',
+    defaultMessage: 'Nhập mã thành viên',
+  },
   btnCheck: {
     id: 'health.transfer.btnCheck',
     defaultMessage: 'Kiểm tra',
@@ -31,6 +35,10 @@ export default defineMessages({
   money: {
     id: 'health.transfer.money',
     defaultMessage: 'Số tiền',
+  },
+  moneyInput: {
+    id: 'health.transfer.moneyInput',
+    defaultMessage: 'Nhập số tiền',
   },
   note: {
     id: 'health.transfer.note',

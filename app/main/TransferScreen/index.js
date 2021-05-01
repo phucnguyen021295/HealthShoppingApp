@@ -176,7 +176,7 @@ class TransferScreen extends PureComponent {
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Input
                   value={membercode}
-                  placeholder={formatMessage(message.memberCode)}
+                  placeholder={formatMessage(message.memberCodeInput)}
                   containerStyle={{
                     paddingHorizontal: 0,
                     flex: 1,
@@ -205,7 +205,7 @@ class TransferScreen extends PureComponent {
               <MediumText text={`${formatMessage(message.money)}:`} style={styles.textRow} />
               <Input
                 value={amount}
-                placeholder={formatMessage(message.money)}
+                placeholder={formatMessage(message.moneyInput)}
                 containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={styles.inputStyle}

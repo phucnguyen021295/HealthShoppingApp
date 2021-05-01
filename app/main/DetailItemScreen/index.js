@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 import {Button, Image} from 'react-native-elements';
 import HTML from 'react-native-render-html';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import Quantity from './components/Quantity';
@@ -48,9 +49,14 @@ import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {heightToDP, widthToDP} from '../../core/utils/dimension';
 import {color} from '../../core/color';
 
+import message from '../../msg/detailItem';
+
+
 class DetailItemScreen extends PureComponent {
   constructor(props) {
     super(props);
+    const {intl} = props;
+    const {formatMessage} = intl;
     this.state = {
       search: '',
       total: 1,
@@ -60,7 +66,7 @@ class DetailItemScreen extends PureComponent {
       isVisibleWarning: false,
       listPackage: [
         {
-          label: 'Chọn các gói',
+          label: formatMessage(message.selectPackage),
           value: 0,
         },
       ],
@@ -146,6 +152,8 @@ class DetailItemScreen extends PureComponent {
   };
 
   setBtnText = () => {
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     const {total, updateCart, packSelected} = this.state;
     // const {item} = this.props;
 
@@ -153,7 +161,7 @@ class DetailItemScreen extends PureComponent {
 
     if (packSelected.packid === '-1') {
       if (total === 0) {
-        return 'Quay lại';
+        return formatMessage(message.goBack);
       }
       totalMoney = total * packSelected.packpriceusd;
     } else {
@@ -161,10 +169,10 @@ class DetailItemScreen extends PureComponent {
     }
 
     if (updateCart) {
-      return `Cập nhật giỏ hàng - ${totalMoney} $`;
+      return `${formatMessage(message.updateCart)} - ${totalMoney} $`;
     }
 
-    return `Thêm vào giỏ hàng - ${totalMoney} $`;
+    return `${formatMessage(message.addCart)} - ${totalMoney} $`;
   };
 
   onCloseModalWarning = () => {
@@ -185,8 +193,9 @@ class DetailItemScreen extends PureComponent {
   };
 
   render() {
+    const {intl, item} = this.props;
+    const {formatMessage} = intl;
     const {isVisibleWarning, listPackage, valueSelected, packSelected} = this.state;
-    const {item} = this.props;
 
     return (
       <View style={styles.container}>
@@ -255,13 +264,11 @@ class DetailItemScreen extends PureComponent {
         />
         <ModalBase
           isVisibleModal={isVisibleWarning}
-          title={'Thông báo'}
-          description={
-            'Số tiền hiện tại của bạn không đủ để mua thêm sản phẩm'
-          }>
+          title={formatMessage(message.titleModal)}
+          description={formatMessage(message.notMoney)}>
           <View style={{flexDirection: 'row'}}>
             <Button
-              title={'Thanh toán'}
+              title={formatMessage(message.total)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={{
                 backgroundColor: color,
@@ -273,7 +280,7 @@ class DetailItemScreen extends PureComponent {
               onPress={this.onCloseModal}
             />
             <Button
-              title={'Quay lại'}
+              title={formatMessage(message.goBack)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={{
                 backgroundColor: '#ffffff',
@@ -293,9 +300,13 @@ class DetailItemScreen extends PureComponent {
   }
 }
 
+DetailItemScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 DetailItemScreen.defaultProps = {
   showBack: false,
   updateTotal: false,
 };
 
-export default DetailItemScreen;
+export default injectIntl(DetailItemScreen);

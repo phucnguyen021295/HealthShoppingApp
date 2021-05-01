@@ -41,7 +41,7 @@ function NotifyDetailScreen(props) {
       <ImageBackGround
         source={require('../../../../images/backgroundHome.jpeg')}
         blurRadius={4}>
-        <ScrollView contentContainerStyle={{paddingHorizontal: widthToDP(20)}}>
+        <ScrollView contentContainerStyle={{paddingHorizontal: widthToDP(20), backgroundColor: 'rgba(0,0,0,0.5)'}}>
           <View style={styles.imageRow}>
             <FastImage source={{uri: item.image150}} style={styles.image150} />
             <View style={styles.body}>

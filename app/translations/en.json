@@ -1,5 +1,5 @@
 {
-  "health.loginPinCode.language": "English",
+  "health.loginPinCode.language": "Tiếng Việt",
   "health.loginPinCode.insertPinCode": "Enter the pin code",
   "health.loginPinCode.login": "Login",
   "health.loginPinCode.btnCloseModal": "Close",
@@ -43,8 +43,10 @@
 
   "health.transfer.titleHeader": "Transfer",
   "health.transfer.memberCode": "Membership code",
+  "health.transfer.memberCodeInput": "Enter your membership code",
   "health.transfer.btnCheck": "Check",
   "health.transfer.money": "Amount of money",
+  "health.transfer.moneyInput": "Enter your amount of money",
   "health.transfer.note": "Note",
   "health.transfer.btnTransfer": "Transfers",
   "health.transfer.titleModal": "Notification",
@@ -132,5 +134,19 @@
   "health.history.type": "Transaction type:",
   "health.history.transfer": "Transfer reason:",
   "health.history.total": "Total amount:",
-  "health.history.balance": "Balance in account:"
+  "health.history.balance": "Balance in account:",
+
+  "health.oder.search": "Search",
+  "health.oder.btnViewOder": "View cart",
+  "health.oder.btnViewOder1": "item",
+  "health.oder.btnClose": "Closed",
+  "health.oder.selectProduct": "Select product group",
+
+  "health.detailItem.selectPackage": "Choose packages",
+  "health.detailItem.updateCart": "Update cart",
+  "health.detailItem.goBack": "Go back",
+  "health.detailItem.addCart": "Add cart",
+  "health.detailItem.titleModal": "Notification",
+  "health.detailItem.notMoney": "Your current amount is not enough to buy more products",
+  "health.detailItem.total": "Pay"
 }

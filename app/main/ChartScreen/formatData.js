@@ -27,3 +27,16 @@ export const labels = {
     Transfer: 'Chuyển tiền',
     Total: 'Tổng thu nhập',
 };
+
+export const labelsEn = {
+    'Weak Leg': 'Weak branch income',
+    Direct: 'Direct income',
+    Mega: 'Leadership income',
+    F1: processColor('yellow'),
+    Level: 'The income is flat',
+    Bonus: 'Leadership Rewards',
+    'Leadership Bonus': 'Senior leadership Rewards',
+    Order: 'Oder',
+    Transfer: 'Transfer',
+    Total: 'Total income',
+};

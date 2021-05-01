@@ -29,6 +29,8 @@ import {handleGetPackageProduct} from '../../../../core/data';
 
 // Styles
 import styles from './styles/index.css';
+import {injectIntl, intlShape} from 'react-intl';
+import message from '../../../../msg/oder';
 
 class OderList extends PureComponent {
   constructor(props) {
@@ -63,7 +65,11 @@ class OderList extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.oderType !== this.props.oderType) {
-      console.log('componentDidUpdate', prevProps.oderType, this.props.oderType)
+      console.log(
+        'componentDidUpdate',
+        prevProps.oderType,
+        this.props.oderType,
+      );
       handleGetPackageProduct(
         this.props.oderType,
         (data) => {
@@ -95,11 +101,17 @@ class OderList extends PureComponent {
   };
 
   ListFooterComponent = () => {
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     const {totalProduct, totalMoney} = this.state;
     return (
       <View style={styles.btnBottom}>
         <ButtonBase
-          title={`Xem giỏ hàng - ${totalProduct} món - ${totalMoney} $`}
+          title={`${formatMessage(
+            message.btnViewOder,
+          )} - ${totalProduct} ${formatMessage(
+            message.btnViewOder1,
+          )} - ${totalMoney} $`}
           buttonStyle={styles.btnButtonStyle}
           onPress={this.onShoppingCard}
         />
@@ -137,4 +149,8 @@ class OderList extends PureComponent {
   }
 }
 
-export default withNavigation(OderList);
+OderList.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default withNavigation(injectIntl(OderList));

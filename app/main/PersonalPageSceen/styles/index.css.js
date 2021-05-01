@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
   info: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     paddingHorizontal: widthToDP(20),
     paddingBottom: heightToDP(30),
   },

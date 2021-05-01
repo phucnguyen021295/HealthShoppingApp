@@ -1,5 +1,5 @@
 {
-  "health.loginPinCode.language": "Tiếng Việt",
+  "health.loginPinCode.language": "English",
   "health.loginPinCode.insertPinCode": "Nhập mã pin",
   "health.loginPinCode.login": "Đăng nhập",
   "health.loginPinCode.btnCloseModal": "Đóng",
@@ -43,8 +43,10 @@
 
   "health.transfer.titleHeader": "Chuyển khoản",
   "health.transfer.memberCode": "Mã thành viên",
+  "health.transfer.memberCodeInput": "Nhập mã thành viên",
   "health.transfer.btnCheck": "Kiểm tra",
   "health.transfer.money": "Số tiền",
+  "health.transfer.moneyInput": "Nhập số tiền",
   "health.transfer.note": "Ghi chú",
   "health.transfer.btnTransfer": "Chuyển tiền",
   "health.transfer.titleModal": "Thông báo",
@@ -132,5 +134,19 @@
   "health.history.type": "Loại giao dịch:",
   "health.history.transfer": "Lý do chuyển:",
   "health.history.total": "Tổng tiền:",
-  "health.history.balance": "Số dư trong tài khoản:"
+  "health.history.balance": "Số dư trong tài khoản:",
+
+  "health.oder.search": "Tìm kiếm",
+  "health.oder.btnViewOder": "Xem giỏ hàng",
+  "health.oder.btnViewOder1": "món",
+  "health.oder.btnClose": "Đóng",
+  "health.oder.selectProduct": "Chọn nhóm sản phẩm",
+
+  "health.detailItem.selectPackage": "Chọn các gói",
+  "health.detailItem.updateCart": "Cập nhật giỏ hàng",
+  "health.detailItem.goBack": "Quay lại",
+  "health.detailItem.addCart": "Thêm vào giỏ hàng",
+  "health.detailItem.titleModal": "Thông báo",
+  "health.detailItem.notMoney": "Số tiền hiện tại của bạn không đủ để mua thêm sản phẩm",
+  "health.detailItem.total": "Thanh toán"
 }

@@ -18,6 +18,7 @@ import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {SearchBar, Button} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import LinearGradient from '../../base/components/LinearGradient';
@@ -29,19 +30,25 @@ import Modal from 'react-native-modal';
 import Text, {MediumText} from '../../base/components/Text';
 import {isIphoneX} from '../../core/utils/isIphoneX';
 import {color} from '../../core/color';
+import global from '../../global';
+
+import message from '../../msg/oder';
 
 const orderType = [
   {
     oderType: '0',
     name: 'Mua hàng lần đầu',
+    nameEn: 'Buy for the first time',
   },
   {
     oderType: '1',
     name: 'Mua hàng nâng cấp',
+    nameEn: 'Buy upgrades',
   },
   {
     oderType: '2',
     name: 'Mua hàng active',
+    nameEn: 'Buy active',
   },
 ];
 
@@ -68,6 +75,9 @@ class OderScreen extends PureComponent {
   };
 
   render() {
+    const {Language} = global;
+    const {intl} = this.props;
+    const {formatMessage} = intl;
     const {search, oderType, isVisible} = this.state;
     return (
       <View style={styles.container}>
@@ -80,7 +90,7 @@ class OderScreen extends PureComponent {
               paddingLeft: 20,
             }}>
             <SearchBar
-              placeholder="Tìm kiếm"
+              placeholder={formatMessage(message.search)}
               onChangeText={this.updateSearch}
               value={search}
               placeholderTextColor={'#ffffff'}
@@ -130,11 +140,11 @@ class OderScreen extends PureComponent {
                 alignItems: 'center',
               }}>
               <MediumText
-                text={'Chọn nhóm sản phẩm'}
+                text={formatMessage(message.selectProduct)}
                 style={styles.titleSelect}
               />
               <Text
-                text={'Đóng'}
+                text={formatMessage(message.btnClose)}
                 style={styles.textClose}
                 onPress={() => this.setState({isVisible: false})}
               />
@@ -142,7 +152,11 @@ class OderScreen extends PureComponent {
             {orderType.map((item) => (
               <View
                 style={[
-                  {flexDirection: 'row', alignItems: 'center', paddingHorizontal: 18,},
+                  {
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingHorizontal: 18,
+                  },
                   item.oderType === oderType && {backgroundColor: '#dddddd'},
                 ]}>
                 <MaterialCommunityIcons
@@ -151,7 +165,7 @@ class OderScreen extends PureComponent {
                   color={color}
                 />
                 <Text
-                  text={item.name}
+                  text={Language === 'vi' ? item.name : item.nameEn}
                   style={[styles.itemSelect]}
                   onPress={() => this.onSelectItem(item)}
                 />
@@ -165,8 +179,12 @@ class OderScreen extends PureComponent {
   }
 }
 
+OderScreen.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 OderScreen.defaultProps = {
   showBack: false,
 };
 
-export default OderScreen;
+export default injectIntl(OderScreen);

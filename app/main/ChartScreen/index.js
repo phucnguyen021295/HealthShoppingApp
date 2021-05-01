@@ -25,9 +25,15 @@ import Text from '../../base/components/Text';
 // Apis
 import {getReportApi} from '../../apis/health';
 
-import {labels} from './formatData';
+import {labels as labelsVi, labelsEn} from './formatData';
 import styles from './styles/index.css';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
+
+import global from '../../global';
+const {Language} = global;
+const vi = Language === 'vi';
+
+const labels = vi ? labelsVi : labelsEn;
 
 const colors = {
   'Weak Leg': processColor('green'),
@@ -55,30 +61,40 @@ const colorsNote = {
   Total: 'salmon',
 };
 
-const formatDay = {
-  0: 'Thứ 2',
-  1: 'Thứ 3',
-  2: 'Thứ 4',
-  3: 'Thứ 5',
-  4: 'Thứ 6',
-  5: 'Thứ 7',
-  6: 'CN',
-};
+const formatDay = vi
+  ? {
+      0: 'Thứ 2',
+      1: 'Thứ 3',
+      2: 'Thứ 4',
+      3: 'Thứ 5',
+      4: 'Thứ 6',
+      5: 'Thứ 7',
+      6: 'CN',
+    }
+  : {
+      0: 'Mon',
+      1: 'Tue',
+      2: 'Wed',
+      3: 'Thu',
+      4: 'Fri',
+      5: 'Sat',
+      6: 'Sun',
+    };
 
 const itemsSelectCalendar = [
   {
-    label: 'Ngày',
+    label: vi ? 'Ngày' : 'Day',
     value: 'day',
     icon: () => <Icon name="flag" size={18} color="#900" />,
     hidden: true,
   },
   {
-    label: 'Tuần',
+    label: vi ? 'Tuần' : 'Week',
     value: 'week',
     icon: () => <Icon name="flag" size={18} color="#900" />,
   },
   {
-    label: 'Tháng',
+    label: vi ? 'Tháng' : 'Month',
     value: 'month',
     icon: () => <Icon name="flag" size={18} color="#900" />,
   },
@@ -86,53 +102,101 @@ const itemsSelectCalendar = [
 
 const ARRAY_KEY_SELECT = ['Order', 'Transfer'];
 
-const filterReport = [
-  {
-    label: 'Mặc định',
-    value: ARRAY_KEY_SELECT,
-    hidden: true,
-  },
+const filterReport = vi
+  ? [
+      {
+        label: 'Mặc định',
+        value: ARRAY_KEY_SELECT,
+        hidden: true,
+      },
 
-  {
-    label: 'Thu nhập nhánh yếu',
-    value: ['Weak Leg'],
-  },
+      {
+        label: 'Thu nhập nhánh yếu',
+        value: ['Weak Leg'],
+      },
 
-  {
-    label: 'Thu nhập lãnh đạo',
-    value: ['Mega'],
-  },
+      {
+        label: 'Thu nhập lãnh đạo',
+        value: ['Mega'],
+      },
 
-  {
-    label: 'Thu nhập đều tầng',
-    value: ['Level'],
-  },
+      {
+        label: 'Thu nhập đều tầng',
+        value: ['Level'],
+      },
 
-  {
-    label: 'Thưởng lãnh đạo',
-    value: ['Bonus'],
-  },
+      {
+        label: 'Thưởng lãnh đạo',
+        value: ['Bonus'],
+      },
 
-  {
-    label: 'Thưởng lãnh đạo cấp cao',
-    value: ['Leadership Bonus'],
-  },
+      {
+        label: 'Thưởng lãnh đạo cấp cao',
+        value: ['Leadership Bonus'],
+      },
 
-  {
-    label: 'Đặt hàng',
-    value: ['Order'],
-  },
+      {
+        label: 'Đặt hàng',
+        value: ['Order'],
+      },
 
-  {
-    label: 'Chuyển tiền',
-    value: ['Transfer'],
-  },
+      {
+        label: 'Chuyển tiền',
+        value: ['Transfer'],
+      },
 
-  {
-    label: 'Tổng thu nhập',
-    value: ['Total'],
-  },
-];
+      {
+        label: 'Tổng thu nhập',
+        value: ['Total'],
+      },
+    ]
+  : [
+      {
+        label: 'Default',
+        value: ARRAY_KEY_SELECT,
+        hidden: true,
+      },
+
+      {
+        label: 'Weak branch income',
+        value: ['Weak Leg'],
+      },
+
+      {
+        label: 'Leadership income',
+        value: ['Mega'],
+      },
+
+      {
+        label: 'The income is flat',
+        value: ['Level'],
+      },
+
+      {
+        label: 'Leadership Rewards',
+        value: ['Bonus'],
+      },
+
+      {
+        label: 'Senior leadership Rewards',
+        value: ['Leadership Bonus'],
+      },
+
+      {
+        label: 'Oder',
+        value: ['Order'],
+      },
+
+      {
+        label: 'Transfer',
+        value: ['Transfer'],
+      },
+
+      {
+        label: 'Total income',
+        value: ['Total'],
+      },
+    ];
 
 const TYPE_CALENDAR = {
   day: '0',
@@ -183,15 +247,9 @@ const dataChartConstructor = {
     barSpacePercent: 40,
   },
   xAxis: {
-    valueFormatter: [
-      'Thứ 2',
-      'Thứ 3',
-      'Thứ 4',
-      'Thứ 5',
-      'Thứ 6',
-      'Thứ 7',
-      'CN',
-    ],
+    valueFormatter: vi
+      ? ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN']
+      : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     granularityEnabled: true,
     granularity: 0.5, // khoảng cách các mốc
     axisMaximum: 7, // Hiển thị tối đa số cột y
@@ -253,14 +311,14 @@ class StackedBarChartScreen extends PureComponent {
     }
   }
 
-  getReportApiLocal = () =>{
+  getReportApiLocal = () => {
     const {typeCalendar, arrayKey} = this.state;
     getReportApi(TYPE_CALENDAR[typeCalendar], (response) => {
       const {data} = response;
       this.convertData(data, arrayKey);
       this.setState({dataCharts: data});
     });
-  }
+  };
 
   convertData = (data, arrayKey) => {
     const {typeCalendar} = this.state;
@@ -345,7 +403,7 @@ class StackedBarChartScreen extends PureComponent {
         <View style={styles.dropdownContainer}>
           <View style={{flex: 1, marginRight: 10}}>
             <Text
-              text={'Xem theo:'}
+              text={vi ?  'Xem theo:' : 'View by:'}
               style={{
                 color: '#ffffff',
                 fontSize: 15,
@@ -367,7 +425,7 @@ class StackedBarChartScreen extends PureComponent {
           </View>
           <View style={{flex: 2}}>
             <Text
-              text={'Lọc theo:'}
+              text={vi ? 'Lọc theo:' : 'Filter by:'}
               style={{
                 color: '#ffffff',
                 fontSize: 15,
@@ -389,24 +447,28 @@ class StackedBarChartScreen extends PureComponent {
         </View>
 
         <View style={[styles.container, styleChart]}>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginBottom: 10}}>
-            {
-              dataSets.map(item => {
-                return (
-                    <View style={{flexDirection: 'row', alignItems: 'center', marginRight: 20}}>
-                      <View
-                          style={[
-                            styles.square,
-                            {backgroundColor: item.color},
-                          ]}
-                      />
-                      <Text style={styles.overviewText}>
-                        {item.label}
-                      </Text>
-                    </View>
-                )
-              })
-            }
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              marginHorizontal: 10,
+              marginBottom: 10,
+            }}>
+            {dataSets.map((item) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginRight: 20,
+                  }}>
+                  <View
+                    style={[styles.square, {backgroundColor: item.color}]}
+                  />
+                  <Text style={styles.overviewText}>{item.label}</Text>
+                </View>
+              );
+            })}
           </View>
           <BarChart
             style={styles.chart}
@@ -433,7 +495,7 @@ class StackedBarChartScreen extends PureComponent {
 }
 
 StackedBarChartScreen.defaultProps = {
-  styleChart: {}
+  styleChart: {},
 };
 
 export default StackedBarChartScreen;
