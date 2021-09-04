@@ -1,23 +1,10 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
 
-'use strict';
 
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {SearchBar, Button} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {injectIntl, intlShape} from 'react-intl';
 
 // Components
@@ -27,7 +14,7 @@ import OderList from './components/OderList';
 // Styles
 import styles from './styles/index.css';
 import Modal from 'react-native-modal';
-import Text, {MediumText} from '../../base/components/Text';
+import Text, {SemiBoldText} from '../../base/components/Text';
 import {isIphoneX} from '../../core/utils/isIphoneX';
 import {color} from '../../core/color';
 import global from '../../global';
@@ -125,7 +112,7 @@ class OderScreen extends PureComponent {
           </View>
         </LinearGradient>
         <View style={{flex: 1, backgroundColor: '#ffffff'}}>
-          <OderList oderType={oderType} />
+          <OderList oderType={oderType} search={search} />
         </View>
         <Modal
           testID={'modal'}
@@ -139,13 +126,17 @@ class OderScreen extends PureComponent {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <MediumText
+              <SemiBoldText
                 text={formatMessage(message.selectProduct)}
                 style={styles.titleSelect}
               />
-              <Text
-                text={formatMessage(message.btnClose)}
-                style={styles.textClose}
+              <Button
+                icon={<Ionicons name="ios-close" size={25} color={'#181818'} />}
+                iconRight
+                buttonStyle={{
+                  paddingHorizontal: 20,
+                  backgroundColor: '#fffffff',
+                }}
                 onPress={() => this.setState({isVisible: false})}
               />
             </View>

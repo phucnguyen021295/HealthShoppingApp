@@ -1,18 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 28/04/2021.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import {defineMessages} from 'react-intl';
 
 export default defineMessages({
@@ -26,19 +11,19 @@ export default defineMessages({
   },
   date: {
     id: 'health.history.date',
-    defaultMessage: 'Ngày mua hàng:',
+    defaultMessage: 'Thời gian GD: ',
   },
   type: {
     id: 'health.history.type',
-    defaultMessage: 'Loại giao dịch:',
+    defaultMessage: 'Loại giao dịch: ',
   },
   transfer: {
     id: 'health.history.transfer',
-    defaultMessage: 'Lý do chuyển:',
+    defaultMessage: 'Nội dung giao dịch: ',
   },
   total: {
     id: 'health.history.total',
-    defaultMessage: 'Tổng tiền:',
+    defaultMessage: 'Số tiền: ',
   },
   balance: {
     id: 'health.history.balance',

@@ -1,18 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import {StyleSheet} from 'react-native';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 import {color} from '../../../core/color';
@@ -41,7 +26,7 @@ const styles = StyleSheet.create({
 
   inputStyle: {
     color: '#ffffff',
-    fontSize: huge,
+    fontSize: 16,
   },
 
   modalContainer: {
@@ -67,8 +52,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     fontSize: huge,
     paddingVertical: 12,
-    lineHeight: 30
-
+    lineHeight: 30,
+    color: '#181818'
   },
 
   textClose: {

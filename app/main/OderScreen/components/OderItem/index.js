@@ -1,15 +1,15 @@
 /**
- * Copyright 2016-present, Bkav, Cop.
+ * Copyright 2016-present.
  * All rights reserved.
  *
- * This source code is licensed under the Bkav license found in the
+ * This source code is licensed under the  license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/28/20.
+ * @author  on 9/28/20.
  *
  * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
@@ -19,7 +19,7 @@ import {Image, Rating} from 'react-native-elements';
 import Modal from 'react-native-modal';
 
 // Components
-import Text, {MediumText} from '../../../../base/components/Text';
+import Text, {SemiBoldText} from '../../../../base/components/Text';
 import DetailItemScreen from '../../../DetailItemScreen';
 
 // Styles
@@ -55,21 +55,27 @@ class OderItem extends PureComponent {
 
     return (
       <TouchableOpacity onPress={this.onDetailItem} style={styles.container}>
-        <Image
-          source={{uri: item?.image150}}
-          style={styles.image}
-          PlaceholderContent={<ActivityIndicator />}
-          resizeMode={'contain'}
+        <View style={styles.imageContainer}>
+          <Image
+            source={{uri: item?.image150}}
+            style={styles.image}
+            PlaceholderContent={<ActivityIndicator />}
+            resizeMode={'contain'}
+          />
+        </View>
+        <SemiBoldText
+          text={item.title}
+          style={styles.title}
+          numberOfLines={2}
         />
-        <Text text={item.title} style={styles.title} numberOfLines={2} />
         <View style={styles.priceContainer}>
-          <MediumText
+          <SemiBoldText
             text={price ? `${price} $` : 'Giá liên hệ'}
             style={styles.price}
           />
           <Rating
             ratingCount={3}
-            imageSize={16}
+            imageSize={14}
             onFinishRating={this.onFinishRating}
           />
         </View>

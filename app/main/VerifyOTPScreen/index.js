@@ -1,18 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/8/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import React, {PureComponent} from 'react';
 import {
   Platform,
@@ -37,7 +22,8 @@ import {getActiveApi, verifyOTPApi} from '../../apis/health';
 // Styles
 import styles from './styles/index.css';
 import ImageBackGround from '../../base/components/ImageBackGround';
-import {setAccountBalanceGlobal, setMemberCodeGlobal} from '../../global';
+import global, {setMemberCodeGlobal} from '../../global';
+import CountDown from '../../base/components/CountDown';
 
 class VerifyOTPScreen extends PureComponent {
   constructor(props) {
@@ -45,6 +31,7 @@ class VerifyOTPScreen extends PureComponent {
     this.state = {
       loading: false,
       code: '',
+      isCountDown: true,
     };
     this.count = 0;
   }
@@ -87,7 +74,16 @@ class VerifyOTPScreen extends PureComponent {
     });
   };
 
+  onVisibleResetOTP = () => {
+    this.setState({isCountDown: false});
+  };
+
+  setCountDownRef = (ref) => {
+    this.countDownRef = ref;
+  };
+
   render() {
+    const {TimeCountDownOTP} = global;
     const {loading, code} = this.state;
     return (
       <ImageBackGround
@@ -95,7 +91,11 @@ class VerifyOTPScreen extends PureComponent {
         blurRadius={10}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
-          <AppHeader showBack={false} title={'Xác thực mã OTP'} color={'#ffffff'} />
+          <AppHeader
+            showBack={false}
+            title={'Xác thực mã OTP'}
+            color={'#ffffff'}
+          />
           <KeyboardAvoidingView
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -111,8 +111,15 @@ class VerifyOTPScreen extends PureComponent {
                 autoFocus={true}
               />
               <Text
-                text={'Vui lòng nhập mã OTP để tiếp tục đăng nhập.'}
-                style={{color: '#ffffff', paddingTop: 30}}
+                text={
+                  'Hệ thống đang gửi OTP đến số điện thoại đăng kí tài khoản. Vui lòng chờ trong giây lát...'
+                }
+                style={styles.text1}
+              />
+              <CountDown
+                ref={this.setCountDownRef}
+                timeCountDown={TimeCountDownOTP}
+                onResetTimeOut={this.onVisibleResetOTP}
               />
               <Button
                 title="Xác thực OTP"

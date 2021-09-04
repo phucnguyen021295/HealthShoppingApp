@@ -1,21 +1,7 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {isIphoneX} from '../../../core/utils/isIphoneX';
+import {heightToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +10,12 @@ const styles = StyleSheet.create({
   infoUser: {
     position: 'absolute',
     left: 20,
-    top: isIphoneX ? 60 : 30,
+    top: heightToDP(isIphoneX ? 48 : 30),
     zIndex: 100,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -46,18 +32,24 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     marginBottom: 20,
   },
-  name: {color: '#ffffff', fontSize: fontSize.normal, lineHeight: 30},
+
+  name: {
+    color: '#ffffff',
+    fontSize: fontSize.fontSize14,
+    lineHeight: fontSize.fontSize14 * 1.43,
+  },
 
   viewRow: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingVertical: 20,
-    marginBottom: 20,
+    backgroundColor: 'rgba(115, 86, 34, 0.3)',
+    paddingTop: heightToDP(21),
+    paddingBottom: heightToDP(14),
+    marginBottom: heightToDP(16),
   },
 
   viewChart: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingVertical: 20,
-    marginBottom: 20,
+    backgroundColor: 'rgba(115, 86, 34, 0.3)',
+    paddingVertical: heightToDP(14),
+    paddingBottom: heightToDP(70)
   },
 
   textReport: {
@@ -66,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     lineHeight: 30,
     paddingHorizontal: 12,
-    paddingBottom: 16,
+    paddingBottom: 12,
   },
 
   account: {
@@ -74,7 +66,18 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     lineHeight: 30,
   },
-  avatar: {width: 66, height: 66},
+  avatar: {width: 66, height: 66, borderRadius: 33},
+
+  background: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(1, 23, 34, 0.5)',
+  },
+
+  imageBank: {width: heightToDP(140), height: heightToDP(140)}
 });
 
 export default styles;

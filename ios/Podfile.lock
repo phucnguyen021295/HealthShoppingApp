@@ -291,6 +291,8 @@ PODS:
     - React-Core
   - react-native-camera/RN (3.40.0):
     - React-Core
+  - react-native-pager-view (5.4.1):
+    - React-Core
   - react-native-safe-area-context (3.1.7):
     - React
   - react-native-sqlite-storage (5.0.0):
@@ -424,6 +426,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -514,6 +517,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-sqlite-storage:
@@ -606,6 +611,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
   react-native-camera: 5c1fbfecf63b802b8ca4a71c60d30a71550fb348
+  react-native-pager-view: 6de50b2df6d330a1116bde90519761912c060311
   react-native-safe-area-context: fcece23844742b6f7f0627c3715b806a7deff946
   react-native-sqlite-storage: ce71689c5a73b79390a1ab213555ae80979a5dc7
   react-native-webview: b2542d6fd424bcc3e3b2ec5f854f0abb4ec86c87

@@ -1,18 +1,4 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
 
-'use strict';
 
 import React, {PureComponent} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
@@ -25,10 +11,12 @@ import {
 } from 'react-native';
 
 // Components
-import {MediumText} from '../../../../base/components/Text';
+import {SemiBoldText} from '../../../../base/components/Text';
 
 // Apis
 import {getNewHomeApi} from '../../../../apis/health';
+import {heightToDP, widthToDP} from '../../../../core/utils/dimension';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ENTRIES1 = [
   {
@@ -87,9 +75,13 @@ class MyCarousel extends PureComponent {
           parallaxFactor={0.4}
           {...parallaxProps}
         />
-        <MediumText style={styles.title} numberOfLines={1}>
+        <SemiBoldText style={styles.title} numberOfLines={2}>
           {item.title}
-        </MediumText>
+        </SemiBoldText>
+        <LinearGradient
+            colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']}
+            style={styles.linearGradient}
+        />
       </TouchableOpacity>
     );
   }
@@ -98,9 +90,9 @@ class MyCarousel extends PureComponent {
     const {entries} = this.state;
     return (
       <Carousel
-        sliderWidth={screenWidth}
+        sliderWidth={screenWidth - widthToDP(6)}
         sliderHeight={screenWidth}
-        itemWidth={screenWidth - 60}
+        itemWidth={screenWidth - widthToDP(46)}
         data={entries}
         renderItem={this._renderItem}
         hasParallaxImages={true}
@@ -113,8 +105,8 @@ export default MyCarousel;
 
 const styles = StyleSheet.create({
   item: {
-    width: screenWidth - 60,
-    height: 180,
+    width: screenWidth - widthToDP(46),
+    height: widthToDP(150),
   },
   imageContainer: {
     flex: 1,
@@ -129,8 +121,18 @@ const styles = StyleSheet.create({
   title: {
     color: '#ffffff',
     position: 'absolute',
-    bottom: 20,
+    bottom: heightToDP(12),
     left: 20,
-    width: screenWidth - 100,
+    width: screenWidth - widthToDP(100),
+    zIndex: 11
+  },
+
+  linearGradient: {
+    position: 'absolute',
+    bottom: 0,
+    height: heightToDP(100),
+    width: '100%',
+    zIndex: 10,
+    borderRadius: 8,
   },
 });

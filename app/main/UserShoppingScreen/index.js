@@ -1,25 +1,10 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 10/5/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View, ScrollView} from 'react-native';
 import {injectIntl, intlShape} from 'react-intl';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
-import Text, {MediumText} from '../../base/components/Text';
+import Text, {MediumText, SemiBoldText} from '../../base/components/Text';
 
 // Db
 import {getListCarts} from '../../core/db/table/shopping';
@@ -94,13 +79,7 @@ class UserShoppingScreen extends PureComponent {
 
   onContinue = () => {
     const {totalMoney} = this.props;
-    const {
-      membercode,
-      receiver,
-      paymenttype,
-      data,
-      receivingtype,
-    } = this.state;
+    const {membercode, receiver, paymenttype, data, receivingtype} = this.state;
     this.props.navigation.navigate('AddressShopping', {
       membercode: membercode,
       receiver: receiver,
@@ -140,7 +119,7 @@ class UserShoppingScreen extends PureComponent {
   };
 
   render() {
-    const { code, membercode, receiver} = this.state;
+    const {code, membercode, receiver} = this.state;
     const {intl} = this.props;
     const {formatMessage} = intl;
     return (
@@ -159,46 +138,49 @@ class UserShoppingScreen extends PureComponent {
           <ButtonBase
             title={formatMessage(message.btnCheck)}
             buttonStyle={styles.btnButtonStyle}
-            onPress={this.onCheckInfo} 
+            onPress={this.onCheckInfo}
             styleLinearGradient={{marginHorizontal: 20}}
           />
-          <MediumText text={formatMessage(message.textPurchase)} style={styles.titleShopping} />
-          <Text
-            text={`${formatMessage(message.textMemberCode)} ${membercode}`}
-            style={[styles.textName, {marginTop: 12}]}
+          <SemiBoldText
+            text={formatMessage(message.textPurchase)}
+            style={styles.titleShopping}
           />
-          <Text
-            text={`${formatMessage(message.fullName)} ${receiver.name}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.phoneNumber)} ${receiver.mobile}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.address)} ${receiver.address}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.email)} ${receiver.email}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.infoDistrict)} ${receiver.state}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.city)} ${receiver.city}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.postalCode)} ${receiver.postalcode}`}
-            style={[styles.textName]}
-          />
-          <Text
-            text={`${formatMessage(message.nation)} ${receiver.country}`}
-            style={[styles.textName]}
-          />
+          <Text style={[styles.textName, {marginTop: 12}]}>
+            <SemiBoldText text={formatMessage(message.textMemberCode)} />
+            <Text text={`: ${membercode}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.fullName)} />
+            <Text text={`: ${receiver.name}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.phoneNumber)} />
+            <Text text={`: ${receiver.mobile}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.address)} />
+            <Text text={`: ${receiver.address}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.email)} />
+            <Text text={`: ${receiver.email}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.infoDistrict)} />
+            <Text text={`: ${receiver.state}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.city)} />
+            <Text text={`: ${receiver.city}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.postalCode)} />
+            <Text text={`: ${receiver.postalcode}`} />
+          </Text>
+          <Text style={styles.textName}>
+            <SemiBoldText text={formatMessage(message.nation)} />
+            <Text text={`: ${receiver.country}`} />
+          </Text>
           {/*<View>*/}
           {/*  <MediumText*/}
           {/*    text={'Tóm tắt đơn hàng:'}*/}

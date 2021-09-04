@@ -42,6 +42,7 @@ import LoginPinCode from './app/main/LoginPinCode';
 import Notify from './app/main/NotifyScreen';
 import NotifyDetail from './app/main/NotifyScreen/components/NotifyDetailScreen';
 import HistoryDetail from './app/main/HistoryDetailScreen';
+import Oder from './app/main/OderScreen'
 
 import {callBack} from './app/core/data';
 import {
@@ -184,6 +185,7 @@ class App extends PureComponent {
                 <Stack.Screen name="History" component={History} />
                 <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
                 <Stack.Screen name="News" component={News} />
+                <Stack.Screen name="Shopping" component={Oder} />
                 {screens}
               </Stack.Navigator>
             )}

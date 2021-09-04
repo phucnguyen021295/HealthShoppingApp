@@ -1,18 +1,4 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
 
-'use strict';
 
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
@@ -22,7 +8,7 @@ import {injectIntl, intlShape} from 'react-intl';
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ButtonBase from '../../base/components/ButtonBase';
-import {MediumText} from '../../base/components/Text';
+import {MediumText, SemiBoldText} from '../../base/components/Text';
 import InputScrollView from '../../base/components/InputScrollView';
 import ScanQR from '../HomeScreen/components/ScanQR';
 import NotificationModal from '../../base/components/NotificationModal';
@@ -165,14 +151,14 @@ class TransferScreen extends PureComponent {
     const {formatMessage} = intl;
     return (
       <ImageBackGround
-        source={require('../../images/backgroundHome.jpeg')}
+        source={require('../../images/backgroundHome.png')}
         blurRadius={4}>
         <SafeAreaView />
         <InputScrollView>
-          <MediumText text={formatMessage(message.titleHeader)} style={styles.textInfo} />
+          <SemiBoldText text={formatMessage(message.titleHeader)} style={styles.textInfo} />
           <View style={styles.container}>
             <View style={styles.item}>
-              <MediumText text={`${formatMessage(message.memberCode)}:`} style={styles.textRow} />
+              <SemiBoldText text={`${formatMessage(message.memberCode)}:`} style={styles.textRow} />
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Input
                   value={membercode}
@@ -202,7 +188,7 @@ class TransferScreen extends PureComponent {
               />
             </View>
             <View style={styles.item}>
-              <MediumText text={`${formatMessage(message.money)}:`} style={styles.textRow} />
+              <SemiBoldText text={`${formatMessage(message.money)}:`} style={styles.textRow} />
               <Input
                 value={amount}
                 placeholder={formatMessage(message.moneyInput)}
@@ -216,7 +202,7 @@ class TransferScreen extends PureComponent {
               />
             </View>
             <View style={styles.item}>
-              <MediumText text={`${formatMessage(message.note)}:`} style={styles.textRow} />
+              <SemiBoldText text={`${formatMessage(message.note)}:`} style={styles.textRow} />
               <Input
                 value={reason}
                 placeholder={formatMessage(message.note)}

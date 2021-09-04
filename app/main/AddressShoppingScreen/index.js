@@ -1,15 +1,15 @@
 /**
- * Copyright 2016-present, Bkav, Cop.
+ * Copyright 2016-present.
  * All rights reserved.
  *
- * This source code is licensed under the Bkav license found in the
+ * This source code is licensed under the  license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 10/6/20.
+ * @author  on 10/6/20.
  *
  * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
@@ -26,7 +26,7 @@ import {injectIntl, intlShape} from 'react-intl';
 
 // Component
 import AppHeader from '../../base/components/AppHeader';
-import Text, {MediumText} from '../../base/components/Text';
+import Text, {MediumText, SemiBoldText} from '../../base/components/Text';
 import ButtonBase from '../../base/components/ButtonBase';
 import ConfirmGoogleCaptcha from '../../base/components/ReCaptcha-v2';
 
@@ -261,10 +261,10 @@ class AddressShoppingScreen extends PureComponent {
         <ScrollView
           style={{paddingTop: 30}}
           contentContainerStyle={{paddingBottom: 150}}>
-          <MediumText text={formatMessage(message.titleShopping)} style={styles.titleShopping} />
+          <SemiBoldText text={formatMessage(message.titleShopping)} style={styles.titleShopping} />
 
           <>
-            <MediumText text={formatMessage(message.modeOfReceipt)} style={styles.textName} />
+            <SemiBoldText text={formatMessage(message.modeOfReceipt)} style={styles.textName} />
             <View style={{flexDirection: 'row'}}>
               <CheckBox
                 title={formatMessage(message.atHome)}
@@ -294,7 +294,7 @@ class AddressShoppingScreen extends PureComponent {
           {checked === 'home' && (
             <>
               <>
-                <MediumText text={formatMessage(message.fullNameText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.fullNameText)} style={styles.textName} />
                 <Input
                   value={receiver.name}
                   defaultValue={receiver.name}
@@ -309,7 +309,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.phoneText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.phoneText)} style={styles.textName} />
                 <Input
                   value={receiver.mobile}
                   defaultValue={receiver.mobile}
@@ -324,7 +324,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.emailText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.emailText)} style={styles.textName} />
                 <Input
                   value={receiver.email}
                   defaultValue={receiver.email}
@@ -339,7 +339,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.addressText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.addressText)} style={styles.textName} />
                 <Input
                   value={receiver.address}
                   defaultValue={receiver.address}
@@ -354,7 +354,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.districtText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.districtText)} style={styles.textName} />
                 <Input
                   value={receiver.state}
                   defaultValue={receiver.state}
@@ -369,7 +369,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.cityText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.cityText)} style={styles.textName} />
                 <Input
                   value={receiver.city}
                   defaultValue={receiver.city}
@@ -384,7 +384,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.zipCodeText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.zipCodeText)} style={styles.textName} />
                 <Input
                   value={receiver.postalcode}
                   defaultValue={receiver.postalcode}
@@ -399,7 +399,7 @@ class AddressShoppingScreen extends PureComponent {
               </>
 
               <>
-                <MediumText text={formatMessage(message.nationText)} style={styles.textName} />
+                <SemiBoldText text={formatMessage(message.nationText)} style={styles.textName} />
                 <Input
                   value={receiver.country}
                   defaultValue={receiver.country}
@@ -415,7 +415,7 @@ class AddressShoppingScreen extends PureComponent {
             </>
           )}
 
-          <MediumText
+          <SemiBoldText
             text={formatMessage(message.orderSummary)}
             style={[styles.titleShopping, {marginTop: 12}]}
           />
@@ -466,8 +466,8 @@ class AddressShoppingScreen extends PureComponent {
               justifyContent: 'space-between',
               paddingBottom: 12,
             }}>
-            <MediumText text={formatMessage(message.total)} style={styles.textTotalPrice} />
-            <MediumText
+            <SemiBoldText text={formatMessage(message.total)} style={styles.textTotalPrice} />
+            <SemiBoldText
               text={`${totalMoney} $`}
               style={styles.textTotalPrice}
             />

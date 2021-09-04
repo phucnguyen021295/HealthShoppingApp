@@ -1,90 +1,56 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 10/7/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {injectIntl, intlShape} from 'react-intl';
 
 // Component
-import Text from '../../../../base/components/Text';
-import LinearGradient from '../../../../base/components/LinearGradient';
+import Text, {SemiBoldText} from '../../../../base/components/Text';
 
 // Utils
-import {convertDate} from '../../../../utils/convertDate';
+import {convertDate, convertHours} from '../../../../utils/convertDate';
 
 // Styles
 import styles from './styles/index.css';
 
 import message from '../../../../msg/history';
+import HoursNotify from '../../../../base/components/HoursNotify';
 
-const arrayColor = [
-  '#247f24',
-  '#b10e0e',
-  '#b1590e',
-  '#b1a40e',
-  '#0eb193',
-  '#0e39b1',
-];
+function HistoryItem(props) {
+  const {item, intl} = props;
+  const {formatMessage} = intl;
 
-const makeColor = () => {
-  const random = Math.floor(Math.random() * arrayColor.length);
-  return ['#697f3f', arrayColor[random]];
-};
+  return (
+    <View style={styles.container}>
+      <Text text={convertDate(item.time)} style={styles.textTotalPrice} />
 
-class HistoryItem extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      colors: makeColor(),
-    };
-  }
-
-  render() {
-    const {colors} = this.state;
-    const {item, intl} = this.props;
-    const {formatMessage} = intl;
-    return (
-      <View style={styles.container}>
-        <LinearGradient style={styles.linearGradient} colors={colors}>
-          <View style={styles.body}>
-            <Text
-              text={`${formatMessage(message.date)} ${convertDate(item.time)}`}
-              style={styles.textTotalPrice}
+      <HoursNotify time={item.time} />
+      <View style={styles.body}>
+        <View style={styles.bodyView}>
+          <Text style={styles.brief}>
+            {formatMessage(message.date)}
+            <SemiBoldText
+              text={`${convertHours(item.time)} ${convertDate(item.time)}`}
             />
-            <View />
-            <Text
-              text={`${formatMessage(message.type)} ${item.brief}`}
-              style={styles.textTotalPrice}
-            />
-            <Text
-              text={`${formatMessage(message.transfer)} ${item.des}`}
-              style={styles.textTotalPrice}
-            />
-            <Text
-              text={`${formatMessage(message.total)} ${item.value} $`}
-              style={styles.textTotalPrice}
-            />
-            <Text
-              text={`${formatMessage(message.balance)} ${item.accountlog} $`}
-              style={styles.textAccountBalance}
-            />
-          </View>
-        </LinearGradient>
+          </Text>
+          <Text style={styles.brief}>
+            {formatMessage(message.type)}
+            <SemiBoldText text={item.brief} />
+          </Text>
+          <Text style={styles.brief}>
+            {formatMessage(message.total)}
+            <SemiBoldText text={`-${item.value}$`} style={{color: 'red'}} />
+          </Text>
+          <Text
+            text={`${formatMessage(message.transfer)} ${item.des}`}
+            style={styles.brief}
+          />
+          <Text
+            text={`${formatMessage(message.balance)} ${item.accountlog} $`}
+            style={styles.textAccountBalance}
+          />
+        </View>
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 HistoryItem.propTypes = {

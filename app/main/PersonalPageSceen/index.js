@@ -1,15 +1,15 @@
 /**
- * Copyright 2016-present, Bkav, Cop.
+ * Copyright 2016-present.
  * All rights reserved.
  *
- * This source code is licensed under the Bkav license found in the
+ * This source code is licensed under the  license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 11/1/20.
+ * @author  on 11/1/20.
  *
  * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
@@ -20,18 +20,17 @@ import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
-import Text, {MediumText} from '../../base/components/Text';
+import Text, {SemiBoldText} from '../../base/components/Text';
 import ButtonBase from '../../base/components/ButtonBase';
 import HeaderCustom from '../../base/components/HeaderCustom';
 import LinearGradient from '../../base/components/LinearGradient';
+import NotificationModal from '../../base/components/NotificationModal';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 // styles
 import styles from './styles/index.css';
 import global, {updateUSer} from '../../global';
 import {heightToDP} from '../../core/utils/dimension';
-import NotificationModal from '../../base/components/NotificationModal';
-import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
-
 import message from '../../msg/personalPage';
 
 class PersonalPageDrawer extends PureComponent {
@@ -119,14 +118,14 @@ class PersonalPageDrawer extends PureComponent {
           this.setState({
             isVisible: true,
             descriptionModal: formatMessage(message.descriptionModal1),
-            titleButton: formatMessage(message.btnConfirm),
+            titleButton: formatMessage(message.btnClose),
           });
         },
         () => {
           this.setState({
             isVisible: true,
             descriptionModal: formatMessage(message.descriptionModal2),
-            titleButton: formatMessage(message.btnAgree),
+            titleButton: formatMessage(message.btnRetry),
           });
         },
       );
@@ -155,9 +154,13 @@ class PersonalPageDrawer extends PureComponent {
     return (
       <View style={styles.container}>
         <SafeAreaViewBase />
-        <HeaderCustom title={formatMessage(message.titleHeader)} color={'#ffffff'} ViewComponent={LinearGradient} />
+        <HeaderCustom
+          title={formatMessage(message.titleHeader)}
+          color={'#ffffff'}
+          ViewComponent={LinearGradient}
+        />
         <ImageBackGround
-          source={require('../../images/backgroundHome.jpeg')}
+          source={require('../../images/backgroundHome.png')}
           blurRadius={4}>
           <Animated.View
             style={[styles.info, {paddingBottom: this.keyboardHeight}]}>
@@ -166,18 +169,21 @@ class PersonalPageDrawer extends PureComponent {
               contentContainerStyle={{paddingTop: heightToDP(30)}}
               showsVerticalScrollIndicator={false}>
               <View style={{marginBottom: heightToDP(14)}}>
-                <Text
-                  text={`${formatMessage(message.fullName)}: ${name}`}
-                  style={styles.textRow}
-                />
-                <Text
-                  text={`${formatMessage(message.phone)}: ${mobile}`}
-                  style={styles.textRow}
-                />
-                <Text text={`${formatMessage(message.email)}: ${email}`} style={styles.textRow} />
+                <Text style={styles.textRow}>
+                  <SemiBoldText text={formatMessage(message.fullName)} />
+                  <Text text={`: ${name}`} />
+                </Text>
+                <Text style={styles.textRow}>
+                  <SemiBoldText text={formatMessage(message.phone)} />
+                  <Text text={`: ${mobile}`} />
+                </Text>
+                <Text style={styles.textRow}>
+                  <SemiBoldText text={formatMessage(message.email)} />
+                  <Text text={`: ${email}`} />
+                </Text>
               </View>
               <View style={{marginBottom: heightToDP(20)}}>
-                <Text
+                <SemiBoldText
                   text={`${formatMessage(message.city)}:`}
                   style={styles.textRow}
                 />
@@ -194,7 +200,10 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <Text text={`${formatMessage(message.district)}:`} style={styles.textRow} />
+                <SemiBoldText
+                  text={`${formatMessage(message.district)}:`}
+                  style={styles.textRow}
+                />
                 <Input
                   value={state}
                   placeholder={formatMessage(message.district)}
@@ -208,7 +217,10 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <Text text={`${formatMessage(message.address)}:`} style={styles.textRow} />
+                <SemiBoldText
+                  text={`${formatMessage(message.address)}:`}
+                  style={styles.textRow}
+                />
                 <Input
                   value={address}
                   placeholder={formatMessage(message.address)}
@@ -222,7 +234,10 @@ class PersonalPageDrawer extends PureComponent {
               </View>
 
               <View style={{marginBottom: heightToDP(20)}}>
-                <Text text={`${formatMessage(message.zipCode)}:`} style={styles.textRow} />
+                <SemiBoldText
+                  text={`${formatMessage(message.zipCode)}:`}
+                  style={styles.textRow}
+                />
                 <Input
                   value={postalcode}
                   placeholder={formatMessage(message.zipCode)}

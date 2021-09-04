@@ -1,18 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 10/4/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import React, {PureComponent} from 'react';
 import {
   TouchableOpacity,
@@ -23,7 +8,7 @@ import {
 import {Image, Button} from 'react-native-elements';
 
 // Components
-import Text, {MediumText} from '../../../base/components/Text';
+import Text, {SemiBoldText} from '../../../base/components/Text';
 import ModalBase from '../../../base/components/ModalBase';
 // import DetailItemScreen from '../../DetailItemScreen';
 
@@ -149,7 +134,6 @@ class CartItem extends PureComponent {
 
   onModalShow1 = () => {
     const {item} = this.state;
-    debugger;
     getPackageByProductId(item.productid, item.type, (data) => {
       const _listPackage = data.filter((item) => item.packid !== '-1');
       // alert(JSON.stringify(data));
@@ -215,8 +199,10 @@ class CartItem extends PureComponent {
               title={formatMessage(message.btnCancel)}
               containerStyle={{flex: 1, borderRadius: 0}}
               buttonStyle={styles.buttonStyleModal}
+              titleStyle={{color: '#696969'}}
               onPress={this.onCancelPackageProduct}
             />
+            <View style={styles.border} />
             <Button
               title={formatMessage(message.btnClose)}
               containerStyle={{flex: 1, borderRadius: 0}}
@@ -313,7 +299,7 @@ class CartItem extends PureComponent {
           resizeMode={'contain'}
         />
         <View style={styles.priceContainer}>
-          <MediumText
+          <SemiBoldText
             text={item.nameProduct}
             style={styles.nameProduct}
             numberOfLines={1}
@@ -327,7 +313,7 @@ class CartItem extends PureComponent {
           />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity onPress={this.onDetailCart}>
-              <MediumText text={formatMessage(message.btnEdit)} style={styles.textUpdate} />
+              <SemiBoldText text={formatMessage(message.btnEdit)} style={styles.textUpdate} />
             </TouchableOpacity>
             <Text
               text={`${item.packpriceusd * item.total} $`}

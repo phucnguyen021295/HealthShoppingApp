@@ -1,18 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 10/4/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-'use strict';
-
 import {StyleSheet, Dimensions} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
 import {color, transparent} from '../../../../core/color';
@@ -79,7 +64,7 @@ const styles = StyleSheet.create({
   },
 
   buttonStyleModal: {
-    backgroundColor: color,
+    backgroundColor: '#ffffff',
     borderRadius: 0,
     borderTopColor: color,
     borderTopWidth: 1,
@@ -109,6 +94,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 10,
     color: '#015cd0'
+  },
+
+  border: {
+    height: '100%',
+    borderRightColor: '#dddddd',
+    borderRightWidth: 1
   }
 });
 

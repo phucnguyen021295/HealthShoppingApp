@@ -1,15 +1,15 @@
 /**
- * Copyright 2016-present, Bkav, Cop.
+ * Copyright 2016-present.
  * All rights reserved.
  *
- * This source code is licensed under the Bkav license found in the
+ * This source code is licensed under the  license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 08/02/2021.
+ * @author  on 08/02/2021.
  *
  * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
@@ -25,7 +25,7 @@ import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 import {MediumText} from '../../base/components/Text';
 import NewItem from './components/NewItem';
 import decorateGetList from '../decorateGetList';
-import Loading from './components/Loading';
+import Loading from './components/Loading/index.new';
 
 // Apis
 import {getNewHomeApi} from '../../apis/health';
@@ -86,29 +86,31 @@ class NewsScreen extends PureComponent {
           ViewComponent={LinearGradient}
         />
         <ImageBackGround
-          source={require('../../images/backgroundHome.jpeg')}
+          source={require('../../images/backgroundHome.png')}
           blurRadius={4}>
-          {data.length > 0 ? (
-            <FlatList
-              data={data}
-              renderItem={this.renderItem}
-              keyExtractor={(item) => item.time}
-              onScroll={this.onScroll}
-              ref={this.setRef}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{paddingTop: 10}}
-              ListFooterComponent={
-                data.length === 0 && !loadingFirst && this.ListFooterComponent
-              }
-            />
-          ) : loadingNewer ? (
-            this.renderListLoading()
-          ) : (
-            <MediumText
-              text={formatMessage(message.notNotify)}
-              style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
-            />
-          )}
+          <View style={styles.body}>
+            {data.length > 0 ? (
+              <FlatList
+                data={data}
+                renderItem={this.renderItem}
+                keyExtractor={(item) => item.time}
+                onScroll={this.onScroll}
+                ref={this.setRef}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingTop: 10}}
+                ListFooterComponent={
+                  data.length === 0 && !loadingFirst && this.ListFooterComponent
+                }
+              />
+            ) : loadingNewer ? (
+              this.renderListLoading()
+            ) : (
+              <MediumText
+                text={formatMessage(message.notNotify)}
+                style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+              />
+            )}
+          </View>
         </ImageBackGround>
         <SafeAreaViewBase />
       </View>

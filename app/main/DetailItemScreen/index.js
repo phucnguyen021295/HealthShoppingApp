@@ -1,15 +1,15 @@
 /**
- * Copyright 2016-present, Bkav, Cop.
+ * Copyright 2016-present.
  * All rights reserved.
  *
- * This source code is licensed under the Bkav license found in the
+ * This source code is licensed under the  license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 9/28/20.
+ * @author  on 9/28/20.
  *
  * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 
 'use strict';
@@ -21,6 +21,7 @@ import {
   Dimensions,
   ScrollView,
   SafeAreaView,
+  Animated,
 } from 'react-native';
 import {Button, Image} from 'react-native-elements';
 import HTML from 'react-native-render-html';
@@ -42,7 +43,7 @@ import {
 import {getPackageByProductId} from '../../core/db/table/package_product';
 
 // Styles
-import styles, {CUSTOM_STYLES} from './styles/index.css';
+import styles, {CUSTOM_STYLES, HEIGHT_HEADER} from './styles/index.css';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import global from '../../global';
 import {sumMoneyTotal} from '../../core/db/Sqlitedb';
@@ -50,7 +51,6 @@ import {heightToDP, widthToDP} from '../../core/utils/dimension';
 import {color} from '../../core/color';
 
 import message from '../../msg/detailItem';
-
 
 class DetailItemScreen extends PureComponent {
   constructor(props) {
@@ -74,6 +74,13 @@ class DetailItemScreen extends PureComponent {
       valueSelected: 0,
       data: [],
     };
+
+    this.headerAnimated = new Animated.Value(0);
+    this.clampedScroll = this.headerAnimated.interpolate({
+      inputRange: [0, HEIGHT_HEADER],
+      outputRange: [HEIGHT_HEADER, HEIGHT_HEADER],
+      extrapolate: 'clamp',
+    });
   }
 
   componentDidMount() {
@@ -89,6 +96,12 @@ class DetailItemScreen extends PureComponent {
         listPackage: _listPackage,
         data: data,
       });
+    });
+
+    this.clampedScroll = this.headerAnimated.interpolate({
+      inputRange: [0, HEIGHT_HEADER],
+      outputRange: [HEIGHT_HEADER, HEIGHT_HEADER],
+      extrapolate: 'clamp',
     });
   }
 
@@ -195,45 +208,63 @@ class DetailItemScreen extends PureComponent {
   render() {
     const {intl, item} = this.props;
     const {formatMessage} = intl;
-    const {isVisibleWarning, listPackage, valueSelected, packSelected} = this.state;
+    const {
+      isVisibleWarning,
+      listPackage,
+      valueSelected,
+      packSelected,
+    } = this.state;
+
+    const headerHeight = this.headerAnimated.interpolate({
+      inputRange: [0, HEIGHT_HEADER],
+      outputRange: [0, -HEIGHT_HEADER],
+      extrapolate: 'clamp',
+    });
 
     return (
       <View style={styles.container}>
-        <Image
-          source={{uri: item?.image500}}
-          style={styles.image}
-          PlaceholderContent={<ActivityIndicator />}
-          resizeMode={'contain'}
-        />
-        <DropDownPicker
-          items={listPackage}
-          defaultValue={this.state.valueSelected}
-          containerStyle={{height: 40,  marginTop: 20, marginHorizontal: 20,}}
-          style={{backgroundColor: '#fafafa', zIndex: 100}}
-          itemStyle={{
-            justifyContent: 'flex-start',
-          }}
-          placeholderStyle={{color: 'blue'}}
-          dropDownStyle={{backgroundColor: '#fafafa'}}
-          onChangeItem={this.onChangeItem}
-        />
-        {valueSelected === '-1' ? (
-          <View
-            style={{
-              fjustifyContent: 'center',
-              alignItems: 'center',
-              paddingVertical: 20,
-            }}>
-            <Quantity
-              productid={item.productid}
-              packid={valueSelected}
-              quantity={item.quality}
-              setQuantity={this.setQuantity}
-              updateTotal={this.updateTotal}
-            />
-          </View>
-        ) : null}
-        <ScrollView>
+        <Animated.ScrollView
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: this.headerAnimated}}}],
+            {
+              useNativeDriver: true,
+            },
+          )}>
+          <Image
+              source={{uri: item?.image500}}
+              style={styles.image}
+              PlaceholderContent={<ActivityIndicator />}
+              resizeMode={'contain'}
+          />
+          <DropDownPicker
+              items={listPackage}
+              defaultValue={this.state.valueSelected}
+              containerStyle={{height: 40, marginTop: 20, marginHorizontal: 20}}
+              style={{backgroundColor: '#fafafa', zIndex: 100}}
+              itemStyle={{
+                justifyContent: 'flex-start',
+              }}
+              placeholderStyle={{color: 'blue'}}
+              dropDownStyle={{backgroundColor: '#fafafa'}}
+              onChangeItem={this.onChangeItem}
+          />
+          {valueSelected === '-1' ? (
+            <View
+              style={{
+                fjustifyContent: 'center',
+                alignItems: 'center',
+                paddingVertical: 20,
+              }}>
+              <Quantity
+                productid={item.productid}
+                packid={valueSelected}
+                quantity={item.quality}
+                setQuantity={this.setQuantity}
+                updateTotal={this.updateTotal}
+              />
+            </View>
+          ) : null}
+
           <View style={{paddingHorizontal: widthToDP(20)}}>
             <HTML
               source={{html: item?.des}}
@@ -242,7 +273,7 @@ class DetailItemScreen extends PureComponent {
               tagsStyles={CUSTOM_STYLES}
             />
           </View>
-        </ScrollView>
+        </Animated.ScrollView>
         {packSelected?.packpriceusd ? (
           <View style={styles.btnAddShopping}>
             <ButtonBase

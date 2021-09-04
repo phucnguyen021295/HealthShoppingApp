@@ -1,19 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-
-'use strict';
-
 import React, {PureComponent} from 'react';
 import {
   View,
@@ -27,7 +11,7 @@ import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import Header from './components/Header';
-import Text, {MediumText} from '../../base/components/Text';
+import Text, {MediumText, SemiBoldText} from '../../base/components/Text';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ChartScreen from '../ChartScreen';
 import Carousel from './components/Carousel';
@@ -46,6 +30,7 @@ import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import {getBalanceApi} from '../../apis/health';
 
 import message from '../../msg/home';
+import {heightToDP} from '../../core/utils/dimension';
 
 class HomeDrawer extends PureComponent {
   constructor(props) {
@@ -88,54 +73,46 @@ class HomeDrawer extends PureComponent {
       : require('./styles/images/avatar.png');
     return (
       <View style={styles.container}>
-        <LinearGradient>
-          <SafeAreaView />
-          <Header navigation={navigation} />
-        </LinearGradient>
+        <ImageBackGround source={require('../../images/backgroundHome.png')}>
+          <View style={styles.background} />
+          <LinearGradient>
+            <SafeAreaView />
+            <Header navigation={navigation} />
+          </LinearGradient>
 
-        <TouchableOpacity style={styles.infoUser} onPress={this.onPersonalPage}>
-          <Avatar
-            rounded
-            activeOpacity={1}
-            source={urlImage}
-            style={styles.avatar}
-          />
-        </TouchableOpacity>
-        <ImageBackGround
-          source={require('../../images/backgroundHome.jpeg')}
-          blurRadius={4}>
+          <TouchableOpacity
+            style={styles.infoUser}
+            onPress={this.onPersonalPage}>
+            <Avatar size={66} rounded activeOpacity={1} source={urlImage} />
+          </TouchableOpacity>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={[styles.viewRow, {paddingTop: 40}]}>
+            <View style={[styles.viewRow]}>
               <Carousel navigation={navigation} />
-              <View style={{paddingTop: 12}}>
+              <View style={{paddingTop: heightToDP(13)}}>
                 <ListApp />
               </View>
 
-              <View style={{alignItems: 'center', paddingTop: 30}}>
+              <View style={{alignItems: 'center'}}>
                 <Image
-                  source={require('./styles/images/icons8-merchant-account-100.png')}
-                  style={{width: 100, height: 100, marginBottom: 12}}
+                  source={require('./styles/images/Bank.png')}
+                  style={styles.imageBank}
                 />
-                <MediumText
-                  text={formatMessage(message.paymentAccount)}
-                  style={styles.account}
-                />
-                <Text text={name} style={styles.name} />
-                <Text
+                <SemiBoldText text={name} style={styles.name} />
+                <SemiBoldText
                   text={`${formatMessage(
                     message.accountBalance,
                   )} ${accountBalance} $`}
                   style={styles.name}
                 />
-                <Text
-                  text={`${formatMessage(message.code)} ${membercode} $`}
+                <SemiBoldText
+                  text={'Nhánh trái: 300 - Nhánh phải: 500'}
                   style={styles.name}
                 />
               </View>
             </View>
 
             <View style={styles.viewChart}>
-              <MediumText
+              <SemiBoldText
                 text={formatMessage(message.statistical)}
                 style={styles.textReport}
               />

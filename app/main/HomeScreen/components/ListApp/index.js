@@ -1,25 +1,8 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 9/20/20.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-
-'use strict';
-
-import React, {PureComponent} from 'react';
-import {View, FlatList, Alert} from 'react-native';
+import React from 'react';
+import {View, FlatList, Alert, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Components
-import ButtonBase from '../../../../base/components/ButtonBase';
 import Text from '../../../../base/components/Text';
 
 // Styles
@@ -29,6 +12,8 @@ import {clearData} from '../../../../core/storage';
 import {callBack} from '../../../../core/data';
 import global from '../../../../global';
 
+
+
 const data = [
   {
     id: '1',
@@ -36,39 +21,80 @@ const data = [
     titleEn: 'Report',
     icon: <Icon name="md-stats-chart-outline" size={21} color="white" />,
     screen: 'Report',
+    image: 'report',
   },
   {
     id: '2',
-    title: 'Lịch sử',
-    titleEn: 'History',
+    title: 'Chuyển tiền',
+    titleEn: 'Transfers',
     icon: <Icon name="time-outline" size={23} color="white" />,
     screen: 'History',
+    image: 'transfers',
   },
   {
     id: '3',
-    title: 'Tin tức',
-    titleEn: 'News',
+    title: 'Nạp tiền',
+    titleEn: 'Recharge',
     icon: <Icon name="ios-newspaper-outline" size={23} color="white" />,
     screen: 'News',
+    image: 'recharge',
   },
   {
     id: '4',
-    title: 'Đăng xuất',
-    titleEn: 'Logout',
+    title: 'Rút tiền',
+    titleEn: 'Withdraw money',
     icon: <Icon name="ios-power-sharp" size={23} color="white" />,
     screen: 'Logout',
+    image: 'withdraw',
+  },
+  {
+    id: '5',
+    title: 'Mua hàng',
+    titleEn: 'Shopping',
+    icon: <Icon name="md-stats-chart-outline" size={21} color="white" />,
+    screen: 'Shopping',
+    image: 'shopping',
+  },
+  {
+    id: '6',
+    title: 'Nhật kí\ntài khoản',
+    titleEn: 'Account Diary',
+    icon: <Icon name="time-outline" size={23} color="white" />,
+    screen: 'History',
+    image: 'nhatkitaikhoan',
+  },
+  {
+    id: '7',
+    title: 'Lịch sử\nmua hàng',
+    titleEn: 'Purchase history',
+    icon: <Icon name="ios-newspaper-outline" size={23} color="white" />,
+    screen: 'News',
+    image: 'history',
+  },
+  {
+    id: '8',
+    title: 'RCl',
+    titleEn: 'RCl',
+    icon: <Icon name="ios-power-sharp" size={23} color="white" />,
+    screen: 'Logout',
+    image: 'RCl',
   },
 ];
 
-class ListApp extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: data,
-    };
-  }
+const ICON = {
+  report: require('./styles/images/icon_report.png'),
+  transfers: require('./styles/images/icon_chuyentien.png'),
+  recharge: require('./styles/images/icon_naptien.png'),
+  withdraw: require('./styles/images/icon_ruttien.png'),
+  shopping: require('./styles/images/icon_shopping.png'),
+  nhatkitaikhoan: require('./styles/images/icon_nhatkitaikhoan.png'),
+  history: require('./styles/images/icon_history.png'),
+  RCl: require('./styles/images/icon_RCl.png'),
+};
 
-  onChangeNavigate = (item) => {
+function ListApp(props) {
+  const {navigation} = props;
+  const onChangeNavigate = (item) => {
     if (item.screen === 'Logout') {
       Alert.alert(
         'Thông báo',
@@ -90,41 +116,32 @@ class ListApp extends PureComponent {
         {cancelable: false},
       );
     } else {
-      this.props.navigation.navigate(item.screen);
+      navigation.navigate(item.screen);
     }
   };
-
-  keyExtractor = (item) => item.id;
-
-  renderItem = ({item}) => {
-    return (
-      <View style={styles.row}>
-        <ButtonBase
-          styleLinearGradient={styles.containerStyle}
-          buttonStyle={styles.btnButtonStyle}
-          icon={item.icon}
-          onPress={() => this.onChangeNavigate(item)}
-        />
-        <Text
-          text={global.Language === 'vi' ? item.title : item.titleEn}
-          style={styles.text}
-        />
-      </View>
-    );
-  };
-
-  render() {
-    const {data} = this.state;
-    return (
-      <FlatList
-        keyExtractor={this.keyExtractor}
-        data={data}
-        renderItem={this.renderItem}
-        horizontal={true}
-        contentContainerStyle={styles.container}
-      />
-    );
-  }
+  return (
+    <FlatList
+      keyExtractor={(item) => item.id}
+      data={data}
+      renderItem={({item}) => (
+        <TouchableOpacity
+          activeOpacity={1}
+          style={styles.row}
+          onPress={() => onChangeNavigate(item)}>
+          <View>
+            <Image source={ICON[item.image]} style={styles.image} />
+          </View>
+          <Text
+            text={global.Language === 'vi' ? item.title : item.titleEn}
+            style={styles.text}
+          />
+        </TouchableOpacity>
+      )}
+      numColumns={4}
+      columnWrapperStyle={styles.columnWrapperStyle}
+      contentContainerStyle={styles.container}
+    />
+  );
 }
 
 export default withNavigation(ListApp);

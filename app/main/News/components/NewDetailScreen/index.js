@@ -1,15 +1,15 @@
 /**
- * Copyright 2016-present, Bkav, Cop.
+ * Copyright 2016-present.
  * All rights reserved.
  *
- * This source code is licensed under the Bkav license found in the
+ * This source code is licensed under the  license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 08/02/2021.
+ * @author  on 08/02/2021.
  *
  * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
@@ -44,7 +44,7 @@ function NewDetailScreen(props) {
         ViewComponent={LinearGradient}
       />
       <ImageBackGround
-        source={require('../../../../images/backgroundHome.jpeg')}
+        source={require('../../../../images/backgroundHome.png')}
         blurRadius={4}>
         <ScrollView contentContainerStyle={{paddingHorizontal: widthToDP(20), backgroundColor: 'rgba(0,0,0,0.5)',}}>
           <MediumText text={item.title} style={styles.title} />
