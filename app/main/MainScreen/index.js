@@ -24,6 +24,7 @@ import HomeTab from '../HomeScreen';
 import TransferTab from '../TransferScreen';
 import OderTab from '../OderScreen';
 import NotifyTab from '../NotifyScreen';
+import IndividualTab from '../IndividualScreen';
 
 import {small} from '../../core/fontSize';
 import {heightToDP} from '../../core/utils/dimension';
@@ -80,7 +81,7 @@ class MainScreen extends PureComponent {
           }}
         />
         <Tab.Screen
-          name="Notify"
+          name="NotifyTab"
           component={NotifyTab}
           options={{
             tabBarIcon: ({focused, color, size}) => (
@@ -93,8 +94,8 @@ class MainScreen extends PureComponent {
           }}
         />
         <Tab.Screen
-          name="Transfer"
-          component={TransferTab}
+          name="TransferTab"
+          component={(props) => <TransferTab {...props} showBack={false} />}
           options={{
             tabBarIcon: ({focused, color, size}) => (
               <MaterialCommunityIcons
@@ -107,7 +108,7 @@ class MainScreen extends PureComponent {
         />
         <Tab.Screen
           name="Oder"
-          component={OderTab}
+          component={IndividualTab}
           options={{
             tabBarIcon: ({focused, color, size}) => (
               <FontAwesome5

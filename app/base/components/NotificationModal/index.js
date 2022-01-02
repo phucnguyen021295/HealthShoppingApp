@@ -1,10 +1,10 @@
 import React from 'react';
 import {View} from 'react-native';
 import * as PropTypes from 'prop-types';
-import {Button} from 'react-native-elements';
 
 // Components
 import ModalBase from '../ModalBase';
+import {ButtonConfirm} from '../ButtonText/ButtonModal';
 
 // Styles
 import styles from './styles/index.css';
@@ -13,20 +13,18 @@ function NotificationModal(props) {
   const {isVisible, title, description, titleButton, onPress} = props;
   return (
     <ModalBase
-      isVisibleModal={isVisible}
+      isVisible={isVisible}
       title={title}
       description={description}
       styleTitle={styles.titleModalStyle}
-      styleDescription={styles.descriptionModalStyle}
-    >
-      <View style={{flexDirection: 'row'}}>
-        <Button
-          title={titleButton}
-          containerStyle={styles.containerStyle}
-          buttonStyle={styles.buttonStyle}
-          titleStyle={styles.titleStyle}
-          onPress={onPress}
-        />
+      styleDescription={styles.descriptionModalStyle}>
+      <View
+        style={{
+          flexDirection: 'row',
+          borderTopColor: '#dddddd',
+          borderTopWidth: 1,
+        }}>
+        <ButtonConfirm text={titleButton} onPress={onPress} />
       </View>
     </ModalBase>
   );

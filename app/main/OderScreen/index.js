@@ -1,7 +1,5 @@
-
-
 import React, {PureComponent} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView, TextInput, View} from 'react-native';
 import {SearchBar, Button} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,6 +18,8 @@ import {color} from '../../core/color';
 import global from '../../global';
 
 import message from '../../msg/oder';
+import {heightToDP} from '../../core/utils/dimension';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 const orderType = [
   {
@@ -61,6 +61,11 @@ class OderScreen extends PureComponent {
     this.setState({isVisible: false, oderType: item.oderType});
   };
 
+  onGoBack = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+
   render() {
     const {Language} = global;
     const {intl} = this.props;
@@ -74,38 +79,45 @@ class OderScreen extends PureComponent {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              paddingLeft: 20,
+              height: heightToDP(46),
             }}>
-            <SearchBar
-              placeholder={formatMessage(message.search)}
-              onChangeText={this.updateSearch}
-              value={search}
-              placeholderTextColor={'#ffffff'}
-              searchIcon={styles.searchIcon}
-              inputStyle={styles.inputStyle}
-              containerStyle={{
-                backgroundColor: 'transparent',
-                borderTopWidth: 0,
-                borderBottomWidth: 0,
-                flex: 1,
-                paddingHorizontal: 0,
-                paddingTop: isIphoneX ? 0 : 20,
+            <Ionicons
+              name={'chevron-back-outline'}
+              size={heightToDP(23)}
+              color={'#ffffff'}
+              style={{
+                paddingLeft: heightToDP(15),
+                paddingRight: heightToDP(12),
               }}
-              inputContainerStyle={styles.inputContainerStyle}
+              onPress={this.onGoBack}
             />
+            <View style={styles.search}>
+              <Ionicons
+                name={'ios-search-outline'}
+                size={heightToDP(18)}
+                color={'#ffffff'}
+                style={{paddingHorizontal: heightToDP(10)}}
+              />
+              <TextInput
+                style={styles.textInput}
+                placeholder={'Tìm kiếm'}
+                placeholderTextColor={'#dddddd'}
+                selectionColor={'#ffffff'}
+              />
+            </View>
             <Button
               icon={
                 <MaterialCommunityIcons
                   name="format-list-bulleted-type"
-                  size={25}
+                  size={heightToDP(20)}
                   color="white"
                 />
               }
               iconRight
               buttonStyle={{
-                paddingHorizontal: 20,
+                paddingRight: heightToDP(16),
+                paddingLeft: heightToDP(14),
                 backgroundColor: '#fffffff',
-                paddingTop: isIphoneX ? 0 : 20,
               }}
               onPress={this.onSelectTypeOder}
             />
@@ -131,7 +143,7 @@ class OderScreen extends PureComponent {
                 style={styles.titleSelect}
               />
               <Button
-                icon={<Ionicons name="ios-close" size={25} color={'#181818'} />}
+                icon={<Ionicons name="ios-close" size={22} color={'#181818'} />}
                 iconRight
                 buttonStyle={{
                   paddingHorizontal: 20,
@@ -152,7 +164,7 @@ class OderScreen extends PureComponent {
                 ]}>
                 <MaterialCommunityIcons
                   name={'label-variant-outline'}
-                  size={28}
+                  size={22}
                   color={color}
                 />
                 <Text
@@ -165,6 +177,7 @@ class OderScreen extends PureComponent {
             <SafeAreaView />
           </View>
         </Modal>
+        <SafeAreaViewBase />
       </View>
     );
   }

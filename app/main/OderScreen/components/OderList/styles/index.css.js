@@ -11,15 +11,17 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import {StyleSheet} from 'react-native';
 import {transparent} from '../../../../../core/color';
+import {heightToDP} from '../../../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   btnBottom: {
     position: 'absolute',
-    bottom: 0,
+    bottom: heightToDP(10),
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
 
   contentContainerStyle: {
     borderTopColor: '#dddddd',
-    borderTopWidth: 1
+    borderTopWidth: 1,
   }
 });
 

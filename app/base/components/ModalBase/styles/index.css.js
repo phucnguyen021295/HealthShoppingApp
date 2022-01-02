@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
+import {heightToDP} from '../../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    margin: heightToDP(20),
     justifyContent: 'center',
   },
 
@@ -13,9 +14,9 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    paddingHorizontal: 16,
-    paddingTop: 20,
-    paddingBottom: 16,
+    paddingHorizontal: heightToDP(12),
+    paddingTop: heightToDP(12),
+    paddingBottom: heightToDP(12),
   },
 
   title: {
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: fontSize.smaller,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: heightToDP(5),
   },
 });
 

@@ -11,30 +11,31 @@ import styles from './styles/index.css';
 
 function ModalBase(props) {
   const {
-    isVisibleModal,
+    isVisible,
     title,
     description,
     children,
     onCloseModal,
     styleTitle,
     styleDescription,
+    contentStyle,
     ...otherProps
   } = props;
   return (
     <Modal
-      isVisible={isVisibleModal}
+      isVisible={isVisible}
       style={styles.container}
       animationIn="zoomInDown"
       animationOut="zoomOutUp"
       backdropOpacity={0.8}
-      animationInTiming={600}
-      animationOutTiming={600}
+      animationInTiming={400}
+      animationOutTiming={400}
       backdropTransitionInTiming={0}
       backdropTransitionOutTiming={0}
       onBackButtonPress={onCloseModal}
       onBackdropPress={onCloseModal}
       {...otherProps}>
-      <View style={styles.content}>
+      <View style={[styles.content, contentStyle]}>
         <View style={styles.body}>
           {title && <SemiBoldText text={title} style={[styles.title, styleTitle]} />}
           {description ? (
@@ -51,7 +52,7 @@ function ModalBase(props) {
 }
 
 ModalBase.propTypes = {
-  isVisibleModal: PropTypes.bool,
+  isVisible: PropTypes.bool,
   title: PropTypes.string,
   description: PropTypes.string,
   children: PropTypes.any,
@@ -64,6 +65,7 @@ ModalBase.defaultProps = {
   onCloseModal: () => {},
   styleTitle: {},
   styleDescription: {},
+  contentStyle: {}
 };
 
 export default ModalBase;

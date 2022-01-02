@@ -11,23 +11,20 @@ import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import Header from './components/Header';
-import Text, {MediumText, SemiBoldText} from '../../base/components/Text';
+import {SemiBoldText} from '../../base/components/Text';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import ChartScreen from '../ChartScreen';
 import Carousel from './components/Carousel';
 import ListApp from './components/ListApp';
 import LinearGradient from '../../base/components/LinearGradient';
-
-// Data
-import {handleGetProducts} from '../../core/data';
+import RCl from './components/RCl';
 
 // styles
 import styles from './styles/index.css';
 
-import global, {setAccountBalanceGlobal} from '../../global';
+import global, {setRCIGlobal} from '../../global';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
-import {sumMoneyTotal} from '../../core/db/Sqlitedb';
-import {getBalanceApi} from '../../apis/health';
+import {getRCIApi} from '../../apis/health';
 
 import message from '../../msg/home';
 import {heightToDP} from '../../core/utils/dimension';
@@ -35,37 +32,45 @@ import {heightToDP} from '../../core/utils/dimension';
 class HomeDrawer extends PureComponent {
   constructor(props) {
     super(props);
+    const {balance, left, right, directpp} = global;
     this.state = {
-      accountBalance: global.balance,
+      balance: balance,
+      left: left || 0,
+      right: right || 0,
+      directpp: directpp,
+      isVisibleRCl: false,
     };
   }
 
   componentDidMount() {
-    handleGetProducts();
-    registerShoppingCardChange(this.onSumMoney);
-
-    this.onSumMoney();
-
-    getBalanceApi((response) => {
+    getRCIApi((response) => {
       const {data} = response;
-      this.setState({accountBalance: data.balance});
-      setAccountBalanceGlobal(data.balance);
+      this.setState(data);
+      setRCIGlobal(data);
     });
+
+    registerShoppingCardChange(this.onSumMoney);
   }
 
   onSumMoney = () => {
-    sumMoneyTotal((data) => {
-      this.setState({accountBalance: global.balance});
-    });
+    this.setState({balance: global.balance});
   };
 
   onPersonalPage = () => {
     this.props.navigation.navigate('PersonalPage');
   };
 
+  onPostRCl = () => {
+    this.setState({isVisibleRCl: true});
+  };
+
+  onCancelRCl = () => {
+    this.setState({isVisibleRCl: false});
+  };
+
   render() {
-    const {accountBalance} = this.state;
-    const {name, membercode, image} = global;
+    const {balance, left, right, isVisibleRCl} = this.state;
+    const {name, image} = global;
     const {navigation, intl} = this.props;
     const {formatMessage} = intl;
     const urlImage = image
@@ -83,29 +88,35 @@ class HomeDrawer extends PureComponent {
           <TouchableOpacity
             style={styles.infoUser}
             onPress={this.onPersonalPage}>
-            <Avatar size={66} rounded activeOpacity={1} source={urlImage} />
+            <Avatar
+              size={heightToDP(60)}
+              rounded
+              activeOpacity={1}
+              source={urlImage}
+            />
           </TouchableOpacity>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={[styles.viewRow]}>
               <Carousel navigation={navigation} />
               <View style={{paddingTop: heightToDP(13)}}>
-                <ListApp />
+                <ListApp onPostRCl={this.onPostRCl} />
               </View>
 
               <View style={{alignItems: 'center'}}>
                 <Image
                   source={require('./styles/images/Bank.png')}
                   style={styles.imageBank}
+                  resizeMode={'contain'}
                 />
                 <SemiBoldText text={name} style={styles.name} />
                 <SemiBoldText
-                  text={`${formatMessage(
-                    message.accountBalance,
-                  )} ${accountBalance} $`}
+                  text={`${formatMessage(message.accountBalance)} ${balance}$`}
                   style={styles.name}
                 />
                 <SemiBoldText
-                  text={'Nhánh trái: 300 - Nhánh phải: 500'}
+                  text={`${formatMessage(
+                    message.leftBranch,
+                  )} ${left} - ${formatMessage(message.rightBranch)} ${right}`}
                   style={styles.name}
                 />
               </View>
@@ -120,6 +131,9 @@ class HomeDrawer extends PureComponent {
             </View>
           </ScrollView>
         </ImageBackGround>
+        {isVisibleRCl && (
+          <RCl isVisible={isVisibleRCl} onCancel={this.onCancelRCl} />
+        )}
       </View>
     );
   }

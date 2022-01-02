@@ -61,8 +61,9 @@ const styles = StyleSheet.create({
   date: {
     color: '#ffffff',
     fontSize: fontSize.fontSize14,
-    paddingTop: 10,
+    paddingTop: heightToDP(10),
     paddingHorizontal: heightToDP(20),
+    // backgroundColor: 'green'
   },
 
   viewHours: {

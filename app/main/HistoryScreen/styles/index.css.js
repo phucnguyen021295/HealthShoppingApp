@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
 
   info: {
+    flex: 1,
     backgroundColor: '#00000059',
   },
 });

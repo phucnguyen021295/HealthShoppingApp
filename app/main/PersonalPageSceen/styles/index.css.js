@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
   info: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(1, 23, 34, 0.7)',
     paddingHorizontal: widthToDP(20),
     paddingBottom: heightToDP(30),
   },
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
   textRow: {
     color: '#ffffff',
     fontSize: fontSize.normal,
-    marginBottom: heightToDP(10),
+    lineHeight: fontSize.normal * 1.6,
+    paddingBottom: heightToDP(3)
   },
 
   inputContainerStyle: {

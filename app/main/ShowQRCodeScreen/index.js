@@ -50,8 +50,8 @@ function ShowQRCodeScreen(props) {
           <QRCode
             value={membercode}
             logo={urlImage}
-            logoSize={80}
-            size={250}
+            logoSize={60}
+            size={210}
             logoBackgroundColor="#ffffff"
             logoBorderRadius={40}
           />

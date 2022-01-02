@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 import {color} from '../../../core/color';
-import {huge, large, normal} from '../../../core/fontSize';
+import {fontSize14, huge, large, normal} from '../../../core/fontSize';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
   },
 
   itemSelect: {
-    fontSize: large,
+    fontSize: normal,
     paddingVertical: 10,
     paddingLeft: 12
   },
 
   titleSelect: {
     paddingLeft: 20,
-    fontSize: huge,
+    fontSize: large,
     paddingVertical: 12,
     lineHeight: 30,
     color: '#181818'
@@ -60,7 +60,23 @@ const styles = StyleSheet.create({
     color: color,
     fontSize: large,
     paddingRight: 20,
-  }
+  },
+
+  search: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ffffff52',
+    height: heightToDP(36),
+    borderRadius: heightToDP(18)
+  },
+
+  textInput: {
+    flex: 1,
+    height: heightToDP(36),
+    fontSize: fontSize14,
+    color: '#ffffff',
+  },
 });
 
 export default styles;

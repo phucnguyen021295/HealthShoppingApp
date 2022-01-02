@@ -17,4 +17,14 @@ export default defineMessages({
     id: 'health.home.statistical',
     defaultMessage: 'THỐNG KÊ',
   },
+
+  leftBranch: {
+    id: 'health.home.leftBranch',
+    defaultMessage: 'Nhánh trái:',
+  },
+
+  rightBranch: {
+    id: 'health.home.rightBranch',
+    defaultMessage: 'Nhánh phải:',
+  }
 });

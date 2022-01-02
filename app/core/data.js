@@ -18,15 +18,18 @@ import {replaceProduct} from '../core/db/table/product';
 import {replacePackageProduct} from '../core/db/table/package_product';
 
 // Get danh sách sẳn phẩm.
-export const handleGetProducts = () => {
+export const handleGetProducts = (success, failure) => {
   getProductsApi(
     (response) => {
       const {data} = response;
+      success(data);
       for (let i = 0; i < data.length; i++) {
         replaceProduct(data[i]);
       }
     },
-    () => {},
+    () => {
+      failure();
+    },
   );
 };
 

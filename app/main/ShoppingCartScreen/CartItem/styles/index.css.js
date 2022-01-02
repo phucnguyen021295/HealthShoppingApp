@@ -1,6 +1,8 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import * as fontSize from '../../../../core/fontSize';
 import {color, transparent} from '../../../../core/color';
+import {heightToDP} from '../../../../core/utils/dimension';
+import {fontSize14} from '../../../../core/fontSize';
 
 const styles = StyleSheet.create({
   container: {
@@ -82,16 +84,15 @@ const styles = StyleSheet.create({
   buttonStyleModal45: {
     backgroundColor: '#ffffff',
     borderRadius: 0,
-    borderBottomColor: '#dddddd',
-    borderBottomWidth: 1,
+    // borderBottomColor: '#dddddd',
+    // borderBottomWidth: 1,
   },
 
   titleStyle: {color: '#015cd0', fontSize: fontSize.small},
 
   textSelect: {
-    fontSize: fontSize.smaller,
+    fontSize: fontSize.fontSize14,
     paddingHorizontal: 20,
-    textAlign: 'center',
     paddingBottom: 10,
     color: '#015cd0'
   },
@@ -100,6 +101,24 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRightColor: '#dddddd',
     borderRightWidth: 1
+  },
+
+  titlePackage: {
+    paddingHorizontal: heightToDP(20),
+    fontSize: fontSize14
+  },
+
+  styleTitle: {
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1,
+  },
+
+  viewPackage: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1,
   }
 });
 

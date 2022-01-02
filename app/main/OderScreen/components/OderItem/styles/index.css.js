@@ -11,24 +11,25 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import {StyleSheet, Dimensions} from 'react-native';
 import * as fontSize from '../../../../../core/fontSize';
 import {color} from '../../../../../core/color';
+import {heightToDP} from '../../../../../core/utils/dimension';
 
 const {width} = Dimensions.get('window');
 const WIDTH_IMAGE = width / 2 - 50;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // width: Dimensions.get('window').width / 2,
+    width: Dimensions.get('window').width / 2,
     // alignItems: 'center',
     borderRightColor: '#dddddd',
     borderRightWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    paddingHorizontal: heightToDP(8),
+    paddingVertical: heightToDP(10),
     borderBottomColor: '#dddddd',
     borderBottomWidth: 1
   },
@@ -46,22 +47,37 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: '#7a7a7a',
-    paddingTop: 12,
-    fontSize: fontSize.smaller,
+    color: '#2a2a2a',
+    paddingTop: heightToDP(8),
+    fontSize: fontSize.fontSize14,
   },
 
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 12,
+    paddingTop: heightToDP(4),
   },
 
   price: {
-    color: '#1c1c1c',
+    color: '#2a2a2a',
     fontSize: fontSize.fontSize14,
   },
+
+  point: {
+    color: '#7a7a7a',
+    fontSize: fontSize.fontSize14,
+    paddingTop: heightToDP(4),
+  },
+
+  iconShopping: {
+    height: heightToDP(22),
+    width: heightToDP(22),
+    borderRadius: heightToDP(11),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(186, 146, 77, 0.73)'
+  }
 });
 
 export default styles;

@@ -17,7 +17,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {transparent} from '../../../../../core/color';
 import {heightToDP, widthToDP} from '../../../../../core/utils/dimension';
-import {fontSize9} from '../../../../../core/fontSize';
+import {fontSize9, smallest} from '../../../../../core/fontSize';
 
 const {width} = Dimensions.get('window');
 
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#ffffff',
-    paddingTop: 8,
+    paddingTop: heightToDP(8),
     textAlign: 'center',
-    paddingHorizontal: 8,
-    fontSize: fontSize9,
+    paddingHorizontal: heightToDP(3),
+    fontSize: smallest,
   },
 
   image: {

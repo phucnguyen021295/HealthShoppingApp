@@ -5,7 +5,7 @@ import {
   View,
   ScrollView,
 } from 'react-native';
-import {Image, Button} from 'react-native-elements';
+import {Image, Button, CheckBox} from 'react-native-elements';
 
 // Components
 import Text, {SemiBoldText} from '../../../base/components/Text';
@@ -26,6 +26,10 @@ import {getProduct} from '../../../core/db/table/product';
 import {injectIntl, intlShape} from 'react-intl';
 
 import message from '../../../msg/shoppingCart';
+import {
+  ButtonClose,
+  ButtonConfirm,
+} from '../../../base/components/ButtonText/ButtonModal';
 
 class CartItem extends PureComponent {
   constructor(props) {
@@ -91,9 +95,6 @@ class CartItem extends PureComponent {
 
   onUpdateProduct = () => {
     const {item, totalUpdate} = this.state;
-    if (totalUpdate === item.total) {
-      return;
-    }
 
     if (totalUpdate === 0) {
       deleteShoppingItem(item.packid, item.productid, () => {
@@ -145,8 +146,8 @@ class CartItem extends PureComponent {
 
   onUpdateProductPack = (packSelected) => {
     const {item} = this.state;
-    if(item.packid === packSelected.packid) {
-      this.onCloseModal()
+    if (item.packid === packSelected.packid) {
+      this.onCloseModal();
       return;
     }
     const data = {
@@ -182,7 +183,7 @@ class CartItem extends PureComponent {
       item,
       listPackage,
       isEditProductPack,
-      quality
+      quality,
     } = this.state;
 
     const {intl} = this.props;
@@ -191,29 +192,31 @@ class CartItem extends PureComponent {
     return (
       <>
         <ModalBase
-          isVisibleModal={isRemoveProduct}
+          isVisible={isRemoveProduct}
           title={item.name}
           description={formatMessage(message.desModal)}>
-          <View style={{flexDirection: 'row'}}>
-            <Button
-              title={formatMessage(message.btnCancel)}
-              containerStyle={{flex: 1, borderRadius: 0}}
-              buttonStyle={styles.buttonStyleModal}
-              titleStyle={{color: '#696969'}}
+          <View
+            style={{
+              flexDirection: 'row',
+              borderTopColor: '#dddddd',
+              borderTopWidth: 1,
+            }}>
+            <ButtonClose
+              text={formatMessage(message.btnCancel)}
               onPress={this.onCancelPackageProduct}
             />
             <View style={styles.border} />
-            <Button
-              title={formatMessage(message.btnClose)}
-              containerStyle={{flex: 1, borderRadius: 0}}
-              buttonStyle={styles.buttonStyleModal2}
-              titleStyle={{color: color}}
+            <ButtonConfirm
+              text={formatMessage(message.btnClose)}
               onPress={this.onCloseModal}
             />
           </View>
         </ModalBase>
 
-        <ModalBase isVisibleModal={isEditProduct} title={item.nameProduct} onModalShow={this.onModalShow}>
+        <ModalBase
+          isVisible={isEditProduct}
+          title={item.nameProduct}
+          onModalShow={this.onModalShow}>
           <View>
             <View
               style={{
@@ -227,49 +230,62 @@ class CartItem extends PureComponent {
                 setQuantity={this.setQuantity}
               />
             </View>
-            <View style={{flexDirection: 'row'}}>
-              <Button
-                title={formatMessage(message.btnUpdate)}
-                containerStyle={{flex: 1, borderRadius: 0}}
-                buttonStyle={styles.buttonStyleModal}
-                onPress={this.onUpdateProduct}
-              />
-              <Button
-                title={formatMessage(message.btnClose)}
-                containerStyle={{flex: 1, borderRadius: 0}}
-                buttonStyle={styles.buttonStyleModal2}
-                titleStyle={{color: color}}
+            <View
+              style={{
+                flexDirection: 'row',
+                borderTopColor: '#dddddd',
+                borderTopWidth: 1,
+              }}>
+              <ButtonClose
+                text={formatMessage(message.btnClose)}
                 onPress={this.onCloseModal}
+              />
+              <View style={styles.border} />
+              <ButtonConfirm
+                text={formatMessage(message.btnUpdate)}
+                onPress={this.onUpdateProduct}
               />
             </View>
           </View>
         </ModalBase>
 
         <ModalBase
-          isVisibleModal={isEditProductPack}
+          isVisible={isEditProductPack}
           onModalShow={this.onModalShow1}
-          title={item.nameProduct}>
+          title={item.nameProduct}
+          styleTitle={styles.styleTitle}>
           <View style={{maxHeight: 500}}>
-            <Text text={formatMessage(message.desModal2)} style={styles.textSelect} />
+            <Text
+              text={formatMessage(message.desModal2)}
+              style={styles.textSelect}
+            />
             <ScrollView>
               {listPackage.map((item, index) => (
-                <Button
-                  title={item.title}
-                  buttonStyle={styles.buttonStyleModal45}
-                  titleStyle={{color: '#000000'}}
-                  onPress={() => this.onUpdateProductPack(item)}
-                />
+                <TouchableOpacity
+                  style={styles.viewPackage}
+                  onPress={() => this.onUpdateProductPack(item)}>
+                  <SemiBoldText text={item.title} style={styles.titlePackage} />
+                  <CheckBox
+                    checkedIcon="dot-circle-o"
+                    uncheckedIcon="circle-o"
+                    checked={item.title === this.state.item.namePack}
+                    onPress={() => this.setState({checked: 'home'})}
+                    containerStyle={{
+                      backgroundColor: '#ffffff',
+                      borderColor: '#ffffff',
+                    }}
+                  />
+                </TouchableOpacity>
               ))}
             </ScrollView>
-            <View style={{flexDirection: 'row'}}>
-              <Button
-                title={formatMessage(message.btnBack)}
-                containerStyle={{flex: 1, borderRadius: 0}}
-                buttonStyle={[
-                  styles.buttonStyleModal2,
-                  {borderBottomLeftRadius: 14},
-                ]}
-                titleStyle={{color: color, textAlign: 'center'}}
+            <View
+              style={{
+                flexDirection: 'row',
+                borderTopColor: '#dddddd',
+                borderTopWidth: 1,
+              }}>
+              <ButtonConfirm
+                text={formatMessage(message.btnBack)}
                 onPress={this.onCloseModal}
               />
             </View>
@@ -313,7 +329,10 @@ class CartItem extends PureComponent {
           />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity onPress={this.onDetailCart}>
-              <SemiBoldText text={formatMessage(message.btnEdit)} style={styles.textUpdate} />
+              <SemiBoldText
+                text={formatMessage(message.btnEdit)}
+                style={styles.textUpdate}
+              />
             </TouchableOpacity>
             <Text
               text={`${item.packpriceusd * item.total} $`}

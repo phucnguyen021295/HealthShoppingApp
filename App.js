@@ -8,7 +8,7 @@
 
 import 'react-native-gesture-handler';
 import React, {PureComponent} from 'react';
-import {StatusBar, Platform, Linking} from 'react-native';
+import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -42,7 +42,10 @@ import LoginPinCode from './app/main/LoginPinCode';
 import Notify from './app/main/NotifyScreen';
 import NotifyDetail from './app/main/NotifyScreen/components/NotifyDetailScreen';
 import HistoryDetail from './app/main/HistoryDetailScreen';
-import Oder from './app/main/OderScreen'
+import Oder from './app/main/OderScreen';
+import Transfer from './app/main/TransferScreen';
+import GetPaid from './app/main/GetPaidScreen';
+import PurchaseHistory from './app/main/PurchaseHistoryScreen';
 
 import {callBack} from './app/core/data';
 import {
@@ -186,6 +189,9 @@ class App extends PureComponent {
                 <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
                 <Stack.Screen name="News" component={News} />
                 <Stack.Screen name="Shopping" component={Oder} />
+                <Stack.Screen name="Transfer" component={Transfer} />
+                <Stack.Screen name="GetPaid" component={GetPaid} />
+                <Stack.Screen name="PurchaseHistory" component={PurchaseHistory} />
                 {screens}
               </Stack.Navigator>
             )}

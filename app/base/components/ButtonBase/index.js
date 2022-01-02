@@ -25,7 +25,7 @@ function ButtonBase(props) {
     <LinearGradient
       style={[{borderRadius: 8}, styleLinearGradient]}
       colors={colors}>
-      <Button {...otherProps} />
+      <Button {...otherProps} titleStyle={{fontFamily: 'OpenSans-Regular'}} />
     </LinearGradient>
   );
 }

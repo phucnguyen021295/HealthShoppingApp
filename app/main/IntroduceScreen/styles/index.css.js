@@ -11,10 +11,11 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import {StyleSheet} from 'react-native';
-import {huge} from '../../../core/fontSize';
+import {huge, large} from '../../../core/fontSize';
 import {color, transparent} from '../../../core/color';
 import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
@@ -29,8 +30,8 @@ const styles = StyleSheet.create({
   text: {
     marginTop: heightToDP(50),
     color: color,
-    fontSize: huge,
-    lineHeight: huge * 1.5,
+    fontSize: large,
+    lineHeight: large * 1.47,
     textAlign: 'center',
   },
 

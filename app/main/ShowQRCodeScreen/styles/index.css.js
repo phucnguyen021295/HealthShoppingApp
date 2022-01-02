@@ -11,11 +11,13 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import {StyleSheet} from 'react-native';
 import {color} from '../../../core/color';
 import {normal} from '../../../core/fontSize';
+import {heightToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,9 +32,9 @@ const styles = StyleSheet.create({
   textNote: {
     fontSize: normal,
     textAlign: 'center',
-    paddingHorizontal: 30,
-    paddingTop: 30,
-    lineHeight: 25
+    paddingHorizontal: heightToDP(30),
+    paddingTop: heightToDP(30),
+    lineHeight: normal * 1.5
   }
 });
 

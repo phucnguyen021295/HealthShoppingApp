@@ -294,7 +294,7 @@ class DetailItemScreen extends PureComponent {
           onPress={this.onCloseModal}
         />
         <ModalBase
-          isVisibleModal={isVisibleWarning}
+          isVisible={isVisibleWarning}
           title={formatMessage(message.titleModal)}
           description={formatMessage(message.notMoney)}>
           <View style={{flexDirection: 'row'}}>

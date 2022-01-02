@@ -58,7 +58,7 @@ class LoginPinCode extends PureComponent {
       pinCode: '',
       pinCodeActive: global.pinCode,
       biometryType: '',
-      isVisibleModal: false,
+      isVisible: false,
       title: '',
       description: '',
       isActiveBiometry: global.isActiveBiometry,
@@ -90,7 +90,7 @@ class LoginPinCode extends PureComponent {
 
     verifyTokenGlobal(
       token,
-      () => {
+      (data) => {
         getUserGlobal(membercode);
       },
       (error) => {
@@ -122,6 +122,8 @@ class LoginPinCode extends PureComponent {
     // request Firebase
     requestPermission();
     requestTokenFirebase();
+
+
   }
 
   pinInput = React.createRef();
@@ -165,7 +167,7 @@ class LoginPinCode extends PureComponent {
       })
       .catch((error) => {
         // this.setState({
-        //   isVisibleModal: true,
+        //   isVisible: true,
         //   title: 'Thông báo',
         //   description: 'Xác thực thất bại!',
         // });
@@ -184,7 +186,7 @@ class LoginPinCode extends PureComponent {
     const {formatMessage} = intl;
 
     this.setState({
-      isVisibleModal: true,
+      isVisible: true,
       title: formatMessage(message.titleModal),
       description:
         biometryType === 'FaceID'
@@ -195,7 +197,7 @@ class LoginPinCode extends PureComponent {
 
   onCloseModal = () => {
     this.setState({
-      isVisibleModal: false,
+      isVisible: false,
       isVisibleAccuracy: false,
     });
   };
@@ -203,7 +205,7 @@ class LoginPinCode extends PureComponent {
   onActivated = () => {
     this.setState(
       {
-        isVisibleModal: false,
+        isVisible: false,
       },
       () => {
         InteractionManager.runAfterInteractions(() => {
@@ -250,7 +252,7 @@ class LoginPinCode extends PureComponent {
 
   renderModal = () => {
     const {
-      isVisibleModal,
+      isVisible,
       title,
       description,
       verifyPin,
@@ -264,7 +266,7 @@ class LoginPinCode extends PureComponent {
     return (
       <>
         <ModalBase
-          isVisibleModal={isVisibleModal}
+          isVisible={isVisible}
           title={title}
           description={description}>
           <View style={{flexDirection: 'row'}}>
@@ -285,7 +287,7 @@ class LoginPinCode extends PureComponent {
         </ModalBase>
 
         <ModalBase
-          isVisibleModal={isVisibleTokenExpired}
+          isVisible={isVisibleTokenExpired}
           title={formatMessage(message.titleModal)}
           description={formatMessage(message.tokenExpired)}>
           <View style={{flexDirection: 'row'}}>
@@ -299,7 +301,7 @@ class LoginPinCode extends PureComponent {
         </ModalBase>
 
         <ModalBase
-          isVisibleModal={isVisibleAccuracy}
+          isVisible={isVisibleAccuracy}
           title={formatMessage(message.pinCodeVerifyTitle)}
           description={formatMessage(message.pinCodeVerifyDes)}>
           <View style={{flexDirection: 'column', paddingTop: 30}}>

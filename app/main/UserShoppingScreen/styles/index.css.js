@@ -57,11 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff52',
     paddingHorizontal: widthToDP(12),
     borderRadius: heightToDP(8),
-    ...Platform.select({
-      android: {
-        height: 40,
-      }
-    })
+    height: heightToDP(40)
   },
 
   inputStyle: {

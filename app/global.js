@@ -1,5 +1,3 @@
-
-
 import {
   setAccountBalance,
   getAccountBalance,
@@ -23,7 +21,8 @@ import {
   registerPushApi,
 } from './apis/health';
 import {getTokenFirebase, registerTokenRefresh, setChanel} from './core/fcm';
-import {Language} from './const/storage';
+import Icon from 'react-native-vector-icons/Ionicons';
+import React from 'react';
 
 const global = {
   balance: 0,
@@ -60,6 +59,73 @@ const global = {
     },
   ],
   TimeCountDownOTP: 120,
+
+  ListAppHome: [
+    {
+      id: '1',
+      title: 'Thống kê',
+      titleEn: 'Report',
+      icon: <Icon name="md-stats-chart-outline" size={21} color="white" />,
+      screen: 'Report',
+      image: 'report',
+    },
+    {
+      id: '2',
+      title: 'Chuyển tiền',
+      titleEn: 'Transfers',
+      icon: <Icon name="time-outline" size={23} color="white" />,
+      screen: 'Transfer',
+      image: 'transfers',
+    },
+    {
+      id: '3',
+      title: 'Nạp tiền',
+      titleEn: 'Recharge',
+      icon: <Icon name="ios-newspaper-outline" size={23} color="white" />,
+      screen: 'Recharge',
+      image: 'recharge',
+    },
+    {
+      id: '4',
+      title: 'Rút tiền',
+      titleEn: 'Withdraw money',
+      icon: <Icon name="ios-power-sharp" size={23} color="white" />,
+      screen: 'GetPaid',
+      image: 'withdraw',
+    },
+    {
+      id: '5',
+      title: 'Mua hàng',
+      titleEn: 'Shopping',
+      icon: <Icon name="md-stats-chart-outline" size={21} color="white" />,
+      screen: 'Shopping',
+      image: 'shopping',
+    },
+    {
+      id: '6',
+      title: 'Nhật kí\ntài khoản',
+      titleEn: 'Account Diary',
+      icon: <Icon name="time-outline" size={23} color="white" />,
+      screen: 'History',
+      image: 'nhatkitaikhoan',
+    },
+    {
+      id: '7',
+      title: 'Lịch sử\nmua hàng',
+      titleEn: 'Purchase history',
+      icon: <Icon name="ios-newspaper-outline" size={23} color="white" />,
+      screen: 'PurchaseHistory',
+      image: 'history',
+    },
+    {
+      id: '8',
+      title: 'RCl',
+      titleEn: 'RCl',
+      icon: <Icon name="ios-power-sharp" size={23} color="white" />,
+      screen: 'RCl',
+      image: 'RCl',
+    },
+  ]
 };
 
 const initGlobal = async () => {
@@ -89,7 +155,7 @@ const initGlobal = async () => {
         pinCode,
         isActiveBiometry,
         tokenFirebase,
-        Language,
+        Language: Language || 'vi',
       },
       infoUser,
     );
@@ -134,6 +200,11 @@ const setPinCodeGlobal = (_pinCode = '') => {
 const setLanguageGlobal = (_language = '') => {
   global.Language = _language;
   setLanguage(_language);
+};
+
+const setRCIGlobal = (data) => {
+  setAccountBalanceGlobal(data.balance)
+  Object.assign(global, data);
 };
 
 const loginUser = (username, password, success, failure) => {
@@ -233,4 +304,5 @@ export {
   setPinCodeGlobal,
   requestTokenFirebase,
   setLanguageGlobal,
+  setRCIGlobal
 };

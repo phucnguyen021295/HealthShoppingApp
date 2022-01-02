@@ -25,6 +25,8 @@
   "health.home.memberCode": "Account balance:",
   "health.home.code": "Code:",
   "health.home.statistical": "STATISTICAL",
+  "health.home.leftBranch": "Left Branch:",
+  "health.home.rightBranch": "Right Branch:",
 
   "health.personalPage.titleHeader": "Personal information",
   "health.personalPage.fullName": "FullName",

@@ -39,6 +39,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Cho phép truy cập camera để quét mã QR</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>Need to access your library to add a photo or video of kyc video</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Need to access your photo library to select a photo add and update profile picture</string>
+  <key>NSContactsUsageDescription</key>
+  <string>Need to access your contact</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access to your account.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -71,7 +77,7 @@
 		<string>OpenSans-Bold.ttf</string>
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-Regular.ttf</string>
-    <string>OpenSans-SemiBold.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

@@ -25,7 +25,10 @@ import ButtonBase from '../../../../base/components/ButtonBase';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
 import {getProducts} from '../../../../core/db/table/product';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
-import {handleGetPackageProduct} from '../../../../core/data';
+import {
+  handleGetPackageProduct,
+  handleGetProducts,
+} from '../../../../core/data';
 
 // Styles
 import styles from './styles/index.css';
@@ -54,12 +57,17 @@ class OderList extends PureComponent {
       },
       (error) => {
         console.log('componentDidMount', '11111111111', error);
-        alert('Có lỗi xảy ra');
+        // alert('Có lỗi xảy ra');
       },
     );
 
     getProducts((data) => {
-      this.setState({data: data});
+      this.setState(
+        {data: data},
+        handleGetProducts((data) => {
+          this.setState({data: data});
+        }),
+      );
     });
   }
 
@@ -79,7 +87,6 @@ class OderList extends PureComponent {
         },
         (error) => {
           console.log('componentDidUpdate', '11111111111', error);
-          alert('Có lỗi xảy ra');
         },
       );
     }
@@ -143,7 +150,7 @@ class OderList extends PureComponent {
     return (
       <>
         <FlatList
-          data={data.concat(data)}
+          data={data}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.packid}
           numColumns={2}

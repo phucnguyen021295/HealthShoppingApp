@@ -39,7 +39,7 @@ const {width} = Dimensions.get('window');
 const data = [
   {
     name: 'TN nhánh yếu',
-    population: 0,
+    population: 10,
     color: 'rgba(131, 167, 234, 1)',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
@@ -47,7 +47,7 @@ const data = [
   },
   {
     name: 'TN trực tiếp',
-    population: 0,
+    population: 12,
     color: '#F00',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
@@ -55,7 +55,7 @@ const data = [
   },
   {
     name: 'TN lãnh đạo',
-    population: 0,
+    population: 35,
     color: 'red',
     legendFontColor: '#ffffff',
     legendFontSize: 15,
@@ -63,7 +63,7 @@ const data = [
   },
   {
     name: 'TN đều tầng',
-    population: 0,
+    population: 54,
     color: '#00ff33',
     legendFontColor: '#ffffff',
     legendFontSize: 15,

@@ -1,5 +1,3 @@
-
-
 import axios from 'axios';
 
 import {DOMAIN} from './server';
@@ -459,7 +457,12 @@ export const getConfigApi = (success, failure) => {
 };
 
 // 15. Lấy về danh sách thông báo
-export const registerPushApi = (TokenFirebaseNew, TokenFirebaseOld, success, failure) => {
+export const registerPushApi = (
+  TokenFirebaseNew,
+  TokenFirebaseOld,
+  success,
+  failure,
+) => {
   const {token} = global;
   const options = {
     method: 'POST',
@@ -474,13 +477,131 @@ export const registerPushApi = (TokenFirebaseNew, TokenFirebaseOld, success, fai
     timeout: 10000,
   };
   axios(options).then(
-      (response) => {
-        if (isResponseSuccess(response)) {
-          success(jsonParse(response.data));
-        } else {
-          failure(response);
-        }
-      },
-      (error) => failure(error),
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 16. Lấy về left, right
+export const getRCIApi = (success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/rci`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 17. Lấy về left, right
+export const postRCIApi = (success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'post',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/rci`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 18. Lấy về left, right
+export const getPaidApi = (amount = 50, success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'post',
+    headers: {
+      'x-token': token,
+    },
+    data: {
+      amount: amount,
+    },
+    url: `${DOMAIN}/api/getpaid`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 16. Lấy thông tin lịch sử mua hàng
+export const getHistoryShoppingApi = (page = 1, success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/orderhistory/${page}`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+// 16. Lấy thông tin lịch sử mua hàng
+export const getOnlineOrderApi = (page = 1, success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/onlineorder/${page}`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
   );
 };

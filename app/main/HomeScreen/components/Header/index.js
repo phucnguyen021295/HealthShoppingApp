@@ -96,9 +96,7 @@ class HeaderHomeTab extends PureComponent {
       <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
         <Button
           buttonStyle={styles.buttonQRStyle}
-          icon={
-            <Ionicons name="qr-code-outline" size={22} color="white" />
-          }
+          icon={<Ionicons name="qr-code-outline" size={22} color="white" />}
           onPress={this.onShowQR}
         />
         <Button
@@ -131,11 +129,11 @@ class HeaderHomeTab extends PureComponent {
 
   render() {
     return (
-        <View style={styles.containerStyle}>
-            <View style={{width: 104}} />
-            <MediumText text={'MY NEW WAY'} style={styles.textTitle} />
-            {this.renderRightComponent()}
-        </View>
+      <View style={styles.containerStyle}>
+        <View style={{width: 104}} />
+        <MediumText text={'MY NEW WAY'} style={styles.textTitle} />
+        {this.renderRightComponent()}
+      </View>
     );
   }
 }

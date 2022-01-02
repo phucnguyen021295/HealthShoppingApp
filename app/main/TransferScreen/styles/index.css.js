@@ -6,6 +6,7 @@ import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: widthToDP(20),
+    paddingTop: heightToDP(50),
   },
   textInfo: {
     color: '#ffffff',
@@ -72,7 +73,12 @@ const styles = StyleSheet.create({
   containerStyleNote: {
     paddingHorizontal: 0,
     paddingVertical: 0,
-  }
+  },
+
+  backGround: {
+    flex: 1,
+    backgroundColor: 'rgba(1, 23, 34, 0.7)'
+  },
 });
 
 export default styles;

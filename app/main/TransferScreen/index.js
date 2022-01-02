@@ -1,5 +1,3 @@
-
-
 import React, {PureComponent} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Button, Input} from 'react-native-elements';
@@ -23,6 +21,9 @@ import styles from './styles/index.css';
 import {heightToDP} from '../../core/utils/dimension';
 
 import message from '../../msg/transfer';
+import LinearGradient from '../../base/components/LinearGradient';
+import HeaderCustom from '../../base/components/HeaderCustom';
+import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 class TransferScreen extends PureComponent {
   constructor(props) {
@@ -147,88 +148,102 @@ class TransferScreen extends PureComponent {
       titleButton,
       loading,
     } = this.state;
-    const {intl} = this.props;
+    const {intl, showBack} = this.props;
     const {formatMessage} = intl;
     return (
-      <ImageBackGround
-        source={require('../../images/backgroundHome.png')}
-        blurRadius={4}>
-        <SafeAreaView />
-        <InputScrollView>
-          <SemiBoldText text={formatMessage(message.titleHeader)} style={styles.textInfo} />
-          <View style={styles.container}>
-            <View style={styles.item}>
-              <SemiBoldText text={`${formatMessage(message.memberCode)}:`} style={styles.textRow} />
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <ImageBackGround source={require('../../images/backgroundHome.png')}>
+        <View style={styles.backGround}>
+          <SafeAreaViewBase />
+          <HeaderCustom
+            title={formatMessage(message.titleHeader)}
+            color={'#ffffff'}
+            showBack={showBack}
+            ViewComponent={LinearGradient}
+          />
+          <InputScrollView>
+            <View style={styles.container}>
+              <View style={styles.item}>
+                <SemiBoldText
+                  text={`${formatMessage(message.memberCode)}:`}
+                  style={styles.textRow}
+                />
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Input
+                    value={membercode}
+                    placeholder={formatMessage(message.memberCodeInput)}
+                    containerStyle={{
+                      paddingHorizontal: 0,
+                      flex: 1,
+                      paddingVertical: 0,
+                    }}
+                    inputContainerStyle={styles.inputContainerStyle}
+                    inputStyle={styles.inputStyle}
+                    renderErrorMessage={false}
+                    placeholderTextColor={'#dddddd'}
+                    onChangeText={this.onChangeCode}
+                  />
+                  <ScanQR
+                    styleBtn={{marginLeft: 20}}
+                    onChangeCode={this.onChangeCode}
+                  />
+                </View>
+
+                <Button
+                  title={formatMessage(message.btnCheck)}
+                  buttonStyle={styles.btnButtonCheckStyle}
+                  titleStyle={styles.btnTitleCheckStyle}
+                  onPress={this.onCheckUser}
+                />
+              </View>
+              <View style={styles.item}>
+                <SemiBoldText
+                  text={`${formatMessage(message.money)}:`}
+                  style={styles.textRow}
+                />
                 <Input
-                  value={membercode}
-                  placeholder={formatMessage(message.memberCodeInput)}
-                  containerStyle={{
-                    paddingHorizontal: 0,
-                    flex: 1,
-                    paddingVertical: 0,
-                  }}
+                  value={amount}
+                  placeholder={formatMessage(message.moneyInput)}
+                  containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={styles.inputStyle}
                   renderErrorMessage={false}
                   placeholderTextColor={'#dddddd'}
-                  onChangeText={this.onChangeCode}
-                />
-                <ScanQR
-                  styleBtn={{marginLeft: 20}}
-                  onChangeCode={this.onChangeCode}
+                  onChangeText={this.onChangeMoney}
+                  keyboardType={'phone-pad'}
                 />
               </View>
-
-              <Button
-                title={formatMessage(message.btnCheck)}
-                buttonStyle={styles.btnButtonCheckStyle}
-                titleStyle={styles.btnTitleCheckStyle}
-                onPress={this.onCheckUser}
-              />
+              <View style={styles.item}>
+                <SemiBoldText
+                  text={`${formatMessage(message.note)}:`}
+                  style={styles.textRow}
+                />
+                <Input
+                  value={reason}
+                  placeholder={formatMessage(message.note)}
+                  containerStyle={styles.containerStyleNote}
+                  inputContainerStyle={styles.inputContainerStyleNote}
+                  inputStyle={[
+                    styles.inputStyle,
+                    {height: heightToDP(120), textAlignVertical: 'top'},
+                  ]}
+                  multiline
+                  renderErrorMessage={false}
+                  numberOfLines={5}
+                  placeholderTextColor={'#dddddd'}
+                  onChangeText={this.onChangeDes}
+                />
+              </View>
+              <View style={{paddingTop: 20}}>
+                <ButtonBase
+                  title={formatMessage(message.btnTransfer)}
+                  buttonStyle={styles.btnButtonStyle}
+                  onPress={this.onTransfer}
+                  loading={loading}
+                />
+              </View>
             </View>
-            <View style={styles.item}>
-              <SemiBoldText text={`${formatMessage(message.money)}:`} style={styles.textRow} />
-              <Input
-                value={amount}
-                placeholder={formatMessage(message.moneyInput)}
-                containerStyle={{paddingHorizontal: 0, paddingVertical: 0}}
-                inputContainerStyle={styles.inputContainerStyle}
-                inputStyle={styles.inputStyle}
-                renderErrorMessage={false}
-                placeholderTextColor={'#dddddd'}
-                onChangeText={this.onChangeMoney}
-                keyboardType={'phone-pad'}
-              />
-            </View>
-            <View style={styles.item}>
-              <SemiBoldText text={`${formatMessage(message.note)}:`} style={styles.textRow} />
-              <Input
-                value={reason}
-                placeholder={formatMessage(message.note)}
-                containerStyle={styles.containerStyleNote}
-                inputContainerStyle={styles.inputContainerStyleNote}
-                inputStyle={[
-                  styles.inputStyle,
-                  {height: heightToDP(120), textAlignVertical: 'top'},
-                ]}
-                multiline
-                renderErrorMessage={false}
-                numberOfLines={5}
-                placeholderTextColor={'#dddddd'}
-                onChangeText={this.onChangeDes}
-              />
-            </View>
-            <View style={{paddingTop: 20}}>
-              <ButtonBase
-                title={formatMessage(message.btnTransfer)}
-                buttonStyle={styles.btnButtonStyle}
-                onPress={this.onTransfer}
-                loading={loading}
-              />
-            </View>
-          </View>
-        </InputScrollView>
+          </InputScrollView>
+        </View>
         <NotificationModal
           isVisible={isVisible}
           title={formatMessage(message.titleModal)}

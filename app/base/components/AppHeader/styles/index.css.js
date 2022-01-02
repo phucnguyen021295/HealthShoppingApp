@@ -3,7 +3,7 @@ import * as fontSize from '../../../../core/fontSize';
 import {heightToDP} from '../../../../core/utils/dimension';
 import {isIphoneX} from '../../../../core/utils/isIphoneX';
 
-export const ICON_SIZE = 25;
+export const ICON_SIZE = heightToDP(23);
 
 const styles = StyleSheet.create({
   container: {
@@ -30,13 +30,8 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   icon: {
-    paddingLeft: 20,
-    paddingRight: 30,
-    ...Platform.select({
-      ios: {
-        // paddingTop: 5,
-      },
-    }),
+    paddingLeft: heightToDP(12),
+    paddingRight: heightToDP(30),
   },
   title: {
     flex: 1,

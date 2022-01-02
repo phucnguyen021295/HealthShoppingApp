@@ -11,14 +11,13 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import React from 'react';
 import {
   View,
   useWindowDimensions,
-  TouchableOpacity,
-  Animated,
 } from 'react-native';
 import {injectIntl, intlShape} from 'react-intl';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
@@ -36,6 +35,7 @@ import Text from '../../base/components/Text';
 import styles from './styles/index.css';
 
 import message from '../../msg/notify';
+import {heightToDP} from '../../core/utils/dimension';
 
 const renderScene = SceneMap({
   first: NotifyList,
@@ -49,9 +49,14 @@ const renderTabBar = (props) => (
     renderLabel={({route, focused, color}) => (
       <Text style={[styles.titleTabBar, {color}]}>{route.title}</Text>
     )}
-    indicatorStyle={{backgroundColor: 'white', borderBottomWidth: 1, justifyContent: 'flex-end'}}
+    indicatorStyle={{
+      backgroundColor: 'white',
+      height: 1,
+      justifyContent: 'flex-end',
+    }}
+    indicatorContainerStyle={{height: heightToDP(54), alignItems: 'flex-end'}}
     tabStyle={{
-      paddingBottom: 0
+      paddingBottom: 0,
     }}
     style={styles.tabItem}
   />
@@ -74,6 +79,7 @@ function TabViews() {
       onIndexChange={setIndex}
       renderTabBar={renderTabBar}
       initialLayout={{width: layout.width}}
+      lazy
     />
   );
 }

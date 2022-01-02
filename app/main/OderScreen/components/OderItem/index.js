@@ -11,6 +11,7 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import React, {PureComponent} from 'react';
@@ -24,6 +25,8 @@ import DetailItemScreen from '../../../DetailItemScreen';
 
 // Styles
 import styles from './styles/index.css';
+import Ionicons from 'react-native-vector-icons/Feather';
+import {heightToDP} from '../../../../core/utils/dimension';
 
 class OderItem extends PureComponent {
   constructor(props) {
@@ -36,8 +39,6 @@ class OderItem extends PureComponent {
   onDetailItem = () => {
     this.setState({isVisible: true});
   };
-
-  onFinishRating = () => {};
 
   onCloseModal = () => {
     this.setState({isVisible: false});
@@ -68,16 +69,15 @@ class OderItem extends PureComponent {
           style={styles.title}
           numberOfLines={2}
         />
+        <Text text={`${item.pv}PP`} style={styles.point} />
         <View style={styles.priceContainer}>
           <SemiBoldText
-            text={price ? `${price} $` : 'Giá liên hệ'}
+            text={price ? `${price}$` : 'Giá liên hệ'}
             style={styles.price}
           />
-          <Rating
-            ratingCount={3}
-            imageSize={14}
-            onFinishRating={this.onFinishRating}
-          />
+          <View style={styles.iconShopping}>
+            <Ionicons name={'shopping-cart'} size={heightToDP(12)} color={'#ffffff'} />
+          </View>
         </View>
         <Modal
           testID={'modal'}

@@ -20,7 +20,7 @@ import {withNavigation} from '@react-navigation/compat';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Components
-import {MediumText, SemiBoldText} from '../../../../base/components/Text';
+import Text, {MediumText, SemiBoldText} from '../../../../base/components/Text';
 import NotifyItem from '../NotifyItem';
 import decorateGetList from '../../../decorateGetList';
 import Loading from '../Loading';
@@ -32,6 +32,7 @@ import styles from './styles/index.css';
 
 import message from '../../../../msg/notify';
 import {ICON_SIZE} from '../../../../base/components/AppHeader/styles/index.css';
+import {convertDate} from '../../../../utils/convertDate';
 
 const COUNT_NOTIFY = 5;
 const DATA = [
@@ -68,14 +69,17 @@ const DATA = [
 class NotifyScreen extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      timeCurrent: '0',
+    };
   }
 
   componentDidMount() {
-    const {navigation} = this.props;
-    this.unsubscribe = navigation.addListener('focus', (e) => {
-      // Prevent default action
-      this.props.getNewer();
-    });
+    // const {navigation} = this.props;
+    // this.unsubscribe = navigation.addListener('focus', (e) => {
+    //   // Prevent default action
+    //   this.props.getNewer();
+    // });
   }
 
   componentWillUnmount() {
@@ -126,33 +130,52 @@ class NotifyScreen extends PureComponent {
     return <ScrollView>{loadingCards}</ScrollView>;
   }
 
+  onViewableItemsChanged = ({viewableItems, changed}) => {};
+
   renderItem = ({item}) => <NotifyItem item={item} />;
 
   render() {
+    const {timeCurrent} = this.state;
     const {data, loadingFirst, loadingNewer, intl} = this.props;
     const {formatMessage} = intl;
-    return DATA.length > 0 ? (
-      <FlatList
-        data={DATA}
-        renderItem={this.renderItem}
-        keyExtractor={(item) => item.time}
-        onScroll={this.onScroll}
-        ref={this.setRef}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={this.ListHeaderComponent}
-        ListFooterComponent={
-          DATA.length === 0 && !loadingFirst && this.ListFooterComponent
-        }
-        style={{marginTop: 2}}
-        contentContainerStyle={{paddingBottom: 60}}
-      />
-    ) : loadingNewer ? (
-      this.renderListLoading()
-    ) : (
-      <SemiBoldText
-        text={formatMessage(message.notNotify)}
-        style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
-      />
+    return (
+      <View style={{flex: 1}}>
+        <View style={styles.search}>
+          <Ionicons name={'ios-search-outline'} size={22} color={'#dddddd'} />
+          <TextInput
+            style={styles.textInput}
+            placeholder={'Tìm kiếm'}
+            placeholderTextColor={'#dddddd'}
+            selectionColor={'#ffffff'}
+          />
+        </View>
+        <View style={{flex: 1}}>
+          {/*<Text text={convertDate(timeCurrent)} style={styles.date} />*/}
+          {DATA.length > 0 ? (
+            <FlatList
+              data={DATA}
+              renderItem={this.renderItem}
+              keyExtractor={(item) => item.time}
+              onScroll={this.onScroll}
+              ref={this.setRef}
+              showsVerticalScrollIndicator={false}
+              // ListHeaderComponent={this.ListHeaderComponent}
+              ListFooterComponent={
+                DATA.length === 0 && !loadingFirst && this.ListFooterComponent
+              }
+              onViewableItemsChanged={this.onViewableItemsChanged}
+              contentContainerStyle={{paddingBottom: 60}}
+            />
+          ) : loadingNewer ? (
+            this.renderListLoading()
+          ) : (
+            <SemiBoldText
+              text={formatMessage(message.notNotify)}
+              style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
+            />
+          )}
+        </View>
+      </View>
     );
   }
 }

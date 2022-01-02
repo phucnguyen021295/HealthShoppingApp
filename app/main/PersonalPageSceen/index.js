@@ -153,33 +153,33 @@ class PersonalPageDrawer extends PureComponent {
 
     return (
       <View style={styles.container}>
+        <ImageBackGround
+            source={require('../../images/backgroundHome.png')}>
         <SafeAreaViewBase />
         <HeaderCustom
           title={formatMessage(message.titleHeader)}
           color={'#ffffff'}
           ViewComponent={LinearGradient}
         />
-        <ImageBackGround
-          source={require('../../images/backgroundHome.png')}
-          blurRadius={4}>
+
           <Animated.View
             style={[styles.info, {paddingBottom: this.keyboardHeight}]}>
             <ScrollView
               style={{flex: 1}}
               contentContainerStyle={{paddingTop: heightToDP(30)}}
               showsVerticalScrollIndicator={false}>
-              <View style={{marginBottom: heightToDP(14)}}>
+              <View style={{marginBottom: heightToDP(20)}}>
                 <Text style={styles.textRow}>
-                  <SemiBoldText text={formatMessage(message.fullName)} />
-                  <Text text={`: ${name}`} />
+                  <Text text={formatMessage(message.fullName)} />
+                  <SemiBoldText text={`: ${name}`} />
                 </Text>
                 <Text style={styles.textRow}>
-                  <SemiBoldText text={formatMessage(message.phone)} />
-                  <Text text={`: ${mobile}`} />
+                  <Text text={formatMessage(message.phone)} />
+                  <SemiBoldText text={`: ${mobile}`} />
                 </Text>
                 <Text style={styles.textRow}>
-                  <SemiBoldText text={formatMessage(message.email)} />
-                  <Text text={`: ${email}`} />
+                  <Text text={formatMessage(message.email)} />
+                  <SemiBoldText text={`: ${email}`} />
                 </Text>
               </View>
               <View style={{marginBottom: heightToDP(20)}}>
@@ -253,7 +253,7 @@ class PersonalPageDrawer extends PureComponent {
             <View
               style={{
                 paddingTop: heightToDP(20),
-                paddingBottom: heightToDP(10),
+                paddingBottom: heightToDP(20),
               }}>
               <ButtonBase
                 title={formatMessage(message.btnSaveInfo)}

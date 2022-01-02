@@ -46,7 +46,7 @@ class LoadingScreen extends PureComponent {
     // Check trạng thái lần đầu tiên vào app.
     // 4. Khởi tạo db.
     // initDatabase();
-    setChanel()
+    setChanel();
   }
 
   checkIntroduce = async () => {

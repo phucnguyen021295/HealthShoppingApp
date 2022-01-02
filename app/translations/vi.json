@@ -25,6 +25,8 @@
   "health.home.memberCode": "Số dư:",
   "health.home.code": "Mã code:",
   "health.home.statistical": "THỐNG KÊ",
+  "health.home.leftBranch": "Nhánh trái:",
+  "health.home.rightBranch": "Nhánh phải:",
 
   "health.personalPage.titleHeader": "Thông tin cá nhân",
   "health.personalPage.fullName": "Họ và tên",
@@ -41,7 +43,7 @@
   "health.personalPage.btnClose": "Đóng",
   "health.personalPage.btnRetry": "Thử lại",
 
-  "health.transfer.titleHeader": "CHUYỂN KHOẢN",
+  "health.transfer.titleHeader": "CHUYỂN TIỀN",
   "health.transfer.memberCode": "Mã thành viên",
   "health.transfer.memberCodeInput": "Nhập mã thành viên",
   "health.transfer.btnCheck": "Kiểm tra",
@@ -125,10 +127,10 @@
   "health.userShopping.nation": "Quốc gia",
   "health.userShopping.btnContinue": "Tiếp tục",
 
-  "health.showQRCode.titleHeader": "Mã QR Code của tôi",
+  "health.showQRCode.titleHeader": "QR của tôi",
   "health.showQRCode.shareQRCode" : "Bạn có thể dùng mã QR Code này để chia sẻ cho bạn bè",
 
-  "health.history.titleHeader": "Lịch sử giao dịch",
+  "health.history.titleHeader": "Nhật ký tài khoản",
   "health.history.notHistory": "Chưa có giao dịch nào.",
   "health.history.date": "Thời gian GD: ",
   "health.history.type": "Loại giao dịch: ",

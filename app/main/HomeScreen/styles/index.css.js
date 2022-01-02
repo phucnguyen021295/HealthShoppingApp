@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   infoUser: {
     position: 'absolute',
     left: 20,
-    top: heightToDP(isIphoneX ? 48 : 30),
+    top: heightToDP(isIphoneX ? 45 : 27),
     zIndex: 100,
     shadowColor: '#000',
     shadowOffset: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(1, 23, 34, 0.5)',
   },
 
-  imageBank: {width: heightToDP(140), height: heightToDP(140)}
+  imageBank: {height: heightToDP(140)}
 });
 
 export default styles;
