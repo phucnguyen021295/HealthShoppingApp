@@ -59,11 +59,12 @@ class LoadingScreen extends PureComponent {
   };
 
   checkVerifyOTP = async () => {
+    const {navigation} = this.props;
     const checkVerifyOTP = await getCheckVerifyOTP();
     if (!checkVerifyOTP) {
-      this.props.navigation.replace('Login');
+      navigation.replace('Login');
     } else {
-      this.props.navigation.replace('LoginPinCode');
+      navigation.replace('LoginPinCode');
     }
   };
 

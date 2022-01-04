@@ -11,17 +11,18 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import React, {PureComponent} from 'react';
 import {Dimensions, Text, View, ScrollView, processColor} from 'react-native';
 import {BarChart, PieChart} from 'react-native-chart-kit';
-import {heightToDP} from '../../../core/utils/dimension';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 import {labels} from '../formatData';
 import {month} from '../styles/data';
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 //
 // "Weak Leg": 0,
 //     "Direct": 0,
@@ -98,25 +99,26 @@ class PieChartScreen extends PureComponent {
   componentDidMount() {
     const {dataChart} = this.props;
 
-    // const data1 = data.map(item => {
-      //     //     item.population = dataChart[item.key];
-      //     //     return item;
-      //     // });
-      //     // this.setState({data: data1})
+    // const data1 = data.map((item) => {
+    //   item.population = dataChart[item.key];
+    //   return item;
+    // });
+    // this.setState({data: data1});
   }
 
   render() {
-      const {dataChart} = this.props;
+    // const {data} = this.state;
+    const {dataChart} = this.props;
     return (
       <View>
-        <Text style={{color: '#ffffff', paddingHorizontal: 20}}>
-            {`Tháng ${dataChart.month}`}
-        </Text>
+        {/*<Text style={{color: '#ffffff', textAlign: 'center'}}>*/}
+        {/*  {`Tháng ${dataChart.month}`}*/}
+        {/*</Text>*/}
         <PieChart
           data={data}
-          width={width}
-          height={heightToDP(180)}
-          hasLegend={true}
+          width={height - widthToDP(55)}
+          height={width}
+          hasLegend={false}
           chartConfig={{
             // backgroundColor: '#fffffff',
             // backgroundGradientFrom: '#fb8c00',
@@ -137,7 +139,7 @@ class PieChartScreen extends PureComponent {
             fillShadowGradientOpacity: 0.8,
             // backgroundGradientFrom:  "#1E2923",
             backgroundGradientFromOpacity: 0,
-            backgroundGradientTo: "#08130D",
+            backgroundGradientTo: '#08130D',
             backgroundGradientToOpacity: 0,
           }}
           // bezier
@@ -147,8 +149,8 @@ class PieChartScreen extends PureComponent {
           }}
           accessor="population"
           backgroundColor="transparent"
-          // paddingLeft="15"
           absolute
+          center={[0, 0, 0, 0]}
         />
       </View>
     );

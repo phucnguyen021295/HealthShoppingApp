@@ -24,7 +24,7 @@ import {
   Image,
   InteractionManager,
 } from 'react-native';
-import {Avatar, Button, Input} from 'react-native-elements';
+import {Button, Input} from 'react-native-elements';
 import TouchID from 'react-native-touch-id';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -387,8 +387,7 @@ class LoginPinCode extends PureComponent {
               resizeMode={'contain'}
             />
 
-            <Avatar
-              size={55}
+            <Image
               rounded
               activeOpacity={1}
               source={urlImage}

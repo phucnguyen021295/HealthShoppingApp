@@ -168,6 +168,7 @@ class App extends PureComponent {
                   )}
                 </Stack.Screen>
                 <Stack.Screen name="Notify" component={Notify} />
+                <Stack.Screen name="Report" component={Report} />
                 {screens}
               </Stack.Navigator>
             ) : (
