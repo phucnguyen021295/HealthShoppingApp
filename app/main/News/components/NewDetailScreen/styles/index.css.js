@@ -15,7 +15,7 @@
 
 import {StyleSheet} from 'react-native';
 import * as fontSize from '../../../../../core/fontSize';
-import {heightToDP} from '../../../../../core/utils/dimension';
+import {widthToDP} from '../../../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,17 +39,17 @@ const styles = StyleSheet.create({
 export const CUSTOM_STYLES = {
   div: {
     color: '#ffffff',
-    fontSize: fontSize.large,
-    lineHeight: fontSize.large * 1.6,
+    fontSize: fontSize.normal,
+    lineHeight: fontSize.normal * 1.53,
     fontFamily: 'Roboto-Regular',
-    marginBottom: heightToDP(7),
+    marginBottom: widthToDP(7),
   },
   p: {
     color: '#ffffff',
-    fontSize: fontSize.large,
-    lineHeight: fontSize.large * 1.6,
+    fontSize: fontSize.normal,
+    lineHeight: fontSize.normal * 1.6,
     fontFamily: 'Roboto-Regular',
-    marginBottom: heightToDP(7),
+    marginBottom: widthToDP(7),
   },
   br: {
     display: 'none',
@@ -59,27 +59,27 @@ export const CUSTOM_STYLES = {
     fontFamily: 'Roboto-Medium',
   },
   h1: {
-    // marginBottom: heightToDP(10),
+    // marginBottom: widthToDP(10),
     color: '#000',
-    fontSize: fontSize.huge,
-    lineHeight: fontSize.huge * 1.38,
+    fontSize: fontSize.large,
+    lineHeight: fontSize.large * 1.6,
   },
   h2: {
-    marginBottom: heightToDP(7),
+    marginBottom: widthToDP(7),
     color: '#000',
-    fontSize: fontSize.huge,
-    lineHeight: fontSize.huge * 1.38,
+    fontSize: fontSize.large,
+    lineHeight: fontSize.large * 1.6,
   },
 
   h3: {
-    marginBottom: heightToDP(7),
-    fontSize: fontSize.huge,
-    lineHeight: fontSize.huge * 1.38,
+    marginBottom: widthToDP(7),
+    fontSize: fontSize.large,
+    lineHeight: fontSize.large * 1.6,
   },
   h4: {
-    marginBottom: heightToDP(7),
-    fontSize: fontSize.huge,
-    lineHeight: fontSize.huge * 1.38,
+    marginBottom: widthToDP(7),
+    fontSize: fontSize.large,
+    lineHeight: fontSize.large * 1.6,
   },
   ul: {
     paddingLeft: 5,
@@ -94,13 +94,13 @@ export const CUSTOM_STYLES = {
   },
 
   figure: {
-    marginVertical: heightToDP(6),
+    marginVertical: widthToDP(6),
   },
 
   img: {
     marginBottom: 5,
     marginHorizontal: 20,
-    borderRadius: heightToDP(15),
+    borderRadius: widthToDP(15),
   },
 
   i: {

@@ -535,7 +535,7 @@ export const postRCIApi = (success, failure) => {
 };
 
 // 18. Lấy về left, right
-export const getPaidApi = (amount = 50, success, failure) => {
+export const postGetPaidApi = (amount = 50, success, failure) => {
   const {token} = global;
   const options = {
     method: 'post',
@@ -592,6 +592,77 @@ export const getOnlineOrderApi = (page = 1, success, failure) => {
       'x-token': token,
     },
     url: `${DOMAIN}/api/onlineorder/${page}`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+export const uploadImageApi = (imageFile, success, failure) => {
+  const {token} = global;
+  const bodyFormData = new FormData();
+  bodyFormData.append('image', imageFile);
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'x-token': token,
+      'Content-Type': 'multipart/form-data',
+    },
+    url: `${DOMAIN}/api/userimage`,
+    data: bodyFormData,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+export const getPaidApi = (page, success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/getpaid`,
+    timeout: 10000,
+  };
+  axios(options).then(
+    (response) => {
+      if (isResponseSuccess(response)) {
+        success(jsonParse(response.data));
+      } else {
+        failure(response);
+      }
+    },
+    (error) => failure(error),
+  );
+};
+
+export const cancelGetPaidApi = (id, success, failure) => {
+  const {token} = global;
+  const options = {
+    method: 'get',
+    headers: {
+      'x-token': token,
+    },
+    url: `${DOMAIN}/api/getpaid/${id}/cancel`,
     timeout: 10000,
   };
   axios(options).then(

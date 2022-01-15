@@ -28,7 +28,7 @@ import {injectIntl, intlShape} from 'react-intl';
 import AppHeader from '../../base/components/AppHeader';
 import Text, {MediumText, SemiBoldText} from '../../base/components/Text';
 import ButtonBase from '../../base/components/ButtonBase';
-import ConfirmGoogleCaptcha from '../../base/components/ReCaptcha-v2';
+// import ConfirmGoogleCaptcha from '../../base/components/ReCaptcha-v2';
 
 // Core
 import generateId from '../../core/utils/generateId';
@@ -47,9 +47,6 @@ import {sumMoneyTotal} from '../../core/db/Sqlitedb';
 import NotificationModal from '../../base/components/NotificationModal';
 
 import message from '../../msg/addressShopping';
-
-const siteKey = '6LfFxh4aAAAAAC6i_FgaSqYJT4xdf24HVzIAOoQc';
-const baseUrl = 'http://nmways.com';
 
 class AddressShoppingScreen extends PureComponent {
   constructor(props) {
@@ -100,7 +97,7 @@ class AddressShoppingScreen extends PureComponent {
 
     const cart = data.map((item) => ({
       id: item.productid,
-      quantity: item.quantity,
+      quantity: item.quantity * item.total,
       packid: item.packid,
     }));
 

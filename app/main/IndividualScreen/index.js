@@ -42,6 +42,7 @@ import global, {setLanguageGlobal} from '../../global';
 import {clearData} from '../../core/storage';
 import {callBack} from '../../core/data';
 import {LanguageContext} from '../../../ContextProvider';
+import message from '../../msg/individual';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -51,12 +52,12 @@ if (Platform.OS === 'android') {
 
 function IndividualScreen(props) {
   const {route, navigation, intl} = props;
-  const {formatMessage} = intl;
   const {name, Language, image} = global;
   const showBack = route?.params?.showBack || false;
   const [showLanguage, setShowLanguage] = useState(false);
   const [language, setLanguage] = useState(Language);
   const context = useContext(LanguageContext);
+  const {formatMessage} = intl;
 
   const onNavigatePersonalPage = () => navigation.navigate('PersonalPage');
 
@@ -70,8 +71,7 @@ function IndividualScreen(props) {
   };
 
   const onSetLanguage = () => {
-    const {language} = context;
-    const _language = language === 'vi' ? 'en' : 'vi';
+    const _language = Language === 'vi' ? 'en' : 'vi';
     setLanguage(_language);
     setLanguageGlobal(_language);
     context.updateLanguage(_language);
@@ -79,15 +79,15 @@ function IndividualScreen(props) {
 
   const onLogout = () => {
     Alert.alert(
-      'Thông báo',
-      'Đăng xuất tài khoản?',
+      formatMessage(message.notification),
+      formatMessage(message.logout1),
       [
         {
-          text: 'Hủy bỏ',
+          text: formatMessage(message.btnCancel),
           onPress: () => console.log('Cancel Pressed'),
         },
         {
-          text: 'Đồng ý',
+          text: formatMessage(message.agree),
           onPress: () => {
             clearData().then(() => {
               callBack.onLogout();
@@ -106,7 +106,7 @@ function IndividualScreen(props) {
     <View style={styles.container}>
       <SafeAreaViewBase />
       <HeaderCustom
-        title={'CÁ NHÂN'}
+        title={formatMessage(message.titleHeader)}
         color={'#ffffff'}
         showBack={showBack}
         ViewComponent={LinearGradient}
@@ -120,7 +120,7 @@ function IndividualScreen(props) {
           <View style={styles.editRight}>
             <Text text={name} style={styles.fullName} />
             <Text
-              text={'Chỉnh sửa thông tin cá nhân'}
+              text={formatMessage(message.editInfo)}
               style={styles.editInfo}
             />
           </View>
@@ -131,7 +131,7 @@ function IndividualScreen(props) {
           activeOpacity={1}
           onPress={onNavigateQR}>
           <Ionicons name="qr-code-outline" size={22} color="#e39307" />
-          <Text text={'QR của tôi'} style={styles.textRow} />
+          <Text text={formatMessage(message.qr)} style={styles.textRow} />
           <Ionicons name="chevron-forward-outline" size={22} color="#b5b4b4" />
         </TouchableOpacity>
 
@@ -140,7 +140,7 @@ function IndividualScreen(props) {
           activeOpacity={1}
           onPress={onChangeLanguage}>
           <Ionicons name={'ios-globe-outline'} size={22} color={'#e39307'} />
-          <Text text={'Ngôn ngữ'} style={styles.textRow} />
+          <Text text={formatMessage(message.language)} style={styles.textRow} />
           <Ionicons
             name={
               showLanguage ? 'chevron-up-outline' : 'chevron-forward-outline'
@@ -155,7 +155,10 @@ function IndividualScreen(props) {
               style={styles.row1}
               activeOpacity={1}
               onPress={onSetLanguage}>
-              <Text text={'Tiếng anh'} style={styles.textRow} />
+              <Text
+                text={formatMessage(message.english)}
+                style={styles.textRow}
+              />
               <Ionicons
                 name={
                   language === 'en'
@@ -170,7 +173,10 @@ function IndividualScreen(props) {
               style={styles.row1}
               activeOpacity={1}
               onPress={onSetLanguage}>
-              <Text text={'Tiếng việt'} style={styles.textRow} />
+              <Text
+                text={formatMessage(message.vietnam)}
+                style={styles.textRow}
+              />
               <Ionicons
                 name={
                   language === 'vi'
@@ -189,7 +195,7 @@ function IndividualScreen(props) {
           style={styles.row}
           onPress={onLogout}>
           <AntDesign name={'logout'} size={20} color={'#e39307'} />
-          <Text text={'Đăng xuất'} style={styles.textRow} />
+          <Text text={formatMessage(message.logout)} style={styles.textRow} />
         </TouchableOpacity>
       </View>
     </View>

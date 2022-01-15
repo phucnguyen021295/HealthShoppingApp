@@ -27,29 +27,31 @@ import OnlineOrderList from './components/OnlineOrderList';
 
 import styles from './styles/index.css';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import NotifyList from '../NotifyScreen/components/NotifyList';
-import HistoryList from '../TransactionHistoryScreen/components/HistoryList';
 import Text from '../../base/components/Text';
 import {heightToDP} from '../../core/utils/dimension';
 
 const renderScene = SceneMap({
-    first: PurchaseHistoryList,
-    second: OnlineOrderList,
+  first: PurchaseHistoryList,
+  second: OnlineOrderList,
 });
 
 const renderTabBar = (props) => (
-    <TabBar
-        {...props}
-        renderLabel={({route, focused, color}) => (
-            <Text style={[styles.titleTabBar, {color}]}>{route.title}</Text>
-        )}
-        indicatorStyle={{backgroundColor: 'white', height: 1, justifyContent: 'flex-end'}}
-        indicatorContainerStyle={{height: heightToDP(54), alignItems: 'flex-end'}}
-        tabStyle={{
-            paddingBottom: 0
-        }}
-        style={styles.tabItem}
-    />
+  <TabBar
+    {...props}
+    renderLabel={({route, focused, color}) => (
+      <Text style={[styles.titleTabBar, {color}]}>{route.title}</Text>
+    )}
+    indicatorStyle={{
+      backgroundColor: 'white',
+      height: 1,
+      justifyContent: 'flex-end',
+    }}
+    indicatorContainerStyle={{height: heightToDP(54), alignItems: 'flex-end'}}
+    tabStyle={{
+      paddingBottom: 0,
+    }}
+    style={styles.tabItem}
+  />
 );
 
 function TabViews() {

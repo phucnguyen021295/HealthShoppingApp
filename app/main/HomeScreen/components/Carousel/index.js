@@ -1,5 +1,3 @@
-
-
 import React, {PureComponent} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
@@ -79,8 +77,8 @@ class MyCarousel extends PureComponent {
           {item.title}
         </SemiBoldText>
         <LinearGradient
-            colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']}
-            style={styles.linearGradient}
+          colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']}
+          style={styles.linearGradient}
         />
       </TouchableOpacity>
     );
@@ -95,7 +93,7 @@ class MyCarousel extends PureComponent {
         itemWidth={screenWidth - widthToDP(46)}
         data={entries}
         renderItem={this._renderItem}
-        hasParallaxImages={true}
+        hasParallaxImages={false}
       />
     );
   }
@@ -121,16 +119,16 @@ const styles = StyleSheet.create({
   title: {
     color: '#ffffff',
     position: 'absolute',
-    bottom: heightToDP(12),
+    bottom: widthToDP(12),
     left: 20,
     width: screenWidth - widthToDP(100),
-    zIndex: 11
+    zIndex: 11,
   },
 
   linearGradient: {
     position: 'absolute',
     bottom: 0,
-    height: heightToDP(100),
+    height: widthToDP(100),
     width: '100%',
     zIndex: 10,
     borderRadius: 8,

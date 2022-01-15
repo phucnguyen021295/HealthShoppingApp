@@ -404,6 +404,15 @@ PODS:
     - React
   - RNGestureHandler (1.8.0):
     - React
+  - RNImageCropPicker (0.37.2):
+    - React-Core
+    - React-RCTImage
+    - RNImageCropPicker/QBImagePickerController (= 0.37.2)
+    - TOCropViewController
+  - RNImageCropPicker/QBImagePickerController (0.37.2):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController
   - RNPermissions (2.2.2):
     - React-Core
   - RNReanimated (1.13.0):
@@ -421,6 +430,7 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
   - SwiftyJSON (5.0.0)
+  - TOCropViewController (2.6.0)
   - TouchID (4.4.1):
     - React
   - Yoga (1.14.0)
@@ -470,6 +480,7 @@ DEPENDENCIES:
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -503,6 +514,7 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - SwiftyJSON
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -585,6 +597,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-firebase/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   RNReanimated:
@@ -661,6 +675,7 @@ SPEC CHECKSUMS:
   RNFastImage: e19ba191922e7dab9d932a4d59d62d76660aa222
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
+  RNImageCropPicker: 448d3c6e923fde3466b49caf3c2457c2a0ba02dd
   RNPermissions: 067727df624665d4a6c8e2cffcc172ba608b96ed
   RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
@@ -669,6 +684,7 @@ SPEC CHECKSUMS:
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
 

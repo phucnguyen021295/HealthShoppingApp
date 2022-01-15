@@ -20,9 +20,19 @@ export default defineMessages({
     defaultMessage: 'Email',
   },
 
+  birthDate: {
+    id: 'health.personalPage.birthDate',
+    defaultMessage: 'Ngay sinh',
+  },
+
   city: {
     id: 'health.personalPage.city',
     defaultMessage: 'Thông tin thành phố',
+  },
+
+  sex: {
+    id: 'health.personalPage.sex',
+    defaultMessage: 'Giới tính: ',
   },
 
   district: {

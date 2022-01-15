@@ -46,15 +46,19 @@ function NewDetailScreen(props) {
       <ImageBackGround
         source={require('../../../../images/backgroundHome.png')}
         blurRadius={4}>
-        <ScrollView contentContainerStyle={{paddingHorizontal: widthToDP(20), backgroundColor: 'rgba(0,0,0,0.5)',}}>
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: widthToDP(20),
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}>
           <MediumText text={item.title} style={styles.title} />
-          <Text text={convertDate(item.time)}  style={styles.date} />
-            <HTML
-              source={{html: item.brief}}
-              imagesMaxWidth={Dimensions.get('window').width - 40}
-              allowFontScaling={false}
-              tagsStyles={CUSTOM_STYLES}
-            />
+          <Text text={convertDate(item.time)} style={styles.date} />
+          <HTML
+            source={{html: item.des}}
+            imagesMaxWidth={Dimensions.get('window').width - 40}
+            allowFontScaling={false}
+            tagsStyles={CUSTOM_STYLES}
+          />
         </ScrollView>
       </ImageBackGround>
       <SafeAreaViewBase />

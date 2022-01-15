@@ -17,7 +17,7 @@ import {Platform, StyleSheet} from 'react-native';
 import * as fontSize from '../../../core/fontSize';
 import {color} from '../../../core/color';
 import {transparent} from '../../../core/color';
-import {heightToDP, widthToDP} from '../../../core/utils/dimension';
+import {widthToDP} from '../../../core/utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(1, 23, 34, 0.7)',
     paddingHorizontal: widthToDP(20),
-    paddingBottom: heightToDP(30),
+    paddingBottom: widthToDP(30),
   },
 
   textInfo: {
     color: '#ffffff',
     fontSize: fontSize.huge,
-    marginBottom: heightToDP(20),
+    marginBottom: widthToDP(20),
     textAlign: 'center'
   },
 
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: fontSize.normal,
     lineHeight: fontSize.normal * 1.6,
-    paddingBottom: heightToDP(3)
+    paddingBottom: widthToDP(3)
   },
 
   inputContainerStyle: {

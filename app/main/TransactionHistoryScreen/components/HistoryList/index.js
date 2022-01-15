@@ -82,15 +82,15 @@ class HistoryList extends PureComponent {
     const {data, loadingFirst, loadingNewer} = this.props;
     return (
       <View style={{flex: 1}}>
-        <View style={styles.search}>
-          <Ionicons name={'ios-search-outline'} size={22} color={'#dddddd'} />
-          <TextInput
-            style={styles.textInput}
-            placeholder={'Tìm kiếm'}
-            placeholderTextColor={'#dddddd'}
-            selectionColor={'#ffffff'}
-          />
-        </View>
+        {/*<View style={styles.search}>*/}
+        {/*  <Ionicons name={'ios-search-outline'} size={22} color={'#dddddd'} />*/}
+        {/*  <TextInput*/}
+        {/*    style={styles.textInput}*/}
+        {/*    placeholder={'Tìm kiếm'}*/}
+        {/*    placeholderTextColor={'#dddddd'}*/}
+        {/*    selectionColor={'#ffffff'}*/}
+        {/*  />*/}
+        {/*</View>*/}
         <View style={{flex: 1}}>
           {data.length > 0 ? (
             <FlatList

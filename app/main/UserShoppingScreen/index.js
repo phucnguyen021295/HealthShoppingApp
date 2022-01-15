@@ -80,6 +80,7 @@ class UserShoppingScreen extends PureComponent {
   onContinue = () => {
     const {totalMoney} = this.props;
     const {membercode, receiver, paymenttype, data, receivingtype} = this.state;
+    console.log('onContinue', '========', data);
     this.props.navigation.navigate('AddressShopping', {
       membercode: membercode,
       receiver: receiver,

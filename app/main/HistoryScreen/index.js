@@ -14,7 +14,7 @@
 'use strict';
 
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
+import {useWindowDimensions, View} from 'react-native';
 import {injectIntl, intlShape} from 'react-intl';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
@@ -30,54 +30,78 @@ import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
 
 import message from '../../msg/history';
 import {color} from '../../core/color';
+import {getPaidApi, cancelGetPaidApi} from '../../apis/health';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import WithdrawalLogList from './components/WithdrawalLogList';
+import Text from '../../base/components/Text';
+import {heightToDP} from '../../core/utils/dimension';
 
-const Tab = createMaterialTopTabNavigator();
+const renderScene = SceneMap({
+  first: HistoryList,
+  second: WithdrawalLogList,
+});
 
-function TabHistory() {
+const renderTabBar = (props) => (
+  <TabBar
+    {...props}
+    renderLabel={({route, focused, color}) => (
+      <Text style={[styles.titleTabBar, {color}]}>{route.title}</Text>
+    )}
+    indicatorStyle={{
+      backgroundColor: 'white',
+      height: 1,
+      justifyContent: 'flex-end',
+    }}
+    indicatorContainerStyle={{height: heightToDP(54), alignItems: 'flex-end'}}
+    tabStyle={{
+      paddingBottom: 0,
+    }}
+    style={styles.tabItem}
+  />
+);
+
+function TabViews() {
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    {key: 'first', title: 'Nhật ký tài khoản'},
+    {key: 'second', title: 'Nhật ký rút tiền'},
+  ]);
+
   return (
-    <Tab.Navigator
-      lazy={false}
-      // initialRouteName="Tất cả"
-      tabBarOptions={{
-        activeTintColor: color,
-        style: {
-          backgroundColor: '#ffffff',
-        },
-        allowFontScaling: false,
-      }}>
-      <Tab.Screen name="Tất cả" component={HistoryList} />
-      <Tab.Screen name="Chuyển khoản" component={HistoryList} />
-    </Tab.Navigator>
+    <TabView
+      navigationState={{index, routes}}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      renderTabBar={renderTabBar}
+      initialLayout={{width: layout.width}}
+      lazy
+    />
   );
 }
 
-class HistoryDrawer extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {intl} = this.props;
-    const {formatMessage} = intl;
-    return (
-      <View style={styles.container}>
-        <SafeAreaViewBase />
-        <HeaderCustom
-          title={formatMessage(message.titleHeader)}
-          color={'#ffffff'}
-          ViewComponent={LinearGradient}
-        />
-        <ImageBackGround
-          source={require('../../images/backgroundHome.png')}
-          blurRadius={4}>
-          <View style={styles.info}>
-            <HistoryList />
-          </View>
-        </ImageBackGround>
-        <SafeAreaViewBase />
-      </View>
-    );
-  }
+function HistoryDrawer(props) {
+  const {intl} = props;
+  const {formatMessage} = intl;
+  return (
+    <View style={styles.container}>
+      <SafeAreaViewBase />
+      <HeaderCustom
+        title={formatMessage(message.titleHeader)}
+        color={'#ffffff'}
+        ViewComponent={LinearGradient}
+      />
+      <ImageBackGround
+        source={require('../../images/backgroundHome.png')}
+        blurRadius={4}>
+        <View style={styles.info}>
+          <TabViews />
+        </View>
+      </ImageBackGround>
+      <SafeAreaViewBase />
+    </View>
+  );
 }
 
 HistoryDrawer.propTypes = {

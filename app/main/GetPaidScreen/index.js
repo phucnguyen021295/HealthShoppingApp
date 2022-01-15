@@ -34,19 +34,20 @@ import {SemiBoldText} from '../../base/components/Text';
 import global, {setAccountBalanceGlobal} from '../../global';
 import {Input} from 'react-native-elements';
 import ButtonBase from '../../base/components/ButtonBase';
-import ModalNotify from './components/ModalNotify';
 
-import {getPaidApi} from '../../apis/health';
+import {postGetPaidApi} from '../../apis/health';
 import ModalBase from '../../base/components/ModalBase';
 import {
   ButtonClose,
   ButtonConfirm,
 } from '../../base/components/ButtonText/ButtonModal';
 import {broadcastShoppingCardChange} from '../../core/shoppingCart';
+import {injectIntl} from 'react-intl';
+import message from '../../msg/getPaid';
 
 function GetPaidScreen(props) {
   const inputRef = useRef();
-  const {navigation} = props;
+  const {navigation, intl} = props;
   const {accountbank, accountnumber, balance} = global;
   const [amount, setAmount] = useState(0);
   const [isWarning, setWarning] = useState(false);
@@ -54,6 +55,7 @@ function GetPaidScreen(props) {
   const [isFailure, setFailure] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isCheckAccountBack, setCheckAccountBack] = useState(false);
+  const {formatMessage} = intl;
 
   const fee = (amount * 5) / 100;
   const total = parseFloat(amount) + fee;
@@ -73,7 +75,7 @@ function GetPaidScreen(props) {
 
     setLoading(true);
     InteractionManager.runAfterInteractions(() => {
-      getPaidApi(amount, getPaidApiSuccess, getPaidApiFailure);
+      postGetPaidApi(amount, getPaidApiSuccess, getPaidApiFailure);
     });
   };
 
@@ -121,14 +123,14 @@ function GetPaidScreen(props) {
       navigation.goBack();
       return true;
     });
-  }
+  };
 
   return (
     <ImageBackGround source={require('../../images/backgroundHome.png')}>
       <View style={styles.backGround}>
         <SafeAreaViewBase />
         <HeaderCustom
-          title={'RÚT TIỀN'}
+          title={formatMessage(message.titleHeader)}
           color={'#ffffff'}
           ViewComponent={LinearGradient}
         />
@@ -140,7 +142,10 @@ function GetPaidScreen(props) {
             paddingBottom: heightToDP(40),
           }}>
           <View style={{marginBottom: heightToDP(20)}}>
-            <SemiBoldText text={'Tên ngân hàng:'} style={styles.textRow} />
+            <SemiBoldText
+              text={formatMessage(message.bank)}
+              style={styles.textRow}
+            />
 
             <View style={styles.viewRowName}>
               <SemiBoldText text={accountbank} style={styles.textRowName} />
@@ -148,7 +153,10 @@ function GetPaidScreen(props) {
           </View>
 
           <View style={{marginBottom: heightToDP(20)}}>
-            <SemiBoldText text={'Số tài khoản:'} style={styles.textRow} />
+            <SemiBoldText
+              text={formatMessage(message.accountnumber)}
+              style={styles.textRow}
+            />
 
             <View style={styles.viewRowName}>
               <SemiBoldText text={accountnumber} style={styles.textRowName} />
@@ -156,7 +164,10 @@ function GetPaidScreen(props) {
           </View>
 
           <View style={{marginBottom: heightToDP(20)}}>
-            <SemiBoldText text={'Số dư tài khoản:'} style={styles.textRow} />
+            <SemiBoldText
+              text={formatMessage(message.balance)}
+              style={styles.textRow}
+            />
 
             <View style={styles.viewRowName}>
               <SemiBoldText text={`$${balance}`} style={styles.textRowName} />
@@ -164,11 +175,14 @@ function GetPaidScreen(props) {
           </View>
 
           <View style={{marginBottom: heightToDP(20)}}>
-            <SemiBoldText text={'Số tiền:'} style={styles.textRow} />
+            <SemiBoldText
+              text={formatMessage(message.amount)}
+              style={styles.textRow}
+            />
             <Input
               ref={inputRef}
               value={amount}
-              placeholder={'Nhập số tiền'}
+              placeholder={formatMessage(message.amountEnter)}
               containerStyle={{
                 paddingHorizontal: 0,
                 paddingVertical: 0,
@@ -184,7 +198,10 @@ function GetPaidScreen(props) {
           </View>
 
           <View style={{marginBottom: heightToDP(20)}}>
-            <SemiBoldText text={'Phí rút tiền(5%):'} style={styles.textRow} />
+            <SemiBoldText
+              text={formatMessage(message.amount1)}
+              style={styles.textRow}
+            />
 
             <View style={styles.viewRowName}>
               <SemiBoldText text={`$${fee}`} style={styles.textRowName} />
@@ -192,7 +209,10 @@ function GetPaidScreen(props) {
           </View>
 
           <View style={{marginBottom: heightToDP(20)}}>
-            <SemiBoldText text={'Tổng cộng:'} style={styles.textRow} />
+            <SemiBoldText
+              text={formatMessage(message.total)}
+              style={styles.textRow}
+            />
 
             <View style={styles.viewRowName}>
               <SemiBoldText text={`$${total}`} style={styles.textRowName} />
@@ -201,7 +221,7 @@ function GetPaidScreen(props) {
 
           <View style={{marginBottom: heightToDP(20)}}>
             <SemiBoldText
-              text={'Số dư sau khi rút tiền:'}
+              text={formatMessage(message.balanceAfter)}
               style={styles.textRow}
             />
 
@@ -214,7 +234,7 @@ function GetPaidScreen(props) {
           </View>
         </ScrollView>
         <ButtonBase
-          title={'Rút tiền'}
+          title={formatMessage(message.btngetPaid)}
           buttonStyle={styles.btnButtonStyle}
           styleLinearGradient={styles.btnContainerStyle}
           onPress={onGetPaid}
@@ -231,46 +251,59 @@ function GetPaidScreen(props) {
       </ModalBase>
       <ModalBase
         isVisible={isCheckAccountBack}
-        title={'Thông báo'}
-        description={
-          'Bạn cần phải đăng kí tài khoản ngân hàng thì mới rút tiền được.'
-        }
+        title={formatMessage(message.notification)}
+        description={formatMessage(message.description)}
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonConfirm text={'Đóng'} onPress={onGoBack} />
+          <ButtonConfirm
+            text={formatMessage(message.btnClose)}
+            onPress={onGoBack}
+          />
         </View>
       </ModalBase>
       <ModalBase
         isVisible={isWarning}
-        title={'Thông báo'}
-        description={'Số tiền bạn rút ít nhất là 50$'}
+        title={formatMessage(message.notification)}
+        description={formatMessage(message.description1)}
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonConfirm text={'Nhập lại'} onPress={onEnterInput} />
+          <ButtonConfirm
+            text={formatMessage(message.btnRetry)}
+            onPress={onEnterInput}
+          />
         </View>
       </ModalBase>
       <ModalBase
         isVisible={isSuccess}
-        title={'Rút tiền thành công'}
-        description={'Gửi yêu cầu rút tiền thành công'}
+        title={formatMessage(message.title1)}
+        description={formatMessage(message.description2)}
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonConfirm text={'Đóng'} onPress={onCancelModal} />
+          <ButtonConfirm
+            text={formatMessage(message.btnClose)}
+            onPress={onCancelModal}
+          />
         </View>
       </ModalBase>
       <ModalBase
         isVisible={isFailure}
-        title={'Rút tiền thất bại'}
-        description={'Đã có lỗi xảy ra. Vui lòng thử lại.'}
+        title={formatMessage(message.title2)}
+        description={formatMessage(message.description3)}
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonClose text={'Đóng'} onPress={onCancelModal} />
+          <ButtonClose
+            text={formatMessage(message.btnClose)}
+            onPress={onCancelModal}
+          />
           <View style={styles.border} />
-          <ButtonConfirm text={'Thử lại'} onPress={onGetPaidRetry} />
+          <ButtonConfirm
+            text={formatMessage(message.btnRetry1)}
+            onPress={onGetPaidRetry}
+          />
         </View>
       </ModalBase>
     </ImageBackGround>
   );
 }
 
-export default GetPaidScreen;
+export default injectIntl(GetPaidScreen);

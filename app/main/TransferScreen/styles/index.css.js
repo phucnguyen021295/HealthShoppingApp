@@ -6,19 +6,19 @@ import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: widthToDP(20),
-    paddingTop: heightToDP(50),
+    paddingTop: widthToDP(50),
   },
   textInfo: {
     color: '#ffffff',
     textAlign: 'center',
     fontSize: fontSize.huge,
-    paddingTop: heightToDP(12),
-    paddingBottom: heightToDP(50),
+    paddingTop: widthToDP(12),
+    paddingBottom: widthToDP(50),
   },
   textRow: {
     color: '#ffffff',
     fontSize: fontSize.normal,
-    marginBottom: heightToDP(6),
+    marginBottom: widthToDP(6),
   },
 
   btnButtonStyle: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderColor: '#dddddd',
     backgroundColor: '#ffffff52',
     paddingHorizontal: widthToDP(12),
-    borderRadius: heightToDP(8),
+    borderRadius: widthToDP(8),
     ...Platform.select({
       android: {
         height: 40,
@@ -59,15 +59,15 @@ const styles = StyleSheet.create({
     fontSize: fontSize.normal,
   },
 
-  item: {marginBottom: heightToDP(30)},
+  item: {marginBottom: widthToDP(30)},
 
   inputContainerStyleNote: {
     borderWidth: 1,
     borderColor: '#dddddd',
     backgroundColor: '#ffffff52',
     paddingHorizontal: widthToDP(12),
-    borderRadius: heightToDP(8),
-    paddingVertical: heightToDP(6),
+    borderRadius: widthToDP(8),
+    paddingVertical: widthToDP(6),
   },
 
   containerStyleNote: {

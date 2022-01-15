@@ -17,6 +17,7 @@ import React, {PureComponent} from 'react';
 import {StatusBar} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -98,8 +99,8 @@ class MainScreen extends PureComponent {
           component={(props) => <TransferTab {...props} showBack={false} />}
           options={{
             tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons
-                name={'cog-transfer'}
+              <MaterialIcons
+                name={'monetization-on'}
                 size={25}
                 color={color}
               />

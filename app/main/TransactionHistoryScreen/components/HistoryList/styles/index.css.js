@@ -20,10 +20,11 @@ import {fontSize14} from '../../../../../core/fontSize';
 
 const styles = StyleSheet.create({
   search: {
+
     flexDirection: 'row',
     paddingHorizontal: heightToDP(20),
     alignItems: 'center',
-    paddingTop: heightToDP(8),
+    paddingTop: heightToDP(10),
   },
 
   textInput: {
@@ -32,6 +33,13 @@ const styles = StyleSheet.create({
     paddingLeft: heightToDP(20),
     fontSize: fontSize14,
     color: '#ffffff',
+  },
+
+  titleTabBar: {
+    fontSize: fontSize14,
+    color: '#ffffff',
+    // paddingHorizontal: heightToDP(2),
+    // borderBottomWidth: 2,
   },
 });
 

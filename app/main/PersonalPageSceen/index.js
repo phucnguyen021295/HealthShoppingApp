@@ -11,6 +11,7 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import React, {PureComponent} from 'react';
@@ -20,17 +21,19 @@ import {injectIntl, intlShape} from 'react-intl';
 
 // Components
 import ImageBackGround from '../../base/components/ImageBackGround';
-import Text, {SemiBoldText} from '../../base/components/Text';
+import {SemiBoldText} from '../../base/components/Text';
 import ButtonBase from '../../base/components/ButtonBase';
 import HeaderCustom from '../../base/components/HeaderCustom';
 import LinearGradient from '../../base/components/LinearGradient';
 import NotificationModal from '../../base/components/NotificationModal';
 import SafeAreaViewBase from '../../base/components/SafeAreaViewBase';
+import InfoUser from './components/InfoUser';
+import UploadAvatar from './components/UploadAvatar';
 
 // styles
 import styles from './styles/index.css';
 import global, {updateUSer} from '../../global';
-import {heightToDP} from '../../core/utils/dimension';
+import {widthToDP} from '../../core/utils/dimension';
 import message from '../../msg/personalPage';
 
 class PersonalPageDrawer extends PureComponent {
@@ -137,7 +140,6 @@ class PersonalPageDrawer extends PureComponent {
   };
 
   render() {
-    const {name, email, mobile} = global;
     const {
       city,
       postalcode,
@@ -153,36 +155,21 @@ class PersonalPageDrawer extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <ImageBackGround
-            source={require('../../images/backgroundHome.png')}>
-        <SafeAreaViewBase />
-        <HeaderCustom
-          title={formatMessage(message.titleHeader)}
-          color={'#ffffff'}
-          ViewComponent={LinearGradient}
-        />
+        <ImageBackGround source={require('../../images/backgroundHome.png')}>
+          <SafeAreaViewBase />
+          <HeaderCustom
+            title={formatMessage(message.titleHeader)}
+            color={'#ffffff'}
+            ViewComponent={LinearGradient}
+          />
 
           <Animated.View
             style={[styles.info, {paddingBottom: this.keyboardHeight}]}>
             <ScrollView
-              style={{flex: 1}}
-              contentContainerStyle={{paddingTop: heightToDP(30)}}
               showsVerticalScrollIndicator={false}>
-              <View style={{marginBottom: heightToDP(20)}}>
-                <Text style={styles.textRow}>
-                  <Text text={formatMessage(message.fullName)} />
-                  <SemiBoldText text={`: ${name}`} />
-                </Text>
-                <Text style={styles.textRow}>
-                  <Text text={formatMessage(message.phone)} />
-                  <SemiBoldText text={`: ${mobile}`} />
-                </Text>
-                <Text style={styles.textRow}>
-                  <Text text={formatMessage(message.email)} />
-                  <SemiBoldText text={`: ${email}`} />
-                </Text>
-              </View>
-              <View style={{marginBottom: heightToDP(20)}}>
+              <UploadAvatar />
+              <InfoUser />
+              <View style={{marginBottom: widthToDP(20)}}>
                 <SemiBoldText
                   text={`${formatMessage(message.city)}:`}
                   style={styles.textRow}
@@ -199,7 +186,7 @@ class PersonalPageDrawer extends PureComponent {
                 />
               </View>
 
-              <View style={{marginBottom: heightToDP(20)}}>
+              <View style={{marginBottom: widthToDP(20)}}>
                 <SemiBoldText
                   text={`${formatMessage(message.district)}:`}
                   style={styles.textRow}
@@ -216,7 +203,7 @@ class PersonalPageDrawer extends PureComponent {
                 />
               </View>
 
-              <View style={{marginBottom: heightToDP(20)}}>
+              <View style={{marginBottom: widthToDP(20)}}>
                 <SemiBoldText
                   text={`${formatMessage(message.address)}:`}
                   style={styles.textRow}
@@ -233,7 +220,7 @@ class PersonalPageDrawer extends PureComponent {
                 />
               </View>
 
-              <View style={{marginBottom: heightToDP(20)}}>
+              <View style={{marginBottom: widthToDP(20)}}>
                 <SemiBoldText
                   text={`${formatMessage(message.zipCode)}:`}
                   style={styles.textRow}
@@ -252,8 +239,8 @@ class PersonalPageDrawer extends PureComponent {
             </ScrollView>
             <View
               style={{
-                paddingTop: heightToDP(20),
-                paddingBottom: heightToDP(20),
+                paddingTop: widthToDP(20),
+                paddingBottom: widthToDP(20),
               }}>
               <ButtonBase
                 title={formatMessage(message.btnSaveInfo)}
