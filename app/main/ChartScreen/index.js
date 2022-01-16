@@ -30,10 +30,15 @@ import styles from './styles/index.css';
 import {registerShoppingCardChange} from '../../core/shoppingCart';
 
 import global from '../../global';
+import {injectIntl} from 'react-intl';
+import message from '../../msg/home';
 const {Language} = global;
 const vi = Language === 'vi';
 
-const labels = vi ? labelsVi : labelsEn;
+const _labels = {
+  vi: labelsVi,
+  en: labelsEn
+};
 
 const colors = {
   'Weak Leg': processColor('green'),
@@ -61,142 +66,147 @@ const colorsNote = {
   Total: 'salmon',
 };
 
-const formatDay = vi
-  ? {
-      0: 'Thứ 2',
-      1: 'Thứ 3',
-      2: 'Thứ 4',
-      3: 'Thứ 5',
-      4: 'Thứ 6',
-      5: 'Thứ 7',
-      6: 'CN',
-    }
-  : {
-      0: 'Mon',
-      1: 'Tue',
-      2: 'Wed',
-      3: 'Thu',
-      4: 'Fri',
-      5: 'Sat',
-      6: 'Sun',
-    };
+const formatDay = {
+  vi: {
+    0: 'Thứ 2',
+    1: 'Thứ 3',
+    2: 'Thứ 4',
+    3: 'Thứ 5',
+    4: 'Thứ 6',
+    5: 'Thứ 7',
+    6: 'CN',
+  },
+  en: {
+    0: 'Mon',
+    1: 'Tue',
+    2: 'Wed',
+    3: 'Thu',
+    4: 'Fri',
+    5: 'Sat',
+    6: 'Sun',
+  },
+};
 
-const itemsSelectCalendar = [
-  {
-    label: vi ? 'Ngày' : 'Day',
-    value: 'day',
-    icon: () => <Icon name="flag" size={18} color="#900" />,
-    hidden: true,
-  },
-  {
-    label: vi ? 'Tuần' : 'Week',
-    value: 'week',
-    icon: () => <Icon name="flag" size={18} color="#900" />,
-  },
-  {
-    label: vi ? 'Tháng' : 'Month',
-    value: 'month',
-    icon: () => <Icon name="flag" size={18} color="#900" />,
-  },
-];
+const itemsSelectCalendar = (language) => {
+  const data = [
+    {
+      label: language === 'vi' ? 'Ngày' : 'Day',
+      value: 'day',
+      icon: () => <Icon name="flag" size={18} color="#900" />,
+      hidden: true,
+    },
+    {
+      label: language === 'vi' ? 'Tuần' : 'Week',
+      value: 'week',
+      icon: () => <Icon name="flag" size={18} color="#900" />,
+    },
+    {
+      label: language === 'vi' ? 'Tháng' : 'Month',
+      value: 'month',
+      icon: () => <Icon name="flag" size={18} color="#900" />,
+    },
+  ];
+  return data;
+};
 
 const ARRAY_KEY_SELECT = ['Order', 'Transfer'];
 
-const filterReport = vi
-  ? [
-      {
-        label: 'Mặc định',
-        value: ARRAY_KEY_SELECT,
-        hidden: true,
-      },
+const filterReport = {
+  vi: [
+    {
+      label: 'Mặc định',
+      value: ARRAY_KEY_SELECT,
+      hidden: true,
+    },
 
-      {
-        label: 'Thu nhập nhánh yếu',
-        value: ['Weak Leg'],
-      },
+    {
+      label: 'Thu nhập nhánh yếu',
+      value: ['Weak Leg'],
+    },
 
-      {
-        label: 'Thu nhập lãnh đạo',
-        value: ['Mega'],
-      },
+    {
+      label: 'Thu nhập lãnh đạo',
+      value: ['Mega'],
+    },
 
-      {
-        label: 'Thu nhập đều tầng',
-        value: ['Level'],
-      },
+    {
+      label: 'Thu nhập đều tầng',
+      value: ['Level'],
+    },
 
-      {
-        label: 'Thưởng lãnh đạo',
-        value: ['Bonus'],
-      },
+    {
+      label: 'Thưởng lãnh đạo',
+      value: ['Bonus'],
+    },
 
-      {
-        label: 'Thưởng lãnh đạo cấp cao',
-        value: ['Leadership Bonus'],
-      },
+    {
+      label: 'Thưởng lãnh đạo cấp cao',
+      value: ['Leadership Bonus'],
+    },
 
-      {
-        label: 'Đặt hàng',
-        value: ['Order'],
-      },
+    {
+      label: 'Đặt hàng',
+      value: ['Order'],
+    },
 
-      {
-        label: 'Chuyển tiền',
-        value: ['Transfer'],
-      },
+    {
+      label: 'Chuyển tiền',
+      value: ['Transfer'],
+    },
 
-      {
-        label: 'Tổng thu nhập',
-        value: ['Total'],
-      },
-    ]
-  : [
-      {
-        label: 'Default',
-        value: ARRAY_KEY_SELECT,
-        hidden: true,
-      },
+    {
+      label: 'Tổng thu nhập',
+      value: ['Total'],
+    },
+  ],
+  en: [
+    {
+      label: 'Default',
+      value: ARRAY_KEY_SELECT,
+      hidden: true,
+    },
 
-      {
-        label: 'Weak branch income',
-        value: ['Weak Leg'],
-      },
+    {
+      label: 'Weak branch income',
+      value: ['Weak Leg'],
+    },
 
-      {
-        label: 'Leadership income',
-        value: ['Mega'],
-      },
+    {
+      label: 'Leadership income',
+      value: ['Mega'],
+    },
 
-      {
-        label: 'The income is flat',
-        value: ['Level'],
-      },
+    {
+      label: 'The income is flat',
+      value: ['Level'],
+    },
 
-      {
-        label: 'Leadership Rewards',
-        value: ['Bonus'],
-      },
+    {
+      label: 'Leadership Rewards',
+      value: ['Bonus'],
+    },
 
-      {
-        label: 'Senior leadership Rewards',
-        value: ['Leadership Bonus'],
-      },
+    {
+      label: 'Senior leadership Rewards',
+      value: ['Leadership Bonus'],
+    },
 
-      {
-        label: 'Oder',
-        value: ['Order'],
-      },
+    {
+      label: 'Oder',
+      value: ['Order'],
+    },
 
-      {
-        label: 'Transfer',
-        value: ['Transfer'],
-      },
+    {
+      label: 'Transfer',
+      value: ['Transfer'],
+    },
 
-      {
-        label: 'Total income',
-        value: ['Total'],
-      },
-    ];
+    {
+      label: 'Total income',
+      value: ['Total'],
+    },
+  ],
+};
 
 const TYPE_CALENDAR = {
   day: '0',
@@ -321,6 +331,7 @@ class StackedBarChartScreen extends PureComponent {
   };
 
   convertData = (data, arrayKey) => {
+    const {Language} = global;
     const {typeCalendar} = this.state;
     let dataSets = [];
     let valueFormatter = [];
@@ -328,7 +339,7 @@ class StackedBarChartScreen extends PureComponent {
     for (let i = 0; i < arrayKey.length; i++) {
       const item = {
         values: [],
-        label: labels[arrayKey[i]],
+        label: _labels[Language][arrayKey[i]],
         config: {
           drawValues: false,
           colors: [colors[arrayKey[i]]],
@@ -344,7 +355,7 @@ class StackedBarChartScreen extends PureComponent {
     for (let a = 0; a < data.length; a++) {
       valueFormatter.push(
         typeCalendar === 'day'
-          ? formatDay[data[a][typeCalendar]]
+          ? formatDay[Language][data[a][typeCalendar]]
           : data[a][typeCalendar],
       );
     }
@@ -395,15 +406,17 @@ class StackedBarChartScreen extends PureComponent {
   };
 
   render() {
+    const {Language} = global;
     const {data} = this.state;
-    const {styleChart} = this.props;
+    const {styleChart, intl} = this.props;
     const dataSets = data.dataSets || [];
+    const {formatMessage} = intl;
     return (
       <View>
         <View style={styles.dropdownContainer}>
           <View style={{flex: 1, marginRight: 10}}>
             <Text
-              text={vi ?  'Xem theo:' : 'View by:'}
+              text={formatMessage(message.viewBy)}
               style={{
                 color: '#ffffff',
                 fontSize: 15,
@@ -412,7 +425,7 @@ class StackedBarChartScreen extends PureComponent {
               }}
             />
             <DropDownPicker
-              items={itemsSelectCalendar}
+              items={itemsSelectCalendar(Language)}
               defaultValue={this.state.typeCalendar}
               containerStyle={styles.containerStyle}
               style={{backgroundColor: '#fafafa'}}
@@ -425,7 +438,7 @@ class StackedBarChartScreen extends PureComponent {
           </View>
           <View style={{flex: 2}}>
             <Text
-              text={vi ? 'Lọc theo:' : 'Filter by:'}
+              text={formatMessage(message.filterBy)}
               style={{
                 color: '#ffffff',
                 fontSize: 15,
@@ -433,7 +446,7 @@ class StackedBarChartScreen extends PureComponent {
               }}
             />
             <DropDownPicker
-              items={filterReport}
+              items={filterReport[Language]}
               defaultValue={this.state.arrayKey}
               containerStyle={{height: 40}}
               style={{backgroundColor: '#fafafa'}}
@@ -498,4 +511,4 @@ StackedBarChartScreen.defaultProps = {
   styleChart: {},
 };
 
-export default StackedBarChartScreen;
+export default injectIntl(StackedBarChartScreen);

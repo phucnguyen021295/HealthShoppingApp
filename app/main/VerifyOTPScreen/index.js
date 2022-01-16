@@ -54,7 +54,6 @@ class VerifyOTPScreen extends PureComponent {
         code,
         (response) => {
           const membercode = response.data;
-          setCheckVerifyOTP(true);
           // // TODO: Set tạm số tiến
           // setAccountBalanceGlobal(1000);
           setMemberCodeGlobal(membercode);

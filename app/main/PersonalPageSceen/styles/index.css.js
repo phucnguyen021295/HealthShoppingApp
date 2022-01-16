@@ -18,6 +18,7 @@ import * as fontSize from '../../../core/fontSize';
 import {color} from '../../../core/color';
 import {transparent} from '../../../core/color';
 import {widthToDP} from '../../../core/utils/dimension';
+import {large} from '../../../core/fontSize';
 
 const styles = StyleSheet.create({
   container: {
@@ -80,6 +81,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 120,
   },
+
+  editInfo: {
+    fontSize: large,
+    color: '#fff',
+    paddingBottom: widthToDP(15)
+  },
+
+  uploadImage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: widthToDP(35),
+  }
 });
 
 export default styles;

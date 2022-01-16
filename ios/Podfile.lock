@@ -1,10 +1,16 @@
 PODS:
+  - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
+  - CodePush (7.0.4):
+    - Base64 (~> 1.1)
+    - JWT (~> 3.0.0-beta.12)
+    - React-Core
+    - SSZipArchive (~> 2.2.2)
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - DoubleConversion (1.1.6)
@@ -90,6 +96,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
+  - JWT (3.0.0-beta.14):
+    - Base64 (~> 1.1.2)
   - libwebp (1.2.1):
     - libwebp/demux (= 1.2.1)
     - libwebp/mux (= 1.2.1)
@@ -107,7 +115,7 @@ PODS:
   - Permission-Camera (2.2.2):
     - RNPermissions
   - PromisesObjC (1.2.12)
-  - Protobuf (3.19.0)
+  - Protobuf (3.19.1)
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -423,12 +431,13 @@ PODS:
     - React
   - RNVectorIcons (7.0.0):
     - React
-  - SDWebImage (5.12.1):
-    - SDWebImage/Core (= 5.12.1)
-  - SDWebImage/Core (5.12.1)
+  - SDWebImage (5.12.2):
+    - SDWebImage/Core (= 5.12.2)
+  - SDWebImage/Core (5.12.2)
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
+  - SSZipArchive (2.2.3)
   - SwiftyJSON (5.0.0)
   - TOCropViewController (2.6.0)
   - TouchID (4.4.1):
@@ -437,6 +446,7 @@ PODS:
 
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
+  - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -491,6 +501,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Base64
     - boost-for-react-native
     - Charts
     - Crashlytics
@@ -507,18 +518,22 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - JWT
     - libwebp
     - nanopb
     - PromisesObjC
     - Protobuf
     - SDWebImage
     - SDWebImageWebPCoder
+    - SSZipArchive
     - SwiftyJSON
     - TOCropViewController
 
 EXTERNAL SOURCES:
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
+  CodePush:
+    :path: "../node_modules/react-native-code-push"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -615,9 +630,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  CodePush: 35a0d8be82686010ee70b510c3549ba8df5ca737
   Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
@@ -636,11 +653,12 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 0f39025e8cf51f168711bd3fb773938d7e62ddb5
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
+  JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Permission-Camera: 375576c57ea625c88137d2cc52ba6dfeb21db036
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  Protobuf: e9b99dd5da72f665ec503b19191f245a22188b4d
+  Protobuf: 3724efa50cb2846d7ccebc8691c574e85fd74471
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 2f8cb5b7533219bf4218a045f92768129cf7050a
   RCTTypeSafety: 512728b73549e72ad7330b92f3d42936f2a4de5b
@@ -681,8 +699,9 @@ SPEC CHECKSUMS:
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: da6fe858f5a65d7bbc3379540a889b0b12aa5976
-  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
+  SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4

@@ -62,14 +62,15 @@ const renderTabBar = (props) => (
   />
 );
 
-function TabViews() {
+function TabViews(props) {
+  const {formatMessage} = props;
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Khuyến mại'},
-    {key: 'second', title: 'Biến động'},
-    {key: 'three', title: 'Tin khác'},
+    {key: 'first', title: formatMessage(message.promotions)},
+    {key: 'second', title: formatMessage(message.volatility)},
+    {key: 'three', title: formatMessage(message.other)},
   ]);
 
   return (
@@ -99,7 +100,7 @@ function NotifyScreen(props) {
             showBack={showBack}
             ViewComponent={LinearGradient}
           />
-          <TabViews />
+          <TabViews formatMessage={formatMessage} />
         </View>
       </ImageBackGround>
     </View>

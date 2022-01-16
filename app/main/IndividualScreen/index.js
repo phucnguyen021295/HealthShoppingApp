@@ -70,11 +70,13 @@ function IndividualScreen(props) {
     setShowLanguage(!showLanguage);
   };
 
-  const onSetLanguage = () => {
-    const _language = Language === 'vi' ? 'en' : 'vi';
-    setLanguage(_language);
-    setLanguageGlobal(_language);
-    context.updateLanguage(_language);
+  const onSetLanguage = (language) => {
+    if (language === Language) {
+      return;
+    }
+    setLanguage(language);
+    setLanguageGlobal(language);
+    context.updateLanguage(language);
   };
 
   const onLogout = () => {
@@ -154,7 +156,7 @@ function IndividualScreen(props) {
             <TouchableOpacity
               style={styles.row1}
               activeOpacity={1}
-              onPress={onSetLanguage}>
+              onPress={() => onSetLanguage('en')}>
               <Text
                 text={formatMessage(message.english)}
                 style={styles.textRow}
@@ -172,7 +174,7 @@ function IndividualScreen(props) {
             <TouchableOpacity
               style={styles.row1}
               activeOpacity={1}
-              onPress={onSetLanguage}>
+              onPress={() => onSetLanguage('vi')}>
               <Text
                 text={formatMessage(message.vietnam)}
                 style={styles.textRow}

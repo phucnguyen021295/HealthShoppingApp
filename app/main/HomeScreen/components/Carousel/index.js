@@ -65,12 +65,13 @@ class MyCarousel extends PureComponent {
     return (
       <TouchableOpacity
         style={styles.item}
+        activeOpacity={1}
         onPress={() => this.onDetailNew(item)}>
         <ParallaxImage
           source={{uri: item.image500}}
           containerStyle={styles.imageContainer}
           style={styles.image}
-          parallaxFactor={0.4}
+          parallaxFactor={0}
           {...parallaxProps}
         />
         <SemiBoldText style={styles.title} numberOfLines={2}>
@@ -93,7 +94,7 @@ class MyCarousel extends PureComponent {
         itemWidth={screenWidth - widthToDP(46)}
         data={entries}
         renderItem={this._renderItem}
-        hasParallaxImages={false}
+        hasParallaxImages={true}
       />
     );
   }

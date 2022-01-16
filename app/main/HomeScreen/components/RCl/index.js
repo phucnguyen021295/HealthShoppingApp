@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {InteractionManager, View, ActivityIndicator} from 'react-native';
+import {InteractionManager, View} from 'react-native';
 import * as PropTypes from 'prop-types';
-import {Button} from 'react-native-elements';
 
 // Components
 import ModalBase from '../../../../base/components/ModalBase';
@@ -9,15 +8,19 @@ import {
   ButtonConfirm,
   ButtonClose,
 } from '../../../../base/components/ButtonText/ButtonModal';
+import ActivityIndicatorBase from '../../../../base/components/ActivityIndicatorBase';
 
 // Apis
 import {postRCIApi} from '../../../../apis/health';
 
 // Styles
 import styles from './styles/index.css';
+import {injectIntl} from 'react-intl';
+import message from '../../../../msg/home';
 
 function RCl(props) {
-  const {onCancel} = props;
+  const {onCancel, intl} = props;
+  const {formatMessage} = intl;
   const [isVisible, setVisible] = useState(props.isVisible);
   const [isVisibleLoading, setVisibleLoading] = useState(false);
   const [isVisibleSuccess, setVisibleSuccess] = useState(false);
@@ -37,15 +40,11 @@ function RCl(props) {
         postRCIApi(
           () => {
             setVisibleLoading(false);
-            InteractionManager.runAfterInteractions(() => {
-              setVisibleSuccess(true);
-            });
+            setVisibleSuccess(true);
           },
           () => {
             setVisibleLoading(false);
-            InteractionManager.runAfterInteractions(() => {
-              setVisibleFailure(true);
-            });
+            setVisibleFailure(true);
           },
         );
       });
@@ -62,46 +61,39 @@ function RCl(props) {
 
   return (
     <>
-      <ModalBase
-        isVisible={isVisibleLoading}
-        contentStyle={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'transparent',
-        }}>
-        <ActivityIndicator size="large" color="#ffffff" />
-      </ModalBase>
+      {isVisibleLoading && <ActivityIndicatorBase />}
+
       <ModalBase
         isVisible={isVisible}
-        title={'Kích hoạt'}
+        title={formatMessage(message.active)}
         description={
-          'Bạn đang yêu cầu gửi RCl ngay bây giờ, Bạn có chắc chắn gửi?'
+            formatMessage(message.description1)
         }
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonClose text={'Hủy bỏ'} onPress={onCancelRCl} />
+          <ButtonClose text={formatMessage(message.btnCancel)} onPress={onCancelRCl} />
           <View style={styles.border} />
-          <ButtonConfirm text={'Kích hoạt'} onPress={onActive} />
+          <ButtonConfirm text={formatMessage(message.active)} onPress={onActive} />
         </View>
       </ModalBase>
       <ModalBase
         isVisible={isVisibleSuccess}
-        title={'Kích hoạt thành công'}
-        description={'Gửi yêu cầu kích hoạt RCl thành công'}
+        title={formatMessage(message.activeSuccess)}
+        description={formatMessage(message.description2)}
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonConfirm text={'Đóng'} onPress={onCancelRCl} />
+          <ButtonConfirm text={formatMessage(message.btnClose)} onPress={onCancelRCl} />
         </View>
       </ModalBase>
       <ModalBase
         isVisible={isVisibleFailure}
-        title={'Kích hoạt thất bại'}
-        description={'Đã có lỗi xảy ra. Vui lòng thử lại.'}
+        title={formatMessage(message.activeFailure)}
+        description={formatMessage(message.description3)}
         styleDescription={styles.descriptionModalStyle}>
         <View style={styles.btnStyles}>
-          <ButtonClose text={'Đóng'} onPress={onCancelRCl} />
+          <ButtonClose text={formatMessage(message.btnClose)} onPress={onCancelRCl} />
           <View style={styles.border} />
-          <ButtonConfirm text={'Thử lại'} onPress={onActive} />
+          <ButtonConfirm text={formatMessage(message.btnRetry)} onPress={onActive} />
         </View>
       </ModalBase>
     </>
@@ -116,4 +108,4 @@ RCl.propTypes = {
   onPress: PropTypes.func,
 };
 
-export default RCl;
+export default injectIntl(RCl);

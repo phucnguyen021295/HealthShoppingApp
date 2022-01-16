@@ -606,23 +606,37 @@ export const getOnlineOrderApi = (page = 1, success, failure) => {
   );
 };
 
-export const uploadImageApi = (imageFile, success, failure) => {
+const createFormData = (image) => {
+  var data = new FormData();
+  data.append('name', 'raphael');
+  data.append('file', {
+    uri: image.path,
+    type: 'image/jpeg',
+    name: 'teste',
+  });
+  return data;
+};
+
+export const uploadImageApi = (image, type, success, failure) => {
   const {token} = global;
-  const bodyFormData = new FormData();
-  bodyFormData.append('image', imageFile);
+  // const bodyFormData = new FormData();
+  // bodyFormData.append('name', 'image');
+  // bodyFormData.append('filename', imageFile);
+  // bodyFormData.append('Content-Type', 'Content-Type');
 
   const options = {
     method: 'POST',
     headers: {
       'x-token': token,
-      'Content-Type': 'multipart/form-data',
+      'content-type': 'multipart/form-data'
     },
     url: `${DOMAIN}/api/userimage`,
-    data: bodyFormData,
+    data: createFormData(image),
     timeout: 10000,
   };
   axios(options).then(
     (response) => {
+      console.log('success', response);
       if (isResponseSuccess(response)) {
         success(jsonParse(response.data));
       } else {

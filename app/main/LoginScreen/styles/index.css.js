@@ -28,20 +28,20 @@ const styles = StyleSheet.create({
   },
 
   btnButtonStyle: {
-    paddingVertical: heightToDP(12),
-    marginHorizontal: widthToDP(10),
+    paddingVertical: widthToDP(12),
+    marginHorizontal: widthToDP(20),
     backgroundColor: transparent,
   },
 
   image: {
-    width: heightToDP(200),
-    height: heightToDP(200),
-    marginTop: heightToDP(isIphoneX ? 50 : 30),
+    width: widthToDP(200),
+    height: widthToDP(200),
+    marginTop: widthToDP(isIphoneX ? 50 : 30),
   },
 
   body: {
     paddingHorizontal: widthToDP(20),
-    paddingTop: heightToDP(50),
+    paddingTop: widthToDP(50),
   },
 });
 

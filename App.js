@@ -11,6 +11,7 @@ import React, {PureComponent} from 'react';
 import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
+import codePush from 'react-native-code-push';
 
 import ContextProvider from './ContextProvider';
 import LanguageProvider from './LanguageProvider';
@@ -59,6 +60,8 @@ import {initDatabase} from './app/core/db/Sqlitedb';
 import firebase from 'react-native-firebase';
 
 const Stack = createStackNavigator();
+
+let codePushOptions = {checkFrequency: codePush.CheckFrequency.ON_APP_START};
 
 class App extends PureComponent {
   constructor(props) {
@@ -109,6 +112,34 @@ class App extends PureComponent {
         this.remoteMessage = null;
       }
     });
+
+    let self = this;
+    codePush.sync(
+      {
+        updateDialog: {
+          optionalInstallButtonLabel: 'Cài đặt',
+          optionalIgnoreButtonLabel: 'Bỏ qua',
+          optionalUpdateMessage: 'Đã có bản cập nhật, bạn có muốn cài đặt nó?',
+          title: 'Cập nhật có sẵn',
+          mandatoryUpdateMessage: 'Bản cập nhật có sẵn phải được cài đặt.',
+          mandatoryContinueButtonLabel: 'Cập nhật',
+        },
+        installMode: codePush.InstallMode.IMMEDIATE,
+      },
+      (status) => {
+        switch (status) {
+          case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+            // self.setState({ isVisible: true });
+            break;
+          case codePush.SyncStatus.INSTALLING_UPDATE:
+            // self.setState({ isVisible: false });
+            break;
+        }
+      },
+      ({receivedBytes, totalBytes}) => {
+        // self.setState({ number: receivedBytes / totalBytes });
+      },
+    );
   }
 
   componentWillUnmount(): * {
@@ -192,7 +223,10 @@ class App extends PureComponent {
                 <Stack.Screen name="Shopping" component={Oder} />
                 <Stack.Screen name="Transfer" component={Transfer} />
                 <Stack.Screen name="GetPaid" component={GetPaid} />
-                <Stack.Screen name="PurchaseHistory" component={PurchaseHistory} />
+                <Stack.Screen
+                  name="PurchaseHistory"
+                  component={PurchaseHistory}
+                />
                 {screens}
               </Stack.Navigator>
             )}
@@ -203,4 +237,4 @@ class App extends PureComponent {
   }
 }
 
-export default App;
+export default codePush(codePushOptions)(App);

@@ -1,19 +1,3 @@
-/**
- * Copyright 2016-present, Bkav, Cop.
- * All rights reserved.
- *
- * This source code is licensed under the Bkav license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @author phucnhb@bkav.com on 14/01/2022.
- *
- * History:
- * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
- */
-
-'use strict';
-
 import React, {useState} from 'react';
 import {View, TouchableOpacity, LayoutAnimation} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -29,8 +13,36 @@ import {injectIntl} from 'react-intl';
 import {large} from '../../../../core/fontSize';
 import {convertDate} from '../../../../utils/convertDate';
 
+const GENDER = {
+  1: {
+    vi: 'Nam',
+    en: 'Male',
+  },
+  0: {
+    vi: 'Nữ',
+    en: 'Female',
+  },
+  2: {
+    vi: 'Khác',
+    en: 'Other',
+  },
+};
+
 function InfoUser(props) {
-  const {name, email, mobile, birthday} = global;
+  const {
+    Language,
+    name,
+    email,
+    mobile,
+    sex,
+    birthday,
+    identitycard,
+    membercode,
+    accountbank,
+    accountnumber,
+    status,
+    joinedtime,
+  } = global;
   const {intl, containerStyle, showInfo} = props;
   const {formatMessage} = intl;
   const [isShowInfo, setShowInfo] = useState(showInfo);
@@ -61,9 +73,40 @@ function InfoUser(props) {
             label={formatMessage(message.birthDate)}
             value={convertDate(birthday)}
           />
-          <TextInfo label={formatMessage(message.sex)} value={'Nam'} />
+          <TextInfo
+            label={formatMessage(message.sex)}
+            value={GENDER[sex][Language]}
+          />
           <TextInfo label={formatMessage(message.phone)} value={mobile} />
+          <TextInfo
+            label={formatMessage(message.identitycard)}
+            value={identitycard}
+          />
           <TextInfo label={formatMessage(message.email)} value={email} />
+          <TextInfo
+            label={formatMessage(message.membercode)}
+            value={membercode}
+          />
+          <TextInfo
+            label={formatMessage(message.accountbank)}
+            value={accountbank}
+          />
+          <TextInfo
+            label={formatMessage(message.accountnumber)}
+            value={accountnumber}
+          />
+          <TextInfo
+            label={formatMessage(message.status)}
+            value={
+              status === 0
+                ? formatMessage(message.noActive)
+                : formatMessage(message.active)
+            }
+          />
+          <TextInfo
+            label={formatMessage(message.joinedtime)}
+            value={convertDate(joinedtime)}
+          />
         </View>
       )}
     </View>
@@ -71,7 +114,7 @@ function InfoUser(props) {
 }
 
 InfoUser.defaultProps = {
-    showInfo: true
+  showInfo: true,
 };
 
 export default injectIntl(InfoUser);

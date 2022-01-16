@@ -30,6 +30,7 @@ import SmoothPinCodeInput from '../../base/components/SmoothPinCodeInput';
 import Text from '../../base/components/Text';
 import ImageBackGround from '../../base/components/ImageBackGround';
 import global, {setPinCodeGlobal} from '../../global';
+import {setCheckVerifyOTP} from '../../core/storage';
 
 class VerifyPINScreen extends PureComponent {
   constructor(props) {
@@ -51,6 +52,7 @@ class VerifyPINScreen extends PureComponent {
       if (pinCode !== pinCodeActive) {
         this.pinInput.current.shake().then(() => this.setState({pinCode: ''}));
       } else {
+        setCheckVerifyOTP(true);
         setPinCodeGlobal(pinCode);
         this.props.navigation.replace('LoginPinCode');
       }
@@ -59,6 +61,10 @@ class VerifyPINScreen extends PureComponent {
 
   onChangeCode = (code) => {
     this.setState({pinCode: code});
+  };
+
+  onGoBack = () => {
+    this.setState({pinCodeActive: '', pinCode: ''});
   };
 
   render() {
@@ -70,7 +76,8 @@ class VerifyPINScreen extends PureComponent {
         <StatusBar barStyle="light-content" />
         <SafeAreaView style={{flex: 1}}>
           <AppHeader
-            showBack={false}
+            onBack={this.onGoBack}
+            showBack={pinCodeActive ? true : false}
             title={pinCodeActive ? 'Xác thực mã PIN' : 'Nhập mã PIN'}
             color={'#ffffff'}
           />
@@ -94,6 +101,7 @@ class VerifyPINScreen extends PureComponent {
                 }
                 style={styles.text}
               />
+              <Text text={''} />
               <Button
                 title={pinCodeActive ? 'Xác thực mã PIN' : 'Nhập mã PIN'}
                 buttonStyle={

@@ -29,4 +29,14 @@ export default defineMessages({
     id: 'health.history.balance',
     defaultMessage: 'Số dư trong tài khoản:',
   },
+
+  accountDiary: {
+    id: 'health.history.accountDiary',
+    defaultMessage: 'Nhật ký tài khoản',
+  },
+
+  withdrawalLog: {
+    id: 'health.history.withdrawalLog',
+    defaultMessage: 'Nhật ký rút tiền',
+  },
 });

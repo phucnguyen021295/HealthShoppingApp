@@ -144,7 +144,7 @@ class NotifyScreen extends PureComponent {
           <Ionicons name={'ios-search-outline'} size={22} color={'#dddddd'} />
           <TextInput
             style={styles.textInput}
-            placeholder={'Tìm kiếm'}
+            placeholder={formatMessage(message.search)}
             placeholderTextColor={'#dddddd'}
             selectionColor={'#ffffff'}
           />

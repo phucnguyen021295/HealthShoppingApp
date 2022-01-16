@@ -11,6 +11,7 @@
  * History:
  * @modifier abc@.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
+
 'use strict';
 
 import React, {PureComponent} from 'react';
@@ -20,7 +21,7 @@ import * as Animatable from 'react-native-animatable';
 
 // styles
 import styles from './styles/index.css';
-import {heightToDP} from '../../../core/utils/dimension';
+import {heightToDP, widthToDP} from '../../../core/utils/dimension';
 
 class SmoothPinCodeInput extends PureComponent {
   state = {
@@ -253,8 +254,8 @@ class SmoothPinCodeInput extends PureComponent {
   static defaultProps = {
     value: '',
     codeLength: 4,
-    cellSize: heightToDP(40),
-    cellSpacing: 4,
+    cellSize: widthToDP(40),
+    cellSpacing: 5,
     placeholder: '',
     password: false,
     mask: '*',

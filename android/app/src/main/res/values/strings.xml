@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My New Way</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">pho41Pzll6JwRzWqJbe_h80_qbxk8Vch6bmi2</string>
 </resources>

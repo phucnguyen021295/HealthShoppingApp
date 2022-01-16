@@ -79,4 +79,49 @@ export default defineMessages({
     id: 'health.personalPage.btnRetry',
     defaultMessage: 'Thử lại',
   },
+
+  identitycard: {
+    id: 'health.personalPage.identitycard',
+    defaultMessage: 'CMT/CCCD: ',
+  },
+
+  membercode: {
+    id: 'health.personalPage.membercode',
+    defaultMessage: 'Mã thành viên: ',
+  },
+
+  accountbank: {
+    id: 'health.personalPage.accountbank',
+    defaultMessage: 'Ngân hàng: ',
+  },
+
+  accountnumber: {
+    id: 'health.personalPage.accountnumber',
+    defaultMessage: 'Số tài khoản: ',
+  },
+
+  status: {
+    id: 'health.personalPage.status',
+    defaultMessage: 'Trạng thái: ',
+  },
+
+  active: {
+    id: 'health.personalPage.active',
+    defaultMessage: 'Active',
+  },
+
+  noActive: {
+    id: 'health.personalPage.noActive',
+    defaultMessage: 'Chưa Active',
+  },
+
+  joinedtime: {
+    id: 'health.personalPage.joinedtime',
+    defaultMessage: 'Ngày tham gia: ',
+  },
+
+  editInfo: {
+    id: 'health.personalPage.editInfo',
+    defaultMessage: 'Chỉnh sửa thông tin',
+  }
 });

@@ -17,6 +17,8 @@ import DetailReport from './components/DetailReport';
 
 // styles
 import styles from './styles/index.css';
+import {injectIntl} from 'react-intl';
+import message from '../../msg/home';
 
 function AllReport() {
   return (
@@ -67,13 +69,14 @@ const TabBarCustom = (props) => {
   );
 };
 
-function TabViews() {
+function TabViews(props) {
+    const {formatMessage} = props;
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Tất cả'},
-    {key: 'second', title: 'Chi tiết'},
+    {key: 'first', title: formatMessage(message.all)},
+    {key: 'second', title: formatMessage(message.detail)},
   ]);
 
   return (
@@ -90,14 +93,16 @@ function TabViews() {
   );
 }
 
-function ReportScreen() {
+function ReportScreen(props) {
+    const {intl} = props;
+    const {formatMessage} = intl;
   return (
     <View style={styles.container}>
       <SafeAreaViewBase />
-      <HeaderCustom title={'Thống kê'} color={'#ffffff'} />
+      <HeaderCustom title={formatMessage(message.headerReport)} color={'#ffffff'} />
       <ImageBackGround source={require('../../images/backgroundHome.png')}>
         <View style={styles.backGround}>
-          <TabViews />
+          <TabViews formatMessage={formatMessage} />
         </View>
       </ImageBackGround>
       <SafeAreaViewBase />
@@ -105,4 +110,4 @@ function ReportScreen() {
   );
 }
 
-export default ReportScreen;
+export default injectIntl(ReportScreen);
