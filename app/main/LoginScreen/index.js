@@ -146,7 +146,7 @@ class LoginScreen extends PureComponent {
               value={password}
               placeholder="Mật khẩu"
               style={{color: '#ffffff'}}
-              secureTextEntry={true}
+              secureTextEntry={false}
               onChangeText={this.onChangePassWord}
             />
             <ButtonBase
