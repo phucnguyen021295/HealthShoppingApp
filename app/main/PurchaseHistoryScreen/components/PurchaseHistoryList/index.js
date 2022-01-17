@@ -33,6 +33,7 @@ import Loading from '../Loading';
 import {getHistoryShoppingApi} from '../../../../apis/health';
 
 import {heightToDP} from '../../../../core/utils/dimension';
+import message from '../../../../msg/purchaseHistory';
 
 
 class PurchaseHistoryList extends PureComponent {
@@ -41,18 +42,6 @@ class PurchaseHistoryList extends PureComponent {
     this.state = {
       timeCurrent: '0',
     };
-  }
-
-  componentDidMount() {
-    // const {navigation} = this.props;
-    // this.unsubscribe = navigation.addListener('focus', (e) => {
-    //   // Prevent default action
-    //   this.props.getNewer();
-    // });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
   }
 
   onScroll = (event) => {
@@ -125,7 +114,7 @@ class PurchaseHistoryList extends PureComponent {
             this.renderListLoading()
           ) : (
             <SemiBoldText
-              text={'Chưa có lịch sử mua hàng nào'}
+              text={formatMessage(message.noData)}
               style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
             />
           )}

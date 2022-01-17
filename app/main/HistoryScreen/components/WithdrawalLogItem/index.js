@@ -10,20 +10,23 @@ import {convertDate} from '../../../../utils/convertDate';
 
 // Styles
 import styles from './styles/index.css';
+import message from '../../../../msg/history';
+import {injectIntl} from 'react-intl';
 
 function WithdrawalLogItem(props) {
-  const {item, onReport} = props;
+  const {item, onReport, intl} = props;
+  const {formatMessage} = intl;
   return (
     <View style={styles.imageRow}>
       <Text text={convertDate(item.time)} style={styles.date} />
       <HoursNotify time={item.time} />
       <View style={styles.body}>
         <Text style={styles.brief}>
-          Mã yêu cầu:
+          {formatMessage(message.code)}
           <SemiBoldText text={` ${item.code}`} />
         </Text>
         <Text style={styles.brief}>
-          Số tiền rút:
+          {formatMessage(message.value)}
           <SemiBoldText text={` ${item.value}`} />
         </Text>
         {item.status === '0' && (
@@ -33,8 +36,10 @@ function WithdrawalLogItem(props) {
               justifyContent: 'center',
               paddingTop: 8,
             }}>
-            <TouchableOpacity style={styles.btn} onPress={() => onReport(item.id)}>
-              <Text text={'Thu hồi yêu cầu'} style={styles.textBtn} />
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => onReport(item.id)}>
+              <Text text={formatMessage(message.btnThuHoi)} style={styles.textBtn} />
             </TouchableOpacity>
           </View>
         )}
@@ -43,4 +48,4 @@ function WithdrawalLogItem(props) {
   );
 }
 
-export default WithdrawalLogItem;
+export default injectIntl(WithdrawalLogItem);

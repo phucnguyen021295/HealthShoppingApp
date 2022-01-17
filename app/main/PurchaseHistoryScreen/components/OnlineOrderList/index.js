@@ -28,6 +28,7 @@ import Loading from '../Loading';
 // Apis
 import {getOnlineOrderApi} from '../../../../apis/health';
 import {heightToDP} from '../../../../core/utils/dimension';
+import message from '../../../../msg/purchaseHistory';
 
 class OnlineOrderList extends PureComponent {
   constructor(props) {
@@ -118,7 +119,7 @@ class OnlineOrderList extends PureComponent {
             this.renderListLoading()
           ) : (
             <SemiBoldText
-              text={'Chưa có đơn chờ xử lý nào'}
+              text={formatMessage(message.noData1)}
               style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
             />
           )}

@@ -31,7 +31,7 @@ function UploadAvatar() {
   return (
     <TouchableOpacity style={styles.container} onPress={openPicker}>
       <Avatar
-        size={64}
+        size={widthToDP(60)}
         rounded
         source={{
           uri: uri,

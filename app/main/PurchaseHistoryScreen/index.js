@@ -14,7 +14,7 @@
 
 'use strict';
 
-import React, {useState, useRef} from 'react';
+import React from 'react';
 import {useWindowDimensions, View} from 'react-native';
 
 // Components
@@ -29,6 +29,8 @@ import styles from './styles/index.css';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import Text from '../../base/components/Text';
 import {heightToDP} from '../../core/utils/dimension';
+import {injectIntl} from 'react-intl';
+import message from '../../msg/purchaseHistory';
 
 const renderScene = SceneMap({
   first: PurchaseHistoryList,
@@ -54,13 +56,14 @@ const renderTabBar = (props) => (
   />
 );
 
-function TabViews() {
+function TabViews(props) {
+  const {formatMessage} = props;
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Lịch sử mua hàng'},
-    {key: 'second', title: 'Đơn chờ xử lý'},
+    {key: 'first', title: formatMessage(message.purchaseHistoryList)},
+    {key: 'second', title: formatMessage(message.onlineOrderList)},
   ]);
 
   return (
@@ -75,20 +78,22 @@ function TabViews() {
   );
 }
 
-function PurchaseHistoryScreen() {
+function PurchaseHistoryScreen(props) {
+  const {intl} = props;
+  const {formatMessage} = intl;
   return (
     <ImageBackGround source={require('../../images/backgroundHome.png')}>
       <View style={styles.backGround}>
         <SafeAreaViewBase />
         <HeaderCustom
-          title={'Lịch sử mua hàng'}
+          title={formatMessage(message.titleHeader)}
           color={'#ffffff'}
           ViewComponent={LinearGradient}
         />
-        <TabViews />
+        <TabViews formatMessage={formatMessage} />
       </View>
     </ImageBackGround>
   );
 }
 
-export default PurchaseHistoryScreen;
+export default injectIntl(PurchaseHistoryScreen);

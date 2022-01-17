@@ -41,6 +41,8 @@
   "health.home.activeFailure": "Kích hoạt thất bại",
   "health.home.description3": "Đã có lỗi xảy ra. Vui lòng thử lại.",
   "health.home.btnRetry": "Thử lại",
+  "health.home.notification": "Thông báo",
+  "health.home.description": "Bạn chưa chọn sản phẩm nào.",
 
   "health.personalPage.titleHeader": "Thông tin cá nhân",
   "health.personalPage.fullName": "Họ và tên",
@@ -168,6 +170,15 @@
   "health.history.balance": "Số dư trong tài khoản:",
   "health.history.accountDiary": "Nhật ký tài khoản",
   "health.history.withdrawalLog": "Nhật ký rút tiền",
+  "health.history.code": "Mã yêu cầu:",
+  "health.history.value": "Số tiền rút:",
+  "health.history.btnThuHoi": "Thu hồi yêu cầu",
+  "health.history.noData": "Chưa có đơn chờ xử lý nào",
+  "health.history.titleSuccess": "Yêu cầu thành công!",
+  "health.history.btnArgee": "Đồng ý",
+  "health.history.titleFailure": "Yêu cầu thất bại!",
+  "health.history.description2": "Đã có lỗi xảy ra. Vui lòng thử lại sau.",
+  "health.history.btnClose": "Đóng",
 
   "health.oder.search": "Tìm kiếm",
   "health.oder.btnViewOder": "Xem giỏ hàng",
@@ -214,5 +225,18 @@
   "health.getPaid.description2": "Gửi yêu cầu rút tiền thành công",
   "health.getPaid.title2": "Rút tiền thất bại",
   "health.getPaid.description3": "Đã có lỗi xảy ra. Vui lòng thử lại.",
-  "health.getPaid.btnRetry1": "Thử lại"
+  "health.getPaid.btnRetry1": "Thử lại",
+
+  "health.purchaseHistory.titleHeader": "Lịch sử mua hàng",
+  "health.purchaseHistory.purchaseHistoryList": "Lịch sử mua hàng",
+  "health.purchaseHistory.onlineOrderList": "Đơn chờ xử lý",
+  "health.purchaseHistory.noData": "Chưa có lịch sử mua hàng nào",
+  "health.purchaseHistory.identity": "Mã đơn hàng:",
+  "health.purchaseHistory.membercode": "Mã người mua:",
+  "health.purchaseHistory.title": "Tên sản phẩm:",
+  "health.purchaseHistory.cost": "Giá sản phẩm:",
+  "health.purchaseHistory.quality": "Số lượng:",
+  "health.purchaseHistory.pv": "Điểm tích lũy:",
+  "health.purchaseHistory.order": "Đặt hàng:",
+  "health.purchaseHistory.noData1": "Chưa có đơn chờ xử lý nào"
 }

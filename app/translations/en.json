@@ -41,6 +41,8 @@
   "health.home.activeFailure": "Activation failed",
   "health.home.description3": "An error has occurred. Please try again.",
   "health.home.btnRetry": "Retry",
+  "health.home.notification": "Notification",
+  "health.home.description": "You have not selected any products.",
 
   "health.personalPage.titleHeader": "Personal information",
   "health.personalPage.fullName": "FullName",
@@ -168,6 +170,15 @@
   "health.history.balance": "Balance in account:",
   "health.history.accountDiary": "Account Diary",
   "health.history.withdrawalLog": "Withdrawal log",
+  "health.history.code": "Code:",
+  "health.history.value": "Withdrawal amount:",
+  "health.history.btnThuHoi": "Request withdrawal",
+  "health.history.noData": "No pending applications yet",
+  "health.history.titleSuccess": "Successful request!",
+  "health.history.btnArgee": "Agree",
+  "health.history.titleFailure": "Request failed!",
+  "health.history.description2": "An error has occurred. Please try again later.",
+  "health.history.btnClose": "Close",
 
   "health.oder.search": "Search",
   "health.oder.btnViewOder": "View cart",
@@ -214,5 +225,18 @@
   "health.getPaid.description2": "Withdrawal request submitted successfully",
   "health.getPaid.title2": "Withdrawal failed",
   "health.getPaid.description3": "An error has occurred. Please try again.",
-  "health.getPaid.btnRetry1": "Retry"
+  "health.getPaid.btnRetry1": "Retry",
+
+  "health.purchaseHistory.titleHeader": "Purchase history",
+  "health.purchaseHistory.purchaseHistoryList": "Purchase history",
+  "health.purchaseHistory.onlineOrderList": "Application pending",
+  "health.purchaseHistory.noData": "No purchase history yet",
+  "health.purchaseHistory.identity": "Code orders:",
+  "health.purchaseHistory.membercode": "Buyer Code:",
+  "health.purchaseHistory.title": "Product's name:",
+  "health.purchaseHistory.cost": "Product price:",
+  "health.purchaseHistory.quality": "Quantily:",
+  "health.purchaseHistory.pv": "Accumulated points:",
+  "health.purchaseHistory.order": "Order:",
+  "health.purchaseHistory.noData1": "No pending applications yet"
 }

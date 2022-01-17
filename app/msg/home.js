@@ -97,4 +97,14 @@ export default defineMessages({
     id: 'health.home.btnRetry',
     defaultMessage: 'Thử lại',
   },
+
+  notification: {
+    id: 'health.home.notification',
+    defaultMessage: 'Thông báo',
+  },
+
+  description: {
+    id: 'health.home.description',
+    defaultMessage: 'Bạn chưa chọn sản phẩm nào.',
+  },
 });

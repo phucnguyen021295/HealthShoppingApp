@@ -619,21 +619,23 @@ const createFormData = (image) => {
 
 export const uploadImageApi = (image, type, success, failure) => {
   const {token} = global;
-  // const bodyFormData = new FormData();
-  // bodyFormData.append('name', 'image');
-  // bodyFormData.append('filename', imageFile);
-  // bodyFormData.append('Content-Type', 'Content-Type');
-
+  const formData = new FormData();
+  const file = {
+    uri: image.path,
+    name: image.filename,
+    type: image.mime,
+  };
+  formData.append('file', file);
   const options = {
     method: 'POST',
     headers: {
+      'Content-Type': 'multipart/form-data',
       'x-token': token,
-      'content-type': 'multipart/form-data'
     },
     url: `${DOMAIN}/api/userimage`,
-    data: createFormData(image),
-    timeout: 10000,
+    data: formData,
   };
+
   axios(options).then(
     (response) => {
       console.log('success', response);

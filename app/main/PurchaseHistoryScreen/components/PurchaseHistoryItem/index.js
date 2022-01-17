@@ -14,62 +14,60 @@
 'use strict';
 
 import React from 'react';
-import {View, ActivityIndicator, TouchableOpacity} from 'react-native';
-import {Avatar, Image} from 'react-native-elements';
+import {View} from 'react-native';
 
 // Components
 import Text, {SemiBoldText} from '../../../../base/components/Text';
 import HoursNotify from '../../../../base/components/HoursNotify';
 
 // Utils
-import {convertDate, convertHours} from '../../../../utils/convertDate';
+import {convertDate} from '../../../../utils/convertDate';
 
 // Styles
 import styles from './styles/index.css';
-import {CUSTOM_STYLES} from '../../../DetailItemScreen/styles/index.css';
-import HTML from 'react-native-render-html';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import message from '../../../../msg/history';
+import message from '../../../../msg/purchaseHistory';
+import {injectIntl} from 'react-intl';
 
 function NotifyItem(props) {
-  const {item} = props;
+  const {item, intl} = props;
+  const {formatMessage} = intl;
   return (
     <View style={styles.imageRow}>
       <Text text={convertDate(item.ordertime)} style={styles.date} />
       <HoursNotify time={item.ordertime} />
       <View style={styles.body}>
         <Text style={styles.brief}>
-          Mã đơn hàng:
+          {formatMessage(message.identity)}
           <SemiBoldText text={` ${item.identity}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Mã người mua:
+          {formatMessage(message.membercode)}
           <SemiBoldText text={` ${item.membercode}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Tên sản phẩm:
+          {formatMessage(message.title)}
           <SemiBoldText text={` ${item.title}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Giá sản phẩm:
+          {formatMessage(message.cost)}
           <SemiBoldText text={` $${item.cost}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Số lượng:
+          {formatMessage(message.quality)}
           <SemiBoldText text={` ${item.quality}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Điểm tích lũy:
+          {formatMessage(message.pv)}
           <SemiBoldText text={` ${item.pv}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Đặt hàng:
+          {formatMessage(message.order)}
           <SemiBoldText
             text={` ${item.ordertype === '1' ? 'Online' : 'Offline'}`}
           />
@@ -79,4 +77,4 @@ function NotifyItem(props) {
   );
 }
 
-export default NotifyItem;
+export default injectIntl(NotifyItem);

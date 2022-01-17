@@ -15,6 +15,7 @@ import {heightToDP} from '../../../../core/utils/dimension';
 import styles from '../../../GetPaidScreen/styles/index.css';
 import {ButtonConfirm} from '../../../../base/components/ButtonText/ButtonModal';
 import ModalBase from '../../../../base/components/ModalBase';
+import message from '../../../../msg/history';
 
 class WithdrawalLogList extends PureComponent {
   constructor(props) {
@@ -76,7 +77,7 @@ class WithdrawalLogList extends PureComponent {
 
   onCloseModalFailure = () => {
     this.setState({isCancelGetPaidFailure: false});
-  }
+  };
 
   onViewableItemsChanged = ({viewableItems, changed}) => {};
 
@@ -109,25 +110,31 @@ class WithdrawalLogList extends PureComponent {
           this.renderListLoading()
         ) : (
           <SemiBoldText
-            text={'Chưa có đơn chờ xử lý nào'}
+            text={formatMessage(message.noData)}
             style={{textAlign: 'center', color: '#ffffff', paddingTop: 30}}
           />
         )}
 
         <ModalBase
           isVisible={isCancelGetPaidSuccess}
-          title={'Yêu cầu thành công!'}>
+          title={formatMessage(message.titleSuccess)}>
           <View style={styles.btnStyles}>
-            <ButtonConfirm text={'Đồng ý'} onPress={this.onCloseModal} />
+            <ButtonConfirm
+              text={formatMessage(message.btnArgee)}
+              onPress={this.onCloseModal}
+            />
           </View>
         </ModalBase>
 
         <ModalBase
           isVisible={isCancelGetPaidFailure}
-          title={'Yêu cầu thất bại!'}
-          description={'Đã có lỗi xảy ra. Vui lòng thử lại sau.'}>
+          title={formatMessage(message.titleFailure)}
+          description={formatMessage(message.description2)}>
           <View style={styles.btnStyles}>
-            <ButtonConfirm text={'Đóng'} onPress={this.onCloseModalFailure} />
+            <ButtonConfirm
+              text={formatMessage(message.btnClose)}
+              onPress={this.onCloseModalFailure}
+            />
           </View>
         </ModalBase>
       </View>

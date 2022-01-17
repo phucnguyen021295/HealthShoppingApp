@@ -25,36 +25,39 @@ import {convertDate} from '../../../../utils/convertDate';
 
 // Styles
 import styles from './styles/index.css';
+import {injectIntl} from 'react-intl';
+import message from '../../../../msg/purchaseHistory';
 
 function NotifyItem(props) {
-  const {item} = props;
+  const {item, intl} = props;
+  const {formatMessage} = intl;
   return (
     <View style={styles.imageRow}>
       <Text text={convertDate(item.ordertime)} style={styles.date} />
       <HoursNotify time={item.ordertime} />
       <View style={styles.body}>
         <Text style={styles.brief}>
-          Mã đơn hàng:
+          {formatMessage(message.identity)}
           <SemiBoldText text={` ${item.identity}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Tên sản phẩm:
+          {formatMessage(message.title)}
           <SemiBoldText text={` ${item.title}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Giá sản phẩm:
+          {formatMessage(message.cost)}
           <SemiBoldText text={` $${item.cost}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Số lượng:
+          {formatMessage(message.quality)}
           <SemiBoldText text={` ${item.quantity}`} />
         </Text>
 
         <Text style={styles.brief}>
-          Điểm tích lũy:
+          {formatMessage(message.pv)}
           <SemiBoldText text={` ${item.pv}`} />
         </Text>
       </View>
@@ -62,4 +65,4 @@ function NotifyItem(props) {
   );
 }
 
-export default NotifyItem;
+export default injectIntl(NotifyItem);

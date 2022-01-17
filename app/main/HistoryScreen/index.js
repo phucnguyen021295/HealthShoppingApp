@@ -46,7 +46,7 @@ const renderTabBar = (props) => (
 );
 
 function TabViews(props) {
-    const {formatMessage} = props;
+  const {formatMessage} = props;
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);

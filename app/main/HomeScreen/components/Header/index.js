@@ -27,6 +27,8 @@ import NotificationModal from '../../../../base/components/NotificationModal';
 import styles, {SIZE_ICON} from './styles/index.css';
 import {registerShoppingCardChange} from '../../../../core/shoppingCart';
 import {sumMoneyTotal} from '../../../../core/db/Sqlitedb';
+import {injectIntl} from 'react-intl';
+import message from '../../../../msg/home';
 
 class HeaderHomeTab extends PureComponent {
   constructor(props) {
@@ -91,7 +93,9 @@ class HeaderHomeTab extends PureComponent {
   };
 
   renderRightComponent() {
+    const {intl} = this.props;
     const {valueBadge, isVisible, isShowQR} = this.state;
+    const {formatMessage} = intl;
     return (
       <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
         <Button
@@ -118,9 +122,9 @@ class HeaderHomeTab extends PureComponent {
         />
         <NotificationModal
           isVisible={isVisible}
-          title={'Thông báo'}
-          description={'Bạn chưa chọn sản phẩm nào.'}
-          titleButton={'Đóng'}
+          title={formatMessage(message.notification)}
+          description={formatMessage(message.description)}
+          titleButton={formatMessage(message.btnClose)}
           onPress={this.onCloseModal}
         />
       </View>
@@ -138,4 +142,4 @@ class HeaderHomeTab extends PureComponent {
   }
 }
 
-export default HeaderHomeTab;
+export default injectIntl(HeaderHomeTab);
